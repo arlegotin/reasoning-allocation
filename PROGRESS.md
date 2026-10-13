@@ -2,7 +2,7 @@
 
 Updated: 13 October 2026.
 
-Current stage: WP00 environment/native capability gate passed after independent review and fresh target verification; Task 3 / WP01 begins. Current branch: `main`, preserved from the initial empty checkout.
+Current stage: WP00 environment/native capability gate passed after independent review and fresh target verification; Task 3 / WP01 administrative and analytical diagnostics implemented and locally verified, pending independent review. Current branch: `main`, preserved from the initial empty checkout.
 
 ## Completed documentation
 
@@ -16,16 +16,20 @@ Current stage: WP00 environment/native capability gate passed after independent 
 
 WP00: **passed**, with Task 1 environment/native-smoke and Task 2 lifecycle checks reviewed and verified. Actual hardware is Apple M3 Max, native ARM64, 36 GiB RAM, 14 logical CPUs, macOS 26.7.1; Python 3.12.9. PySCIPOpt 6.3.0 links SCIP 10.0.2 / SoPlex 8.0.2 and solves the tiny cover at independently checked objective 2. The exact 14-wheel dependency lock is committed; private discovery, install, wheel metadata/license, parameter and cost artifacts remain ignored.
 
-WP01: **running**, starting Task 3 exact administrative and analytical checks. WP02–WP10: **not started**. No lease collection, fitted allocation model, frozen confirmatory experiment, or measured allocation comparison exists.
+WP01: **running**, with Task 3 administrative and analytical checks implemented and locally verified; remaining native correctness/harness requirements are pending. WP02–WP10: **not started**. No lease collection, fitted allocation model, frozen confirmatory experiment, or measured allocation comparison exists.
 
 Task 2 exercises 11 native operations, including a real restart 1→2 with root-number reuse, primitive/callback-local node ownership, completed-node/deletion accounting, objective-space checks, cooperative stop, native release, and local clock comparability. Full suite: 49 passing tests. A fresh target doctor on commit `6f0cc10` passed; raw evidence is retained in `artifacts/environment/wp00_gate/doctor.json` and `artifacts/environment/capabilities.json`.
 
 The terminal propagation-only root reports one native node and no completion-mask event; selected no-LP descendants reconcile in the exercised fixture. Both counters remain visible. Callback-enabled callers must use `ScipBackend.optimize()` or check `raise_if_failed()` after direct native operations. Original faults are preserved and native cleanup is safe in tested paths.
 
-The supplied brief reports earlier Linux analytical checks. Their reference procedure is preserved; it has not been run as a project experiment here. Documentation-level syntax checking does not reproduce its mathematical results.
+Task 3 **locally measured check**: the complete supplied [Appendix A procedure](checks/validate_design.py) reproduced 512 seeds and 102,400 matched queue/population decisions; budget and evidence checks passed. Delayed payoff reproduced 0.6 versus 1.0 with optimal path `BB`; duplicate-evidence arithmetic reproduced 0.8 versus 0.9411764705882353. Overhead ratios 1.12/0.84 remain illustrative algebra, not hardware timings. The added anti-lease fixture yields 0 for a two-step B lease versus 1 for path `AB`.
+
+The [credit ledger](src/ra/ledger.py) conserves integer credit across split/merge/spawn/cancel cycles and rejects closed-lineage spending, duplicate IDs, repeated returns, and overdrafts. Four additional coupled seeds each retain 40 canceled zero-mass records, match 20 decisions and immutable evidence hashes, and finish at available/reserved/spent 800/180/20. Synthetic evidence `e1` remains posterior 0.8, bound 2, estimate 3; these are fixture values, not measured native progress. This ledger defines no global native stopping limit.
+
+Focused Task 3 suite: 36 passing tests. Final full suite: **85 passing tests in 5.57 s** (49 existing, 36 added). Both direct Appendix A and `ra check --suite analytical` passed; unsupported suites/phases and Python assertion-disabled mode fail explicitly. Cold diagnostic subprocess wall times were 0.433 s (reference) and 0.449 s (CLI), retained with CPU/RSS scope and hashes in ignored `artifacts/checks/`; they are diagnostic resource costs, not allocation performance comparisons.
 
 ## Next entry gate
 
-Continue with Task 3 / WP01 exact conservation, evidence-duplication, coupled queue/population, delayed-payoff, and anti-lease diagnostics using the locked environment. Follow the current-branch instruction and commit each tested milestone. Do not start training before the native capability, correctness, honest-harness, and headroom gates pass.
+Review Task 3 and continue WP01's remaining native correctness and honest-harness gates using the locked environment. Follow the current-branch instruction and commit each tested milestone. Do not start training before the native capability, correctness, honest-harness, and headroom gates pass.
 
 Early blocked or low-headroom outcomes proceed to the achieved-scope report in Task 20; they do not require building the optional population or transfer tracks.
