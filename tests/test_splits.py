@@ -119,3 +119,45 @@ def test_conflicting_registration_leaves_registry_unchanged():
     with pytest.raises(ValueError):
         owner.register(replace(other, lineage={**other.lineage, 'ancestor_template_ids': [original.template_id]}), 'validation')
     assert owner.owners == before
+
+
+@pytest.mark.parametrize('parent', ['', 'not-a-hash', 'a' * 63, 'a' * 65, 'A' * 64, 'g' * 64, None, 7])
+def test_invalid_derivative_parent_rejects_without_poisoning_registry(tmp_path, parent):
+    instance = generate_cover(GeneratorCell('uniform', 6, 4, 2), 1)
+    owner = SplitOwnership()
+    owner.register(instance, 'train')
+    before = dict(owner.owners)
+    invalid = replace(instance, lineage={**instance.lineage, 'derivative': {'parent_instance_hash': parent}})
+    with pytest.raises(ValueError):
+        owner.register(invalid, 'train')
+    assert owner.owners == before
+    path = tmp_path / 'ownership.json'
+    owner.save(path)
+    assert SplitOwnership.load(path).owners == before
+
+
+@pytest.mark.parametrize('parent', ['0' * 64, 'f' * 64, '0123456789abcdef' * 4])
+def test_valid_derivative_parent_and_all_namespace_entries_round_trip(tmp_path, parent):
+    instance = generate_cover(GeneratorCell('uniform', 6, 4, 2), 1)
+    instance = replace(instance, template_id='arbitrary template:label', lineage={
+        **instance.lineage, 'root_template_id': 'root template',
+        'ancestor_template_ids': ['ancestor template'], 'derivative': {'parent_instance_hash': parent}})
+    owner = SplitOwnership()
+    owner.register(instance, 'validation')
+    assert owner.owners['instance:' + parent] == 'validation'
+    assert {key.split(':', 1)[0] for key in owner.owners} == {'template', 'content', 'instance'}
+    path = tmp_path / 'ownership.json'
+    owner.save(path)
+    assert SplitOwnership.load(path).owners == owner.owners
+
+
+@pytest.mark.parametrize('key,split', [('template:', 'train'), ('instance:', 'train'),
+    ('content:' + 'A' * 64, 'train'), ('unknown:identity', 'train'),
+    ('instance:' + '0' * 64, 'unsupported')])
+def test_invalid_public_registry_entries_cannot_be_successfully_saved(tmp_path, key, split):
+    owner = SplitOwnership()
+    owner.owners[key] = split
+    path = tmp_path / 'new' / 'ownership.json'
+    with pytest.raises(ValueError):
+        owner.save(path)
+    assert not path.parent.exists()

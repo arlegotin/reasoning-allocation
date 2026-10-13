@@ -48,4 +48,6 @@ Final A001 focused suite: **102 passed in 0.81 s**. Tasks 2–5 integration: **2
 
 Review Task 5's exact generated-cover gate independently, then build Task 6 / WP02's cold-request harness. Follow the current-branch instruction and commit each tested milestone. Do not start training before the native capability, correctness, honest-harness, and headroom gates pass.
 
+Task 5 **first review fix round**: registration, save and load now share the same ownership-entry validator, rejecting malformed derivative parent hashes before mutation and invalid public registry entries before persistence. Valid template/content/instance namespaces round-trip successfully. Covering split/generator persistence suite: **63 passed in 1.36 s**. The input-only fix required no broader/native rerun; the 232-test full-suite result above is historical to the A001 implementation. WP01 remains awaiting scoped re-review. The minor boolean probe-ratio schema finding is explicitly deferred to final review/the owning schema extension.
+
 Early blocked or low-headroom outcomes proceed to the achieved-scope report in Task 20; they do not require building the optional population or transfer tracks.

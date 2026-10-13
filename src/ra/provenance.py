@@ -11,6 +11,16 @@ from ra.types import CoverInstance
 SPLITS = ('discovery', 'train', 'validation', 'confirmatory', 'shift')
 
 
+def _validate_ownership_entry(key: str, split: str) -> None:
+    """Use identical namespace rules before registration, saving and loading."""
+    if not isinstance(key, str) or ':' not in key or split not in SPLITS:
+        raise ValueError('invalid split ownership entries')
+    kind, identity = key.split(':', 1)
+    if (kind not in ('template', 'content', 'instance') or not identity or
+            (kind != 'template' and (len(identity) != 64 or any(c not in '0123456789abcdef' for c in identity)))):
+        raise ValueError('invalid split ownership entries')
+
+
 def _hash(payload: object) -> str:
     try:
         raw = json.dumps(payload, sort_keys=True, separators=(',', ':'), allow_nan=False)
@@ -82,11 +92,15 @@ class SplitOwnership:
                 raise ValueError('derivative must declare its parent instance hash')
             identities.add('instance:' + derivative['parent_instance_hash'])
         identities.add('instance:' + instance_hash(instance))
+        for key in identities:
+            _validate_ownership_entry(key, split)
         if any(key in self.owners and self.owners[key] != split for key in identities):
             raise ValueError('exact or structured derivative crosses split ownership')
         self.owners.update({key: split for key in identities})
 
     def save(self, path: Path) -> None:
+        for key, split in self.owners.items():
+            _validate_ownership_entry(key, split)
         path = Path(path)
         path.parent.mkdir(parents=True, exist_ok=True)
         temporary = path.with_name(path.name + '.tmp')
@@ -103,12 +117,7 @@ class SplitOwnership:
         if not isinstance(payload, dict) or set(payload) != {'schema_version', 'owners'} or type(payload['schema_version']) is not int or payload['schema_version'] != 1 or not isinstance(payload['owners'], dict):
             raise ValueError('invalid split ownership registry schema')
         for key, split in payload['owners'].items():
-            if not isinstance(key, str) or ':' not in key or split not in SPLITS:
-                raise ValueError('invalid split ownership entries')
-            kind, identity = key.split(':', 1)
-            if (kind not in ('template', 'content', 'instance') or not identity or
-                    (kind != 'template' and (len(identity) != 64 or any(c not in '0123456789abcdef' for c in identity)))):
-                raise ValueError('invalid split ownership entries')
+            _validate_ownership_entry(key, split)
         owner = cls()
         owner.owners = payload['owners']
         return owner
