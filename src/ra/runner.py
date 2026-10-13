@@ -45,6 +45,7 @@ def run_request(request: Request, out: Path) -> Attempt:
     ready = False
     error = None
     parent_failure = False
+    parent_interrupted = False
     censored = False
     stop_sent = False
     parent_cpu = time.process_time_ns()
@@ -57,10 +58,10 @@ def run_request(request: Request, out: Path) -> Attempt:
             (out / 'wire.jsonl').open('w') as wire, (out / 'progress.jsonl').open('w') as progress_file:
         try:
             launch_ns = time.perf_counter_ns()
-            process = subprocess.Popen(argv, env=env, pass_fds=(child.fileno(),), stdout=stdout, stderr=stderr)
             request = replace(request, launch_ns=launch_ns, deadline_ns=launch_ns + request.budget_ns)
-            timestamps.update(launch_ns=launch_ns, deadline_ns=request.deadline_ns,
-                              launched_ns=time.perf_counter_ns())
+            timestamps.update(launch_ns=launch_ns, deadline_ns=request.deadline_ns)
+            process = subprocess.Popen(argv, env=env, pass_fds=(child.fileno(),), stdout=stdout, stderr=stderr)
+            timestamps['launched_ns'] = time.perf_counter_ns()
             child.close()
             channel.send({'kind': 'launch', 'launch_ns': launch_ns, 'deadline_ns': request.deadline_ns})
 
@@ -180,6 +181,7 @@ def run_request(request: Request, out: Path) -> Attempt:
             timestamps.setdefault('parent_release_ns', time.perf_counter_ns())
         except BaseException as exc:
             parent_failure = True
+            parent_interrupted = isinstance(exc, KeyboardInterrupt)
             error = f'{type(exc).__name__}: {exc}'
             if process is not None and process.poll() is None:
                 process.terminate()
@@ -211,6 +213,8 @@ def run_request(request: Request, out: Path) -> Attempt:
     if process is not None and process.returncode != 0 and status in ('complete', 'deadline', 'startup_timeout') and not censored:
         status = 'implementation_error'
         error = error or f'worker exited with status {process.returncode}'
+    if parent_interrupted:
+        status = 'external_interrupt'
     resources['returncode'] = process.returncode if process is not None else None
     resources['parent_cpu_ns'] = time.process_time_ns() - parent_cpu
     resources['parent_observation_ns_overlapping_worker'] = observation_ns

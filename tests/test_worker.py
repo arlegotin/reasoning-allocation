@@ -296,3 +296,27 @@ ScipBackend.optimize = optimize
     assert result.timestamps['safe_return_ns'] < result.request.deadline_ns
     assert result.status == 'deadline'
     assert result.available.assignment_available
+
+
+def test_failed_process_launch_retains_charged_timing(cold_request, tmp_path, monkeypatch):
+    from ra import runner
+    monkeypatch.setattr(runner, '_worker_argv', lambda path: [str(tmp_path / 'missing-executable'), str(path)])
+    result = run_request(cold_request, tmp_path / 'failed-launch')
+    assert result.status == 'implementation_error'
+    assert result.request.launch_ns == result.timestamps['launch_ns']
+    assert result.timestamps['launch_ns'] <= result.timestamps['parent_release_ns']
+    assert result.request.deadline_ns == result.request.launch_ns + cold_request.budget_ns
+    assert not result.available.assignment_available
+    assert 'FileNotFoundError' in result.error
+
+
+def test_parent_interrupt_is_distinct_and_reaps_the_child(cold_request, tmp_path, monkeypatch):
+    from ra import runner
+    def interrupted(*args):
+        raise KeyboardInterrupt('injected parent interrupt')
+    monkeypatch.setattr(runner.select, 'select', interrupted)
+    result = run_request(cold_request, tmp_path / 'parent-interrupt')
+    assert result.status == 'external_interrupt'
+    assert result.timestamps['parent_release_ns'] >= result.timestamps['launch_ns']
+    assert result.resources['returncode'] is not None
+    assert result.duration_censored
