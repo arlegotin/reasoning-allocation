@@ -161,7 +161,9 @@ def test_ancestor_deletion_cancels_deep_root():
 
 
 def run_native_lease_fixture(length=2, *, timeout=False, dispatch_timeout=False, restart=False,
-                             normal=False, constructor_attachment=False):
+                             normal=False, constructor_attachment=False, invalid_root=None,
+                             fail_scan=None, fail_choose=None, deadline_scan=None,
+                             retain_failure=False, fail_resolve=None):
     """Tiny public diagnostic covers only; no protected populations or learning."""
     from pyscipopt import Model, SCIP_EVENTTYPE as E, SCIP_PARAMSETTING as P, quicksum
     from ra.scip_backend import ScipBackend, _case_definition
@@ -183,8 +185,29 @@ def run_native_lease_fixture(length=2, *, timeout=False, dispatch_timeout=False,
         model.addCons(quicksum(x[i] for i in row) >= 1)
     del x
     trace, outcomes, ledgers, live_returns, event_order, incumbent_observations, deletion_observations = [], [], [], [], [], [], []
+    scan_observations = []
+
+    class ObservedLease(LeaseController):
+        def finish(self, end_ns, reason):
+            pending = self.pending
+            outcome = super().finish(end_ns, reason)
+            if pending:
+                outcomes.append(asdict(outcome))
+                ledgers.append(self.ledger.snapshot())
+            return outcome
 
     class ObservedBackend(ScipBackend):
+        def live_frontier(self):
+            scan = len(scan_observations)+1
+            scan_observations.append({'scan': scan, 'pending': lease.pending, 'active': lease.active,
+                                      'entry_ns': self.last_callback_entry_ns})
+            if fail_scan == scan:
+                raise RuntimeError('diagnostic scan failure')
+            records = super().live_frontier()
+            if deadline_scan == scan:
+                lease.deadline_ns = time.perf_counter_ns()
+            return records
+
         def _on_event(self, event):
             kind = int(event.getType())
             event_order.append({'kind': kind, 'epoch': self.epoch, 'run': self.native_run,
@@ -204,6 +227,8 @@ def run_native_lease_fixture(length=2, *, timeout=False, dispatch_timeout=False,
                 self.model.restartSolve()
 
         def resolve_live(self, key):
+            if fail_resolve == len(scan_observations):
+                raise RuntimeError('diagnostic continuation resolution failure')
             node = super().resolve_live(key)
             trace.append([key.epoch, key.number])
             live_returns.append({'key': [key.epoch, key.number], 'stop': self.stop_requested})
@@ -213,26 +238,39 @@ def run_native_lease_fixture(length=2, *, timeout=False, dispatch_timeout=False,
 
     def collect(end_ns):
         if lease.pending:
-            outcomes.append(asdict(lease.finish(end_ns, 'terminal')))
-            ledgers.append(lease.ledger.snapshot())
+            lease.finish(end_ns, 'terminal')
 
     def choose(records):
         collect(backend.last_callback_entry_ns)
+        if fail_choose == len(scan_observations):
+            raise RuntimeError('diagnostic rebid failure')
         root = min(records, key=lambda n: (-n.depth, n.key.number)).key
-        lease.begin(allocation(root, length), backend.last_callback_entry_ns)
+        if invalid_root == 'missing':
+            grant_root = NodeKey(root.epoch, 999999)
+        elif invalid_root == 'mismatch' and len(records) > 1:
+            grant_root = next(n.key for n in records if n.key != root)
+        else:
+            grant_root = root
+        lease.begin(allocation(grant_root, length), backend.last_callback_entry_ns)
         return root
 
     if constructor_attachment:
-        lease = LeaseController({})
+        lease = ObservedLease({})
         backend = ObservedBackend(model, costs=fixture['costs'], rows=fixture['rows'], choose=choose,
                                   lease_controller=lease)
     else:
         backend = ObservedBackend(model, costs=fixture['costs'], rows=fixture['rows'], choose=choose)
-        lease = LeaseController(backend.parents, request_stop=backend.request_stop)
+        lease = ObservedLease(backend.parents, request_stop=backend.request_stop)
         backend.lease_controller = lease
     params = model.getParams()
     started = time.perf_counter_ns()
-    backend.optimize()
+    error = None
+    try:
+        backend.optimize()
+    except BaseException as exc:
+        if not retain_failure:
+            raise
+        error = {'type': type(exc).__name__, 'message': str(exc)}
     collect(backend.safe_return_ns)
     result = {'trace': trace, 'outcomes': outcomes, 'ledgers': ledgers,
               'live_returns': live_returns, 'status': str(model.getStatus()),
@@ -252,11 +290,15 @@ def run_native_lease_fixture(length=2, *, timeout=False, dispatch_timeout=False,
               'stop_request_ns': backend.stop_request_ns, 'safe_return_ns': backend.safe_return_ns,
               'altered_enhancements': not normal,
               'diagnostic_fixture': 'normal' if normal else 'branching',
+              'error': error, 'callback_fault': backend.callback_fault,
+              'scan_observations': scan_observations,
+              'selection_boundaries': [asdict(x) for x in getattr(backend, 'selection_boundaries', [])],
               'deadline_mode': 'dispatch' if dispatch_timeout else 'completed_event' if timeout else None,
               'parameter_changes': {k: v for k, v in params.items() if defaults.get(k) != v},
-              'progress': backend.validated_progress()}
+              'progress': None if error else backend.validated_progress()}
     model.freeProb()
-    backend.raise_if_failed()
+    if not error:
+        backend.raise_if_failed()
     result['subscriptions_after_free'] = backend.subscriptions
     return result
 
@@ -337,3 +379,68 @@ def test_native_constructor_attachment_binds_ancestry_and_native_stop():
     stopped = run_native_lease_fixture(constructor_attachment=True, timeout=True)
     assert stopped['status'] == 'userinterrupt'
     assert stopped['outcomes'][-1]['post_deadline_work'] == 1
+
+
+@pytest.mark.parametrize('invalid_root', ['missing', 'mismatch'])
+def test_native_initial_grant_requires_live_matching_root(invalid_root):
+    result = run_native_lease_fixture(invalid_root=invalid_root, retain_failure=True)
+    assert result['error'] is not None
+    assert result['callback_fault']['callback'] == 'nodeselect'
+    assert result['outcomes'][-1]['end_reason'] == 'callback_error'
+    assert result['outcomes'][-1]['censored']
+    assert result['outcomes'][-1]['dispatch_ns'] is None
+    assert result['outcomes'][-1]['work'] == 0
+
+
+def test_known_rebid_closes_prior_lease_before_failing_scan():
+    result = run_native_lease_fixture(1, fail_scan=2, retain_failure=True)
+    second = result['scan_observations'][1]
+    assert not second['pending'] and not second['active']
+    assert result['outcomes'][0]['end_ns'] == second['entry_ns']
+    assert result['outcomes'][0]['end_reason'] == 'node_limit'
+    boundary = result['selection_boundaries'][1]
+    assert boundary['kind'] == 'residual'
+    assert boundary['reason'] == 'callback_error'
+    assert boundary['entry_ns'] == second['entry_ns']
+    assert boundary['end_ns'] <= result['safe_return_ns']
+
+
+def test_provisional_continuation_scan_failure_preserves_entry_residual():
+    result = run_native_lease_fixture(8, fail_scan=2, retain_failure=True)
+    second = result['scan_observations'][1]
+    assert second['active']
+    assert result['outcomes'][0]['end_ns'] == second['entry_ns']
+    assert result['outcomes'][0]['end_reason'] == 'callback_error'
+    assert result['outcomes'][0]['censored']
+    assert result['selection_boundaries'][1]['kind'] == 'residual'
+
+
+def test_discovered_rebid_failure_closes_before_failed_choose():
+    # Length 2's sixth callback discovers exhaustion of the root-5 leaf.
+    result = run_native_lease_fixture(2, fail_choose=6, retain_failure=True)
+    failed = result['scan_observations'][5]
+    assert result['error'] is not None
+    assert result['outcomes'][-1]['end_ns'] == failed['entry_ns']
+    assert result['outcomes'][-1]['end_reason'] == 'exhaustion'
+    assert result['selection_boundaries'][5]['kind'] == 'residual'
+    assert result['selection_boundaries'][5]['origin'] == 'discovered'
+
+
+def test_provisional_deadline_scan_has_separate_residual_interval():
+    result = run_native_lease_fixture(8, deadline_scan=2)
+    second = result['scan_observations'][1]
+    assert result['status'] == 'userinterrupt'
+    assert result['outcomes'][0]['end_ns'] == second['entry_ns']
+    assert result['outcomes'][0]['end_reason'] == 'deadline'
+    assert result['selection_boundaries'][1]['kind'] == 'residual'
+    assert result['selection_boundaries'][1]['reason'] == 'deadline'
+    assert result['selection_boundaries'][1]['origin'] == 'discovered'
+
+
+def test_confirmed_continuation_fault_remains_inside_prior_body():
+    result = run_native_lease_fixture(8, fail_resolve=2, retain_failure=True)
+    boundary = result['selection_boundaries'][1]
+    assert boundary['kind'] == 'continuation'
+    assert result['outcomes'][0]['end_ns'] == result['safe_return_ns']
+    assert result['outcomes'][0]['end_ns'] > boundary['end_ns']
+    assert result['outcomes'][0]['end_reason'] == 'callback_error'

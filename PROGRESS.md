@@ -2,7 +2,7 @@
 
 Updated: 13 October 2026.
 
-Current stage: WP00 environment/native capability gate passed after independent review and fresh target verification; Tasks 3–4 / WP01 administrative, analytical, lease and candidate diagnostics implemented and locally verified. Task 4 awaits independent review; WP01's tiny exact correctness/harness gates remain pending. Current branch: `main`, preserved from the initial empty checkout.
+Current stage: WP00 environment/native capability gate passed after independent review and fresh target verification; Tasks 3–4 / WP01 administrative, analytical, lease and candidate diagnostics implemented and locally verified. Task 4's first review fixes await scoped re-review; WP01's Task 5 tiny exact correctness gate remains pending. The cold parent/worker request harness belongs to Task 6 / WP02. Current branch: `main`, preserved from the initial empty checkout.
 
 ## Completed documentation
 
@@ -32,9 +32,11 @@ Task 4 **locally measured check**: [leases](src/ra/leases.py) select the live ro
 
 Repeated public diagnostic searches at lengths 1/2/8 each reproduced their own selected-node trace and exact ledgers. Their native/focus/completion/selection counts were respectively 24/24/24/24, 6/6/6/6 and 13/13/13/13. Actual restart 1→2 yielded 17 completions and 18 selections; old-root deletion canceled the first lease before the new native run was exposed. Completion-boundary timeout yielded one post-deadline completion, zero spent allowance and a legal live return while stopping; dispatch-boundary timeout yielded no completion. Diagnostic presolve/heuristic/separation overrides and every changed parameter are retained. The separate tiny normal-enhancement fixture solved in presolve and exercised no lease callback.
 
-Lease body time runs from first dispatch through the supplied next rebid-entry/terminal boundary, including native work after the final credited completion. Successful continuation scan overhead is recorded separately within that body. Callback entry/end/dispatch and safe-return markers prepare the downstream timing ledger; Task 5's complete cold-request harness and tiny exact audit are still required.
+Lease body time runs from first dispatch through the supplied next rebid-entry/terminal boundary, including native work after the final credited completion. Successful continuation scan overhead is recorded separately within that body. Callback entry/end/dispatch and safe-return markers prepare Task 6 / WP02's downstream cold-request ledger. WP01 remains running until Task 5's generators and enumerated tiny exact audit pass.
 
 Final Task 4 focused suite: **38 passed in 0.50 s**. Tasks 2–4 suite: **116 passed in 2.45 s**. Full suite: **123 passed in 5.53 s**. Eleven sequential native diagnostics in one cold child took 0.538 s with single native/LP/numerical-library threads; child CPU/RSS and one failed evidence-serialization attempt are retained in ignored `artifacts/checks/task4/`. These costs describe diagnostic verification, not allocation performance. The [Task 4 report](.superpowers/sdd/2026-10-13-reasoning-allocation/task-4-report.md) records RED/GREEN transcripts, counters, provenance, hashes and limits.
+
+Task 4 **first review fix round**: invalid initial allocation roots now fail through native callback containment before policy dispatch. Known rebids close the prior outcome and record new administration before scanning; discovered rebids and uncertain scan faults retain explicit immutable boundary/residual records. Confirmed continuation faults remain in the prior body through safe return. Finalized outcomes remain available independently of a later successful policy callback. New focused regressions: **45 passed in 0.63 s**. Covering native lifecycle/smoke, ledger, lease and candidate tests: **107 passed in 1.37 s**. Seventeen separately labeled sequential diagnostic/negative cases took 0.608 s in one cold child; historical Task 4 artifacts retain their original hashes. No broader suite was repeated after covering verification; the 123-test full-suite result above is historical to the initial implementation.
 
 ## Next entry gate
 

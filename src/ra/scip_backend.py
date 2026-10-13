@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from collections import Counter
 from contextlib import contextmanager
-from dataclasses import asdict, dataclass, is_dataclass
+from dataclasses import asdict, dataclass, is_dataclass, replace
 from functools import wraps
 import hashlib
 import json
@@ -23,7 +23,7 @@ from typing import Callable, Sequence
 
 from pyscipopt import Eventhdlr, Model, Nodesel, SCIP_EVENTTYPE as E, SCIP_PARAMSETTING as P, SCIP_NODETYPE as N, SCIP_STAGE as S, quicksum
 
-from ra.types import NodeKey, NodeRecord
+from ra.types import NodeKey, NodeRecord, SelectionBoundary
 from ra.leases import LeaseController
 
 
@@ -128,6 +128,7 @@ class ScipBackend:
         self.last_callback_entry_ns: int | None = None
         self.last_callback_end_ns: int | None = None
         self.last_dispatch_ns: int | None = None
+        self.selection_boundaries: list[SelectionBoundary] = []
         self._callback_depth = 0
         self._transformed_once = False
         self.selector = _Selector(self)
@@ -198,6 +199,8 @@ class ScipBackend:
                 status = str(self.model.getStatus())
                 self.lease_controller.cancel('terminal' if status in ('optimal', 'infeasible', 'unbounded')
                                              else 'deadline' if status == 'timelimit' else 'search_exit')
+                if self.lease_controller.pending:
+                    self.lease_controller.finish(self.safe_return_ns, 'search_exit')
         self.raise_if_failed()
 
     @property
@@ -410,10 +413,31 @@ class _Selector(Nodesel):
     def nodeselect(self):
         b = self.backend
         b.last_callback_entry_ns = time.perf_counter_ns()
+        lease = b.lease_controller
+        boundary_index = None
+        if lease is not None:
+            known = not lease.active
+            boundary_index = len(b.selection_boundaries)
+            b.selection_boundaries.append(SelectionBoundary(b.last_callback_entry_ns,
+                None, None, None, 'rebid' if known else 'provisional',
+                'known' if known else 'provisional', None))
+
+        def boundary(**changes):
+            if boundary_index is not None:
+                b.selection_boundaries[boundary_index] = replace(b.selection_boundaries[boundary_index], **changes)
+
+        def close_at_entry(reason):
+            if lease is not None and lease.pending:
+                lease.finish(b.last_callback_entry_ns, reason)
+
         # Acquire a legal return node before running fallible policy/record logic.
         # On failure it is used only to unwind a failed request, never as a policy fallback.
         legal_node = None
         try:
+            # Known rebid transition precedes every native/frontier scan. An
+            # active grant keeps a provisional entry until continuation resolves.
+            if lease is not None and not lease.active:
+                close_at_entry('rebid')
             for nodes in b.model.getOpenNodes():
                 if nodes:
                     legal_node = nodes[0]
@@ -421,23 +445,46 @@ class _Selector(Nodesel):
             with b._callback():
                 b._apply_pending_stop()
                 if b.callback_fault is not None:
+                    boundary(kind='residual', reason='callback_error')
+                    close_at_entry('callback_error')
                     return {'selnode': legal_node}
                 b.selection_count += 1
-                lease = b.lease_controller
+                if lease is not None:
+                    if lease.active:
+                        lease._deadline(b.last_callback_entry_ns)
+                    if not lease.active:
+                        close_at_entry('rebid')
+                        boundary(kind='residual' if b.stop_requested else 'rebid', origin='known',
+                                 reason='deadline' if b.stop_requested else None)
                 continuing = lease is not None and lease.active
                 scan_start = time.perf_counter_ns()
                 records = b.live_frontier()
                 scan_end = time.perf_counter_ns()
+                boundary(snapshot_ns=scan_end)
                 key = lease.next_node(records, scan_end) if lease is not None else None
                 if continuing and key is not None:
                     lease._charge_continuation_scan(scan_end - scan_start)
+                    boundary(kind='continuation')
                 if not records:
+                    close_at_entry('exhaustion')
+                    boundary(kind='residual', origin='discovered' if continuing else 'known', reason='empty_tree')
                     return {'selnode': None}
                 if key is None:
+                    close_at_entry('rebid')
+                    boundary(kind='residual' if b.stop_requested else 'rebid',
+                             origin='discovered' if continuing else 'known',
+                             reason='deadline' if b.stop_requested else None)
                     if b.stop_requested:
                         key = min(records, key=lambda n: (-n.depth, n.key.number)).key
                     else:
                         key = b.choose(records) if b.choose else min(records, key=lambda n: (-n.depth, n.key.number)).key
+                        if lease is not None and lease.pending:
+                            # Validate grant provenance independently of next_node:
+                            # an unavailable initial root is never natural exhaustion.
+                            if lease.root not in {record.key for record in records}:
+                                raise StaleNodeError('allocation root is not in the current open frontier')
+                            if lease.root != key:
+                                raise AdapterError('allocation root differs from chosen node')
                         if lease is not None and lease.active:
                             leased_key = lease.next_node(records, time.perf_counter_ns())
                             if leased_key is not None:
@@ -446,14 +493,24 @@ class _Selector(Nodesel):
                                 key = leased_key
                 node = b.resolve_live(key)
                 b.last_dispatch_ns = time.perf_counter_ns()
+                boundary(dispatch_ns=b.last_dispatch_ns)
                 if lease is not None:
                     lease.mark_dispatch(b.last_dispatch_ns)
                 return {'selnode': node}
         except BaseException as exc:
             b._capture_fault(exc, 'nodeselect')
+            current = b.selection_boundaries[boundary_index] if boundary_index is not None else None
+            if current is None or current.kind != 'continuation':
+                # Uncertain scan or failed administration has no selected new
+                # action. Keep its full callback interval as explicit residual.
+                close_at_entry('callback_error')
+                boundary(kind='residual', reason='callback_error')
+            else:
+                boundary(reason='callback_error')
             return {'selnode': legal_node}
         finally:
             b.last_callback_end_ns = time.perf_counter_ns()
+            boundary(end_ns=b.last_callback_end_ns)
 
 
 class _Events(Eventhdlr):

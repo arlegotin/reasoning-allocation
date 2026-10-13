@@ -61,3 +61,14 @@ class LeaseOutcome:
     body_ns: int
     continuation_ns: int
     post_deadline_work: int
+
+
+@dataclass(frozen=True, slots=True)
+class SelectionBoundary:
+    entry_ns: int
+    snapshot_ns: int | None
+    dispatch_ns: int | None
+    end_ns: int | None
+    kind: str
+    origin: str
+    reason: str | None

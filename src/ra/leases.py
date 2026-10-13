@@ -26,6 +26,11 @@ class LeaseController:
         self._allocation: Allocation | None = None
         self._outcome: LeaseOutcome | None = None
         self.ledger: CreditLedger | None = None
+        self.outcomes: list[LeaseOutcome] = []
+
+    @property
+    def root(self) -> NodeKey | None:
+        return self._allocation.root if self.pending else None
 
     @property
     def active(self) -> bool:
@@ -171,4 +176,5 @@ class LeaseController:
                 self._reason not in ('node_limit', 'exhaustion', 'terminal'),
                 self._unused, 0 if self._dispatch_ns is None else end_ns-self._dispatch_ns,
                 self._continuation_ns, len(self._post_deadline))
+            self.outcomes.append(self._outcome)
         return self._outcome
