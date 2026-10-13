@@ -25,6 +25,7 @@ from pyscipopt import Eventhdlr, Model, Nodesel, SCIP_EVENTTYPE as E, SCIP_PARAM
 
 from ra.types import NodeKey, NodeRecord, SelectionBoundary
 from ra.leases import LeaseController
+from ra.observer import Observer, NumericalAlarm
 
 
 class StaleNodeError(ValueError):
@@ -84,7 +85,9 @@ class ScipBackend:
                  variable_names: Sequence[str] | None = None, objective_scale: int = 1,
                  objective_offset: int = 0,
                  choose: Callable[[list[NodeRecord]], NodeKey] | None = None,
-                 lease_controller: LeaseController | None = None):
+                 lease_controller: LeaseController | None = None,
+                 observer: Observer | None = None, install_selector: bool = True,
+                 deadline_ns: int | None = None, stop_poll: Callable[[], bool] | None = None):
         if not costs or any(type(c) is not int or c <= 0 for c in costs):
             raise ValueError('cover costs must be positive integers')
         if objective_scale <= 0 or type(objective_scale) is not int or type(objective_offset) is not int:
@@ -100,6 +103,12 @@ class ScipBackend:
             raise ValueError('original variable names must be unique and match costs')
         self.model = model
         self.scale, self.offset = objective_scale, objective_offset
+        if not install_selector and (choose is not None or lease_controller is not None):
+            raise ValueError("native observation cannot install a custom policy or lease")
+        self.observer = observer
+        self.deadline_ns, self.stop_poll = deadline_ns, stop_poll
+        self.progress_subscriptions = 0
+        self.progress_events: Counter[str] = Counter()
         self.choose = choose
         self.lease_controller = lease_controller
         self.epoch = 0
@@ -131,10 +140,14 @@ class ScipBackend:
         self.selection_boundaries: list[SelectionBoundary] = []
         self._callback_depth = 0
         self._transformed_once = False
-        self.selector = _Selector(self)
-        self.handler = _Events(self)
-        model.includeNodesel(self.selector, 'ra-live', 'primitive live-node adapter', 1000000, 1000000)
-        model.includeEventhdlr(self.handler, 'ra-events', 'main-tree lifecycle observer')
+        self.selector = _Selector(self) if install_selector else None
+        self.handler = _Events(self) if install_selector else None
+        if install_selector:
+            model.includeNodesel(self.selector, 'ra-live', 'primitive live-node adapter', 1000000, 1000000)
+            model.includeEventhdlr(self.handler, 'ra-events', 'main-tree lifecycle observer')
+        self.progress_handler = _ProgressEvents(self) if observer is not None else None
+        if self.progress_handler is not None:
+            model.includeEventhdlr(self.progress_handler, 'ra-progress', 'common original-space observer')
 
     def _capture_fault(self, exc: BaseException, callback: str) -> None:
         if self.lease_controller is not None:
@@ -150,7 +163,7 @@ class ScipBackend:
                 'exception_module': type(exc).__module__, 'exception_type': type(exc).__name__,
                 'message': str(exc), 'callback': callback, 'stage': int(self.model.getStage()),
                 'epoch': self.epoch, 'native_run': self.native_run, 'frames': frames,
-                'status': 'numerical_alarm' if isinstance(exc, AdapterError) else 'implementation_error',
+                'status': 'numerical_alarm' if isinstance(exc, (AdapterError, NumericalAlarm)) else 'implementation_error',
                 'timestamp_ns': time.perf_counter_ns()}
         # Store only primitives; never retain exc or its traceback/native callback locals.
         if not self.stop_requested:
@@ -171,7 +184,7 @@ class ScipBackend:
             return
         # Only these exact types have a supported one-message constructor. Never
         # invoke arbitrary built-in/custom constructors from primitive metadata.
-        message_types = (AdapterError, StaleNodeError, Exception, RuntimeError,
+        message_types = (AdapterError, NumericalAlarm, StaleNodeError, Exception, RuntimeError,
                          ValueError, TypeError, AssertionError, KeyboardInterrupt, SystemExit)
         error_type = next((cls for cls in message_types
                            if (cls.__module__, cls.__name__) ==
@@ -202,6 +215,12 @@ class ScipBackend:
                 if self.lease_controller.pending:
                     self.lease_controller.finish(self.safe_return_ns, 'search_exit')
         self.raise_if_failed()
+        if self.observer is not None:
+            try:
+                self.observer.poll(self.model, self.variable_names, time.perf_counter_ns())
+            except BaseException as exc:
+                self._capture_fault(exc, "terminal_observation")
+                self.raise_if_failed()
 
     @property
     def processed_nodes(self) -> int:
@@ -340,6 +359,8 @@ class ScipBackend:
     def validated_progress(self) -> tuple[float, float, float]:
         """Check original assignment using Python integers; keep native bounds separate."""
         self.raise_if_failed()
+        if self.observer is not None:
+            return self.observer.available_local()
         dual = float(self.model.getDualbound())
         if self.model.isInfinity(abs(dual)):
             if dual > 0:
@@ -511,6 +532,37 @@ class _Selector(Nodesel):
         finally:
             b.last_callback_end_ns = time.perf_counter_ns()
             boundary(end_ns=b.last_callback_end_ns)
+
+
+class _ProgressEvents(Eventhdlr):
+    """Identical lightweight observer on both routes; no node/frontier access."""
+    mask = E.BESTSOLFOUND | E.DUALBOUNDIMPROVED | E.NODESOLVED | E.PRESOLVEROUND
+
+    def __init__(self, backend):
+        self.backend = backend
+
+    @_contain_callback
+    def eventinit(self):
+        self.model.catchEvent(self.mask, self)
+        self.backend.progress_subscriptions += 1
+
+    @_contain_callback
+    def eventexit(self):
+        self.model.dropEvent(self.mask, self)
+        self.backend.progress_subscriptions -= 1
+
+    @_contain_callback
+    def eventexec(self, event):
+        b = self.backend
+        now = time.perf_counter_ns()
+        b.progress_events[str(int(event.getType()))] += 1
+        with b._callback():
+            if (b.deadline_ns is not None and now >= b.deadline_ns
+                    or b.stop_poll is not None and b.stop_poll()):
+                b.request_stop()
+            b._apply_pending_stop()
+            if b.callback_fault is None:
+                b.observer.poll(b.model, b.variable_names, now)
 
 
 class _Events(Eventhdlr):

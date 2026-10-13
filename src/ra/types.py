@@ -90,3 +90,66 @@ class SelectionBoundary:
     kind: str
     origin: str
     reason: str | None
+
+
+@dataclass(frozen=True, slots=True)
+class ProgressRecord:
+    request_id: str
+    sequence: int
+    child_ns: int
+    receipt_ns: int | None
+    primal_original: int | None
+    dual_original: float
+    incumbent_hash: str | None
+    assignment_available: bool
+    schema_version: int = 1
+
+
+@dataclass(frozen=True, slots=True)
+class AvailableProgress:
+    assignment_available: bool
+    utility: float
+    primal_original: int | None
+    dual_original: float
+    incumbent_hash: str | None
+    sequence: int | None = None
+
+
+@dataclass(frozen=True, slots=True)
+class Request:
+    request_id: str
+    instance_path: str
+    instance_sha256: str
+    instance_hash: str
+    config_hash: str
+    code_hash: str
+    environment_hash: str
+    method: str
+    phase: str
+    solver_seed: int
+    budget_ns: int
+    watchdog_grace_ns: int
+    p0: int
+    threads: int = 1
+    integrality_tolerance: float = 1e-6
+    bound_tolerance: float = 1e-6
+    model_path: str | None = None
+    model_hash: str | None = None
+    launch_ns: int | None = None
+    deadline_ns: int | None = None
+    schema_version: int = 1
+
+
+@dataclass(frozen=True, slots=True)
+class Attempt:
+    request_id: str
+    status: str
+    available: AvailableProgress
+    clock_aligned: bool
+    timestamps: dict[str, int | None]
+    resources: dict[str, object]
+    overshoot_ns: int
+    duration_censored: bool
+    error: str | None
+    request: Request
+    schema_version: int = 1
