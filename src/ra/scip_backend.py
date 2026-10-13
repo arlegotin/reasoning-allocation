@@ -6,7 +6,6 @@ are capability fixtures, never benchmark data or a primary solver configuration.
 """
 from __future__ import annotations
 
-import builtins
 from collections import Counter
 from contextlib import contextmanager
 from dataclasses import asdict, dataclass, is_dataclass
@@ -157,12 +156,14 @@ class ScipBackend:
         fault = self.callback_fault
         if fault is None:
             return
-        error_type = {'AdapterError': AdapterError, 'StaleNodeError': StaleNodeError}.get(fault['exception_type'])
-        if error_type is None and fault['exception_module'] == 'builtins':
-            candidate = getattr(builtins, fault['exception_type'], None)
-            if isinstance(candidate, type) and issubclass(candidate, BaseException):
-                error_type = candidate
-        error = (error_type or CallbackError)(fault['message'])
+        # Only these exact types have a supported one-message constructor. Never
+        # invoke arbitrary built-in/custom constructors from primitive metadata.
+        message_types = (AdapterError, StaleNodeError, Exception, RuntimeError,
+                         ValueError, TypeError, AssertionError, KeyboardInterrupt, SystemExit)
+        error_type = next((cls for cls in message_types
+                           if (cls.__module__, cls.__name__) ==
+                           (fault['exception_module'], fault['exception_type'])), CallbackError)
+        error = error_type(fault['message'])
         error.callback_fault = dict(fault)
         raise error from None
 

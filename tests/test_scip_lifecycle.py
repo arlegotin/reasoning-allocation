@@ -442,3 +442,39 @@ def test_callback_setup_failure_still_returns_a_live_node(monkeypatch, capfd, re
         model.free()
     assert 'ERROR' not in capfd.readouterr().err
     assert not recwarn.list
+
+
+@pytest.mark.parametrize('fault_kind', ['unicode_decode', 'custom_name_collision'])
+def test_structured_callback_exception_uses_provenance_fallback(fault_kind, capfd, recwarn):
+    from ra.scip_backend import CallbackError, _primitive_history
+    class AdapterError(Exception):
+        def __init__(self, code, detail):
+            super().__init__(f'{code}: {detail}')
+    def choose(records):
+        if fault_kind == 'unicode_decode':
+            raise UnicodeDecodeError('utf-8', b'\xff', 0, 1, 'invalid start byte')
+        raise AdapterError(17, 'custom structured callback fault')
+    expected_type = 'UnicodeDecodeError' if fault_kind == 'unicode_decode' else 'AdapterError'
+    expected_module = 'builtins' if fault_kind == 'unicode_decode' else __name__
+    expected_message = ("'utf-8' codec can't decode byte 0xff in position 0: invalid start byte"
+                        if fault_kind == 'unicode_decode' else '17: custom structured callback fault')
+    model, backend = _triangle_backend(choose=choose)
+    try:
+        for operation in (backend.optimize, backend.validated_progress, backend.optimize):
+            with pytest.raises(CallbackError) as caught:
+                operation()
+            fault = caught.value.callback_fault
+            assert fault['exception_type'] == expected_type
+            assert fault['exception_module'] == expected_module
+            assert fault['message'] == expected_message
+            assert fault['callback'] == 'nodeselect'
+            assert fault['status'] == 'implementation_error'
+            assert str(caught.value) == expected_message
+            assert _primitive_history(backend)
+            json.dumps(fault, allow_nan=False)
+        assert str(model.getStatus()) == 'userinterrupt'
+    finally:
+        model.free()
+    assert backend.selector.model is None and backend.handler.model is None
+    assert 'ERROR' not in capfd.readouterr().err
+    assert not recwarn.list
