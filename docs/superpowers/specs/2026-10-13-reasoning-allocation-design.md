@@ -176,9 +176,11 @@ The deterministic generator exposes a strict `GeneratorCell`: family, final colu
 | --- | --- |
 | Uniform sparse | Each row samples `d` distinct columns uniformly; integer costs uniform 1–100 |
 | Block/community | Index-partition nearly equal blocks; each row samples `ceil(0.8*d)` inside and remainder outside; only undersized-block inside reduction is allowed and recorded; uniform costs or declared Bernoulli mixture of 1–10 and 50–100 |
-| Redundant/rare coverage | Mark `max(1, round(0.02*m))` rare rows by template RNG; rare degree `max(1, floor(d/4))`; ordinary rows uniform; create base columns before clones so `n` is final count; clones copy incidence and perturb integer cost by -1/0/1 with floor 1; declared bridge multiplier affects rare incident columns |
+| Redundant/rare coverage | Mark `max(1, round(0.02*m))` rare rows by template RNG; rare degree `max(1, floor(d/4))`; ordinary rows uniform; create base columns before clones so `n` is final count; clone ordinary base columns without rare-row incidence, copying incidence and perturbing integer cost by -1/0/1 with floor 1; declared bridge multiplier affects rare incident columns |
 
 The actual clone count is `floor(clone_fraction*n)` and base count is the remainder, a builder choice fixed here for reproducibility. Apply bridge multiplication to base costs before cloning/perturbation; the manifest records this order. Presolve may remove intended stress structure; preserve that finding. Retain zero-degree columns unless common preprocessing removes them for all methods.
+
+Clone parents are sampled with replacement from the eligible ordinary base columns; clones never parent further clones. Record the eligibility rule and eligible IDs. If a positive clone count has no eligible parent, reject that generation explicitly, retain the failed seed, and never silently retry with a different seed. [Amendment A001](../../../protocol/amendments/0001-ordinary-column-clones.md) restores the ordinary-column restriction omitted from the condensed recipe before pilot population selection.
 
 Seed namespaces `discovery`, `train`, `validation`, `confirmatory`, `shift` derive from master seed plus split label using SHA-256. Templates and all permutations/rescalings/repeated solver seeds stay in one split. Record lineage and canonical hashes to detect exact and structured derivatives. Default frozen population weights are equal across three families, then equal across retained cells within family.
 

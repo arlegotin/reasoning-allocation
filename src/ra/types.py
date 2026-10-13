@@ -1,5 +1,23 @@
 """Immutable primitive records at the allocator/native boundary."""
 from dataclasses import dataclass
+from typing import Any
+
+
+@dataclass(frozen=True, slots=True)
+class CoverInstance:
+    instance_id: str
+    template_id: str
+    cell_id: str
+    incidence: Any  # Original CSR; no numerical import during primitive initialization.
+    costs: tuple[int, ...]
+    lineage: dict[str, object]
+
+
+@dataclass(frozen=True, slots=True)
+class VerifiedAssignment:
+    binary: tuple[int, ...]
+    objective: int
+    content_hash: str
 
 
 @dataclass(frozen=True, order=True, slots=True)

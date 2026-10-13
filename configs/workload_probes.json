@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "purpose": "discovery",
+  "master_seed": "reasoning-allocation-native-discovery-v1",
+  "templates_per_cell": 1,
+  "column_counts": [64],
+  "row_column_ratios": [0.5, 1, 2],
+  "degrees": [4, 8, 16],
+  "block_counts": [2, 4, 8],
+  "clone_fraction": 0.25,
+  "bridge_multiplier": 3
+}
