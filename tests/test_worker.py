@@ -308,14 +308,41 @@ def test_failed_process_launch_retains_charged_timing(cold_request, tmp_path, mo
     assert result.request.deadline_ns == result.request.launch_ns + cold_request.budget_ns
     assert not result.available.assignment_available
     assert 'FileNotFoundError' in result.error
+    assert result.resources['returncode'] is None
+    assert 'launched_ns' not in result.timestamps
+    assert 'worker_cpu_ns' not in result.resources and 'worker_peak_rss_bytes' not in result.resources
+    assert result.resources['parent_cpu_ns'] > 0
 
 
 def test_parent_interrupt_is_distinct_and_reaps_the_child(cold_request, tmp_path, monkeypatch):
     from ra import runner
+    driver(monkeypatch, tmp_path, '''
+from ra.worker import Channel, execute_request
+import time
+original = Channel.send
+def send(self, packet):
+    original(self, packet)
+    if packet['kind'] == 'ready': time.sleep(1)
+Channel.send = send
+''')
+    accepted = False
+    original_accept = runner.ProgressStream.accept
+    original_select = runner.select.select
+    def accept(self, record):
+        nonlocal accepted
+        result = original_accept(self, record)
+        accepted = True
+        return result
     def interrupted(*args):
-        raise KeyboardInterrupt('injected parent interrupt')
+        if accepted:
+            raise KeyboardInterrupt('injected parent interrupt after anchor')
+        return original_select(*args)
+    monkeypatch.setattr(runner.ProgressStream, 'accept', accept)
     monkeypatch.setattr(runner.select, 'select', interrupted)
     result = run_request(cold_request, tmp_path / 'parent-interrupt')
+    assert result.available.assignment_available
+    assert result.available.primal_original == 4
+    assert result.available.utility == 0
     assert result.status == 'external_interrupt'
     assert result.timestamps['parent_release_ns'] >= result.timestamps['launch_ns']
     assert result.resources['returncode'] is not None
