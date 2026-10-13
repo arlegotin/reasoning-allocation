@@ -57,65 +57,73 @@ def _peak_rss_bytes() -> int:
 def native_smoke() -> dict[str, object]:
     """Solve costs (1,2,1), rows (x0+x1>=1, x1+x2>=1); verify originals."""
     prior_threads = {key: os.environ.get(key) for key in THREAD_SETTINGS}
-    os.environ.update(THREAD_SETTINGS)
-    started = time.perf_counter_ns()
-    import pyscipopt
-    from pyscipopt import Model
-    from threadpoolctl import threadpool_info, threadpool_limits
+    try:
+        os.environ.update(THREAD_SETTINGS)
+        started = time.perf_counter_ns()
+        import pyscipopt
+        from pyscipopt import Model
+        from threadpoolctl import threadpool_info, threadpool_limits
 
-    imported = time.perf_counter_ns()
-    with threadpool_limits(limits=1):
-        model = Model("native-cover-smoke")
-        model.hideOutput()
-        model.setIntParam("parallel/maxnthreads", 1)
-        model.setIntParam("lp/threads", 1)
-        default_parameters = model.getParams()
-        x = [model.addVar(name=f"x{i}", vtype="B", obj=cost)
-             for i, cost in enumerate((1, 2, 1))]
-        model.addCons(x[0] + x[1] >= 1)
-        model.addCons(x[1] + x[2] >= 1)
-        solve_started = time.perf_counter_ns()
-        model.optimize()
-        solve_finished = time.perf_counter_ns()
-        status = str(model.getStatus())
-        if model.getNSols() == 0:
-            raise RuntimeError(f"SCIP smoke returned no assignment ({status})")
-        raw = [float(model.getVal(v)) for v in x]
-        tolerance = float(model.getParam("numerics/feastol"))
-        assignment = [int(round(v)) for v in raw]
-        integral = all(abs(v - rounded) <= tolerance and rounded in (0, 1)
-                       for v, rounded in zip(raw, assignment))
-        feasible = integral and assignment[0] + assignment[1] >= 1 and assignment[1] + assignment[2] >= 1
-        objective = sum(cost * v for cost, v in zip((1, 2, 1), assignment))
-        solver_objective = float(model.getObjVal())
-        if not feasible or objective != 2 or abs(solver_objective - objective) > tolerance or status != "optimal":
-            raise RuntimeError("SCIP smoke failed original-space optimum/feasibility verification")
-        native_file = str(Path(pyscipopt.scip.__file__).resolve())
-        native_arch = _command(["file", native_file])
-        banner = _command([sys.executable, "-c", "from pyscipopt import Model; m=Model(); m.printVersion(); m.printExternalCodeVersions()"])
-        version_output = str(banner.get("stdout", ""))
-        lp = re.search(r"\[LP solver: ([^]]+)\]", version_output)
-        result = {
-            "pyscipopt_version": pyscipopt.__version__,
-            "scip_version": f"{model.getMajorVersion()}.{model.getMinorVersion()}.{model.getTechVersion()}",
-            "lp_solver": lp.group(1) if lp else None,
-            "version_banner": banner,
-            "native_extension": native_file,
-            "native_extension_sha256": hashlib.sha256(Path(native_file).read_bytes()).hexdigest(),
-            "native_architecture": native_arch,
-            "native_arm64": native_arch.get("status") == "ok" and "arm64" in str(native_arch.get("stdout", "")),
-            "parameters": default_parameters,
-            "status": status, "assignment": assignment, "raw_assignment": raw,
-            "objective": objective, "solver_objective": solver_objective,
-            "original_feasible": bool(feasible), "integrality_tolerance": tolerance,
-            "import_ns": imported - started, "solve_ns": solve_finished - solve_started,
-            "diagnostic_total_ns": time.perf_counter_ns() - started,
-            "peak_rss_bytes": _peak_rss_bytes(),
-            "thread_environment_before": prior_threads,
-            "thread_environment": dict(THREAD_SETTINGS), "threadpools": threadpool_info(),
-        }
-        model.freeProb()
-    return result
+        imported = time.perf_counter_ns()
+        with threadpool_limits(limits=1):
+            model = Model("native-cover-smoke")
+            model.hideOutput()
+            model.setIntParam("parallel/maxnthreads", 1)
+            model.setIntParam("lp/threads", 1)
+            default_parameters = model.getParams()
+            x = [model.addVar(name=f"x{i}", vtype="B", obj=cost)
+                 for i, cost in enumerate((1, 2, 1))]
+            model.addCons(x[0] + x[1] >= 1)
+            model.addCons(x[1] + x[2] >= 1)
+            solve_started = time.perf_counter_ns()
+            model.optimize()
+            solve_finished = time.perf_counter_ns()
+            status = str(model.getStatus())
+            if model.getNSols() == 0:
+                raise RuntimeError(f"SCIP smoke returned no assignment ({status})")
+            raw = [float(model.getVal(v)) for v in x]
+            tolerance = float(model.getParam("numerics/feastol"))
+            assignment = [int(round(v)) for v in raw]
+            integral = all(abs(v - rounded) <= tolerance and rounded in (0, 1)
+                           for v, rounded in zip(raw, assignment))
+            feasible = integral and assignment[0] + assignment[1] >= 1 and assignment[1] + assignment[2] >= 1
+            objective = sum(cost * v for cost, v in zip((1, 2, 1), assignment))
+            solver_objective = float(model.getObjVal())
+            if not feasible or objective != 2 or abs(solver_objective - objective) > tolerance or status != "optimal":
+                raise RuntimeError("SCIP smoke failed original-space optimum/feasibility verification")
+            native_file = str(Path(pyscipopt.scip.__file__).resolve())
+            native_arch = _command(["file", native_file])
+            banner = _command([sys.executable, "-c", "from pyscipopt import Model; m=Model(); m.printVersion(); m.printExternalCodeVersions()"])
+            version_output = str(banner.get("stdout", ""))
+            lp = re.search(r"\[LP solver: ([^]]+)\]", version_output)
+            result = {
+                "pyscipopt_version": pyscipopt.__version__,
+                "scip_version": f"{model.getMajorVersion()}.{model.getMinorVersion()}.{model.getTechVersion()}",
+                "lp_solver": lp.group(1) if lp else None,
+                "version_banner": banner,
+                "native_extension": native_file,
+                "native_extension_sha256": hashlib.sha256(Path(native_file).read_bytes()).hexdigest(),
+                "native_architecture": native_arch,
+                "native_arm64": native_arch.get("status") == "ok" and "arm64" in str(native_arch.get("stdout", "")),
+                "parameters": default_parameters,
+                "status": status, "assignment": assignment, "raw_assignment": raw,
+                "objective": objective, "solver_objective": solver_objective,
+                "original_feasible": bool(feasible), "integrality_tolerance": tolerance,
+                "import_ns": imported - started, "solve_ns": solve_finished - solve_started,
+                "diagnostic_total_ns": time.perf_counter_ns() - started,
+                "peak_rss_bytes": _peak_rss_bytes(),
+                "thread_environment_before": prior_threads,
+                "thread_environment": dict(THREAD_SETTINGS), "threadpools": threadpool_info(),
+            }
+            model.freeProb()
+        return result
+    finally:
+        for key, value in prior_threads.items():
+            if value is None:
+                os.environ.pop(key, None)
+            else:
+                os.environ[key] = value
+
 
 
 def discover_environment(out: Path, *, dry_run: bool = False) -> dict[str, object]:
@@ -170,12 +178,13 @@ def discover_environment(out: Path, *, dry_run: bool = False) -> dict[str, objec
         import scipy
         import scipy.linalg
         import sklearn
-        from threadpoolctl import threadpool_info
+        from threadpoolctl import threadpool_info, threadpool_limits
         configs = {}
         for name, library in (("numpy", numpy), ("scipy", scipy)):
             configs[f"{name}_config"] = library.show_config(mode="dicts")
         configs["sklearn_version"] = sklearn.__version__
-        configs["threadpools"] = threadpool_info()
+        with threadpool_limits(limits=1):
+            configs["threadpools"] = threadpool_info()
         report["numerical_libraries"] = configs
         report["packages"] = {}
         for name in ("pyscipopt", "numpy", "scipy", "scikit-learn", "psutil", "pytest", "threadpoolctl"):
