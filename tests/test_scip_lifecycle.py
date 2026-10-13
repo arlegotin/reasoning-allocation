@@ -257,3 +257,188 @@ def test_capability_cases_release_native_resources(capabilities):
     for case in capabilities['cases'].values():
         assert case['native_release_ns'] >= case['safe_return_ns']
         assert case['plugin_models_released'] is True
+
+
+def _triangle_backend(*, backend_class=ScipBackend, choose=None):
+    from pyscipopt import SCIP_PARAMSETTING as P
+    model = Model()
+    model.hideOutput()
+    model.setPresolve(P.OFF)
+    model.setHeuristics(P.OFF)
+    model.setSeparating(P.OFF)
+    model.setIntParam('presolving/maxrestarts', -1)
+    model.setIntParam('branching/mostinf/priority', 1000000)
+    x = [model.addVar(name=f'x{i}', vtype='B', obj=1) for i in range(3)]
+    rows = ((0, 1), (0, 2), (1, 2))
+    for a, b in rows:
+        model.addCons(x[a] + x[b] >= 1)
+    backend = backend_class(model, costs=(1, 1, 1), rows=rows, choose=choose)
+    return model, backend
+
+
+def test_interruption_is_reset_for_new_transformation():
+    def choose(records):
+        backend.request_stop()
+        return records[0].key
+    model, backend = _triangle_backend(choose=choose)
+    try:
+        model.optimize()
+        first_request_ns = backend.stop_request_ns
+        assert str(model.getStatus()) == 'userinterrupt'
+        model.freeTransform()
+        model.optimize()
+        assert str(model.getStatus()) == 'userinterrupt'
+        assert backend.stop_request_ns > first_request_ns
+    finally:
+        model.free()
+
+
+@pytest.mark.parametrize('fault_site', ['selection', 'event_exitpresolve', 'event_solving'])
+def test_native_callback_fault_is_preserved_and_released(fault_site, capfd, recwarn):
+    from pyscipopt import SCIP_STAGE as S, SCIP_EVENTTYPE as E
+    from ra.scip_backend import AdapterError, _primitive_history
+    class FaultyEvents(ScipBackend):
+        def _on_event(self, event):
+            stage = self.model.getStage()
+            if ((fault_site == 'event_exitpresolve' and stage == S.EXITPRESOLVE)
+                    or (fault_site == 'event_solving' and event.getType() == E.NODEFOCUSED)):
+                raise AdapterError(f'injected {fault_site} correctness alarm')
+            super()._on_event(event)
+    def choose(records):
+        return NodeKey(-1, 1) if fault_site == 'selection' else records[0].key
+    model, backend = _triangle_backend(backend_class=FaultyEvents, choose=choose)
+    expected = StaleNodeError if fault_site == 'selection' else AdapterError
+    try:
+        with pytest.raises(expected) as caught:
+            backend.optimize()
+        fault = backend.callback_fault
+        assert fault['exception_type'] == expected.__name__
+        assert fault['callback'] == ('nodeselect' if fault_site == 'selection' else 'eventexec')
+        assert fault['stage'] == (int(S.EXITPRESOLVE) if fault_site == 'event_exitpresolve' else int(S.SOLVING))
+        assert fault['message'] in str(caught.value)
+        assert fault['frames']
+        assert _primitive_history(backend)
+        json.dumps(fault, allow_nan=False)
+        with pytest.raises(expected):
+            backend.validated_progress()
+        assert model.getStage() in (S.PRESOLVED, S.SOLVING, S.SOLVED)
+    finally:
+        model.free()
+    assert backend.selector.model is None
+    assert backend.handler.model is None
+    assert backend.subscriptions == 0
+    assert 'ERROR' not in capfd.readouterr().err
+    assert not recwarn.list
+
+
+def test_capability_fault_report_keeps_original_error_and_failed_status(tmp_path, monkeypatch, capfd, recwarn):
+    from pyscipopt import SCIP_STAGE as S
+    from ra import scip_backend
+    original = scip_backend._CapabilityProbe._on_event
+    def fault_at_exitpresolve(self, event):
+        if self.model.getStage() == S.EXITPRESOLVE:
+            raise scip_backend.AdapterError('capability original correctness alarm')
+        original(self, event)
+    monkeypatch.setattr(scip_backend._CapabilityProbe, '_on_event', fault_at_exitpresolve)
+    report = capture_capabilities(tmp_path / 'fault.json')
+    assert report['success'] is False
+    assert 'AdapterError: capability original correctness alarm' in report['errors'][0]
+    assert report['callback_fault']['stage'] == int(S.EXITPRESOLVE)
+    assert report['callback_fault']['exception_type'] == 'AdapterError'
+    assert report['failed_case']['plugin_models_released'] is True
+    assert report['failed_case']['native_release_ns'] >= report['failed_case']['safe_return_ns']
+    assert report['operations']['native_discovery']['status'] == 'blocked'
+    assert 'ERROR' not in capfd.readouterr().err
+    assert not recwarn.list
+
+
+@pytest.mark.parametrize('fault_during_restart', [False, True])
+def test_pending_stop_survives_real_restart(fault_during_restart, capfd, recwarn):
+    from pyscipopt import SCIP_EVENTTYPE as E
+    from ra.scip_backend import AdapterError
+    class StopDuringRestart(ScipBackend):
+        def _on_event(self, event):
+            super()._on_event(event)
+            if self.native_run == 1 and event.getType() == E.NODEBRANCHED:
+                self.model.restartSolve()
+            elif self.native_run == 1 and self.processed_nodes and event.getType() == E.NODEDELETE:
+                if fault_during_restart:
+                    raise AdapterError('restart teardown alarm')
+                self.request_stop()
+    model, backend = _triangle_backend(backend_class=StopDuringRestart)
+    try:
+        if fault_during_restart:
+            with pytest.raises(AdapterError, match='restart teardown alarm'):
+                backend.optimize()
+        else:
+            backend.optimize()
+        assert model.getNRuns() == 2
+        assert backend.stop_requested is True
+        assert str(model.getStatus()) == 'userinterrupt'
+        assert backend.run_transitions[-1]['after'] == 2
+        if fault_during_restart:
+            assert backend.callback_fault['native_run'] == 1
+    finally:
+        model.free()
+    assert 'ERROR' not in capfd.readouterr().err
+    assert not recwarn.list
+
+
+def test_selection_fault_cannot_pass_capability_gate(tmp_path, monkeypatch, capfd, recwarn):
+    from ra import scip_backend
+    monkeypatch.setattr(scip_backend._CapabilityProbe, '_choose_diagnostic', lambda self, records: NodeKey(-1, 1))
+    report = capture_capabilities(tmp_path / 'selection-fault.json')
+    assert report['success'] is False
+    assert report['callback_fault']['exception_type'] == 'StaleNodeError'
+    assert report['callback_fault']['status'] == 'implementation_error'
+    assert report['failed_case']['status'] == 'implementation_error'
+    assert report['failed_case']['plugin_models_released'] is True
+    assert 'StaleNodeError:' in report['errors'][0]
+    assert 'ERROR' not in capfd.readouterr().err
+    assert not recwarn.list
+
+
+def test_faulted_adapter_cannot_resume_as_success():
+    def choose(records):
+        raise ValueError('policy schema failure')
+    model, backend = _triangle_backend(choose=choose)
+    try:
+        with pytest.raises(ValueError, match='policy schema failure'):
+            backend.optimize()
+        first_fault = dict(backend.callback_fault)
+        backend.choose = lambda records: records[0].key
+        model.freeTransform()
+        with pytest.raises(ValueError, match='policy schema failure'):
+            backend.optimize()
+        assert backend.callback_fault == first_fault
+    finally:
+        model.free()
+
+
+def test_callback_setup_failure_still_returns_a_live_node(monkeypatch, capfd, recwarn):
+    from pyscipopt import SCIP_STAGE as S
+    from ra import scip_backend
+    class FaultyRunIdentity(ScipBackend):
+        def _sync_run(self):
+            if self.model.getStage() == S.SOLVING:
+                raise scip_backend.AdapterError('run identity unavailable')
+            super()._sync_run()
+    returned = []
+    original_select = scip_backend._Selector.nodeselect
+    def inspect_return(selector):
+        open_numbers = {node.getNumber() for nodes in selector.model.getOpenNodes() for node in nodes}
+        result = original_select(selector)
+        number = result['selnode'].getNumber() if result['selnode'] is not None else None
+        returned.append((open_numbers, number))
+        return result
+    monkeypatch.setattr(scip_backend._Selector, 'nodeselect', inspect_return)
+    model, backend = _triangle_backend(backend_class=FaultyRunIdentity)
+    try:
+        with pytest.raises(scip_backend.AdapterError, match='run identity unavailable'):
+            backend.optimize()
+        assert returned
+        assert all(number in frontier for frontier, number in returned if frontier)
+    finally:
+        model.free()
+    assert 'ERROR' not in capfd.readouterr().err
+    assert not recwarn.list

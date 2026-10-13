@@ -6,9 +6,11 @@ are capability fixtures, never benchmark data or a primary solver configuration.
 """
 from __future__ import annotations
 
+import builtins
 from collections import Counter
 from contextlib import contextmanager
 from dataclasses import asdict, dataclass, is_dataclass
+from functools import wraps
 import hashlib
 import json
 import math
@@ -31,6 +33,23 @@ class StaleNodeError(ValueError):
 
 class AdapterError(RuntimeError):
     """Native evidence violates the adapter's correctness contract."""
+
+
+class CallbackError(AdapterError):
+    """A nonstandard callback exception, with its original primitive provenance."""
+
+
+def _contain_callback(method):
+    """Never propagate Python exceptions through PySCIPOpt's noexcept boundary."""
+    @wraps(method)
+    def contained(plugin, *args):
+        try:
+            return method(plugin, *args)
+        except BaseException as exc:
+            plugin.backend._capture_fault(exc, method.__name__)
+            # Non-selection native callbacks have no required Python return value.
+            return 0 if method.__name__ == 'nodecomp' else None
+    return contained
 
 
 @dataclass(frozen=True, slots=True)
@@ -98,12 +117,71 @@ class ScipBackend:
         self.init_calls = self.exit_calls = self.subscriptions = 0
         self.stop_requested = False
         self.stop_request_ns: int | None = None
+        self.callback_fault: dict[str, object] | None = None
+        self.safe_return_ns: int | None = None
         self._callback_depth = 0
         self._transformed_once = False
         self.selector = _Selector(self)
         self.handler = _Events(self)
         model.includeNodesel(self.selector, 'ra-live', 'primitive live-node adapter', 1000000, 1000000)
         model.includeEventhdlr(self.handler, 'ra-events', 'main-tree lifecycle observer')
+
+    def _capture_fault(self, exc: BaseException, callback: str) -> None:
+        if self.callback_fault is None:
+            frames = []
+            tb = exc.__traceback__
+            while tb is not None:
+                frames.append({'file': tb.tb_frame.f_code.co_filename,
+                               'function': tb.tb_frame.f_code.co_name, 'line': tb.tb_lineno})
+                tb = tb.tb_next
+            self.callback_fault = {
+                'exception_module': type(exc).__module__, 'exception_type': type(exc).__name__,
+                'message': str(exc), 'callback': callback, 'stage': int(self.model.getStage()),
+                'epoch': self.epoch, 'native_run': self.native_run, 'frames': frames,
+                'status': 'numerical_alarm' if isinstance(exc, AdapterError) else 'implementation_error',
+                'timestamp_ns': time.perf_counter_ns()}
+        # Store only primitives; never retain exc or its traceback/native callback locals.
+        if not self.stop_requested:
+            self.stop_requested = True
+            self.stop_request_ns = time.perf_counter_ns()
+        self._apply_pending_stop()
+
+    def _apply_pending_stop(self) -> None:
+        # In EXITPRESOLVE/teardown, retain the request and return to SCIP normally.
+        # The next solving callback applies it, or presolve terminates safely first.
+        if self.stop_requested and self.model.getStage() in (S.PRESOLVING, S.SOLVING):
+            self.model.interruptSolve()
+
+    def raise_if_failed(self) -> None:
+        """Raise a fresh exception after native return; provenance stays primitive."""
+        fault = self.callback_fault
+        if fault is None:
+            return
+        error_type = {'AdapterError': AdapterError, 'StaleNodeError': StaleNodeError}.get(fault['exception_type'])
+        if error_type is None and fault['exception_module'] == 'builtins':
+            candidate = getattr(builtins, fault['exception_type'], None)
+            if isinstance(candidate, type) and issubclass(candidate, BaseException):
+                error_type = candidate
+        error = (error_type or CallbackError)(fault['message'])
+        error.callback_fault = dict(fault)
+        raise error from None
+
+    def optimize(self) -> None:
+        """Solve through this boundary to preserve callback faults after safe return.
+
+        Direct Model.optimize callers must call raise_if_failed themselves; validated
+        progress also refuses results after any callback fault. A faulted adapter is
+        terminal and must not be resumed as a successful request.
+        """
+        self.raise_if_failed()
+        try:
+            self.model.optimize()
+        except BaseException:
+            self.raise_if_failed()
+            raise
+        finally:
+            self.safe_return_ns = time.perf_counter_ns()
+        self.raise_if_failed()
 
     @property
     def processed_nodes(self) -> int:
@@ -235,6 +313,7 @@ class ScipBackend:
 
     def validated_progress(self) -> tuple[float, float, float]:
         """Check original assignment using Python integers; keep native bounds separate."""
+        self.raise_if_failed()
         dual = float(self.model.getDualbound())
         if self.model.isInfinity(abs(dual)):
             if dual > 0:
@@ -270,59 +349,86 @@ class ScipBackend:
         if not self.stop_requested:
             self.stop_request_ns = time.perf_counter_ns()
             self.stop_requested = True
-            self.model.interruptSolve()
+        self._apply_pending_stop()
 
 
 class _Selector(Nodesel):
     def __init__(self, backend):
         self.backend = backend
 
+    @_contain_callback
     def nodeinit(self):
         b = self.backend
         if b._transformed_once:
             b.epoch += 1
             b.native_run = None
             b._clear_tree()
+        if b.callback_fault is None:
+            b.stop_requested = False
+            b.stop_request_ns = None
         b._transformed_once = True
 
+    @_contain_callback
     def nodeinitsol(self):
         self.backend._tree_active = True
         self.backend.init_calls += 1
         self.backend._sync_run()
+        self.backend._apply_pending_stop()
 
+    @_contain_callback
     def nodeexitsol(self):
         self.backend._tree_active = False
         self.backend.exit_calls += 1
 
+    @_contain_callback
     def nodecomp(self, left, right):
         return compare_nodes(left, right)
 
     def nodeselect(self):
         b = self.backend
-        with b._callback():
-            b.selection_count += 1
-            records = b.live_frontier()
-            if not records:
-                return {'selnode': None}
-            key = b.choose(records) if b.choose else min(records, key=lambda n: (-n.depth, n.key.number)).key
-            return {'selnode': b.resolve_live(key)}
+        # Acquire a legal return node before running fallible policy/record logic.
+        # On failure it is used only to unwind a failed request, never as a policy fallback.
+        legal_node = None
+        try:
+            for nodes in b.model.getOpenNodes():
+                if nodes:
+                    legal_node = nodes[0]
+                    break
+            with b._callback():
+                b._apply_pending_stop()
+                if b.callback_fault is not None:
+                    return {'selnode': legal_node}
+                b.selection_count += 1
+                records = b.live_frontier()
+                if not records:
+                    return {'selnode': None}
+                key = b.choose(records) if b.choose else min(records, key=lambda n: (-n.depth, n.key.number)).key
+                return {'selnode': b.resolve_live(key)}
+        except BaseException as exc:
+            b._capture_fault(exc, 'nodeselect')
+            return {'selnode': legal_node}
 
 
 class _Events(Eventhdlr):
     def __init__(self, backend):
         self.backend = backend
 
+    @_contain_callback
     def eventinit(self):
         self.model.catchEvent(_EVENT_MASK, self)
         self.backend.subscriptions += 1
 
+    @_contain_callback
     def eventexit(self):
         self.model.dropEvent(_EVENT_MASK, self)
         self.backend.subscriptions -= 1
 
+    @_contain_callback
     def eventexec(self, event):
         with self.backend._callback():
-            self.backend._on_event(event)
+            self.backend._apply_pending_stop()
+            if self.backend.callback_fault is None:
+                self.backend._on_event(event)
 
 
 # Small deterministic discovery fixtures; no protected population or training state.
@@ -456,7 +562,7 @@ def _run_case(name: str) -> dict[str, object]:
                                    case_name=name)
         parameters = model.getParams()
         started = time.perf_counter_ns()
-        model.optimize()
+        backend.optimize()
         elapsed = time.perf_counter_ns() - started
         primal, dual, utility = backend.validated_progress()
         result = {'altered_enhancements': fixture['altered_enhancements'],
@@ -474,6 +580,7 @@ def _run_case(name: str) -> dict[str, object]:
                   'elapsed_ns': elapsed, 'stop_requested': backend.stop_requested,
                   'stop_request_ns': backend.stop_request_ns, 'safe_return_ns': started + elapsed}
         model.freeProb()  # Exercise deletion and registration cleanup while model still owns nodes.
+        backend.raise_if_failed()
         result.update({'completion_count': backend.processed_nodes,
                        'completions': [asdict(c) for c in backend.completions],
                        'node_events': backend.node_events,
@@ -520,11 +627,21 @@ def _run_case(name: str) -> dict[str, object]:
                                   'includes emitted root completions. Propagation-only optimality or interruption can leave a focused '
                                   'node without a completion; deleted unprocessed nodes receive no credit.')
         return result
+    except BaseException as exc:
+        failure = {'case': name, 'status': 'implementation_error',
+                   'safe_return_ns': backend.safe_return_ns if 'backend' in locals() else None}
+        if 'backend' in locals() and backend.callback_fault is not None:
+            failure['status'] = backend.callback_fault['status']
+            exc.callback_fault = dict(backend.callback_fault)
+        exc.failed_case = failure
+        result = failure
+        raise
     finally:
         model.free()
         if result is not None:
             result['native_release_ns'] = time.perf_counter_ns()
-            result['plugin_models_released'] = backend.selector.model is None and backend.handler.model is None
+            result['plugin_models_released'] = ('backend' not in locals() or
+                (backend.selector.model is None and backend.handler.model is None))
 
 
 def _primitive_history(backend: ScipBackend) -> bool:
@@ -620,6 +737,10 @@ def capture_capabilities(out: Path) -> dict[str, object]:
         report['peak_rss_bytes'] = int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss) * (1 if sys.platform == 'darwin' else 1024)
     except Exception as exc:
         report['errors'].append(f'{type(exc).__name__}: {exc}')
+        if hasattr(exc, 'callback_fault'):
+            report['callback_fault'] = exc.callback_fault
+        if hasattr(exc, 'failed_case'):
+            report['failed_case'] = exc.failed_case
         operations['native_discovery'] = {'status': 'blocked', 'evidence': report['errors'][-1]}
     for name in ('normal_enhancements', 'original_transformed_objectives', 'live_selection', 'ancestry',
                  'deletion', 'completion', 'restart', 'events', 'cleanup', 'interruption', 'monotonic_comparability'):
