@@ -146,8 +146,8 @@ def test_pool_overlap_fills_unique_slots(overlapping_frontier_100):
 
 **Interfaces:** Produces `CoverInstance(instance_id, template_id, cell_id, incidence, costs, lineage)`; `GeneratorCell` implements spec §7 recipe parameters. `generate_cover(cell: GeneratorCell, template_seed: int) -> CoverInstance`; `verify_cover(instance: CoverInstance, values: Sequence[float], integrality_tolerance: float) -> VerifiedAssignment`; `enumerate_cover(instance: CoverInstance) -> VerifiedAssignment`; `derive_seed(master: str, split: str, template_index: int) -> int`; `instance_hash(instance: CoverInstance) -> str`; `load_config(path: Path, kind: str) -> dict[str, object]`. `VerifiedAssignment` contains binary vector, integer objective, and content hash; invalid input raises a typed error.
 
-- [ ] **Step 1: Write failing exact/generator tests.** Assert the two-row costs `(1,2,1)` optimum is 2; all-one objective is 4; nonempty rows/unique incidence/positive integer costs for every family; impossible sample counts reject; clones use floor-count and bridge-before-clone order; costs remain positive. Check objective/coverage sums above uint8 and int64 range with Python-integer fallback, near-tolerance rounding, and rejection of unrounded fractions.
-- [ ] **Step 2: Write failing provenance tests.** Repeat cell/seed gives identical canonical arrays/hash; different split labels derive different seeds; permutations/scalings stay with their original template; a reused template across train/confirmatory rejects even if matrix hashes differ. Unknown config fields and negative weights reject.
+- [x] **Step 1: Write failing exact/generator tests.** Assert the two-row costs `(1,2,1)` optimum is 2; all-one objective is 4; nonempty rows/unique incidence/positive integer costs for every family; impossible sample counts reject; clones use floor-count and bridge-before-clone order; costs remain positive. Check objective/coverage sums above uint8 and int64 range with Python-integer fallback, near-tolerance rounding, and rejection of unrounded fractions.
+- [x] **Step 2: Write failing provenance tests.** Repeat cell/seed gives identical canonical arrays/hash; different split labels derive different seeds; permutations/scalings stay with their original template; a reused template across train/confirmatory rejects even if matrix hashes differ. Unknown config fields and negative weights reject.
 
 ```python
 def test_original_integer_objective(tiny_two_row_cover):
@@ -157,10 +157,10 @@ def test_original_integer_objective(tiny_two_row_cover):
     with pytest.raises(ValueError):
         verify_cover(tiny_two_row_cover, (0.5, 0.0, 1.0), 1e-6)
 ```
-- [ ] **Step 3: Run red.** `python -m pytest tests/test_enumeration.py tests/test_generators.py tests/test_splits.py tests/test_objectives.py -q`; expected missing project APIs.
-- [ ] **Step 4: Implement generation and exact validation.** Match the three recipes and probe grid in the spec, preserving original CSR incidence and integer costs. Use enumeration only at a measured affordable tiny scale; do not hard-code an unmeasured large `n`. Canonicalize incidence/cost hashing and store generator version/lineage. Add `generate --config PATH --split LABEL [--out PATH] [--dry-run]`; default out is `data/LABEL`. Probe manifest is not the final workload manifest.
-- [ ] **Step 5: Verify.** Run the four tests and all selectors implemented so far on enumerated tiny covers with ample logical budget. Expected exact integer feasibility/optimum for every complete policy, correct positive affine utility transformation, and deterministic generation. Record enumeration cost and prevent cross-split derivatives.
-- [ ] **Step 6: Commit.** Stage data/exact/config/provenance/types/tests/CLI and probe configuration; commit `feat: add reproducible weighted cover workloads and exact checks`.
+- [x] **Step 3: Run red.** `python -m pytest tests/test_enumeration.py tests/test_generators.py tests/test_splits.py tests/test_objectives.py -q`; expected missing project APIs.
+- [x] **Step 4: Implement generation and exact validation.** Match the three recipes and probe grid in the spec, preserving original CSR incidence and integer costs. Use enumeration only at a measured affordable tiny scale; do not hard-code an unmeasured large `n`. Canonicalize incidence/cost hashing and store generator version/lineage. Add `generate --config PATH --split LABEL [--out PATH] [--dry-run]`; default out is `data/LABEL`. Probe manifest is not the final workload manifest.
+- [x] **Step 5: Verify.** Run the four tests and all selectors implemented so far on enumerated tiny covers with ample logical budget. Expected exact integer feasibility/optimum for every complete policy, correct positive affine utility transformation, and deterministic generation. Record enumeration cost and prevent cross-split derivatives.
+- [x] **Step 6: Commit.** Stage data/exact/config/provenance/types/tests/CLI and probe configuration; commit `feat: add reproducible weighted cover workloads and exact checks`.
 
 ## Task 6: Validated observer and cold parent/worker deadline (WP02)
 
