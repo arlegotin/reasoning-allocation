@@ -2,7 +2,7 @@
 
 Updated: 13 October 2026.
 
-Current stage: WP00 environment/native capability gate passed after independent review and fresh target verification; Task 3 / WP01 administrative and analytical diagnostics implemented and locally verified, pending independent review. Current branch: `main`, preserved from the initial empty checkout.
+Current stage: WP00 environment/native capability gate passed after independent review and fresh target verification; Tasks 3–4 / WP01 administrative, analytical, lease and candidate diagnostics implemented and locally verified. Task 4 awaits independent review; WP01's tiny exact correctness/harness gates remain pending. Current branch: `main`, preserved from the initial empty checkout.
 
 ## Completed documentation
 
@@ -16,7 +16,7 @@ Current stage: WP00 environment/native capability gate passed after independent 
 
 WP00: **passed**, with Task 1 environment/native-smoke and Task 2 lifecycle checks reviewed and verified. Actual hardware is Apple M3 Max, native ARM64, 36 GiB RAM, 14 logical CPUs, macOS 26.7.1; Python 3.12.9. PySCIPOpt 6.3.0 links SCIP 10.0.2 / SoPlex 8.0.2 and solves the tiny cover at independently checked objective 2. The exact 14-wheel dependency lock is committed; private discovery, install, wheel metadata/license, parameter and cost artifacts remain ignored.
 
-WP01: **running**, with Task 3 administrative and analytical checks implemented and locally verified; remaining native correctness/harness requirements are pending. WP02–WP10: **not started**. No lease collection, fitted allocation model, frozen confirmatory experiment, or measured allocation comparison exists.
+WP01: **running**, with Tasks 3–4 administrative, analytical, lease and candidate checks implemented and locally verified; remaining native correctness/harness requirements are pending. WP02–WP10: **not started**. No scientific lease collection, fitted allocation model, frozen confirmatory experiment, or measured allocation comparison exists.
 
 Task 2 exercises 11 native operations, including a real restart 1→2 with root-number reuse, primitive/callback-local node ownership, completed-node/deletion accounting, objective-space checks, cooperative stop, native release, and local clock comparability. Full suite: 49 passing tests. A fresh target doctor on commit `6f0cc10` passed; raw evidence is retained in `artifacts/environment/wp00_gate/doctor.json` and `artifacts/environment/capabilities.json`.
 
@@ -28,8 +28,16 @@ The [credit ledger](src/ra/ledger.py) conserves integer credit across split/merg
 
 Focused Task 3 suite: 36 passing tests. Final full suite: **85 passing tests in 5.57 s** (49 existing, 36 added). Both direct Appendix A and `ra check --suite analytical` passed; unsupported suites/phases and Python assertion-disabled mode fail explicitly. Cold diagnostic subprocess wall times were 0.433 s (reference) and 0.449 s (CLI), retained with CPU/RSS scope and hashes in ignored `artifacts/checks/`; they are diagnostic resource costs, not allocation performance comparisons.
 
+Task 4 **locally measured check**: [leases](src/ra/leases.py) select the live root first, then its descendants by depth/estimate/bound/number, spend only distinct dispatch-owned main-tree completions, and return unused per-grant allowance once. Restart/ancestor deletion/cancellation/deadline close credit; a new incumbent and unrelated deletion preserve continuation. [Candidate pools](src/ra/candidates.py) retain ordered primitive IDs/hash/strata and replayable RNG state, including 32 unique slots under overlapping rankings; excluded nodes remain live. These mechanisms impose no global node stopping budget.
+
+Repeated public diagnostic searches at lengths 1/2/8 each reproduced their own selected-node trace and exact ledgers. Their native/focus/completion/selection counts were respectively 24/24/24/24, 6/6/6/6 and 13/13/13/13. Actual restart 1→2 yielded 17 completions and 18 selections; old-root deletion canceled the first lease before the new native run was exposed. Completion-boundary timeout yielded one post-deadline completion, zero spent allowance and a legal live return while stopping; dispatch-boundary timeout yielded no completion. Diagnostic presolve/heuristic/separation overrides and every changed parameter are retained. The separate tiny normal-enhancement fixture solved in presolve and exercised no lease callback.
+
+Lease body time runs from first dispatch through the supplied next rebid-entry/terminal boundary, including native work after the final credited completion. Successful continuation scan overhead is recorded separately within that body. Callback entry/end/dispatch and safe-return markers prepare the downstream timing ledger; Task 5's complete cold-request harness and tiny exact audit are still required.
+
+Final Task 4 focused suite: **38 passed in 0.50 s**. Tasks 2–4 suite: **116 passed in 2.45 s**. Full suite: **123 passed in 5.53 s**. Eleven sequential native diagnostics in one cold child took 0.538 s with single native/LP/numerical-library threads; child CPU/RSS and one failed evidence-serialization attempt are retained in ignored `artifacts/checks/task4/`. These costs describe diagnostic verification, not allocation performance. The [Task 4 report](.superpowers/sdd/2026-10-13-reasoning-allocation/task-4-report.md) records RED/GREEN transcripts, counters, provenance, hashes and limits.
+
 ## Next entry gate
 
-Review Task 3 and continue WP01's remaining native correctness and honest-harness gates using the locked environment. Follow the current-branch instruction and commit each tested milestone. Do not start training before the native capability, correctness, honest-harness, and headroom gates pass.
+Review Task 4 and continue WP01's remaining native correctness and honest-harness gates using the locked environment. Follow the current-branch instruction and commit each tested milestone. Do not start training before the native capability, correctness, honest-harness, and headroom gates pass.
 
 Early blocked or low-headroom outcomes proceed to the achieved-scope report in Task 20; they do not require building the optional population or transfer tracks.

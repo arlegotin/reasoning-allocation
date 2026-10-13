@@ -44,3 +44,20 @@ class Allocation:
     seconds_q90: float | None
     selection_probability: float | None
     policy_state_hash: str
+
+
+@dataclass(frozen=True, slots=True)
+class LeaseOutcome:
+    root: NodeKey
+    node_limit: int
+    work: int
+    entry_ns: int
+    dispatch_ns: int | None
+    end_ns: int
+    end_reason: str
+    natural_completion: bool
+    censored: bool
+    unused_units: int
+    body_ns: int
+    continuation_ns: int
+    post_deadline_work: int

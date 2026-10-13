@@ -24,6 +24,7 @@ from typing import Callable, Sequence
 from pyscipopt import Eventhdlr, Model, Nodesel, SCIP_EVENTTYPE as E, SCIP_PARAMSETTING as P, SCIP_NODETYPE as N, SCIP_STAGE as S, quicksum
 
 from ra.types import NodeKey, NodeRecord
+from ra.leases import LeaseController
 
 
 class StaleNodeError(ValueError):
@@ -82,7 +83,8 @@ class ScipBackend:
     def __init__(self, model: Model, *, costs: Sequence[int], rows: Sequence[Sequence[int]],
                  variable_names: Sequence[str] | None = None, objective_scale: int = 1,
                  objective_offset: int = 0,
-                 choose: Callable[[list[NodeRecord]], NodeKey] | None = None):
+                 choose: Callable[[list[NodeRecord]], NodeKey] | None = None,
+                 lease_controller: LeaseController | None = None):
         if not costs or any(type(c) is not int or c <= 0 for c in costs):
             raise ValueError('cover costs must be positive integers')
         if objective_scale <= 0 or type(objective_scale) is not int or type(objective_offset) is not int:
@@ -99,10 +101,15 @@ class ScipBackend:
         self.model = model
         self.scale, self.offset = objective_scale, objective_offset
         self.choose = choose
+        self.lease_controller = lease_controller
         self.epoch = 0
         self.native_run: int | None = None
         self.run_transitions: list[dict[str, int]] = []
         self.parents: dict[NodeKey, NodeKey | None] = {}
+        if lease_controller is not None:
+            lease_controller.parents = self.parents
+            if lease_controller.request_stop is None:
+                lease_controller.request_stop = self.request_stop
         self.depths: dict[NodeKey, int] = {}
         self.ancestor_references: dict[NodeKey, int] = {}
         self.first_seen: dict[NodeKey, int] = {}
@@ -118,6 +125,9 @@ class ScipBackend:
         self.stop_request_ns: int | None = None
         self.callback_fault: dict[str, object] | None = None
         self.safe_return_ns: int | None = None
+        self.last_callback_entry_ns: int | None = None
+        self.last_callback_end_ns: int | None = None
+        self.last_dispatch_ns: int | None = None
         self._callback_depth = 0
         self._transformed_once = False
         self.selector = _Selector(self)
@@ -126,6 +136,8 @@ class ScipBackend:
         model.includeEventhdlr(self.handler, 'ra-events', 'main-tree lifecycle observer')
 
     def _capture_fault(self, exc: BaseException, callback: str) -> None:
+        if self.lease_controller is not None:
+            self.lease_controller.cancel('callback_error')
         if self.callback_fault is None:
             frames = []
             tb = exc.__traceback__
@@ -182,6 +194,10 @@ class ScipBackend:
             raise
         finally:
             self.safe_return_ns = time.perf_counter_ns()
+            if self.lease_controller is not None:
+                status = str(self.model.getStatus())
+                self.lease_controller.cancel('terminal' if status in ('optimal', 'infeasible', 'unbounded')
+                                             else 'deadline' if status == 'timelimit' else 'search_exit')
         self.raise_if_failed()
 
     @property
@@ -189,6 +205,8 @@ class ScipBackend:
         return len(self.completions)
 
     def _clear_tree(self) -> None:
+        if self.lease_controller is not None:
+            self.lease_controller.cancel('restart')
         self.parents.clear()
         self.depths.clear()
         self.first_seen.clear()
@@ -295,6 +313,8 @@ class ScipBackend:
             return
         self._completed.add(key)
         self.completions.append(Completion(key, main_tree, event_kind))
+        if self.lease_controller is not None:
+            self.lease_controller.on_completed(key)
 
     def _on_event(self, event) -> None:
         kind = int(event.getType())
@@ -311,6 +331,8 @@ class ScipBackend:
                 self.record_completion(key, _COMPLETION_EVENTS[kind], main_tree=True)
             elif kind == E.NODEDELETE:
                 self.deleted.add(key)
+                if self.lease_controller is not None:
+                    self.lease_controller._on_deleted(key)
 
     def validated_progress(self) -> tuple[float, float, float]:
         """Check original assignment using Python integers; keep native bounds separate."""
@@ -387,6 +409,7 @@ class _Selector(Nodesel):
 
     def nodeselect(self):
         b = self.backend
+        b.last_callback_entry_ns = time.perf_counter_ns()
         # Acquire a legal return node before running fallible policy/record logic.
         # On failure it is used only to unwind a failed request, never as a policy fallback.
         legal_node = None
@@ -400,14 +423,37 @@ class _Selector(Nodesel):
                 if b.callback_fault is not None:
                     return {'selnode': legal_node}
                 b.selection_count += 1
+                lease = b.lease_controller
+                continuing = lease is not None and lease.active
+                scan_start = time.perf_counter_ns()
                 records = b.live_frontier()
+                scan_end = time.perf_counter_ns()
+                key = lease.next_node(records, scan_end) if lease is not None else None
+                if continuing and key is not None:
+                    lease._charge_continuation_scan(scan_end - scan_start)
                 if not records:
                     return {'selnode': None}
-                key = b.choose(records) if b.choose else min(records, key=lambda n: (-n.depth, n.key.number)).key
-                return {'selnode': b.resolve_live(key)}
+                if key is None:
+                    if b.stop_requested:
+                        key = min(records, key=lambda n: (-n.depth, n.key.number)).key
+                    else:
+                        key = b.choose(records) if b.choose else min(records, key=lambda n: (-n.depth, n.key.number)).key
+                        if lease is not None and lease.active:
+                            leased_key = lease.next_node(records, time.perf_counter_ns())
+                            if leased_key is not None:
+                                if leased_key != key:
+                                    raise AdapterError('allocation root differs from chosen node')
+                                key = leased_key
+                node = b.resolve_live(key)
+                b.last_dispatch_ns = time.perf_counter_ns()
+                if lease is not None:
+                    lease.mark_dispatch(b.last_dispatch_ns)
+                return {'selnode': node}
         except BaseException as exc:
             b._capture_fault(exc, 'nodeselect')
             return {'selnode': legal_node}
+        finally:
+            b.last_callback_end_ns = time.perf_counter_ns()
 
 
 class _Events(Eventhdlr):
