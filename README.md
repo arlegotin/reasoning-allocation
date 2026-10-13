@@ -2,14 +2,14 @@
 
 A planned proof of concept for overhead-aware local bidding on bounded SCIP subtree investments. The first workload is generated weighted set cover, compared with native default and tuned SCIP scheduling, matched learned controls, and faithfully reproduced literature methods where feasible.
 
-The repository contains the specification, implementation plan, and the first runnable environment-discovery package. On the target Apple M3 Max, native ARM64 Python 3.12.9 and PySCIPOpt 6.3.0 have passed a tiny original-space cover smoke solve using linked SCIP 10.0.2 / SoPlex 8.0.2. Native lifecycle capabilities, training, and allocation experiments remain untested. The supplied preparation results remain attributed to the research brief.
+The repository contains the specification, implementation plan, runnable environment doctor, and live SCIP adapter. WP00 has passed on the target Apple M3 Max: native ARM64 Python 3.12.9, 36 GiB RAM, and PySCIPOpt 6.3.0 using linked SCIP 10.0.2 / SoPlex 8.0.2. Native fixtures exercise restart, deletion, completion accounting, objective channels, cooperative interruption, fault preservation, cleanup, and local clock comparability. Training and allocation comparisons remain unexecuted. The supplied preparation results remain attributed to the research brief.
 
 - [PoC specification](docs/superpowers/specs/2026-10-13-reasoning-allocation-design.md): scientific scope, correctness and timing contracts, architecture, controls, evaluation gates, and complete analytical reference.
 - [Implementation plan](docs/superpowers/plans/2026-10-13-reasoning-allocation.md): 20 tasks covering WP00–WP10, with interfaces, test cases, verification commands, and commit milestones.
 - [Progress](PROGRESS.md): current stage and next entry gate.
 - [Decisions](DECISIONS.md): assumptions and engineering choices made during specification.
 
-Implementation starts with WP00 environment and native capability discovery. Measured headroom gates learning; a frozen protocol gates confirmation; evidence gates population engineering and transfer. A rigorous negative result or an explicit blocked gate is a valid scoped outcome.
+Execution is moving to WP01 exact administrative and analytical checks. Measured headroom gates learning; a frozen protocol gates confirmation; evidence gates population engineering and transfer. A rigorous negative result or an explicit blocked gate is a valid scoped outcome.
 
 Only `doctor` is currently available. Use a native ARM64 Python 3.12 environment on the target Mac; the artifact lock records the resolved macOS wheels.
 
@@ -22,6 +22,8 @@ python3.12 -m venv .venv
 .venv/bin/python -m ra.cli doctor --out artifacts/environment --dry-run
 ```
 
-The doctor records actual hardware, memory/disk/power, interpreter/native versions, full SCIP parameters, numerical-library configuration, thread settings, and diagnostic timing/RSS. It solves costs `(1,2,1)` with rows `x0+x1 >= 1`, `x1+x2 >= 1`, then independently checks binary feasibility and objective 2. Solver and LP thread limits are one. Dry-run writes nothing; a native failure preserves `doctor.json` and exits nonzero. Non-ARM64 diagnostics cannot pass the target architecture gate.
+The doctor records actual hardware, memory/disk/power, interpreter/native versions, full SCIP parameters, numerical-library configuration, thread settings, and diagnostic timing/RSS. It solves costs `(1,2,1)` with rows `x0+x1 >= 1`, `x1+x2 >= 1`, then independently checks binary feasibility and objective 2, and runs the native capability fixtures. Solver and LP thread limits are one. Dry-run writes nothing; a native failure preserves its report and exits nonzero. Non-ARM64 diagnostics cannot pass the target architecture gate.
+
+Callback-enabled application code must solve through `ScipBackend.optimize()` or check `raise_if_failed()` after direct native operations. Callback faults retain original provenance and make the run fail after safe native return. The terminal propagation-only root's native/completion counter difference is recorded; fixtures establish bounded installed-build evidence rather than universal solver guarantees.
 
 Reports, wheels, and licenses are generated under ignored `artifacts/`. Raw hardware reports can include machine identifiers; keep them private. Installation and discovery are setup costs, not benchmark results. Other commands in the design remain future work.

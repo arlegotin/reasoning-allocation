@@ -37,3 +37,15 @@ The target reports Apple M3 Max, native ARM64 Python 3.12.9, 36 GiB memory, 14 l
 ## D009 — Distinguish the smoke check from native capabilities and timings
 
 The doctor solves and independently checks the original tiny cover at objective 2 with solver and LP thread limits set to one. It records versions, full parameter values, numerical-library configuration, resource snapshots, and diagnostic import/solve/discovery durations. This is an environment check, not an allocation benchmark or proof that lifecycle/restart callbacks satisfy WP00. The initial installation's full wall duration was not instrumented; retain that limitation instead of estimating it. A timed offline locked-wheel reinstall is recorded separately as setup cost. Target capability checks and scientific gates remain pending.
+
+## D010 — Installed API and native lifecycle determine capability
+
+The installed PySCIPOpt source exposes `getNRuns()`, despite its absence from the online Model API page examined earlier. Real native diagnostics establish run 1→2, root-number reuse, and explicit main-tree scope. A temporary presolve root can share the later main root's number; it is excluded from main-tree identity/credits while its time remains charged. No native bridge or NodeKey contract amendment was needed.
+
+## D011 — Preserve native counter differences
+
+A propagation-only terminal root has one native node and zero completion-mask events. Selected no-LP descendants in a separate diagnostic emit completion events and reconcile. Preserve focused/native/completion counts and terminal reasons rather than fabricating units from arbitrary deletion. These are installed-build fixture observations; long-run lease accounting still needs the planned audit.
+
+## D012 — Defer callback failures until safe native return
+
+Raising through a native event callback lost original fault details and left cleanup in an invalid stage. The adapter now captures primitive provenance, cooperatively stops at legal stages, and raises at `ScipBackend.optimize()` / `raise_if_failed()`. Unknown or structured exception constructors use `CallbackError` with original identity metadata. Reinitialization resets stop state while internal restarts preserve pending stops/faults. Future workers must use this boundary, discard a faulted adapter, and charge all continued work.
