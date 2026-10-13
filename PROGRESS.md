@@ -1,14 +1,14 @@
 # Progress
 
-Updated: 13 October 2026.
+Updated: 14 October 2026.
 
-Current stage: WP00 environment/native capability gate passed after independent review and fresh target verification; Tasks 3–4 / WP01 administrative, analytical, lease and candidate diagnostics implemented and locally verified. Task 4's first review fixes await scoped re-review; WP01's Task 5 tiny exact correctness gate remains pending. The cold parent/worker request harness belongs to Task 6 / WP02. Current branch: `main`, preserved from the initial empty checkout.
+Current stage: WP00 environment/native capability gate passed after independent review and fresh target verification; Tasks 3–4 / WP01 administrative, analytical, lease and candidate diagnostics are independently reviewed. Task 4's first review fixes passed scoped re-review. WP01's Task 5 tiny exact correctness gate remains pending. The cold parent/worker request harness belongs to Task 6 / WP02. Current branch: `main`, preserved from the initial empty checkout.
 
 ## Completed documentation
 
 - Self-contained [specification](docs/superpowers/specs/2026-10-13-reasoning-allocation-design.md), including the complete supplied analytical reference and bounded claim rules.
 - Superpowers builder check: a fresh reviewer found missing external authority and a missing diagnostic procedure. Both were resolved in the spec; the follow-up returned “nothing important left.”
-- [Implementation plan](docs/superpowers/plans/2026-10-13-reasoning-allocation.md): 20 tasks, 119 unchecked execution steps, 20 representative test examples, and coverage of every specification section and WP00–WP10.
+- [Implementation plan](docs/superpowers/plans/2026-10-13-reasoning-allocation.md): 20 tasks with tracked execution steps, 20 representative test examples, and coverage of every specification section and WP00–WP10.
 - Planning self-review: file ownership, shared interfaces, requirement coverage, failure cases, task dependencies, and experimental gates checked.
 - Documentation verification: Markdown whitespace/fences, relative document links, task structure, test-example syntax, and analytical-reference syntax checked. These checks execute no solver experiments or product tests.
 
@@ -40,6 +40,6 @@ Task 4 **first review fix round**: invalid initial allocation roots now fail thr
 
 ## Next entry gate
 
-Review Task 4 and continue WP01's remaining native correctness and honest-harness gates using the locked environment. Follow the current-branch instruction and commit each tested milestone. Do not start training before the native capability, correctness, honest-harness, and headroom gates pass.
+Implement Task 5's deterministic generators, integer verification, tiny exhaustive optimum checks, and split provenance using the locked environment. Then build Task 6 / WP02's cold-request harness. Follow the current-branch instruction and commit each tested milestone. Do not start training before the native capability, correctness, honest-harness, and headroom gates pass.
 
 Early blocked or low-headroom outcomes proceed to the achieved-scope report in Task 20; they do not require building the optional population or transfer tracks.
