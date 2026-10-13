@@ -2,7 +2,7 @@
 
 Date: 13 October 2026. Status: specification for implementation; no solver experiment has been executed by this repository.
 
-This document turns the supplied research brief into a self-contained build contract, including the reference diagnostic in Appendix A. The companion implementation plan will be `../plans/2026-10-13-reasoning-allocation.md`. The brief's reported Linux preparation checks, literature inspections, and supplied-source hash are provenance reported by the user, not evidence produced here. The original S01–S03 documents and attachment are unavailable in this checkout; do not claim their contents were independently inspected. Implementation requires the repository documents and pinned sources for optional baseline reproductions, without additional requirements hidden in the conversation.
+This document turns the supplied research brief into a self-contained build contract, including the reference diagnostic in Appendix A. Read the companion [implementation plan](../plans/2026-10-13-reasoning-allocation.md) alongside it. The brief's reported Linux preparation checks, literature inspections, and supplied-source hash are provenance reported by the user, not evidence produced here. The original S01–S03 documents and attachment are unavailable in this checkout; do not claim their contents were independently inspected. Implementation requires the repository documents and pinned sources for optional baseline reproductions, without additional requirements hidden in the conversation.
 
 ## 1. Intent, scope, and success
 
@@ -112,7 +112,7 @@ Allocation(root: NodeKey, node_limit: int, gain_prediction: float,
            selection_probability: float | None, policy_state_hash: str)
 ```
 
-`Allocator.choose(context, candidates, lease_lengths) -> Allocation` consumes primitives only; `Allocator.observe(outcome) -> None` updates administrative history only. `SearchBackend.live_frontier() -> list[NodeRecord]`, `validated_progress() -> tuple[float, float, float]`, and `request_stop() -> None` form the backend boundary. Only the adapter resolves a `NodeKey` to a currently live native node, and only inside callbacks. No allocator retains native wrappers, updates constraints or bounds, prunes, or performs hidden continuation solves.
+`Allocator.choose(context, candidates, lease_lengths) -> Allocation` consumes primitives only; `Allocator.observe(outcome) -> None` updates administrative history only. `SearchBackend.live_frontier() -> list[NodeRecord]`, `validated_progress() -> tuple[float, float, float]` ordered `(primal_original, dual_original, utility_local)`, and `request_stop() -> None` form the backend boundary. `Allocation.seconds_prediction` is total predicted decision cost; raw body prediction is logged separately. Only the adapter resolves a `NodeKey` to a currently live native node, and only inside callbacks. No allocator retains native wrappers, updates constraints or bounds, prunes, or performs hidden continuation solves.
 
 A safe native checkpoint is a completed request. Do not pickle a live SCIP state or assume prefix replay/counterfactual cloning exists.
 
