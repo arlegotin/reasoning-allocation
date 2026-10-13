@@ -107,3 +107,9 @@ Common observation requests cooperative interruption at safe callback boundaries
 
 
 Attempted launch/deadline markers are recorded before calling `Popen`, so launch failures retain measured parent cost without inventing a child process or resource values. Parent Ctrl-C preserves `external_interrupt` after cleanup and receipt reconstruction; accepted anchor/progress remains eligible, and child termination is followed by reap. These cases share the ordinary immutable-prefix rule rather than dropping delivered results.
+
+## D024 — Preserve resource-exhaustion and signal-exit provenance
+
+Native callback `MemoryError` retains primitive status `oom`; built-in MemoryError is safely reconstructed, while arbitrary subclasses still use the safe fallback exception with their original category and identity. Worker search and cleanup use the same classifier, and teardown-introduced faults retain their metadata and stop timestamp. This identifies observed Python allocation failure; it does not diagnose OS OOM from a signal.
+
+Child TERM/INT/HUP/QUIT exits have `external_interrupt` status when the parent did not request termination. Signal number/name and an unattributed origin remain explicit because return status does not identify the sender. Crash signals retain implementation-failure status; ambiguous signals, including SIGKILL, retain unknown-cause provenance without an OOM inference. Parent watchdog, parent interrupt and parent failure termination requests have separate origins, preserving their existing primary statuses. A prior worker terminal status is retained even if the process subsequently dies by signal. Eligible receipt progress survives, actual reap is recorded, and abrupt signal exits remain censored.

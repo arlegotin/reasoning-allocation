@@ -163,7 +163,8 @@ class ScipBackend:
                 'exception_module': type(exc).__module__, 'exception_type': type(exc).__name__,
                 'message': str(exc), 'callback': callback, 'stage': int(self.model.getStage()),
                 'epoch': self.epoch, 'native_run': self.native_run, 'frames': frames,
-                'status': 'numerical_alarm' if isinstance(exc, (AdapterError, NumericalAlarm)) else 'implementation_error',
+                'status': ('numerical_alarm' if isinstance(exc, (AdapterError, NumericalAlarm)) else
+                           'oom' if isinstance(exc, MemoryError) else 'implementation_error'),
                 'timestamp_ns': time.perf_counter_ns()}
         # Store only primitives; never retain exc or its traceback/native callback locals.
         if not self.stop_requested:
@@ -185,7 +186,7 @@ class ScipBackend:
         # Only these exact types have a supported one-message constructor. Never
         # invoke arbitrary built-in/custom constructors from primitive metadata.
         message_types = (AdapterError, NumericalAlarm, StaleNodeError, Exception, RuntimeError,
-                         ValueError, TypeError, AssertionError, KeyboardInterrupt, SystemExit)
+                         ValueError, TypeError, AssertionError, MemoryError, KeyboardInterrupt, SystemExit)
         error_type = next((cls for cls in message_types
                            if (cls.__module__, cls.__name__) ==
                            (fault['exception_module'], fault['exception_type'])), CallbackError)

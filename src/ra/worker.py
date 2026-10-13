@@ -145,6 +145,18 @@ class StartupTimeout(Exception):
     pass
 
 
+def _failure_status(exc: BaseException) -> str:
+    """Primitive callback category survives safe reconstruction and cleanup."""
+    callback_status = getattr(exc, 'callback_fault', {}).get('status')
+    if type(exc).__name__ == 'NumericalAlarm' or callback_status == 'numerical_alarm':
+        return 'numerical_alarm'
+    if isinstance(exc, MemoryError) or callback_status == 'oom':
+        return 'oom'
+    if isinstance(exc, KeyboardInterrupt):
+        return 'external_interrupt'
+    return 'implementation_error'
+
+
 def execute_request(request_path: Path) -> int:
     entry = time.perf_counter_ns()
     cpu_start = time.process_time_ns()
@@ -253,17 +265,13 @@ def execute_request(request_path: Path) -> int:
     except StartupTimeout:
         status, exit_code = 'startup_timeout', 0
     except BaseException as exc:
-        status = ('numerical_alarm' if type(exc).__name__ == 'NumericalAlarm' or
-                  getattr(exc, 'callback_fault', {}).get('status') == 'numerical_alarm' else
-                  'oom' if isinstance(exc, MemoryError) else
-                  'external_interrupt' if isinstance(exc, KeyboardInterrupt) else 'implementation_error')
+        status = _failure_status(exc)
         error = f'{type(exc).__name__}: {exc}'
         resources['callback_fault'] = getattr(exc, 'callback_fault', None)
     finally:
         timestamps['finalization_start_ns'] = time.perf_counter_ns()
         if backend is not None:
             timestamps['safe_return_ns'] = backend.safe_return_ns
-            timestamps['stop_request_ns'] = backend.stop_request_ns or timestamps.get('stop_request_ns')
             resources['native_overshoot_ns'] = max(0, (backend.safe_return_ns or request.deadline_ns) - request.deadline_ns)
             resources.update({'selection_count': backend.selection_count,
                               'selection_boundaries': [asdict(b) for b in backend.selection_boundaries],
@@ -281,10 +289,13 @@ def execute_request(request_path: Path) -> int:
                     backend.raise_if_failed()
             except BaseException as exc:
                 if error is None:
-                    status = ('numerical_alarm' if getattr(exc, 'callback_fault', {}).get('status') == 'numerical_alarm'
-                              else 'implementation_error')
+                    status = _failure_status(exc)
                     error = f'{type(exc).__name__}: {exc}'
+                    resources['callback_fault'] = getattr(exc, 'callback_fault', None)
                 exit_code = 1
+        if backend is not None:
+            # Teardown callbacks can introduce a first fault/stop during freeProb.
+            timestamps['stop_request_ns'] = backend.stop_request_ns or timestamps.get('stop_request_ns')
         if observer is not None:
             resources['observation_intervals'] = observer.intervals
             resources['last_native_dual'] = observer.last_native_dual

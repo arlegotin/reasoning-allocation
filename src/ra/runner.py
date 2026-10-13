@@ -10,6 +10,7 @@ import json
 import os
 from pathlib import Path
 import select
+import signal
 import socket
 import subprocess
 import sys
@@ -22,6 +23,26 @@ from ra.worker import Channel, strict_json, validate_request
 
 def _worker_argv(request_path: Path) -> list[str]:
     return [sys.executable, '-m', 'ra.worker', str(request_path)]
+
+
+def _signal_evidence(returncode: int, parent_termination: str | None) -> dict[str, object]:
+    """Keep signal identity without inventing its sender or an OOM diagnosis."""
+    number = -returncode
+    try:
+        name = signal.Signals(number).name
+    except ValueError:
+        name = f'SIGNAL_{number}'
+    if parent_termination is not None:
+        kind = 'watchdog' if parent_termination == 'parent_watchdog' else parent_termination
+    elif number in (signal.SIGTERM, signal.SIGINT, signal.SIGHUP, signal.SIGQUIT):
+        kind = 'termination_signal'
+    elif number in (signal.SIGABRT, signal.SIGSEGV, signal.SIGILL, signal.SIGFPE, signal.SIGBUS):
+        kind = 'crash_signal'
+    else:
+        # SIGKILL can be requested by a user, an OS OOM killer, or another cause.
+        kind = 'ambiguous_signal'
+    return {'signal_number': number, 'signal_name': name,
+            'origin': parent_termination or 'unattributed', 'kind': kind}
 
 
 def run_request(request: Request, out: Path) -> Attempt:
@@ -46,6 +67,7 @@ def run_request(request: Request, out: Path) -> Attempt:
     error = None
     parent_failure = False
     parent_interrupted = False
+    parent_termination = None
     censored = False
     stop_sent = False
     parent_cpu = time.process_time_ns()
@@ -85,6 +107,7 @@ def run_request(request: Request, out: Path) -> Attempt:
                     stop_sent = True
                 if now >= request.deadline_ns + request.watchdog_grace_ns and process.poll() is None:
                     timestamps['watchdog_ns'] = now
+                    parent_termination = 'parent_watchdog'
                     process.terminate()
                     censored = True
                     try:
@@ -171,6 +194,7 @@ def run_request(request: Request, out: Path) -> Attempt:
                 process.wait(timeout=max(0., (request.deadline_ns + request.watchdog_grace_ns - time.perf_counter_ns()) / 1e9))
             except subprocess.TimeoutExpired:
                 timestamps['watchdog_ns'] = time.perf_counter_ns()
+                parent_termination = 'parent_watchdog'
                 process.terminate()
                 censored = True
                 try:
@@ -184,6 +208,7 @@ def run_request(request: Request, out: Path) -> Attempt:
             parent_interrupted = isinstance(exc, KeyboardInterrupt)
             error = f'{type(exc).__name__}: {exc}'
             if process is not None and process.poll() is None:
+                parent_termination = 'parent_interrupt' if parent_interrupted else 'parent_failure'
                 process.terminate()
                 censored = True
                 try:
@@ -216,6 +241,17 @@ def run_request(request: Request, out: Path) -> Attempt:
     if parent_interrupted:
         status = 'external_interrupt'
     resources['returncode'] = process.returncode if process is not None else None
+    if terminal is not None:
+        resources['worker_terminal_status'] = terminal['status']
+    if process is not None and process.returncode is not None and process.returncode < 0:
+        termination = _signal_evidence(process.returncode, parent_termination)
+        resources['termination'] = termination
+        if parent_termination is None:
+            status = 'external_interrupt' if termination['kind'] == 'termination_signal' else 'implementation_error'
+        detail = (f"worker terminated by {termination['signal_name']} "
+                  f"({termination['origin']}, {termination['kind']})")
+        error = f'{error}; {detail}' if error else detail
+        censored = True
     resources['parent_cpu_ns'] = time.process_time_ns() - parent_cpu
     resources['parent_observation_ns_overlapping_worker'] = observation_ns
     resources['trace_bytes'] = sum((out / name).stat().st_size for name in ('wire.jsonl', 'progress.jsonl', 'stdout.log', 'stderr.log'))

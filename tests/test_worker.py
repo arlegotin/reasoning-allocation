@@ -192,6 +192,8 @@ Channel.send = send
     assert result.timestamps['watchdog_ns'] <= result.timestamps['parent_release_ns']
     assert result.overshoot_ns >= 100_000_000
     assert result.resources['returncode'] < 0
+    assert result.resources['termination']['origin'] == 'parent_watchdog'
+    assert result.resources['termination']['kind'] == 'watchdog'
 
 
 def test_nonzero_child_exit_cannot_be_complete(cold_request, tmp_path, monkeypatch):
@@ -220,6 +222,8 @@ def execute_request(path):
     assert result.duration_censored
     assert result.status == 'deadline'
     assert result.resources['returncode'] < 0
+    assert result.resources['termination']['origin'] == 'parent_watchdog'
+    assert result.resources['termination']['kind'] == 'watchdog'
 
 
 def test_thread_environment_is_fixed_independently_of_caller(cold_request, tmp_path, monkeypatch):
@@ -346,4 +350,94 @@ Channel.send = send
     assert result.status == 'external_interrupt'
     assert result.timestamps['parent_release_ns'] >= result.timestamps['launch_ns']
     assert result.resources['returncode'] is not None
+    assert result.resources['termination']['origin'] == 'parent_interrupt'
     assert result.duration_censored
+
+
+@pytest.mark.parametrize('fault_site', ['observer', 'cleanup', 'structured_memory_subclass'])
+def test_callback_oom_retains_category_provenance_and_received_assignment(cold_request, tmp_path, monkeypatch, fault_site):
+    source = '''
+from ra.worker import THREAD_SETTINGS, execute_request
+import os
+os.environ.update(THREAD_SETTINGS)
+from ra.observer import Observer
+from ra.scip_backend import _ProgressEvents, _contain_callback
+'''
+    if fault_site == 'cleanup':
+        source += '''
+original = _ProgressEvents.eventexit
+@_contain_callback
+def eventexit(self):
+    original(self)
+    raise MemoryError('injected cleanup allocation failure')
+_ProgressEvents.eventexit = eventexit
+'''
+    else:
+        source += '''
+class AllocationFailure(MemoryError):
+    def __init__(self, amount, detail):
+        super().__init__(f'{amount}: {detail}')
+def fail(self, *args):
+    raise ERROR
+Observer.poll = fail
+'''.replace('raise ERROR', "raise AllocationFailure(17, 'injected allocation failure')" if fault_site == 'structured_memory_subclass'
+            else "raise MemoryError('injected allocation failure')")
+    driver(monkeypatch, tmp_path, source)
+    result = run_request(cold_request, tmp_path / f'oom-{fault_site}')
+    assert result.status == 'oom'
+    assert result.available.assignment_available
+    assert result.available.primal_original == (2 if fault_site == 'cleanup' else 4)
+    assert result.available.utility == (1 if fault_site == 'cleanup' else 0)
+    fault = result.resources['callback_fault']
+    assert fault['status'] == 'oom'
+    assert fault['exception_type'] == ('AllocationFailure' if fault_site == 'structured_memory_subclass' else 'MemoryError')
+    assert result.error.startswith('CallbackError:' if fault_site == 'structured_memory_subclass' else 'MemoryError:')
+    assert result.resources['native_released']
+    assert result.resources['subscriptions_after_free'] == 0
+    assert result.timestamps['stop_request_ns'] <= result.timestamps['worker_release_ns'] <= result.timestamps['parent_release_ns']
+
+
+@pytest.mark.parametrize('signal_name,expected_status,kind', [
+    ('SIGTERM', 'external_interrupt', 'termination_signal'),
+    ('SIGINT', 'external_interrupt', 'termination_signal'),
+    ('SIGHUP', 'external_interrupt', 'termination_signal'),
+    ('SIGQUIT', 'external_interrupt', 'termination_signal'),
+    ('SIGKILL', 'implementation_error', 'ambiguous_signal'),
+    ('SIGABRT', 'implementation_error', 'crash_signal'),
+])
+@pytest.mark.parametrize('boundary', ['ready', 'terminal'])
+def test_child_signal_exit_keeps_provenance_and_eligible_prefix(cold_request, tmp_path, monkeypatch, signal_name, expected_status, kind, boundary):
+    import signal
+    driver(monkeypatch, tmp_path, '''
+from ra.worker import Channel, execute_request
+import os, resource, signal
+resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
+termination_signal = getattr(signal, SIGNAL_NAME)
+if termination_signal != signal.SIGKILL:
+    signal.signal(termination_signal, signal.SIG_DFL)
+original = Channel.send
+def send(self, packet):
+    original(self, packet)
+    if packet['kind'] == BOUNDARY:
+        os.kill(os.getpid(), termination_signal)
+Channel.send = send
+'''.replace('SIGNAL_NAME', repr(signal_name)).replace('BOUNDARY', repr(boundary)))
+    result = run_request(cold_request, tmp_path / f'signal-{signal_name}-{boundary}')
+    assert result.status == expected_status
+    assert result.status != 'oom'
+    assert result.available.assignment_available
+    assert result.available.primal_original == (4 if boundary == 'ready' else 2)
+    assert result.available.utility == (0 if boundary == 'ready' else 1)
+    assert result.resources['returncode'] == -int(getattr(signal, signal_name))
+    evidence = result.resources['termination']
+    assert evidence['signal_number'] == int(getattr(signal, signal_name))
+    assert evidence['signal_name'] == signal_name
+    assert evidence['origin'] == 'unattributed'
+    assert evidence['kind'] == kind
+    assert signal_name in result.error
+    assert result.duration_censored
+    if boundary == 'terminal':
+        assert result.resources['worker_terminal_status'] == 'complete'
+    else:
+        assert 'worker_cpu_ns' not in result.resources and 'worker_peak_rss_bytes' not in result.resources
+    assert result.timestamps['parent_release_ns'] >= result.timestamps[f'{boundary}_receipt_ns']
