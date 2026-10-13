@@ -174,6 +174,14 @@ def discover_environment(out: Path, *, dry_run: bool = False) -> dict[str, objec
         report["native"] = {"error": f"{type(exc).__name__}: {exc}"}
         errors.append(f"native smoke: {type(exc).__name__}: {exc}")
     try:
+        from ra.scip_backend import capture_capabilities
+        report["capabilities"] = capture_capabilities(out.parent / "capabilities.json")
+        if not report["capabilities"]["success"]:
+            errors.append("Native capability gate blocked; inspect capabilities.json")
+    except Exception as exc:
+        report["capabilities"] = {"success": False, "error": f"{type(exc).__name__}: {exc}"}
+        errors.append(f"native capability discovery: {type(exc).__name__}: {exc}")
+    try:
         import numpy
         import scipy
         import scipy.linalg

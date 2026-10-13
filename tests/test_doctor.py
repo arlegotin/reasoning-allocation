@@ -69,3 +69,18 @@ def test_doctor_does_not_require_optional_test_dependency(tmp_path, monkeypatch)
     assert "packages" in report
     assert report["packages"]["pytest"] is None
     assert not any("numerical library discovery" in error for error in report["errors"])
+
+
+def test_doctor_includes_native_capability_gate(tmp_path):
+    report = discover_environment(tmp_path / 'environment')
+    assert report['capabilities']['success'] is True
+    assert (tmp_path / 'capabilities.json').exists()
+
+
+def test_doctor_fails_when_native_lifecycle_gate_is_blocked(tmp_path, monkeypatch):
+    from ra import scip_backend
+    monkeypatch.setattr(scip_backend, 'capture_capabilities', lambda out: {
+        'success': False, 'operations': {'restart': {'status': 'blocked'}}})
+    report = discover_environment(tmp_path / 'environment')
+    assert report['success'] is False
+    assert any('capability' in error for error in report['errors'])
