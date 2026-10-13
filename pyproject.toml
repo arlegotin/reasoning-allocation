@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ra"
+version = "0.1.0"
+description = "Local reasoning allocation experiments with native SCIP"
+requires-python = ">=3.12"
+dependencies = [
+  "pyscipopt==6.3.0",
+  "numpy",
+  "scipy",
+  "scikit-learn",
+  "psutil",
+  "threadpoolctl",
+]
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[project.scripts]
+ra = "ra.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

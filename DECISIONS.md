@@ -1,6 +1,6 @@
 # Decisions
 
-All entries below are dated 13 October 2026 and concern the documentation deliverable. No experimental observation is implied.
+All entries below are dated 13 October 2026. D001–D007 concern the documentation deliverable; execution evidence starts at D008.
 
 ## D001 — Preserve branch and planning scope
 
@@ -29,3 +29,11 @@ Keep B0–B6 core controls, serious native tuning, horizon attribution, pooled/g
 ## D007 — Limit this session's source verification
 
 Opened official PySCIPOpt node-selector/event-handler documentation, PySCIPOpt 6.3.0 release metadata, and scikit-learn histogram-gradient-boosting documentation to check the proposed stack/interface path. No dependency was installed, and no wheel metadata was treated as proof of local compatibility. The broader literature assessment remains attributed to the supplied brief, with exact-source reproduction gates retained in the plan.
+
+## D008 — Resolve the environment on the actual target
+
+The target reports Apple M3 Max, native ARM64 Python 3.12.9, 36 GiB memory, 14 logical CPUs, macOS 26.7.1, Rosetta translation 0, AC power, and power mode 0. PySCIPOpt 6.3.0 binary wheels link SCIP 10.0.2 / SoPlex 8.0.2. No source build, system Python replacement, machine setting change, remote compute, or PyTorch dependency was needed. Network installation and read-only sandbox-blocked hardware commands used the task's authorized escalation. Retain raw discovery privately and version only compact summaries plus the exact macOS ARM64 artifact-hash lock.
+
+## D009 — Distinguish the smoke check from native capabilities and timings
+
+The doctor solves and independently checks the original tiny cover at objective 2 with solver and LP thread limits set to one. It records versions, full parameter values, numerical-library configuration, resource snapshots, and diagnostic import/solve/discovery durations. This is an environment check, not an allocation benchmark or proof that lifecycle/restart callbacks satisfy WP00. The initial installation's full wall duration was not instrumented; retain that limitation instead of estimating it. A timed offline locked-wheel reinstall is recorded separately as setup cost. Target capability checks and scientific gates remain pending.

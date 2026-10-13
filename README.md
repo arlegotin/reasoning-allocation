@@ -2,7 +2,7 @@
 
 A planned proof of concept for overhead-aware local bidding on bounded SCIP subtree investments. The first workload is generated weighted set cover, compared with native default and tuned SCIP scheduling, matched learned controls, and faithfully reproduced literature methods where feasible.
 
-The repository currently contains the specification and implementation plan. Solver code, dependencies, hardware discovery, training, and experiments have not been executed here. The supplied preparation results remain attributed to the research brief.
+The repository contains the specification, implementation plan, and the first runnable environment-discovery package. On the target Apple M3 Max, native ARM64 Python 3.12.9 and PySCIPOpt 6.3.0 have passed a tiny original-space cover smoke solve using linked SCIP 10.0.2 / SoPlex 8.0.2. Native lifecycle capabilities, training, and allocation experiments remain untested. The supplied preparation results remain attributed to the research brief.
 
 - [PoC specification](docs/superpowers/specs/2026-10-13-reasoning-allocation-design.md): scientific scope, correctness and timing contracts, architecture, controls, evaluation gates, and complete analytical reference.
 - [Implementation plan](docs/superpowers/plans/2026-10-13-reasoning-allocation.md): 20 tasks covering WP00–WP10, with interfaces, test cases, verification commands, and commit milestones.
@@ -11,4 +11,17 @@ The repository currently contains the specification and implementation plan. Sol
 
 Implementation starts with WP00 environment and native capability discovery. Measured headroom gates learning; a frozen protocol gates confirmation; evidence gates population engineering and transfer. A rigorous negative result or an explicit blocked gate is a valid scoped outcome.
 
-Commands in the documents describe software to implement. They are not available in this checkout yet.
+Only `doctor` is currently available. Use a native ARM64 Python 3.12 environment on the target Mac; the artifact lock records the resolved macOS wheels.
+
+```bash
+python3.12 -m venv .venv
+.venv/bin/python -m pip install --only-binary=:all: --require-hashes -r requirements.lock
+.venv/bin/python -m pip install --no-deps -e .
+.venv/bin/python -m pytest -q
+.venv/bin/python -m ra.cli doctor --out artifacts/environment
+.venv/bin/python -m ra.cli doctor --out artifacts/environment --dry-run
+```
+
+The doctor records actual hardware, memory/disk/power, interpreter/native versions, full SCIP parameters, numerical-library configuration, thread settings, and diagnostic timing/RSS. It solves costs `(1,2,1)` with rows `x0+x1 >= 1`, `x1+x2 >= 1`, then independently checks binary feasibility and objective 2. Solver and LP thread limits are one. Dry-run writes nothing; a native failure preserves `doctor.json` and exits nonzero. Non-ARM64 diagnostics cannot pass the target architecture gate.
+
+Reports, wheels, and licenses are generated under ignored `artifacts/`. Raw hardware reports can include machine identifiers; keep them private. Installation and discovery are setup costs, not benchmark results. Other commands in the design remain future work.
