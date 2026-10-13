@@ -246,7 +246,7 @@ def run_request(request: Request, out: Path) -> Attempt:
     if process is not None and process.returncode is not None and process.returncode < 0:
         termination = _signal_evidence(process.returncode, parent_termination)
         resources['termination'] = termination
-        if parent_termination is None:
+        if parent_termination is None and not parent_failure:
             status = 'external_interrupt' if termination['kind'] == 'termination_signal' else 'implementation_error'
         detail = (f"worker terminated by {termination['signal_name']} "
                   f"({termination['origin']}, {termination['kind']})")

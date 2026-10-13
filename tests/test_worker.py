@@ -441,3 +441,56 @@ Channel.send = send
     else:
         assert 'worker_cpu_ns' not in result.resources and 'worker_peak_rss_bytes' not in result.resources
     assert result.timestamps['parent_release_ns'] >= result.timestamps[f'{boundary}_receipt_ns']
+
+
+@pytest.mark.parametrize('parent_fault', ['duplicate', 'interrupt'])
+@pytest.mark.parametrize('signal_name,kind', [('SIGTERM', 'termination_signal'),
+                                           ('SIGABRT', 'crash_signal'),
+                                           ('SIGKILL', 'ambiguous_signal')])
+def test_parent_failure_precedes_already_dead_child_signal(cold_request, tmp_path, monkeypatch, parent_fault, signal_name, kind):
+    """Force the valid scheduling order: child exit precedes parent rejection."""
+    import signal
+    from ra import runner
+    driver(monkeypatch, tmp_path, '''
+from ra.worker import Channel, execute_request
+import os, resource, signal
+resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
+original = Channel.send
+anchor = None
+def send(self, packet):
+    global anchor
+    original(self, packet)
+    if packet['kind'] == 'progress' and anchor is None:
+        anchor = packet
+    if packet['kind'] == 'ready':
+        original(self, anchor)
+        os.kill(os.getpid(), getattr(signal, SIGNAL_NAME))
+Channel.send = send
+'''.replace('SIGNAL_NAME', repr(signal_name)))
+    launched = None
+    original_launch = runner.subprocess.Popen
+    original_accept = runner.ProgressStream.accept
+    def launch(*args, **kwargs):
+        nonlocal launched
+        launched = original_launch(*args, **kwargs)
+        return launched
+    def accept(self, record):
+        if self.previous is not None:
+            # Reap the real child before rejection, so no parent kill is needed.
+            launched.wait(timeout=5)
+            if parent_fault == 'interrupt':
+                raise KeyboardInterrupt('injected parent interrupt after child exit')
+        return original_accept(self, record)
+    monkeypatch.setattr(runner.subprocess, 'Popen', launch)
+    monkeypatch.setattr(runner.ProgressStream, 'accept', accept)
+    result = run_request(cold_request, tmp_path / f'{parent_fault}-{signal_name}')
+    assert result.status == ('implementation_error' if parent_fault == 'duplicate' else 'external_interrupt')
+    assert 'duplicate' in result.error if parent_fault == 'duplicate' else 'KeyboardInterrupt' in result.error
+    assert result.available.assignment_available
+    assert result.available.primal_original == 4 and result.available.utility == 0
+    assert result.resources['returncode'] == -int(getattr(signal, signal_name))
+    assert result.resources['termination'] == {'signal_number': int(getattr(signal, signal_name)),
+                                             'signal_name': signal_name, 'origin': 'unattributed', 'kind': kind}
+    assert result.duration_censored
+    assert result.timestamps['parent_release_ns'] >= result.timestamps['ready_receipt_ns']
+    assert 'worker_cpu_ns' not in result.resources and 'worker_peak_rss_bytes' not in result.resources
