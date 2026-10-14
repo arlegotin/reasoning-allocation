@@ -20,4 +20,8 @@ The publication copy was assembled from staged Git files without copying the ign
 
 The root citation passed the official CFF 1.2.0 JSON schema and format checks. The software and documentation license texts were copied unmodified from their official sources; the embedded-font notice matches the retained plotting environment. Whitespace attributes preserve those canonical third-party/license bytes rather than normalizing them.
 
-The public-navigation changes passed 29 report tests, resolved the current document links, and preserved 434 protected scientific protocol/config/result/receipt files byte-for-byte. They change presentation and metadata only. The final review precedes pushing the prepared source and the owner-authorized visibility change; remote publication status is verified separately.
+The public-navigation changes passed 29 report tests, resolved the current document links, and preserved 434 protected scientific protocol/config/result/receipt files byte-for-byte. They change presentation and metadata only. The final publication review approved the prepared revision with no findings.
+
+## Publication status
+
+On 14 October 2026, the reviewed release preparation was committed as `e391fed` and pushed to `main` with the screened research history intact. The owner-authorized visibility change made [arlegotin/reasoning-allocation](https://github.com/arlegotin/reasoning-allocation) public. Both authenticated repository inspection and an unauthenticated GitHub API request confirmed public visibility, `main` as the default branch, and GitHub's recognition of the AGPL license. This publication receipt is a documentation update; it does not change the scientific results.
