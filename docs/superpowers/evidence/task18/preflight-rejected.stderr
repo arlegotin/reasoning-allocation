@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/checks/task18_latency.py", line 78, in <module>
+    print(json.dumps(execute(), sort_keys=True))
+                     ^^^^^^^^^
+  File "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/checks/task18_latency.py", line 46, in execute
+    raise ValueError('prospective schedule/source/environment changed')
+ValueError: prospective schedule/source/environment changed

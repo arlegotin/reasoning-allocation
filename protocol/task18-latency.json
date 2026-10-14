@@ -1352,7 +1352,7 @@
     "artifacts/task13/validation-inputs/edc897bda8be24e091a7f197bd2a4c78128ba4181b4cd015c2ddfa866f2698ab.json": "567b12dbb06a784a57b710e29c0c3e3496aec726b2a11819bc9b35cee0e06a9c",
     "artifacts/task13/validation-inputs/f3dc9dcf6d5193470d5e435e28aedfa5979ecbf07aaeda4f17aeb875e483b8bb.json": "b2638a492e725ec091261764daa953e7fbb590ac9cc43f9a0e531de39ca34ec7",
     "artifacts/task13/validation-inputs/selected-manifest.json": "bf40b9e56828d5652b0744218d84c0144659f246167a99543985c05c3f734636",
-    "checks/task18_latency.py": "d093fc08063c79c82e17e1943ff4399081b897aba202d6ff33511132a343e04d",
+    "checks/task18_latency.py": "72e4bdf922c7782478bdd7ab03e5098760f174d30a43063e26a0e377ac201222",
     "configs/confirmatory-A004.json": "e13f31a7b098f372e12d653e46513d9f2d52fd587cb5841aff36ffbd8f36bffe",
     "configs/robustness.json": "8f09795a822032e8469414f8f3c2a2ec2e878abe27e0cf2f2fa4d47aee295214",
     "configs/workload_manifest.json": "9f0de3b20abe5ca4acd46d4e3822daef5b5bb16b861ef6ead3e3c9df869db127",
@@ -1418,6 +1418,11 @@
     "no causal attribution of all A loss",
     "no primary inference or bootstrap"
   ],
+  "operational_correction": {
+    "reason": "canonical JSON digest comparison for prior_attempt_ids tuple/list roundtrip; no study request executed under rejected guard",
+    "scientific_configuration_changed": false,
+    "supersedes_sha256": "42c45d162672874f254cfc95b473dbadb8ff949524788765c0828a35e45e1fde"
+  },
   "requests": [
     {
       "bound_tolerance": 1e-06,

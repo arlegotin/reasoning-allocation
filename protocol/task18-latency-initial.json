@@ -1,0 +1,3100 @@
+{
+  "base_commit": "9f379e5118f78f95cf2df6782d09744aec1cec02",
+  "claim_level": "exploratory diagnostic",
+  "control": {
+    "allocator": {
+      "length": 1,
+      "policy": "estimate"
+    },
+    "kind": "shared",
+    "name": "B2-estimate-L1",
+    "pool_size": 128
+  },
+  "control_hash": "6c5940ab0b76dab128600bdfb3a647c9e39e3d1a9ab847fb7011d30ad9dcd76a",
+  "dataset_namespace": "validation",
+  "deadline_ns": 2106828958,
+  "donor_costs": [
+    {
+      "budget_ns": 526707240,
+      "mean_rebid_ns": 176979.25,
+      "median_rebid_ns": 169646.0,
+      "method": "B2-estimate-L1",
+      "rebids": 8,
+      "requests": [
+        {
+          "administration_ns": 709877,
+          "end_to_end_ns": 559843250,
+          "instance_id": "54c33f200cd396ce695885bb0d262185f755a3567f836e82a552520dd003f0e3",
+          "method_config": {
+            "allocator": {
+              "length": 1,
+              "policy": "estimate"
+            },
+            "kind": "shared",
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "B2-estimate-L1",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-526707240/attempts/03d8d30412c3c350768950b2aadc937dc8e62ab9562999c7782773fce9fda4e0/26df3a4dba7b47fca5dfafa52d32a477/attempt.json",
+          "rebids": 1,
+          "sha256": "c40c2b46827587b59a274b1fa313af5e33f1446abc16e75bf085c25435f2febe",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "deadline"
+        },
+        {
+          "administration_ns": 260169,
+          "end_to_end_ns": 178005375,
+          "instance_id": "f3dc9dcf6d5193470d5e435e28aedfa5979ecbf07aaeda4f17aeb875e483b8bb",
+          "method_config": {
+            "allocator": {
+              "length": 1,
+              "policy": "estimate"
+            },
+            "kind": "shared",
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "B2-estimate-L1",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-526707240/attempts/09e5c4ac0e1641f166e4b69b33070bd4a20b5e677bc9f661b87f1f08ae547832/52abe7ffe3934313b787f1138357b167/attempt.json",
+          "rebids": 1,
+          "sha256": "6319127dcfa48f3bec921690ca72b41de4146dc521b8ab9bf4c81c7a1ee6890d",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "complete"
+        },
+        {
+          "administration_ns": 1011710,
+          "end_to_end_ns": 559371416,
+          "instance_id": "a9b332d8d740ef1f1b3a3a813b1bc5f5e1f4bbe6124f906272a78f8351f483ba",
+          "method_config": {
+            "allocator": {
+              "length": 1,
+              "policy": "estimate"
+            },
+            "kind": "shared",
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "B2-estimate-L1",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-526707240/attempts/ac71ed0cac7093bc841bf5b5f3457cd86ba252019ca485f197150245975fa257/e35cff8857d84531bb62db1b06f3df1d/attempt.json",
+          "rebids": 3,
+          "sha256": "4545898b77270be72e80bb37d63634e51d7b2e0785b2165bec79b7160689f0e6",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "deadline"
+        },
+        {
+          "administration_ns": 667667,
+          "end_to_end_ns": 554105459,
+          "instance_id": "edc897bda8be24e091a7f197bd2a4c78128ba4181b4cd015c2ddfa866f2698ab",
+          "method_config": {
+            "allocator": {
+              "length": 1,
+              "policy": "estimate"
+            },
+            "kind": "shared",
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "B2-estimate-L1",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-526707240/attempts/b4048874f59a302ff3c6c7813a8e381cd1785d7daf7482da1fc055db0d7b3024/dee9a9090cee4cc0aa88678f12fae3b5/attempt.json",
+          "rebids": 1,
+          "sha256": "56788c4fe7ef69e59d8dc618ffafc9811a9156c8b4e9d60daef95b0b31de43f7",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "deadline"
+        },
+        {
+          "administration_ns": 277499,
+          "end_to_end_ns": 179846375,
+          "instance_id": "0b03a496455c9acf1528cd667fba3e37de2c1e35ec7cc7c7a79dff7f79b31c8b",
+          "method_config": {
+            "allocator": {
+              "length": 1,
+              "policy": "estimate"
+            },
+            "kind": "shared",
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "B2-estimate-L1",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-526707240/attempts/e87fe4fabd5cac583155c48c659c309e6c0b3d7219f0deb039e879ad9a97f20e/7c33d805ead34f1f8eddb34b98787f49/attempt.json",
+          "rebids": 1,
+          "sha256": "bd53b30ec3f1d1362b1eee800a9734c27dbb6a17ee79cce01b84d4d8e79faaf2",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "complete"
+        },
+        {
+          "administration_ns": 312374,
+          "end_to_end_ns": 177489875,
+          "instance_id": "6f5aafc7ab79e7c3d5bb2e3d61738b84a33c66f1a057fd57c443900280418a90",
+          "method_config": {
+            "allocator": {
+              "length": 1,
+              "policy": "estimate"
+            },
+            "kind": "shared",
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "B2-estimate-L1",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-526707240/attempts/ff644c98507c40d9e22ddd87268b1c2a1c8499b0bb3f07e9c08598d2a85ccfb0/496f3de8a8924470a0f1db4d08eac705/attempt.json",
+          "rebids": 1,
+          "sha256": "9b92681c6ef6fd43f6cbb354d7e5e748641ef023d755db73329814548ff9b6e2",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "complete"
+        }
+      ],
+      "total_end_to_end_ns": 2208661750
+    },
+    {
+      "budget_ns": 526707240,
+      "mean_rebid_ns": 3696637.4285714286,
+      "median_rebid_ns": 3583167,
+      "method": "local-historical-asset",
+      "rebids": 7,
+      "requests": [
+        {
+          "administration_ns": 4692667,
+          "end_to_end_ns": 561320292,
+          "instance_id": "54c33f200cd396ce695885bb0d262185f755a3567f836e82a552520dd003f0e3",
+          "method_config": {
+            "allocator": {
+              "c_min": 4.2e-08,
+              "fallback_length": 4,
+              "model_hash": "861f04c9e7c9c91342833668d2d6765ddc6df914f1363450ff839da1d22fbe47",
+              "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/models/final/ridge1-seed17.json",
+              "policy": "local",
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "kind": "shared",
+            "learned": {
+              "behavior_seed": 17,
+              "compact_logging": true,
+              "epsilon": 0.2,
+              "max_decisions": 512,
+              "pool_seed": 17,
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "local-historical-asset",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-526707240/attempts/2827054a531e738f931a0ac6a8cdec0ea163a5570abbdab296a2a8595c7475d8/673278e9256d4265af2ad3a3c6bf7de7/attempt.json",
+          "rebids": 1,
+          "sha256": "849e544ec7ddcb33090794c92d3cd0818b3a5e22030b668a606ae698bccdb615",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "deadline"
+        },
+        {
+          "administration_ns": 4322790,
+          "end_to_end_ns": 178308417,
+          "instance_id": "0b03a496455c9acf1528cd667fba3e37de2c1e35ec7cc7c7a79dff7f79b31c8b",
+          "method_config": {
+            "allocator": {
+              "c_min": 4.2e-08,
+              "fallback_length": 4,
+              "model_hash": "861f04c9e7c9c91342833668d2d6765ddc6df914f1363450ff839da1d22fbe47",
+              "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/models/final/ridge1-seed17.json",
+              "policy": "local",
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "kind": "shared",
+            "learned": {
+              "behavior_seed": 17,
+              "compact_logging": true,
+              "epsilon": 0.2,
+              "max_decisions": 512,
+              "pool_seed": 17,
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "local-historical-asset",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-526707240/attempts/6dc0304b15f99f8bb92184c8eec8646c253418872332b15fd92cc3df1c13fb05/34321b71b8a641bdab62ac5ddffc8407/attempt.json",
+          "rebids": 1,
+          "sha256": "6c6a94441e858a76e5e54608f51151a5b2dc4282f23049f8177c75e87bed6d10",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "complete"
+        },
+        {
+          "administration_ns": 8032421,
+          "end_to_end_ns": 562854708,
+          "instance_id": "a9b332d8d740ef1f1b3a3a813b1bc5f5e1f4bbe6124f906272a78f8351f483ba",
+          "method_config": {
+            "allocator": {
+              "c_min": 4.2e-08,
+              "fallback_length": 4,
+              "model_hash": "861f04c9e7c9c91342833668d2d6765ddc6df914f1363450ff839da1d22fbe47",
+              "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/models/final/ridge1-seed17.json",
+              "policy": "local",
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "kind": "shared",
+            "learned": {
+              "behavior_seed": 17,
+              "compact_logging": true,
+              "epsilon": 0.2,
+              "max_decisions": 512,
+              "pool_seed": 17,
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "local-historical-asset",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-526707240/attempts/869c01fd63d84927b21323d626644f9e35d25e18ead4a2b6c1113b43e813589a/f6cb5eb451b14f56ae48b1d4dd51277d/attempt.json",
+          "rebids": 2,
+          "sha256": "a9fb70a0ef87eea60f874f8ef79f2f37410b2767add439ce7bca841595e0eaea",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "deadline"
+        },
+        {
+          "administration_ns": 4503496,
+          "end_to_end_ns": 560334292,
+          "instance_id": "edc897bda8be24e091a7f197bd2a4c78128ba4181b4cd015c2ddfa866f2698ab",
+          "method_config": {
+            "allocator": {
+              "c_min": 4.2e-08,
+              "fallback_length": 4,
+              "model_hash": "861f04c9e7c9c91342833668d2d6765ddc6df914f1363450ff839da1d22fbe47",
+              "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/models/final/ridge1-seed17.json",
+              "policy": "local",
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "kind": "shared",
+            "learned": {
+              "behavior_seed": 17,
+              "compact_logging": true,
+              "epsilon": 0.2,
+              "max_decisions": 512,
+              "pool_seed": 17,
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "local-historical-asset",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-526707240/attempts/98294e6e0d2d7a321b1a296bac1f9b48ceaef3a8b1774948c9963ef54a37341f/3953c4d2187948c5997ed8f05735582f/attempt.json",
+          "rebids": 1,
+          "sha256": "f80e060d369367f9ac0c766307cfbf3e289e8a83b4b759d0c8c5b46b3d2e30e9",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "deadline"
+        },
+        {
+          "administration_ns": 5496081,
+          "end_to_end_ns": 197792834,
+          "instance_id": "f3dc9dcf6d5193470d5e435e28aedfa5979ecbf07aaeda4f17aeb875e483b8bb",
+          "method_config": {
+            "allocator": {
+              "c_min": 4.2e-08,
+              "fallback_length": 4,
+              "model_hash": "861f04c9e7c9c91342833668d2d6765ddc6df914f1363450ff839da1d22fbe47",
+              "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/models/final/ridge1-seed17.json",
+              "policy": "local",
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "kind": "shared",
+            "learned": {
+              "behavior_seed": 17,
+              "compact_logging": true,
+              "epsilon": 0.2,
+              "max_decisions": 512,
+              "pool_seed": 17,
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "local-historical-asset",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-526707240/attempts/9c13358b20a720c418c8bdac0f6de94d5b3c4187acc62258737098db0a855a2b/4753a75e9af54126a46ad69616bbe235/attempt.json",
+          "rebids": 1,
+          "sha256": "7371ca346069480bc3e82cbaa897afbea06391ed7189e78f74fe7cb594bd55c3",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "complete"
+        },
+        {
+          "administration_ns": 4647462,
+          "end_to_end_ns": 178017875,
+          "instance_id": "6f5aafc7ab79e7c3d5bb2e3d61738b84a33c66f1a057fd57c443900280418a90",
+          "method_config": {
+            "allocator": {
+              "c_min": 4.2e-08,
+              "fallback_length": 4,
+              "model_hash": "861f04c9e7c9c91342833668d2d6765ddc6df914f1363450ff839da1d22fbe47",
+              "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/models/final/ridge1-seed17.json",
+              "policy": "local",
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "kind": "shared",
+            "learned": {
+              "behavior_seed": 17,
+              "compact_logging": true,
+              "epsilon": 0.2,
+              "max_decisions": 512,
+              "pool_seed": 17,
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "local-historical-asset",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-526707240/attempts/a103f20e79b35c2d8c6a471ccfa663db6bdf172af95d5ba09142c27442821eae/88adeedfb1314236a163ec1f61efa465/attempt.json",
+          "rebids": 1,
+          "sha256": "496561f407b5dbc0e1b2c91c4679b0d71d6ddce1600dba006c9717dce447b8b3",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "complete"
+        }
+      ],
+      "total_end_to_end_ns": 2238628418
+    },
+    {
+      "budget_ns": 2106828958,
+      "mean_rebid_ns": 338569.92372881353,
+      "median_rebid_ns": 354000.0,
+      "method": "B2-estimate-L1",
+      "rebids": 118,
+      "requests": [
+        {
+          "administration_ns": 298002,
+          "end_to_end_ns": 177536166,
+          "instance_id": "6f5aafc7ab79e7c3d5bb2e3d61738b84a33c66f1a057fd57c443900280418a90",
+          "method_config": {
+            "allocator": {
+              "length": 1,
+              "policy": "estimate"
+            },
+            "kind": "shared",
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "B2-estimate-L1",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-2106828958/attempts/301ae55eb7f5c97830abffb327f7c4e203e5a9a1eac49b5abfab8fdf54d337e5/75f2688122b84160aa4f7a11830432cb/attempt.json",
+          "rebids": 1,
+          "sha256": "65a3b1c9e771315a8452b7f5ce51fa8dcadd180e608d815576721c30dfcc2407",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "complete"
+        },
+        {
+          "administration_ns": 285085,
+          "end_to_end_ns": 180814833,
+          "instance_id": "0b03a496455c9acf1528cd667fba3e37de2c1e35ec7cc7c7a79dff7f79b31c8b",
+          "method_config": {
+            "allocator": {
+              "length": 1,
+              "policy": "estimate"
+            },
+            "kind": "shared",
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "B2-estimate-L1",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-2106828958/attempts/570abc979bcae212e9202dca862b3d5e9d22a06401baddeed4f3cec905d9cfdd/a7bdc8eb462844728a236e71b5eb2910/attempt.json",
+          "rebids": 1,
+          "sha256": "4e9be03b8539a1af52e2b75d1e5a78556603da220c6850d9fad1ec9956fa5939",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "complete"
+        },
+        {
+          "administration_ns": 29071826,
+          "end_to_end_ns": 2178696917,
+          "instance_id": "54c33f200cd396ce695885bb0d262185f755a3567f836e82a552520dd003f0e3",
+          "method_config": {
+            "allocator": {
+              "length": 1,
+              "policy": "estimate"
+            },
+            "kind": "shared",
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "B2-estimate-L1",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-2106828958/attempts/6ce06a43d99a16ba1c000a270c01423a8ff5c7c4d87fa0bd347d6cfa234bca61/71389595fd0b4abaada21a43f47c2244/attempt.json",
+          "rebids": 63,
+          "sha256": "6409fb5539da434719f2d037996f0ca4dc37d7b54650587e5045fe6c38029502",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "deadline"
+        },
+        {
+          "administration_ns": 269086,
+          "end_to_end_ns": 184581708,
+          "instance_id": "f3dc9dcf6d5193470d5e435e28aedfa5979ecbf07aaeda4f17aeb875e483b8bb",
+          "method_config": {
+            "allocator": {
+              "length": 1,
+              "policy": "estimate"
+            },
+            "kind": "shared",
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "B2-estimate-L1",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-2106828958/attempts/cab6dc249e93dfc8273598a0988ed537b6ddeb2ebe642c4296225cf532320a6a/39752c321a8745069be0f1a8d2088de0/attempt.json",
+          "rebids": 1,
+          "sha256": "f283f9dffcb603eb53fbb4577fc49a7148d68492d54ceb03a6b5bd947bc31f3c",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "complete"
+        },
+        {
+          "administration_ns": 12887958,
+          "end_to_end_ns": 2153768000,
+          "instance_id": "edc897bda8be24e091a7f197bd2a4c78128ba4181b4cd015c2ddfa866f2698ab",
+          "method_config": {
+            "allocator": {
+              "length": 1,
+              "policy": "estimate"
+            },
+            "kind": "shared",
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "B2-estimate-L1",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-2106828958/attempts/da67ed731f749d33aa44b694acdfcd5e051128cdbe9e40284fc70033206371ea/62d187ef1064409c814acd2cca79568d/attempt.json",
+          "rebids": 38,
+          "sha256": "fa86f5ba48e42cf227ade5481eeb4b62c7817dbe8a5077dcafe252e95142af9b",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "deadline"
+        },
+        {
+          "administration_ns": 3132288,
+          "end_to_end_ns": 842043709,
+          "instance_id": "a9b332d8d740ef1f1b3a3a813b1bc5f5e1f4bbe6124f906272a78f8351f483ba",
+          "method_config": {
+            "allocator": {
+              "length": 1,
+              "policy": "estimate"
+            },
+            "kind": "shared",
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "B2-estimate-L1",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-2106828958/attempts/f6480972525aa701250f7f76f8051c03fb68bbf252ae291b27c41e4dbe94ee78/b4a84fa4537c4892b4796ab6c8730dbb/attempt.json",
+          "rebids": 14,
+          "sha256": "4f45306de13894600710c434ba9da2a891a8ec4584846e3fb2f99773b567dfb1",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "complete"
+        }
+      ],
+      "total_end_to_end_ns": 5717441333
+    },
+    {
+      "budget_ns": 2106828958,
+      "mean_rebid_ns": 4223634.012048192,
+      "median_rebid_ns": 3909020.5,
+      "method": "local-historical-asset",
+      "rebids": 166,
+      "requests": [
+        {
+          "administration_ns": 529978261,
+          "end_to_end_ns": 2356671375,
+          "instance_id": "a9b332d8d740ef1f1b3a3a813b1bc5f5e1f4bbe6124f906272a78f8351f483ba",
+          "method_config": {
+            "allocator": {
+              "c_min": 4.2e-08,
+              "fallback_length": 4,
+              "model_hash": "861f04c9e7c9c91342833668d2d6765ddc6df914f1363450ff839da1d22fbe47",
+              "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/models/final/ridge1-seed17.json",
+              "policy": "local",
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "kind": "shared",
+            "learned": {
+              "behavior_seed": 17,
+              "compact_logging": true,
+              "epsilon": 0.2,
+              "max_decisions": 512,
+              "pool_seed": 17,
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "local-historical-asset",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-2106828958/attempts/52e1843c24e751cab1f62e62f083ed6cb4fe2f265b3afdafa090041345b93818/8513094464c443f383845778501b00fb/attempt.json",
+          "rebids": 135,
+          "sha256": "df1d153c99d53988598a01a210033d180c6cc31d478eb55345b053dfb373ee82",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "deadline"
+        },
+        {
+          "administration_ns": 65278837,
+          "end_to_end_ns": 2155404541,
+          "instance_id": "edc897bda8be24e091a7f197bd2a4c78128ba4181b4cd015c2ddfa866f2698ab",
+          "method_config": {
+            "allocator": {
+              "c_min": 4.2e-08,
+              "fallback_length": 4,
+              "model_hash": "861f04c9e7c9c91342833668d2d6765ddc6df914f1363450ff839da1d22fbe47",
+              "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/models/final/ridge1-seed17.json",
+              "policy": "local",
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "kind": "shared",
+            "learned": {
+              "behavior_seed": 17,
+              "compact_logging": true,
+              "epsilon": 0.2,
+              "max_decisions": 512,
+              "pool_seed": 17,
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "local-historical-asset",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-2106828958/attempts/70b58aa34f861b2bfc1b627d4661c6a84a754e69398435a86a847edf9f1866df/8abd6e84ffa54074b44f9cc5fd58d2f3/attempt.json",
+          "rebids": 9,
+          "sha256": "3390374bf363eab6637f733d0b18e567a3e138e427679ffa8748cd0f5d6348bc",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "deadline"
+        },
+        {
+          "administration_ns": 4424212,
+          "end_to_end_ns": 181408333,
+          "instance_id": "6f5aafc7ab79e7c3d5bb2e3d61738b84a33c66f1a057fd57c443900280418a90",
+          "method_config": {
+            "allocator": {
+              "c_min": 4.2e-08,
+              "fallback_length": 4,
+              "model_hash": "861f04c9e7c9c91342833668d2d6765ddc6df914f1363450ff839da1d22fbe47",
+              "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/models/final/ridge1-seed17.json",
+              "policy": "local",
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "kind": "shared",
+            "learned": {
+              "behavior_seed": 17,
+              "compact_logging": true,
+              "epsilon": 0.2,
+              "max_decisions": 512,
+              "pool_seed": 17,
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "local-historical-asset",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-2106828958/attempts/8118f21f29a669d6614f3880484cf7f53e8c6a98d1b9972719b3200c17cf511c/491ac0436cb94b2b91f87b0061489718/attempt.json",
+          "rebids": 1,
+          "sha256": "09d8e5542b573d6bba48dcf34a5cdf07810c83a0967c8eefc1ec9bbda3d2806e",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "complete"
+        },
+        {
+          "administration_ns": 124512509,
+          "end_to_end_ns": 2171683542,
+          "instance_id": "54c33f200cd396ce695885bb0d262185f755a3567f836e82a552520dd003f0e3",
+          "method_config": {
+            "allocator": {
+              "c_min": 4.2e-08,
+              "fallback_length": 4,
+              "model_hash": "861f04c9e7c9c91342833668d2d6765ddc6df914f1363450ff839da1d22fbe47",
+              "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/models/final/ridge1-seed17.json",
+              "policy": "local",
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "kind": "shared",
+            "learned": {
+              "behavior_seed": 17,
+              "compact_logging": true,
+              "epsilon": 0.2,
+              "max_decisions": 512,
+              "pool_seed": 17,
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "local-historical-asset",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-2106828958/attempts/be456f93fd127212cbcd764a7d5aff79ed4260a5d95f06dce3248dc07c0798e0/67ca85198a694ae3980556c7be9fec75/attempt.json",
+          "rebids": 19,
+          "sha256": "9cf2cce2e3d4ae6c1c217c5a0398fe3d453ab9abc79553ad1741e1bcad3e8106",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "deadline"
+        },
+        {
+          "administration_ns": 4096542,
+          "end_to_end_ns": 179246333,
+          "instance_id": "f3dc9dcf6d5193470d5e435e28aedfa5979ecbf07aaeda4f17aeb875e483b8bb",
+          "method_config": {
+            "allocator": {
+              "c_min": 4.2e-08,
+              "fallback_length": 4,
+              "model_hash": "861f04c9e7c9c91342833668d2d6765ddc6df914f1363450ff839da1d22fbe47",
+              "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/models/final/ridge1-seed17.json",
+              "policy": "local",
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "kind": "shared",
+            "learned": {
+              "behavior_seed": 17,
+              "compact_logging": true,
+              "epsilon": 0.2,
+              "max_decisions": 512,
+              "pool_seed": 17,
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "local-historical-asset",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-2106828958/attempts/dd39fa87cecd68927ae5ee4365fa8aada4dce2249fe98353d56b18914bf76346/1fde98cb57f34bcd82a1f857775f26a1/attempt.json",
+          "rebids": 1,
+          "sha256": "f965a3ea4457534117da29f4115b3f8ee7e5ea8005a03c3057ac484a3f30a301",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "complete"
+        },
+        {
+          "administration_ns": 4499207,
+          "end_to_end_ns": 183127291,
+          "instance_id": "0b03a496455c9acf1528cd667fba3e37de2c1e35ec7cc7c7a79dff7f79b31c8b",
+          "method_config": {
+            "allocator": {
+              "c_min": 4.2e-08,
+              "fallback_length": 4,
+              "model_hash": "861f04c9e7c9c91342833668d2d6765ddc6df914f1363450ff839da1d22fbe47",
+              "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/models/final/ridge1-seed17.json",
+              "policy": "local",
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "kind": "shared",
+            "learned": {
+              "behavior_seed": 17,
+              "compact_logging": true,
+              "epsilon": 0.2,
+              "max_decisions": 512,
+              "pool_seed": 17,
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "local-historical-asset",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-2106828958/attempts/e6ec450bdfb126ce2321c751b08087cb3c4f5e2032ea7380f7de140b06650785/cb9159017b2e44b486a8d527d4ca5fd5/attempt.json",
+          "rebids": 1,
+          "sha256": "3947edd747b3a6ca63846b7876fb9e0c5691cabbc333ebe61a0622226a487537",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "complete"
+        }
+      ],
+      "total_end_to_end_ns": 7227541415
+    },
+    {
+      "budget_ns": 8427315832,
+      "mean_rebid_ns": 286552.93023255817,
+      "median_rebid_ns": 260584,
+      "method": "B2-estimate-L1",
+      "rebids": 301,
+      "requests": [
+        {
+          "administration_ns": 3306961,
+          "end_to_end_ns": 853327292,
+          "instance_id": "a9b332d8d740ef1f1b3a3a813b1bc5f5e1f4bbe6124f906272a78f8351f483ba",
+          "method_config": {
+            "allocator": {
+              "length": 1,
+              "policy": "estimate"
+            },
+            "kind": "shared",
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "B2-estimate-L1",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-8427315832/attempts/21bc89b9f081059e5d1564605793c17b733ed0fb95c12e2dace83453257e5b54/1a766372961640b3a4fa1aef6a3884b4/attempt.json",
+          "rebids": 14,
+          "sha256": "06c356e461bde8092f3185b44ae2360c5e77ed334ebfd87247c28dc2844fd259",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "complete"
+        },
+        {
+          "administration_ns": 42181612,
+          "end_to_end_ns": 2451420375,
+          "instance_id": "54c33f200cd396ce695885bb0d262185f755a3567f836e82a552520dd003f0e3",
+          "method_config": {
+            "allocator": {
+              "length": 1,
+              "policy": "estimate"
+            },
+            "kind": "shared",
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "B2-estimate-L1",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-8427315832/attempts/58ccdbe54e601019ba041794d8243a6e21700c2ec30f94f4ca94c4dfd23572bc/864f6aaf5ca143fd95a4fdcbb991c6ae/attempt.json",
+          "rebids": 105,
+          "sha256": "09881cd49b9a778e1675f0c4f894fbeabafc676fb1de358d48c7ccfa982d0cc9",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "complete"
+        },
+        {
+          "administration_ns": 50637945,
+          "end_to_end_ns": 3229105083,
+          "instance_id": "edc897bda8be24e091a7f197bd2a4c78128ba4181b4cd015c2ddfa866f2698ab",
+          "method_config": {
+            "allocator": {
+              "length": 1,
+              "policy": "estimate"
+            },
+            "kind": "shared",
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "B2-estimate-L1",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-8427315832/attempts/864a88b07b0f6b1afc8c4c8097a40188d96576e6642770ac0ae363f4e9a372c1/a869b9eea2a74d7ba9ac92c210928284/attempt.json",
+          "rebids": 179,
+          "sha256": "369427fb2308f59d7eb10d70fe086f42bbce2b0cd454e23164983090eef610c8",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "complete"
+        },
+        {
+          "administration_ns": 280415,
+          "end_to_end_ns": 186648416,
+          "instance_id": "0b03a496455c9acf1528cd667fba3e37de2c1e35ec7cc7c7a79dff7f79b31c8b",
+          "method_config": {
+            "allocator": {
+              "length": 1,
+              "policy": "estimate"
+            },
+            "kind": "shared",
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "B2-estimate-L1",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-8427315832/attempts/96d10ee20ce01f9154199c0c03cde8beced438b183cb70420288c861d93f935b/bba4b5cb538c4064b9ec9fbb1398016f/attempt.json",
+          "rebids": 1,
+          "sha256": "527ab7c9cc8bce3ad73d1f89ae5deaa5995776d28062e3babfdd962b15c892cf",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "complete"
+        },
+        {
+          "administration_ns": 263791,
+          "end_to_end_ns": 180808125,
+          "instance_id": "f3dc9dcf6d5193470d5e435e28aedfa5979ecbf07aaeda4f17aeb875e483b8bb",
+          "method_config": {
+            "allocator": {
+              "length": 1,
+              "policy": "estimate"
+            },
+            "kind": "shared",
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "B2-estimate-L1",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-8427315832/attempts/be21f25800df8abbca48954a381d3392e6265bc5f2fd1fc3afa2b41d46664e75/ba11416f2a8945ffbd77b862c861613f/attempt.json",
+          "rebids": 1,
+          "sha256": "16d0452913d9720a71a40e9a67480c0a64b33f0e0b8d699240677baaeb6b95ef",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "complete"
+        },
+        {
+          "administration_ns": 304416,
+          "end_to_end_ns": 182387959,
+          "instance_id": "6f5aafc7ab79e7c3d5bb2e3d61738b84a33c66f1a057fd57c443900280418a90",
+          "method_config": {
+            "allocator": {
+              "length": 1,
+              "policy": "estimate"
+            },
+            "kind": "shared",
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "B2-estimate-L1",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-8427315832/attempts/e0ae2dd37c4940010023c5ca74f3dc202a3ea1de36dffda96e1ae1e553f22a56/aab4770524654a41bb573bb73359a086/attempt.json",
+          "rebids": 1,
+          "sha256": "be1d26ba230e7d0b7847d550d97a8c9983c4194eb7b99de3f3a17db4da1fcdf3",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "complete"
+        }
+      ],
+      "total_end_to_end_ns": 7083697250
+    },
+    {
+      "budget_ns": 8427315832,
+      "mean_rebid_ns": 10334145.195739014,
+      "median_rebid_ns": 8291542,
+      "method": "local-historical-asset",
+      "rebids": 751,
+      "requests": [
+        {
+          "administration_ns": 4214664,
+          "end_to_end_ns": 195883541,
+          "instance_id": "f3dc9dcf6d5193470d5e435e28aedfa5979ecbf07aaeda4f17aeb875e483b8bb",
+          "method_config": {
+            "allocator": {
+              "c_min": 4.2e-08,
+              "fallback_length": 4,
+              "model_hash": "861f04c9e7c9c91342833668d2d6765ddc6df914f1363450ff839da1d22fbe47",
+              "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/models/final/ridge1-seed17.json",
+              "policy": "local",
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "kind": "shared",
+            "learned": {
+              "behavior_seed": 17,
+              "compact_logging": true,
+              "epsilon": 0.2,
+              "max_decisions": 512,
+              "pool_seed": 17,
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "local-historical-asset",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-8427315832/attempts/11debdf9a098facbc40ae2df4bfcb0dc79c36b916ada0875dfe250a49049ab29/a1a184af90db474ca37b291c1c813291/attempt.json",
+          "rebids": 1,
+          "sha256": "20fa987f64a04779b558216ce801c1e1f38f5afd408e8ad8f648f25f90acd006",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "complete"
+        },
+        {
+          "administration_ns": 1242637821,
+          "end_to_end_ns": 3955046750,
+          "instance_id": "a9b332d8d740ef1f1b3a3a813b1bc5f5e1f4bbe6124f906272a78f8351f483ba",
+          "method_config": {
+            "allocator": {
+              "c_min": 4.2e-08,
+              "fallback_length": 4,
+              "model_hash": "861f04c9e7c9c91342833668d2d6765ddc6df914f1363450ff839da1d22fbe47",
+              "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/models/final/ridge1-seed17.json",
+              "policy": "local",
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "kind": "shared",
+            "learned": {
+              "behavior_seed": 17,
+              "compact_logging": true,
+              "epsilon": 0.2,
+              "max_decisions": 512,
+              "pool_seed": 17,
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "local-historical-asset",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-8427315832/attempts/24405271a0b130c77249df04f394b8a636cae16ada8a9b239765e851f01d6cc2/41c9b3332c434a57b7615e4031d29101/attempt.json",
+          "rebids": 323,
+          "sha256": "9e7e9ccfe83eb19d5579bf16eae10cc3372ff6fea2b6ca21ecb230e84f367623",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "complete"
+        },
+        {
+          "administration_ns": 4369041,
+          "end_to_end_ns": 195396083,
+          "instance_id": "6f5aafc7ab79e7c3d5bb2e3d61738b84a33c66f1a057fd57c443900280418a90",
+          "method_config": {
+            "allocator": {
+              "c_min": 4.2e-08,
+              "fallback_length": 4,
+              "model_hash": "861f04c9e7c9c91342833668d2d6765ddc6df914f1363450ff839da1d22fbe47",
+              "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/models/final/ridge1-seed17.json",
+              "policy": "local",
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "kind": "shared",
+            "learned": {
+              "behavior_seed": 17,
+              "compact_logging": true,
+              "epsilon": 0.2,
+              "max_decisions": 512,
+              "pool_seed": 17,
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "local-historical-asset",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-8427315832/attempts/25dbb44dd65a165b3afe99b87b3be69a4fdff751d64ad7309e3cb81e0f2989ea/7de6e54560bc46bf8ce3c5359de557e5/attempt.json",
+          "rebids": 1,
+          "sha256": "931e5b9a628ce202b45c0f60937adca8df2735b564d06b91ae3a35c38b4ad6d8",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "complete"
+        },
+        {
+          "administration_ns": 4398077925,
+          "end_to_end_ns": 8914254333,
+          "instance_id": "edc897bda8be24e091a7f197bd2a4c78128ba4181b4cd015c2ddfa866f2698ab",
+          "method_config": {
+            "allocator": {
+              "c_min": 4.2e-08,
+              "fallback_length": 4,
+              "model_hash": "861f04c9e7c9c91342833668d2d6765ddc6df914f1363450ff839da1d22fbe47",
+              "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/models/final/ridge1-seed17.json",
+              "policy": "local",
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "kind": "shared",
+            "learned": {
+              "behavior_seed": 17,
+              "compact_logging": true,
+              "epsilon": 0.2,
+              "max_decisions": 512,
+              "pool_seed": 17,
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "local-historical-asset",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-8427315832/attempts/274f8bcc39ee685321c99bae57d66e2e23555e0d619bfb0791bd3b3bc347658e/45a4154d9d1d41d894f410b1bc29dc02/attempt.json",
+          "rebids": 251,
+          "sha256": "11c790cbd8b412671cc0a5914862c77306327dc89f23d0bc4ae2bbff5794b01f",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "deadline"
+        },
+        {
+          "administration_ns": 4361290,
+          "end_to_end_ns": 206518166,
+          "instance_id": "0b03a496455c9acf1528cd667fba3e37de2c1e35ec7cc7c7a79dff7f79b31c8b",
+          "method_config": {
+            "allocator": {
+              "c_min": 4.2e-08,
+              "fallback_length": 4,
+              "model_hash": "861f04c9e7c9c91342833668d2d6765ddc6df914f1363450ff839da1d22fbe47",
+              "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/models/final/ridge1-seed17.json",
+              "policy": "local",
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "kind": "shared",
+            "learned": {
+              "behavior_seed": 17,
+              "compact_logging": true,
+              "epsilon": 0.2,
+              "max_decisions": 512,
+              "pool_seed": 17,
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "local-historical-asset",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-8427315832/attempts/74b2448be172c80e1f0cd929043e751093f96c4b566c394fadda0109717340b2/24f1b45955494e64bff0d2491c33ce0e/attempt.json",
+          "rebids": 1,
+          "sha256": "89b08f6bc1d20f3218544acd3809ac25f2f3548655e9aad68b8257d171601548",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "complete"
+        },
+        {
+          "administration_ns": 2179166928,
+          "end_to_end_ns": 5857615167,
+          "instance_id": "54c33f200cd396ce695885bb0d262185f755a3567f836e82a552520dd003f0e3",
+          "method_config": {
+            "allocator": {
+              "c_min": 4.2e-08,
+              "fallback_length": 4,
+              "model_hash": "861f04c9e7c9c91342833668d2d6765ddc6df914f1363450ff839da1d22fbe47",
+              "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/models/final/ridge1-seed17.json",
+              "policy": "local",
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "kind": "shared",
+            "learned": {
+              "behavior_seed": 17,
+              "compact_logging": true,
+              "epsilon": 0.2,
+              "max_decisions": 512,
+              "pool_seed": 17,
+              "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+              "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+            },
+            "lease_lengths": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32,
+              64
+            ],
+            "name": "local-historical-asset",
+            "pool_size": 128
+          },
+          "path": "artifacts/task13/validation-8427315832/attempts/e513074f5566bcfe37c24858abedd705806f271de46bf64c6b58ce0e48eb538e/6383823a29714d4f89ba4df3c0ef077e/attempt.json",
+          "rebids": 174,
+          "sha256": "e5aa4b2b79c79a4826b99c9e18fc30ea64df2b17da560ecae5c68f507af94058",
+          "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+          "status": "complete"
+        }
+      ],
+      "total_end_to_end_ns": 19324714040
+    }
+  ],
+  "donor_limit": "Task13 historical local asset, not direct primary A latency; full rebid interval, not inference-only",
+  "dose_ns": [
+    0,
+    4000000,
+    10000000
+  ],
+  "files_sha256": {
+    "artifacts/checks/task3/reference-preservation.json": "9939b74bf111088a80cfa421707b298badf164c3476eee67026b32457e447f40",
+    "artifacts/checks/task3/verification.json": "845c1ab9cef579beb651995080bc83da7b0922989748a359083081d1b393bc6d",
+    "artifacts/task13/split_ownership.json": "c1c90829706ced16ad60e2a118641d2f4cd63c703a0c88c7ceb20f62c671bbe2",
+    "artifacts/task13/validation-inputs/0b03a496455c9acf1528cd667fba3e37de2c1e35ec7cc7c7a79dff7f79b31c8b.json": "7af2c94b0e784055fe8b2c1bb64bfd0414da225b7db9f2ae032996536e8332af",
+    "artifacts/task13/validation-inputs/54c33f200cd396ce695885bb0d262185f755a3567f836e82a552520dd003f0e3.json": "d25457c2866d600de051635221397fd5ecedfd65a51e360062c579cc6e1a35d4",
+    "artifacts/task13/validation-inputs/6f5aafc7ab79e7c3d5bb2e3d61738b84a33c66f1a057fd57c443900280418a90.json": "efae133f051aac1712813f53354f8d8485d22362dd3ec3403ddccf4e9c5a1654",
+    "artifacts/task13/validation-inputs/a9b332d8d740ef1f1b3a3a813b1bc5f5e1f4bbe6124f906272a78f8351f483ba.json": "42a40a85e64e998767e6876153753a263c3797f7200656accc554ef6df992646",
+    "artifacts/task13/validation-inputs/edc897bda8be24e091a7f197bd2a4c78128ba4181b4cd015c2ddfa866f2698ab.json": "567b12dbb06a784a57b710e29c0c3e3496aec726b2a11819bc9b35cee0e06a9c",
+    "artifacts/task13/validation-inputs/f3dc9dcf6d5193470d5e435e28aedfa5979ecbf07aaeda4f17aeb875e483b8bb.json": "b2638a492e725ec091261764daa953e7fbb590ac9cc43f9a0e531de39ca34ec7",
+    "artifacts/task13/validation-inputs/selected-manifest.json": "bf40b9e56828d5652b0744218d84c0144659f246167a99543985c05c3f734636",
+    "checks/task18_latency.py": "d093fc08063c79c82e17e1943ff4399081b897aba202d6ff33511132a343e04d",
+    "configs/confirmatory-A004.json": "e13f31a7b098f372e12d653e46513d9f2d52fd587cb5841aff36ffbd8f36bffe",
+    "configs/robustness.json": "8f09795a822032e8469414f8f3c2a2ec2e878abe27e0cf2f2fa4d47aee295214",
+    "configs/workload_manifest.json": "9f0de3b20abe5ca4acd46d4e3822daef5b5bb16b861ef6ead3e3c9df869db127",
+    "docs/superpowers/evidence/task18/prepare-protocol.py": "66d6177d77198df621d55861ae831d3acad43fe57ff75221106fe2f4dbbd2864",
+    "protocol/task18-latency.md": "16bdb8148b48e9766939217549e5d984a2644bb417e2f8648c22a816c12c1171"
+  },
+  "fit_count": 0,
+  "fixed_components": [
+    "B2 estimate ordering",
+    "length1",
+    "K128",
+    "solver/pool seed17",
+    "native kernel",
+    "original inputs",
+    "cold receipt deadline",
+    "one thread"
+  ],
+  "forecast": {
+    "basis": "existing six-request middle B2 block 5.717441333s; sleep can lengthen requests, overshoot/publication extra",
+    "expected_elapsed_seconds": [
+      35,
+      50
+    ],
+    "scheduled_budget_ns": 75845842488,
+    "watchdog_grace_ns_per_request": 2000000000
+  },
+  "frozen_candidate_hash": "cf9e744d92fb4a392b746931b4aea3e9b988d0aa1097a720f6c9a4fbea95f31a",
+  "frozen_candidate_reference_only": {
+    "allocator": {
+      "c_min": 4.2e-08,
+      "fallback_length": 4,
+      "model_hash": "8aca421ab3a648b5555e0eee826094e2b073bf9cec1856bb22321f2a0b519d58",
+      "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/models/B5/ridge1-seed17.json",
+      "policy": "local",
+      "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+      "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+    },
+    "kind": "shared",
+    "learned": {
+      "behavior_seed": 17,
+      "compact_logging": true,
+      "epsilon": 0.2,
+      "max_decisions": 4096,
+      "pool_seed": 17,
+      "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+      "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+    },
+    "name": "local-matched-ridge1-seed17",
+    "pool_size": 128
+  },
+  "gates": {
+    "optimization": "no expansion without controller measurement/forecast",
+    "other_robustness": "unexecuted; smallest latency treatment selected",
+    "population": "unexecuted; no representation-specific resource question",
+    "promotion": "requires amendment and fresh protected confirmation"
+  },
+  "independent_originals": 6,
+  "limits": [
+    "two repeats are not independent originals",
+    "one budget and six designed public originals",
+    "sleep does not reproduce CPU/cache/model information effects",
+    "changed timing can change native trajectory",
+    "no causal attribution of all A loss",
+    "no primary inference or bootstrap"
+  ],
+  "requests": [
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "6f5aafc7ab79e7c3d5bb2e3d61738b84a33c66f1a057fd57c443900280418a90",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/6f5aafc7ab79e7c3d5bb2e3d61738b84a33c66f1a057fd57c443900280418a90.json",
+      "instance_sha256": "efae133f051aac1712813f53354f8d8485d22362dd3ec3403ddccf4e9c5a1654",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-10ms-r0",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 10000000,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-10ms-r0",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 3456,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "bf69139cd337beb4f2415ac9c98455386f43b4bdb86931f1732359eec2624ccb",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "6f5aafc7ab79e7c3d5bb2e3d61738b84a33c66f1a057fd57c443900280418a90",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/6f5aafc7ab79e7c3d5bb2e3d61738b84a33c66f1a057fd57c443900280418a90.json",
+      "instance_sha256": "efae133f051aac1712813f53354f8d8485d22362dd3ec3403ddccf4e9c5a1654",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-10ms-r1",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 10000000,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-10ms-r1",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 3456,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "26e36818023cb91906086ba75b827230a71ad0faf800847ec1c8122ccc0a1233",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "6f5aafc7ab79e7c3d5bb2e3d61738b84a33c66f1a057fd57c443900280418a90",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/6f5aafc7ab79e7c3d5bb2e3d61738b84a33c66f1a057fd57c443900280418a90.json",
+      "instance_sha256": "efae133f051aac1712813f53354f8d8485d22362dd3ec3403ddccf4e9c5a1654",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-4ms-r1",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 4000000,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-4ms-r1",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 3456,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "11161da152b3389e936d97ebf82e0871aeb4804840cdc952c4808fbba829342e",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "6f5aafc7ab79e7c3d5bb2e3d61738b84a33c66f1a057fd57c443900280418a90",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/6f5aafc7ab79e7c3d5bb2e3d61738b84a33c66f1a057fd57c443900280418a90.json",
+      "instance_sha256": "efae133f051aac1712813f53354f8d8485d22362dd3ec3403ddccf4e9c5a1654",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-0ms-r1",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 0,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-0ms-r1",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 3456,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "7c92f95e3b017098ef9211581f354808d4816de62c6b843ae056d04ff98c4519",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "6f5aafc7ab79e7c3d5bb2e3d61738b84a33c66f1a057fd57c443900280418a90",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/6f5aafc7ab79e7c3d5bb2e3d61738b84a33c66f1a057fd57c443900280418a90.json",
+      "instance_sha256": "efae133f051aac1712813f53354f8d8485d22362dd3ec3403ddccf4e9c5a1654",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-0ms-r0",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 0,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-0ms-r0",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 3456,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "b97c749c55502a2d6566df1a55b2690d292d3d64d9675196b111370432ce583b",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "6f5aafc7ab79e7c3d5bb2e3d61738b84a33c66f1a057fd57c443900280418a90",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/6f5aafc7ab79e7c3d5bb2e3d61738b84a33c66f1a057fd57c443900280418a90.json",
+      "instance_sha256": "efae133f051aac1712813f53354f8d8485d22362dd3ec3403ddccf4e9c5a1654",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-4ms-r0",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 4000000,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-4ms-r0",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 3456,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "277033608b3a19115a0d9bcabed75e2791dcc7b1850b088f807a24caf7f0ec12",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "edc897bda8be24e091a7f197bd2a4c78128ba4181b4cd015c2ddfa866f2698ab",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/edc897bda8be24e091a7f197bd2a4c78128ba4181b4cd015c2ddfa866f2698ab.json",
+      "instance_sha256": "567b12dbb06a784a57b710e29c0c3e3496aec726b2a11819bc9b35cee0e06a9c",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-4ms-r1",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 4000000,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-4ms-r1",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 13109,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "8de136a469912f3d941cbb57cac4efef6bbaa677bde36b928c9c5d73b25a2c6e",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "edc897bda8be24e091a7f197bd2a4c78128ba4181b4cd015c2ddfa866f2698ab",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/edc897bda8be24e091a7f197bd2a4c78128ba4181b4cd015c2ddfa866f2698ab.json",
+      "instance_sha256": "567b12dbb06a784a57b710e29c0c3e3496aec726b2a11819bc9b35cee0e06a9c",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-10ms-r1",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 10000000,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-10ms-r1",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 13109,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "29062f33b41097f9ab932b402fd7359811355b8db834536cbe14121c64bb9391",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "edc897bda8be24e091a7f197bd2a4c78128ba4181b4cd015c2ddfa866f2698ab",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/edc897bda8be24e091a7f197bd2a4c78128ba4181b4cd015c2ddfa866f2698ab.json",
+      "instance_sha256": "567b12dbb06a784a57b710e29c0c3e3496aec726b2a11819bc9b35cee0e06a9c",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-10ms-r0",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 10000000,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-10ms-r0",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 13109,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "5fd3176b4e6065438d81e88d56fe45a55431f85145d6df0a65da9f41cb04fa11",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "edc897bda8be24e091a7f197bd2a4c78128ba4181b4cd015c2ddfa866f2698ab",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/edc897bda8be24e091a7f197bd2a4c78128ba4181b4cd015c2ddfa866f2698ab.json",
+      "instance_sha256": "567b12dbb06a784a57b710e29c0c3e3496aec726b2a11819bc9b35cee0e06a9c",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-0ms-r0",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 0,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-0ms-r0",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 13109,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "8ced8cbfc7cfe7599842d2daa8fc8d7965b5943e874802f9beb792927a385810",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "edc897bda8be24e091a7f197bd2a4c78128ba4181b4cd015c2ddfa866f2698ab",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/edc897bda8be24e091a7f197bd2a4c78128ba4181b4cd015c2ddfa866f2698ab.json",
+      "instance_sha256": "567b12dbb06a784a57b710e29c0c3e3496aec726b2a11819bc9b35cee0e06a9c",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-0ms-r1",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 0,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-0ms-r1",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 13109,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "ac2a5814a42a75d0af8b1932bd4d7ea2f014075b70a779d61a6f2bea513ad3bf",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "edc897bda8be24e091a7f197bd2a4c78128ba4181b4cd015c2ddfa866f2698ab",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/edc897bda8be24e091a7f197bd2a4c78128ba4181b4cd015c2ddfa866f2698ab.json",
+      "instance_sha256": "567b12dbb06a784a57b710e29c0c3e3496aec726b2a11819bc9b35cee0e06a9c",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-4ms-r0",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 4000000,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-4ms-r0",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 13109,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "0fb79d17d568768bb1a631a0e07edff0beca8b8e8f05ee36853841e33996cce2",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "0b03a496455c9acf1528cd667fba3e37de2c1e35ec7cc7c7a79dff7f79b31c8b",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/0b03a496455c9acf1528cd667fba3e37de2c1e35ec7cc7c7a79dff7f79b31c8b.json",
+      "instance_sha256": "7af2c94b0e784055fe8b2c1bb64bfd0414da225b7db9f2ae032996536e8332af",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-4ms-r1",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 4000000,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-4ms-r1",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 3692,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "63974c8612b064908dcf62bfc812afbb392713948f68fd7534951e95fe08fd37",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "0b03a496455c9acf1528cd667fba3e37de2c1e35ec7cc7c7a79dff7f79b31c8b",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/0b03a496455c9acf1528cd667fba3e37de2c1e35ec7cc7c7a79dff7f79b31c8b.json",
+      "instance_sha256": "7af2c94b0e784055fe8b2c1bb64bfd0414da225b7db9f2ae032996536e8332af",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-10ms-r0",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 10000000,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-10ms-r0",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 3692,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "ba7732ddf1b71ab17660eb2ad75caf282f7a21f6e1a822f8058e71c4a302f601",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "0b03a496455c9acf1528cd667fba3e37de2c1e35ec7cc7c7a79dff7f79b31c8b",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/0b03a496455c9acf1528cd667fba3e37de2c1e35ec7cc7c7a79dff7f79b31c8b.json",
+      "instance_sha256": "7af2c94b0e784055fe8b2c1bb64bfd0414da225b7db9f2ae032996536e8332af",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-0ms-r0",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 0,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-0ms-r0",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 3692,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "03d5d1d51a71117e8d5d0305674c0582a3a41dc7b9e5196b78511d31e75b6d9c",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "0b03a496455c9acf1528cd667fba3e37de2c1e35ec7cc7c7a79dff7f79b31c8b",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/0b03a496455c9acf1528cd667fba3e37de2c1e35ec7cc7c7a79dff7f79b31c8b.json",
+      "instance_sha256": "7af2c94b0e784055fe8b2c1bb64bfd0414da225b7db9f2ae032996536e8332af",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-0ms-r1",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 0,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-0ms-r1",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 3692,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "c84f0a795479f7edade90dff3da983efa5cf26e909be9e0ff8c3b6069c2901b6",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "0b03a496455c9acf1528cd667fba3e37de2c1e35ec7cc7c7a79dff7f79b31c8b",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/0b03a496455c9acf1528cd667fba3e37de2c1e35ec7cc7c7a79dff7f79b31c8b.json",
+      "instance_sha256": "7af2c94b0e784055fe8b2c1bb64bfd0414da225b7db9f2ae032996536e8332af",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-4ms-r0",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 4000000,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-4ms-r0",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 3692,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "4cfdd72f06165d5a2868ad8d2c6f3a90684bf9d461bafcbf22210cbcff8945b7",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "0b03a496455c9acf1528cd667fba3e37de2c1e35ec7cc7c7a79dff7f79b31c8b",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/0b03a496455c9acf1528cd667fba3e37de2c1e35ec7cc7c7a79dff7f79b31c8b.json",
+      "instance_sha256": "7af2c94b0e784055fe8b2c1bb64bfd0414da225b7db9f2ae032996536e8332af",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-10ms-r1",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 10000000,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-10ms-r1",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 3692,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "66c1de47d618c62ebad345f8d0c7237cf16131d786c5f3501e04f526591f1e09",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "54c33f200cd396ce695885bb0d262185f755a3567f836e82a552520dd003f0e3",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/54c33f200cd396ce695885bb0d262185f755a3567f836e82a552520dd003f0e3.json",
+      "instance_sha256": "d25457c2866d600de051635221397fd5ecedfd65a51e360062c579cc6e1a35d4",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-4ms-r1",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 4000000,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-4ms-r1",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 13051,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "11addfb945e9648c027ce77b0085fcd4874c68be4f3a76832b6c29a16cc7ac4e",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "54c33f200cd396ce695885bb0d262185f755a3567f836e82a552520dd003f0e3",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/54c33f200cd396ce695885bb0d262185f755a3567f836e82a552520dd003f0e3.json",
+      "instance_sha256": "d25457c2866d600de051635221397fd5ecedfd65a51e360062c579cc6e1a35d4",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-4ms-r0",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 4000000,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-4ms-r0",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 13051,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "60ede7d8872a6b3180475e373e1cdfd52d988dda8b6b8524b768d71588ae2df0",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "54c33f200cd396ce695885bb0d262185f755a3567f836e82a552520dd003f0e3",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/54c33f200cd396ce695885bb0d262185f755a3567f836e82a552520dd003f0e3.json",
+      "instance_sha256": "d25457c2866d600de051635221397fd5ecedfd65a51e360062c579cc6e1a35d4",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-0ms-r0",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 0,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-0ms-r0",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 13051,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "66896217352e4c74a5c07b094ea83969cb8cd175e2916de1968dbb09fa9fdfee",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "54c33f200cd396ce695885bb0d262185f755a3567f836e82a552520dd003f0e3",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/54c33f200cd396ce695885bb0d262185f755a3567f836e82a552520dd003f0e3.json",
+      "instance_sha256": "d25457c2866d600de051635221397fd5ecedfd65a51e360062c579cc6e1a35d4",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-10ms-r1",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 10000000,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-10ms-r1",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 13051,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "d5f0cb708ad417b555ca52a82f5d2584f017578c2918bf8b35d44674a65c9af4",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "54c33f200cd396ce695885bb0d262185f755a3567f836e82a552520dd003f0e3",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/54c33f200cd396ce695885bb0d262185f755a3567f836e82a552520dd003f0e3.json",
+      "instance_sha256": "d25457c2866d600de051635221397fd5ecedfd65a51e360062c579cc6e1a35d4",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-0ms-r1",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 0,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-0ms-r1",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 13051,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "a011ba58007a2350bc0c611dd0b32d3361303caa39a6168eae0d1a0f549f6bdd",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "54c33f200cd396ce695885bb0d262185f755a3567f836e82a552520dd003f0e3",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/54c33f200cd396ce695885bb0d262185f755a3567f836e82a552520dd003f0e3.json",
+      "instance_sha256": "d25457c2866d600de051635221397fd5ecedfd65a51e360062c579cc6e1a35d4",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-10ms-r0",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 10000000,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-10ms-r0",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 13051,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "48c3eb1b4d4c9ee7532e3f52a9c63793870b67313e4ce8a8af591608d0f1bd67",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "f3dc9dcf6d5193470d5e435e28aedfa5979ecbf07aaeda4f17aeb875e483b8bb",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/f3dc9dcf6d5193470d5e435e28aedfa5979ecbf07aaeda4f17aeb875e483b8bb.json",
+      "instance_sha256": "b2638a492e725ec091261764daa953e7fbb590ac9cc43f9a0e531de39ca34ec7",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-0ms-r1",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 0,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-0ms-r1",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 3436,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "a68974dfe361685e99d8f050edfab37c4cd8998d1df78d9abbb0ce5b131856d8",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "f3dc9dcf6d5193470d5e435e28aedfa5979ecbf07aaeda4f17aeb875e483b8bb",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/f3dc9dcf6d5193470d5e435e28aedfa5979ecbf07aaeda4f17aeb875e483b8bb.json",
+      "instance_sha256": "b2638a492e725ec091261764daa953e7fbb590ac9cc43f9a0e531de39ca34ec7",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-4ms-r1",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 4000000,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-4ms-r1",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 3436,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "35bb7dbc83509efe945192e99882b57cff3e732c8a0024a30eba8244edaf14a1",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "f3dc9dcf6d5193470d5e435e28aedfa5979ecbf07aaeda4f17aeb875e483b8bb",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/f3dc9dcf6d5193470d5e435e28aedfa5979ecbf07aaeda4f17aeb875e483b8bb.json",
+      "instance_sha256": "b2638a492e725ec091261764daa953e7fbb590ac9cc43f9a0e531de39ca34ec7",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-10ms-r1",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 10000000,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-10ms-r1",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 3436,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "ec5867bc5d2df04294360cc26ee4609ec97ce817d71c148d1f4dff1825f843ed",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "f3dc9dcf6d5193470d5e435e28aedfa5979ecbf07aaeda4f17aeb875e483b8bb",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/f3dc9dcf6d5193470d5e435e28aedfa5979ecbf07aaeda4f17aeb875e483b8bb.json",
+      "instance_sha256": "b2638a492e725ec091261764daa953e7fbb590ac9cc43f9a0e531de39ca34ec7",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-0ms-r0",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 0,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-0ms-r0",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 3436,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "c6decaae8fed7540f56ed7721418bd3d8d9883df0e2576f9fc0be0aa24025b1e",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "f3dc9dcf6d5193470d5e435e28aedfa5979ecbf07aaeda4f17aeb875e483b8bb",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/f3dc9dcf6d5193470d5e435e28aedfa5979ecbf07aaeda4f17aeb875e483b8bb.json",
+      "instance_sha256": "b2638a492e725ec091261764daa953e7fbb590ac9cc43f9a0e531de39ca34ec7",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-4ms-r0",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 4000000,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-4ms-r0",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 3436,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "9a2307a74bbd2aa89d0dae367c1ddc931cce87543bec2bd3ab4188d6455ae1ac",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "f3dc9dcf6d5193470d5e435e28aedfa5979ecbf07aaeda4f17aeb875e483b8bb",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/f3dc9dcf6d5193470d5e435e28aedfa5979ecbf07aaeda4f17aeb875e483b8bb.json",
+      "instance_sha256": "b2638a492e725ec091261764daa953e7fbb590ac9cc43f9a0e531de39ca34ec7",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-10ms-r0",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 10000000,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-10ms-r0",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 3436,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "899615b1380843a8ea13ae2c978b9c408acfcc4724acfffdf2c53e5a9bf5114c",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "a9b332d8d740ef1f1b3a3a813b1bc5f5e1f4bbe6124f906272a78f8351f483ba",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/a9b332d8d740ef1f1b3a3a813b1bc5f5e1f4bbe6124f906272a78f8351f483ba.json",
+      "instance_sha256": "42a40a85e64e998767e6876153753a263c3797f7200656accc554ef6df992646",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-4ms-r0",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 4000000,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-4ms-r0",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 15433,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "96beace13572e92862465c6c2bd0c8a9f8775e4b5974e9d7c2829cdb2a3e3923",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "a9b332d8d740ef1f1b3a3a813b1bc5f5e1f4bbe6124f906272a78f8351f483ba",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/a9b332d8d740ef1f1b3a3a813b1bc5f5e1f4bbe6124f906272a78f8351f483ba.json",
+      "instance_sha256": "42a40a85e64e998767e6876153753a263c3797f7200656accc554ef6df992646",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-0ms-r0",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 0,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-0ms-r0",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 15433,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "b88afdbda721ac8670738082adcc0a55c39a697c0fb88d444af8c917c8cf0880",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "a9b332d8d740ef1f1b3a3a813b1bc5f5e1f4bbe6124f906272a78f8351f483ba",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/a9b332d8d740ef1f1b3a3a813b1bc5f5e1f4bbe6124f906272a78f8351f483ba.json",
+      "instance_sha256": "42a40a85e64e998767e6876153753a263c3797f7200656accc554ef6df992646",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-4ms-r1",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 4000000,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-4ms-r1",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 15433,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "16427afa5fd689e6d7706f859e76e07e2d0af00899959d8f49fd29615f56f65b",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "a9b332d8d740ef1f1b3a3a813b1bc5f5e1f4bbe6124f906272a78f8351f483ba",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/a9b332d8d740ef1f1b3a3a813b1bc5f5e1f4bbe6124f906272a78f8351f483ba.json",
+      "instance_sha256": "42a40a85e64e998767e6876153753a263c3797f7200656accc554ef6df992646",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-10ms-r0",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 10000000,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-10ms-r0",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 15433,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "9d48f6c7a10b404ca1faaea75c5ffbca291ed7623d61a3055861c6c876d963d8",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "a9b332d8d740ef1f1b3a3a813b1bc5f5e1f4bbe6124f906272a78f8351f483ba",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/a9b332d8d740ef1f1b3a3a813b1bc5f5e1f4bbe6124f906272a78f8351f483ba.json",
+      "instance_sha256": "42a40a85e64e998767e6876153753a263c3797f7200656accc554ef6df992646",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-0ms-r1",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 0,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-0ms-r1",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 15433,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "bd9e595f204fb06f987410e27fb76e994ecb174c3b9370e5b9d4c8de89a9dc43",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    {
+      "bound_tolerance": 1e-06,
+      "budget_ns": 2106828958,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "code_hash": "347d15600e5bb7e52aa700770df6967ded69c73439951ad5dc1a6f1d072eb4fe",
+      "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+      "deadline_ns": null,
+      "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+      "instance_hash": "a9b332d8d740ef1f1b3a3a813b1bc5f5e1f4bbe6124f906272a78f8351f483ba",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/a9b332d8d740ef1f1b3a3a813b1bc5f5e1f4bbe6124f906272a78f8351f483ba.json",
+      "instance_sha256": "42a40a85e64e998767e6876153753a263c3797f7200656accc554ef6df992646",
+      "integrality_tolerance": 1e-06,
+      "launch_ns": null,
+      "method": "B2-delay-10ms-r1",
+      "method_config": {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "diagnostic_delay_ns": 10000000,
+        "kind": "shared",
+        "lease_lengths": [
+          1
+        ],
+        "name": "B2-delay-10ms-r1",
+        "pool_size": 128
+      },
+      "model_hash": null,
+      "model_path": null,
+      "p0": 15433,
+      "phase": "validation",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "request_id": "7b77423aa4ff1d61c684eeffe7ecdf114c622fc29b99b63f8f4eebe82fc2b274",
+      "schema_version": 1,
+      "solver_seed": 17,
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    }
+  ],
+  "schedule": {
+    "config": {
+      "bound_tolerance": 1e-06,
+      "budgets_ns": [
+        2106828958
+      ],
+      "input_manifests": [
+        "../artifacts/task13/validation-inputs/selected-manifest.json"
+      ],
+      "integrality_tolerance": 1e-06,
+      "lease_lengths": [
+        1
+      ],
+      "methods": [
+        {
+          "allocator": {
+            "length": 1,
+            "policy": "estimate"
+          },
+          "diagnostic_delay_ns": 0,
+          "kind": "shared",
+          "name": "B2-delay-0ms-r0",
+          "pool_size": 128
+        },
+        {
+          "allocator": {
+            "length": 1,
+            "policy": "estimate"
+          },
+          "diagnostic_delay_ns": 4000000,
+          "kind": "shared",
+          "name": "B2-delay-4ms-r0",
+          "pool_size": 128
+        },
+        {
+          "allocator": {
+            "length": 1,
+            "policy": "estimate"
+          },
+          "diagnostic_delay_ns": 10000000,
+          "kind": "shared",
+          "name": "B2-delay-10ms-r0",
+          "pool_size": 128
+        },
+        {
+          "allocator": {
+            "length": 1,
+            "policy": "estimate"
+          },
+          "diagnostic_delay_ns": 0,
+          "kind": "shared",
+          "name": "B2-delay-0ms-r1",
+          "pool_size": 128
+        },
+        {
+          "allocator": {
+            "length": 1,
+            "policy": "estimate"
+          },
+          "diagnostic_delay_ns": 4000000,
+          "kind": "shared",
+          "name": "B2-delay-4ms-r1",
+          "pool_size": 128
+        },
+        {
+          "allocator": {
+            "length": 1,
+            "policy": "estimate"
+          },
+          "diagnostic_delay_ns": 10000000,
+          "kind": "shared",
+          "name": "B2-delay-10ms-r1",
+          "pool_size": 128
+        }
+      ],
+      "purpose": "exploratory",
+      "run_order_seed": 2026101418,
+      "schema_version": 1,
+      "solver_seeds": [
+        17
+      ],
+      "threads": 1,
+      "watchdog_grace_ns": 2000000000
+    },
+    "config_hash": "4c5a123fa50710fe5bc0f2b0d33fee6641e61e89eb6fcacc940856edfe5edd5d",
+    "config_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/robustness.json",
+    "input_manifest_sha256": {
+      "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/split_ownership.json": "c1c90829706ced16ad60e2a118641d2f4cd63c703a0c88c7ceb20f62c671bbe2",
+      "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/validation-inputs/selected-manifest.json": "bf40b9e56828d5652b0744218d84c0144659f246167a99543985c05c3f734636"
+    },
+    "inventory": {
+      "environment": {
+        "build": {
+          "libgcc_s.1.1.dylib": "c616af1deb109f5092b1ea909d18e148eb18d42ecac6fd8511173fe66c9bfd5f",
+          "libgfortran.5.dylib": "c07a8e5be88342a0f58ce1c44eb087997e66eb8f509e4e0677bb4be67a1a5398",
+          "libquadmath.0.dylib": "9de838c46c0690b2694d6d5855b5914aeb0abcaf3eaf31611222c22e2901afd7",
+          "libscip.10.0.dylib": "8a72aec2ded10be7d8384fae2f49a6f2da4fc4d05e7f7d0527fccc9aae893f4d",
+          "scip.cpython-312-darwin.so": "8a09b2382315c55891d27e755f9b64a09e0314a22ada291bb08893e274e68db8"
+        },
+        "executable": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/.venv/bin/python",
+        "machine": "arm64",
+        "packages": {
+          "PySCIPOpt": "6.3.0",
+          "Pygments": "2.21.0",
+          "cloudpickle": "3.1.2",
+          "iniconfig": "2.3.1",
+          "joblib": "1.6.0",
+          "narwhals": "2.27.1",
+          "numpy": "2.5.4",
+          "packaging": "26.3",
+          "pip": "26.2.1",
+          "pluggy": "1.6.0",
+          "psutil": "7.2.2",
+          "pytest": "9.1.1",
+          "ra": "0.1.0",
+          "scikit-learn": "1.9.1",
+          "scipy": "1.18.1",
+          "threadpoolctl": "3.7.0"
+        },
+        "platform": "macOS-26.7.1-arm64-arm-64bit",
+        "python": "3.12.9 (main, Feb  4 2025, 14:38:38) [Clang 16.0.0 (clang-1600.0.26.6)]"
+      },
+      "sources": {
+        "__init__.py": "af231eb3ba064a73f3f70e7e506d6685a6452c6d46291578fa25bfe1e76aaa23",
+        "allocators.py": "e731c8d398d6d1478e338a8eee89a699c1f92d74e6b18e5eae265dd25e8478db",
+        "baselines/__init__.py": "5cb0ba88a9f4f38c3da4511f16d5949087eb62cf0e55d600eb039db3f25ad294",
+        "baselines/register.py": "b94816ead8f4ab254dc20b935371228edbbb42885e4e99bd4275fa9206f3f5a1",
+        "candidates.py": "be5f6e872511bb5dd51de0fcf23c95bf8638572f7f5df09cfcc41509d7181f0f",
+        "checks.py": "4bc71d7d9888cd9429467f45c1b7648224d05a2c265c0897eb2b230057e59d1f",
+        "cli.py": "77babbc46d095970493b959f45f31cdf1c12fb2ee79e809a7f51a4c1e5cee616",
+        "collect.py": "be5b994a6233e77cfcad2d064ee9a6d9871d13b87490de97960b9af7d15c7499",
+        "config.py": "b55d8205ace945cb4c0a2f3042f6da40a57462e9714f792dfa840f67195a1e84",
+        "data.py": "192d610322527b87c148c071d7d554cf7834c50fd00ada4e2d243dbf2aee576d",
+        "doctor.py": "629d86ada68f6c0c37a508c4d4b7338f1a67229b5990bb6f2103d3ed567b294b",
+        "exact.py": "455683ed023d7b00604b27d2db16d5098323a4726dd7efb5469de7c9fe690b0c",
+        "features.py": "ec2831b74de4f27f47903d422ac09937cf8e35ec8c035b84dd2227772927573f",
+        "freeze.py": "2e5e602187951dd7348a983af4a23fc4ea1f5c7d2013dd580136d76634526d2c",
+        "leases.py": "10532de9104133753b5a2dfb29d812fa6abb7807887d3ca6b6439f7075fd2f15",
+        "ledger.py": "94500f07b4d1aefa63d7cea11d6ddfe2fc37582ef46349fcaa7885f7e791dcab",
+        "metrics.py": "bf5620406a10b574e601ee9c97d981f971f522555d800730b055e412da05327c",
+        "models.py": "9604dcf4b17ed2c0721db94783db011e601420b70d207b016764e19eccb6bf9f",
+        "observer.py": "074a92b6cde7497838c08ec6f69812a2fde1bbbcd9b36f118a3a60250699d6d1",
+        "pilot.py": "2f83ac72c7f9dc9a86b69882309f5da222620e0963ae0777b8ee52bc2941f5f9",
+        "provenance.py": "97ea0ade60db01db82595423f4a88e36a6352b5451b7f46ee50dc28798770c61",
+        "report.py": "ff318c98dbb91a73cc25a89482b40be2d30d2695ca64f1dfed90c7b7edd67e6b",
+        "runner.py": "0df5774858e4c955625386a656971c6850f47d1ea9d850ac95275c2cb69adb83",
+        "scip_backend.py": "cc818d99f69f338c6d7f139db95647fd0618c14841ed064f2277b7d92cbc2a89",
+        "stats.py": "486bdc1960e65f5a970dd4fa3d903fe446b436ce4e0627c9ac2c9772d0b51bd4",
+        "train.py": "af799236c1771fa5273f4b33667c626f2e20f736ee5059f9e0dd742797f80826",
+        "types.py": "c904185d7f16dab79e8fad1ac95d6054eccb3782ab364149122d452c7741884a",
+        "worker.py": "fa576745826e3019a3fe38da454571f4d38a9b6e7cba1e362dde2ea3d3fa5e82"
+      }
+    },
+    "phase": "validation",
+    "request_order": [
+      "bf69139cd337beb4f2415ac9c98455386f43b4bdb86931f1732359eec2624ccb",
+      "26e36818023cb91906086ba75b827230a71ad0faf800847ec1c8122ccc0a1233",
+      "11161da152b3389e936d97ebf82e0871aeb4804840cdc952c4808fbba829342e",
+      "7c92f95e3b017098ef9211581f354808d4816de62c6b843ae056d04ff98c4519",
+      "b97c749c55502a2d6566df1a55b2690d292d3d64d9675196b111370432ce583b",
+      "277033608b3a19115a0d9bcabed75e2791dcc7b1850b088f807a24caf7f0ec12",
+      "8de136a469912f3d941cbb57cac4efef6bbaa677bde36b928c9c5d73b25a2c6e",
+      "29062f33b41097f9ab932b402fd7359811355b8db834536cbe14121c64bb9391",
+      "5fd3176b4e6065438d81e88d56fe45a55431f85145d6df0a65da9f41cb04fa11",
+      "8ced8cbfc7cfe7599842d2daa8fc8d7965b5943e874802f9beb792927a385810",
+      "ac2a5814a42a75d0af8b1932bd4d7ea2f014075b70a779d61a6f2bea513ad3bf",
+      "0fb79d17d568768bb1a631a0e07edff0beca8b8e8f05ee36853841e33996cce2",
+      "63974c8612b064908dcf62bfc812afbb392713948f68fd7534951e95fe08fd37",
+      "ba7732ddf1b71ab17660eb2ad75caf282f7a21f6e1a822f8058e71c4a302f601",
+      "03d5d1d51a71117e8d5d0305674c0582a3a41dc7b9e5196b78511d31e75b6d9c",
+      "c84f0a795479f7edade90dff3da983efa5cf26e909be9e0ff8c3b6069c2901b6",
+      "4cfdd72f06165d5a2868ad8d2c6f3a90684bf9d461bafcbf22210cbcff8945b7",
+      "66c1de47d618c62ebad345f8d0c7237cf16131d786c5f3501e04f526591f1e09",
+      "11addfb945e9648c027ce77b0085fcd4874c68be4f3a76832b6c29a16cc7ac4e",
+      "60ede7d8872a6b3180475e373e1cdfd52d988dda8b6b8524b768d71588ae2df0",
+      "66896217352e4c74a5c07b094ea83969cb8cd175e2916de1968dbb09fa9fdfee",
+      "d5f0cb708ad417b555ca52a82f5d2584f017578c2918bf8b35d44674a65c9af4",
+      "a011ba58007a2350bc0c611dd0b32d3361303caa39a6168eae0d1a0f549f6bdd",
+      "48c3eb1b4d4c9ee7532e3f52a9c63793870b67313e4ce8a8af591608d0f1bd67",
+      "a68974dfe361685e99d8f050edfab37c4cd8998d1df78d9abbb0ce5b131856d8",
+      "35bb7dbc83509efe945192e99882b57cff3e732c8a0024a30eba8244edaf14a1",
+      "ec5867bc5d2df04294360cc26ee4609ec97ce817d71c148d1f4dff1825f843ed",
+      "c6decaae8fed7540f56ed7721418bd3d8d9883df0e2576f9fc0be0aa24025b1e",
+      "9a2307a74bbd2aa89d0dae367c1ddc931cce87543bec2bd3ab4188d6455ae1ac",
+      "899615b1380843a8ea13ae2c978b9c408acfcc4724acfffdf2c53e5a9bf5114c",
+      "96beace13572e92862465c6c2bd0c8a9f8775e4b5974e9d7c2829cdb2a3e3923",
+      "b88afdbda721ac8670738082adcc0a55c39a697c0fb88d444af8c917c8cf0880",
+      "16427afa5fd689e6d7706f859e76e07e2d0af00899959d8f49fd29615f56f65b",
+      "9d48f6c7a10b404ca1faaea75c5ffbca291ed7623d61a3055861c6c876d963d8",
+      "bd9e595f204fb06f987410e27fb76e994ecb174c3b9370e5b9d4c8de89a9dc43",
+      "7b77423aa4ff1d61c684eeffe7ecdf114c622fc29b99b63f8f4eebe82fc2b274"
+    ],
+    "schema_version": 1,
+    "serial": true,
+    "threads": 1
+  },
+  "schema_version": 1,
+  "selected_originals": [
+    {
+      "cell_id": "800a449d63f9410e7e56973a909c255ecec8d5e3b59ff27872b6e0dc090201fb",
+      "family": "uniform",
+      "generation_population_weight": 0.08333333333333333,
+      "instance_id": "6f5aafc7ab79e7c3d5bb2e3d61738b84a33c66f1a057fd57c443900280418a90",
+      "path": "6f5aafc7ab79e7c3d5bb2e3d61738b84a33c66f1a057fd57c443900280418a90.json",
+      "population_weight": 0.16666666666666666,
+      "sha256": "efae133f051aac1712813f53354f8d8485d22362dd3ec3403ddccf4e9c5a1654",
+      "template_id": "39607ac0b4c1e59064306c2ad071c872af2aac4b1634cde15c89079991c44d76",
+      "template_index": 0
+    },
+    {
+      "cell_id": "0ee9c8fc8881b0dade66fbdb6276a7fd431ab3ce8e7b56364c95105724555233",
+      "family": "uniform",
+      "generation_population_weight": 0.08333333333333333,
+      "instance_id": "edc897bda8be24e091a7f197bd2a4c78128ba4181b4cd015c2ddfa866f2698ab",
+      "path": "edc897bda8be24e091a7f197bd2a4c78128ba4181b4cd015c2ddfa866f2698ab.json",
+      "population_weight": 0.16666666666666666,
+      "sha256": "567b12dbb06a784a57b710e29c0c3e3496aec726b2a11819bc9b35cee0e06a9c",
+      "template_id": "cc6476994a7d2502ef56db94abddc2cc318fba532f140964722e5cab471b1da1",
+      "template_index": 2
+    },
+    {
+      "cell_id": "27684ee8780dab526aba88e4ca0a9e1d65bcee255da642521c781ee20c437b74",
+      "family": "block",
+      "generation_population_weight": 0.08333333333333333,
+      "instance_id": "0b03a496455c9acf1528cd667fba3e37de2c1e35ec7cc7c7a79dff7f79b31c8b",
+      "path": "0b03a496455c9acf1528cd667fba3e37de2c1e35ec7cc7c7a79dff7f79b31c8b.json",
+      "population_weight": 0.16666666666666666,
+      "sha256": "7af2c94b0e784055fe8b2c1bb64bfd0414da225b7db9f2ae032996536e8332af",
+      "template_id": "12766263086693ad32ae6ecc00d12ae51abca93aaa67b236b92ea35a944e0b29",
+      "template_index": 4
+    },
+    {
+      "cell_id": "4bb266ead6b231915a078f695c36a11e033dd95b2f0c93f1662d12f580aad368",
+      "family": "block",
+      "generation_population_weight": 0.08333333333333333,
+      "instance_id": "54c33f200cd396ce695885bb0d262185f755a3567f836e82a552520dd003f0e3",
+      "path": "54c33f200cd396ce695885bb0d262185f755a3567f836e82a552520dd003f0e3.json",
+      "population_weight": 0.16666666666666666,
+      "sha256": "d25457c2866d600de051635221397fd5ecedfd65a51e360062c579cc6e1a35d4",
+      "template_id": "fe95b93e1e0ee0ceb3460cb3feed12c7d3690d86f5f88e7dc77848dd0617a63c",
+      "template_index": 6
+    },
+    {
+      "cell_id": "96ad4726b0f50b8209dd128f0de07c3ba197f25d92651ef9234e3c823eec6978",
+      "family": "redundant",
+      "generation_population_weight": 0.08333333333333333,
+      "instance_id": "f3dc9dcf6d5193470d5e435e28aedfa5979ecbf07aaeda4f17aeb875e483b8bb",
+      "path": "f3dc9dcf6d5193470d5e435e28aedfa5979ecbf07aaeda4f17aeb875e483b8bb.json",
+      "population_weight": 0.16666666666666666,
+      "sha256": "b2638a492e725ec091261764daa953e7fbb590ac9cc43f9a0e531de39ca34ec7",
+      "template_id": "7a5eacb9d34f1df26b4e211e8598a61271afd3694015998972072f805b484f71",
+      "template_index": 8
+    },
+    {
+      "cell_id": "29acec930494b0792cba46c05bd71419482dadde3a7c0156fe5aada63bc399b2",
+      "family": "redundant",
+      "generation_population_weight": 0.08333333333333333,
+      "instance_id": "a9b332d8d740ef1f1b3a3a813b1bc5f5e1f4bbe6124f906272a78f8351f483ba",
+      "path": "a9b332d8d740ef1f1b3a3a813b1bc5f5e1f4bbe6124f906272a78f8351f483ba.json",
+      "population_weight": 0.16666666666666666,
+      "sha256": "42a40a85e64e998767e6876153753a263c3797f7200656accc554ef6df992646",
+      "template_id": "c0f3721ea09c20b6ea10711ca75fc851193781ed16192e10230b1c5ab0880ba7",
+      "template_index": 10
+    }
+  ],
+  "selection_rule": "one original per cell, even generator index 0..10, no outcome screening",
+  "stop": {
+    "check": "after every attempt; fault/quarantine, release/timing failure; no retries",
+    "elapsed_ns": 180000000000,
+    "overshoot_fraction": 0.2
+  },
+  "timing_repeats": 2,
+  "varied_component": "constant post-choice wall latency in charged administration"
+}

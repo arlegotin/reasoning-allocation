@@ -115,3 +115,29 @@ def test_finite_diagnostic_stops_on_fault_overshoot_and_elapsed_cap():
     assert module.stop_reason(a,1,protocol)=='fault_or_quarantine'
     a.status='complete';a.resources['resource_release_confirmed']=False
     assert module.stop_reason(a,1,protocol)=='release_or_timing_failure'
+
+
+def test_prospective_json_roundtrip_executes_and_rejects_changed_request(tmp_path,monkeypatch):
+    from dataclasses import asdict
+    import importlib.util
+    from ra.data import generate_workload
+    spec=importlib.util.spec_from_file_location('task18_roundtrip',Path('checks/task18_latency.py'))
+    module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+    generated=tmp_path/'inputs'
+    generate_workload({'schema_version':1,'purpose':'workload','master_seed':'latency-roundtrip',
+        'templates_per_cell':1,'cells':[{'family':'uniform','columns':8,'rows':8,'degree':4}]},'validation',generated)
+    config=json.loads(configuration(tmp_path).read_text())
+    config.update(input_manifests=[str(generated/'manifest.json')],methods=[delayed_method(0)])
+    (tmp_path/'configs').mkdir();path=tmp_path/'configs/robustness.json';path.write_text(json.dumps(config))
+    requests,metadata=runner.prepare_schedule(path,'validation')
+    protocol={'files_sha256':{},'schedule':metadata,'requests':[asdict(r) for r in requests],
+              'stop':{'overshoot_fraction':.2,'elapsed_ns':180_000_000_000}}
+    pin=tmp_path/'protocol.json';pin.write_text(json.dumps(protocol))
+    monkeypatch.setattr(module,'ROOT',tmp_path);monkeypatch.setattr(module,'PROTOCOL',pin);monkeypatch.setattr(module,'OUT',tmp_path/'out')
+    status=module.execute()
+    assert status['completed_finite_protocol'] and status['completed']==1
+    assert len(list((tmp_path/'out').rglob('attempt.json')))==1
+    protocol['requests'][0]['budget_ns']+=1;pin.write_text(json.dumps(protocol))
+    monkeypatch.setattr(module,'OUT',tmp_path/'rejected')
+    with pytest.raises(ValueError,match='prospective schedule'):module.execute()
+    assert not (tmp_path/'rejected').exists()

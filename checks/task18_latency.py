@@ -9,7 +9,7 @@ import sys
 import tempfile
 import time
 
-from ra.runner import _atomic_json, prepare_schedule, run_request
+from ra.runner import _atomic_json, _digest, prepare_schedule, run_request
 
 ROOT = Path(__file__).resolve().parents[1]
 PROTOCOL = ROOT/'protocol/task18-latency.json'
@@ -42,7 +42,7 @@ def execute():
             if hashlib.sha256((ROOT/name).read_bytes()).hexdigest() != expected:
                 raise ValueError(f'prospective file changed: {name}')
         requests, metadata = prepare_schedule(ROOT/'configs/robustness.json', 'validation')
-        if metadata != protocol['schedule'] or [asdict(r) for r in requests] != protocol['requests']:
+        if metadata != protocol['schedule'] or _digest([asdict(r) for r in requests]) != _digest(protocol['requests']):
             raise ValueError('prospective schedule/source/environment changed')
         OUT.mkdir(parents=True, exist_ok=False)
         _atomic_json(OUT/'protocol-receipt.json', {'path':str(PROTOCOL),
