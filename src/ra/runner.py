@@ -347,13 +347,16 @@ def _run_request(request: Request, out: Path) -> Attempt:
         from ra.collect import finalize_trace
         try:
             resources['collection'] = finalize_trace(out, records, request, timestamps['parent_release_ns'], aligned,
-                resources.get('selection_boundaries', []), status, censored)
+                resources.get('selection_boundaries', []), status, censored,
+                timing_valid=resources.get('timing_instrumentation_failed') is not True)
         except (ValueError, OSError, TypeError) as exc:
             status, error = 'implementation_error', f'collection finalization: {exc}'
     resources['parent_cpu_ns'] = time.process_time_ns() - parent_cpu
     resources['parent_observation_ns_overlapping_worker'] = observation_ns
     resources['trace_bytes'] = sum((out / name).stat().st_size for name in ('wire.jsonl', 'progress.jsonl', 'stdout.log', 'stderr.log'))
-    resources['trace_bytes'] += resources.get('collection', {}).get('trace_bytes', 0)
+    # Finalization may fail after retaining arrays/metadata; count physical
+    # evidence independently of whether a collection summary was published.
+    resources['trace_bytes'] += sum(p.stat().st_size for p in (out / 'trace').rglob('*') if p.is_file())
     resources['clock_max_bracket_ns'] = max((end - start for start, _, end in samples), default=None)
     # Flush trace/log data before the final accounting boundary.
     for path in out.rglob('*'):

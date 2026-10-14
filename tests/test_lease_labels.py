@@ -121,3 +121,56 @@ def test_expired_scoring_rebid_without_dispatched_lease_is_residual():
     # Second callback returns a legal native node solely to unwind an expired
     # scoring decision. It has no actual lease dispatch, so all10ns is residual.
     assert residual_administration(boundaries, dispatched_entries={0}) == 10
+
+
+@pytest.mark.parametrize('reason,deadline', [('ancestor_deleted', 100), ('deadline', 10), ('restart', 100)])
+def test_exact_operational_body_is_eligible_without_natural_completion(reason, deadline):
+    result = label_leases([lease(end_reason=reason, censored=True, natural_completion=False)], [], deadline, 100)[0]
+    assert result['body_fit_eligible'] is True
+    assert result['duration_observation_known'] is True
+    assert result['completion_outcome_known'] is False and result['natural_completion'] is None
+    assert result['body_ns'] == 15 and result['endpoint_gain'] == 0
+
+
+@pytest.mark.parametrize('reason', ['watchdog', 'missing_terminal', 'callback_error', 'numerical_alarm', 'external_interrupt'])
+def test_incomplete_or_faulted_body_evidence_is_not_an_exact_duration_target(reason):
+    result = label_leases([lease(end_reason=reason, natural_completion=False, censored=True)], [], 100, 100)[0]
+    assert result['duration_observation_known'] is False
+    assert result['body_fit_eligible'] is False
+
+
+@pytest.mark.parametrize('changes', [{'entry_ns': float('nan')}, {'dispatch_ns': 5.5, 'body_ns': 14.5},
+                                     {'end_ns': 4, 'body_ns': -1}, {'body_ns': 14}])
+def test_invalid_body_timing_evidence_rejects(changes):
+    with pytest.raises(ValueError):
+        label_leases([lease(**changes)], [], 100, 100)
+
+
+@pytest.mark.parametrize('status,timing_valid,eligible', [('implementation_error', True, True),
+    ('deadline', True, True), ('numerical_alarm', True, False), ('implementation_error', False, False)])
+def test_finalizer_keeps_valid_closed_prefix_separate_from_later_fault(tmp_path, status, timing_valid, eligible):
+    import json
+    from dataclasses import asdict
+    from pathlib import Path
+    from types import SimpleNamespace
+    import numpy as np
+    from ra.collect import TraceWriter, finalize_trace
+    from ra.config import load_feature_schema
+    from ra.runner import _atomic_json
+    trace = tmp_path / 'trace'
+    writer = TraceWriter(trace, load_feature_schema(Path('configs/features.json')), max_decisions=1)
+    allocation = {'root': {'epoch': 1, 'number': 1}, 'node_limit': 1, 'selection_probability': 1.,
+        'policy_state_hash': 'p', 'gain_prediction': None, 'seconds_prediction': None, 'seconds_q90': None}
+    writer.decision(np.zeros(192), {'allocation': allocation, 'pool_ids': [allocation['root']],
+        'pool_hash': 'pool', 'support_lengths': [1], 'support_hash': 'support', 'heuristic': [allocation['root'], 1]})
+    _atomic_json(trace / 'dispatch-000000.json', {'allocation': allocation, 'pool_hash': 'pool',
+        'entry_ns': 0, 'snapshot_ns': 2, 'dispatch_ns': 5, 'local_utility_entry': 0.}, immutable=True)
+    _atomic_json(trace / 'outcome-000000.json', asdict(lease(trace_index=0, end_reason='ancestor_deleted',
+        natural_completion=False, censored=True)), immutable=True)
+    summary = finalize_trace(tmp_path, [], SimpleNamespace(deadline_ns=100, p0=100), 30, True, [], status, True,
+                             timing_valid=timing_valid)
+    label = json.loads((trace / 'label-000000.json').read_text())
+    assert label['body_fit_eligible'] is eligible
+    assert label['duration_observation_known'] is eligible
+    assert label['natural_completion'] is None
+    assert summary['body_fit_eligible'] == int(eligible)

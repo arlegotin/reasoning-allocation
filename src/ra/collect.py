@@ -65,6 +65,9 @@ def label_leases(leases: Sequence[LeaseOutcome], progress: Sequence[ProgressReco
     for lease in leases:
         if lease.dispatch_ns is None:
             continue
+        if any(type(value) is not int or value < 0 for value in
+               (lease.entry_ns, lease.dispatch_ns, lease.end_ns, lease.body_ns)):
+            raise ValueError('body timing requires nonnegative integer nanoseconds')
         if not lease.entry_ns <= lease.dispatch_ns <= lease.end_ns:
             raise ValueError('invalid lease interval')
         if lease.snapshot_ns is not None and not lease.entry_ns <= lease.snapshot_ns <= lease.dispatch_ns:
@@ -75,13 +78,18 @@ def label_leases(leases: Sequence[LeaseOutcome], progress: Sequence[ProgressReco
         end = progress_at(progress, min(lease.end_ns, deadline_ns), p0)
         lower_bound = lease.end_reason in ('watchdog', 'missing_terminal', 'external_interrupt')
         natural = lease.natural_completion and not lease.censored and lease.end_ns <= deadline_ns
+        # The target is consumed dispatch-to-boundary time, not eventual grant
+        # completion. Exact safe stops/deletions remain observed durations.
+        duration_known = lease.end_reason in ('node_limit', 'exhaustion', 'terminal',
+            'ancestor_deleted', 'restart', 'deadline', 'search_exit') and not lower_bound
         labels.append({**asdict(lease), 'admin_ns': lease.dispatch_ns - lease.entry_ns,
                        'full_ns': lease.end_ns - lease.entry_ns, 'endpoint_gain': end.utility - begin.utility,
                        'endpoint_ns': min(lease.end_ns, deadline_ns), 'parent_utility_entry': begin.utility,
                        'parent_utility_end': end.utility, 'last_observation_sequence': end.sequence,
                        'completion_outcome_known': natural, 'natural_completion': True if natural else None,
                        'duration_lower_bound': lower_bound,
-                       'body_fit_eligible': natural and not lower_bound,
+                       'duration_observation_known': duration_known,
+                       'body_fit_eligible': duration_known,
                        'deadline_censored': lease.end_ns > deadline_ns or lease.end_reason == 'deadline',
                        'overshoot_ns': max(0, lease.end_ns - deadline_ns)})
     return labels
@@ -300,7 +308,7 @@ class CollectionRuntime:
         return allocation.root
 
 
-def finalize_trace(out, progress, request, release_ns, aligned, boundaries, status, censored):
+def finalize_trace(out, progress, request, release_ns, aligned, boundaries, status, censored, *, timing_valid=True):
     """Called before parent finalization; retains interrupted evidence and costs."""
     from ra.runner import _atomic_json
     from ra.worker import strict_json
@@ -367,7 +375,8 @@ def finalize_trace(out, progress, request, release_ns, aligned, boundaries, stat
                 label.update(attempt_status=str(status), attempt_duration_censored=censored,
                              gain_fit_eligible=status != 'numerical_alarm' and not label['duration_lower_bound']
                                  and (label['completion_outcome_known'] or status in ('complete', 'deadline')),
-                             body_fit_eligible=label['body_fit_eligible'] and status != 'numerical_alarm')
+                             duration_observation_known=label['duration_observation_known'] and timing_valid and status != 'numerical_alarm',
+                             body_fit_eligible=label['body_fit_eligible'] and timing_valid and status != 'numerical_alarm')
                 _atomic_json(directory / f'label-{index:06d}.json', label, immutable=True)
                 summary['labels'] += 1
                 summary['zero_gains'] += label['endpoint_gain'] == 0

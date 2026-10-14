@@ -25,7 +25,7 @@ def main(output=Path('artifacts/checks/task11')):
     counts, lengths, behaviors, sizes = Counter(), Counter(), Counter(), Counter()
     originals, gains, pools = set(), [], []
     nanoseconds = Counter()
-    attempts = []
+    attempts, eligibility_rows = [], []
     for path in sorted(root.rglob('attempt.json')):
         payload, final = _read_attempt(path.parent)
         assert final and payload['clock_aligned']
@@ -75,7 +75,19 @@ def main(output=Path('artifacts/checks/task11')):
             o = LeaseOutcome(**{**outcome, 'root': NodeKey(**outcome['root'])})
             replay = label_leases([o], progress, request['deadline_ns'], request['p0'])[0]
             for key, value in replay.items():
-                assert value == label[key], (label_path, key)
+                if key not in ('body_fit_eligible', 'duration_observation_known'):
+                    assert value == label[key], (label_path, key)
+            duration_known = (replay['duration_observation_known'] and payload['status'] != 'numerical_alarm'
+                              and payload['resources'].get('timing_instrumentation_failed') is not True)
+            eligibility_rows.append({'source_label': str(label_path),
+                'source_label_sha256': hashlib.sha256(label_path.read_bytes()).hexdigest(),
+                'source_attempt_manifest': str(path),
+                'source_attempt_manifest_sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
+                'attempt_id': payload['attempt_id'], 'request_id': payload['request_id'],
+                'trace_index': label['trace_index'], 'body_ns': label['body_ns'], 'end_reason': label['end_reason'],
+                'historical_body_fit_eligible': label['body_fit_eligible'],
+                'duration_observation_known': duration_known, 'body_fit_eligible': duration_known})
+            counts['eligibility_corrections'] += duration_known != label['body_fit_eligible']
             assert label['body_ns'] + label['admin_ns'] == label['full_ns']
             assert label['entry_ns'] <= label['snapshot_ns'] <= label['dispatch_ns'] <= label['end_ns']
             originals.add(request['instance_hash'])
@@ -84,7 +96,8 @@ def main(output=Path('artifacts/checks/task11')):
             counts['natural_completion_known'] += label['completion_outcome_known']
             counts['deadline_censored_leases'] += label['deadline_censored']
             counts['duration_lower_bound_leases'] += label['duration_lower_bound']
-            counts['body_fit_eligible'] += label['body_fit_eligible']
+            counts['historical_body_fit_eligible'] += label['body_fit_eligible']
+            counts['body_fit_eligible'] += duration_known
             for name in ('admin_ns', 'body_ns', 'full_ns'):
                 nanoseconds[name] += label[name]
             lengths[label['node_limit']] += 1
@@ -103,7 +116,16 @@ def main(output=Path('artifacts/checks/task11')):
         'source_selected_manifest_sha256': hashlib.sha256((root / 'inputs/selected-manifest.json').read_bytes()).hexdigest(),
         'reason': 'original selected manifest retained generator1/12 weights for6 of12; derived scheduled cohort preserves cell mass1/6',
         'instances': corrected['instances']}, immutable=True)
-    report = {'version': 1, 'counts': dict(counts), 'length_counts': dict(lengths), 'behavior_label_counts': dict(behaviors),
+    eligibility_path = output / 'derived-duration-eligibility.json'
+    _atomic_json(eligibility_path, {'schema_version': 2,
+        'target': 'exact consumed dispatch-to-next-rebid or safe-terminal body nanoseconds, separate from natural completion',
+        'raw_eligibility_status': 'superseded; Task12 must join this view by source label path/hash before fitting',
+        'source_hashes': {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for p in
+                          (Path('src/ra/collect.py'), Path('src/ra/runner.py'), Path(__file__))},
+        'historical_eligible': counts['historical_body_fit_eligible'], 'eligible': counts['body_fit_eligible'],
+        'changed': counts['eligibility_corrections'], 'rows': eligibility_rows}, immutable=True)
+    report = {'version': 2, 'duration_eligibility': {'path': str(eligibility_path),
+              'sha256': hashlib.sha256(eligibility_path.read_bytes()).hexdigest()}, 'counts': dict(counts), 'length_counts': dict(lengths), 'behavior_label_counts': dict(behaviors),
               'generated_originals': len(generated['instances']), 'scheduled_originals': len(corrected['instances']),
               'originals_with_labels': len(originals), 'original_ids': sorted(originals), 'sizes': dict(sizes),
               'nanoseconds': dict(nanoseconds), 'pool_min': min(pools), 'pool_max': max(pools),

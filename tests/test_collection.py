@@ -131,7 +131,8 @@ def test_infinite_metadata_serializes_explicitly_without_nonstandard_json(tmp_pa
     assert metadata['context']['native_reference'] == {'nonfinite': '+infinity'}
 
 
-def test_real_collection_guard_is_contained_and_costed(tmp_path):
+@pytest.mark.parametrize('corrupt_array', [False, True])
+def test_real_collection_guard_is_contained_and_costed(tmp_path, monkeypatch, corrupt_array):
     from ra.collect import _collection_plan
     from ra.data import GeneratorCell, generate_cover
     from ra.provenance import derive_seed
@@ -149,16 +150,27 @@ def test_real_collection_guard_is_contained_and_costed(tmp_path):
     request = Request('guard', str(path), hashlib.sha256(path.read_bytes()).hexdigest(), cover.instance_id,
         'a'*64, 'b'*64, 'c'*64, method['name'], 'train', 17, 4_213_657_916, 2_000_000_000,
         sum(cover.costs), method_config={**method, 'lease_lengths': run['lease_lengths']})
+    if corrupt_array:
+        import ra.collect as collection
+        original_finalize = collection.finalize_trace
+        def corrupt_then_finalize(out, *args, **kwargs):
+            next((out / 'trace').glob('selected-*.npy')).write_bytes(b'retained corrupt array')
+            return original_finalize(out, *args, **kwargs)
+        monkeypatch.setattr(collection, 'finalize_trace', corrupt_then_finalize)
     result = run_request(request, tmp_path / 'attempt')
     assert result.status == 'implementation_error', result.error
-    assert 'trace resource limit' in result.error
+    assert ('selected feature hash mismatch' if corrupt_array else 'trace resource limit') in result.error
     assert result.resources['native_released'] and result.resources['resource_release_confirmed']
     assert result.resources['end_to_end_ns'] > 0 and result.resources['worker_cpu_ns'] > 0
-    assert result.resources['collection']['decisions'] == 1
+    if not corrupt_array:
+        assert result.resources['collection']['decisions'] == 1
+    else:
+        assert 'collection' not in result.resources
     assert result.resources['fallback_count'] == 0
     wire_bytes = sum((tmp_path / 'attempt' / name).stat().st_size for name in
                      ('wire.jsonl', 'progress.jsonl', 'stdout.log', 'stderr.log'))
-    assert result.resources['trace_bytes'] == wire_bytes + result.resources['collection']['trace_bytes']
+    retained_bytes = sum(p.stat().st_size for p in (tmp_path / 'attempt/trace').rglob('*') if p.is_file())
+    assert result.resources['trace_bytes'] == wire_bytes + retained_bytes
     decisions = list((tmp_path / 'attempt/trace').glob('decision-*.json'))
     decision = json.loads(decisions[0].read_text())
     assert decision['context']['original_columns'] == 256
