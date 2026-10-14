@@ -51,9 +51,11 @@ def main(argv: list[str] | None = None) -> int:
     freeze.add_argument('--dry-run', action='store_true')
     verify = subcommands.add_parser('verify-freeze', help='Verify all frozen references and current runtime')
     verify.add_argument('--manifest', type=Path, required=True)
-    report_parser = subcommands.add_parser('report', help='Public discovery/validation dry report only')
-    report_parser.add_argument('--pilot-summary', type=Path, required=True)
-    report_parser.add_argument('--design', type=Path, required=True)
+    report_parser = subcommands.add_parser('report', help='Build an authenticated achieved-scope report')
+    report_parser.add_argument('--manifest', type=Path)
+    report_parser.add_argument('--dry-run', action='store_true')
+    report_parser.add_argument('--pilot-summary', type=Path)
+    report_parser.add_argument('--design', type=Path)
     report_parser.add_argument('--out', type=Path, required=True)
     analyze_parser = subcommands.add_parser('analyze', help='Reconstruct historical frozen endpoints and paired inference')
     analyze_parser.add_argument('--config', type=Path, required=True)
@@ -74,7 +76,14 @@ def main(argv: list[str] | None = None) -> int:
         elif args.command == 'report':
             from ra.freeze import read
             from ra.stats import write_pilot_report
-            report = write_pilot_report(read(args.pilot_summary),read(args.design),args.out)
+            if args.manifest:
+                if args.pilot_summary or args.design: raise ValueError('choose manifest or legacy public report inputs')
+                from ra.report import build_report
+                report = build_report(args.manifest,args.out,dry_run=args.dry_run)
+            elif args.pilot_summary and args.design and not args.dry_run:
+                report = write_pilot_report(read(args.pilot_summary),read(args.design),args.out)
+            else:
+                raise ValueError('report requires --manifest or both --pilot-summary and --design')
         elif args.command == 'reproduce':
             from ra.baselines.register import reproduce_baseline
             report = reproduce_baseline(args.baseline, args.config, args.out, dry_run=args.dry_run)

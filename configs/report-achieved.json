@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "scope": "confirmation",
+  "population": "designed generated weighted-set-cover population, three families \u00d7 two sizes with equal cell weights",
+  "methods": {
+    "B0": "native default SCIP",
+    "B1": "public-tuned native SCIP, estimate maxplungedepth=0",
+    "B2": "shared estimate L1, K=128",
+    "B3": "separately trained local L1 ridge1; B4 alias",
+    "B5": "separately trained local capacity hist7",
+    "B6": "separately trained pooled ridge1"
+  },
+  "training": "one genuine fitted bundle; A local matched ridge1, B3 local L1 ridge1, B5 local hist7 capacity, B6 pooled ridge1; public training/selection only; all original/fix1 and failed fitting/tuning costs in authenticated historical_resource_evidence.json and project_costs.csv",
+  "references": {
+    "config": {
+      "path": "configs/confirmatory-A004.json",
+      "sha256": "e13f31a7b098f372e12d653e46513d9f2d52fd587cb5841aff36ffbd8f36bffe"
+    },
+    "inference": {
+      "path": "results/confirmatory/inference.json",
+      "sha256": "c72b4940fd1bf646c9c2dc99ed38658035d90a8142f8b4442ac9e773765669b5"
+    },
+    "curves": {
+      "path": "results/confirmatory/curves.csv",
+      "sha256": "92236660088ee9be2771dbb6cfca01a91f430e7381abd6366e866bc2c86de91f"
+    },
+    "resources": {
+      "path": "results/confirmatory/resource_summary.csv",
+      "sha256": "ef43c4a67e679bc1747a623f6807419583a7b79c743dc953fc1391ebebbb9c85"
+    },
+    "audit": {
+      "path": "docs/superpowers/evidence/task16/execution-audit.json",
+      "sha256": "83cf330827f68bc9b736ad0e8e240189193e0a927fe4bc6c99ab99435c116809"
+    },
+    "narrative": {
+      "path": "docs/superpowers/evidence/task20/interpretation.md",
+      "sha256": "08ab18d9a22b259ba41b0be222df67467b42ce1d623d63021164da4ecf6b07f1"
+    },
+    "endpoints": {
+      "path": "results/confirmatory/endpoints.csv",
+      "sha256": "f70419cf12bffea8b0eff4a2a86cf6f36786d84a440050a1cfbb397cb6c61817"
+    },
+    "costs": {
+      "path": "results/confirmatory/project_costs.csv",
+      "sha256": "3d6010b223b38ad1a003f0abfdfe7c6fc89067cc01f05fd526d2cd88920cafdb"
+    },
+    "historical_cost_envelopes": {
+      "path": "results/confirmatory/historical_resource_evidence.json",
+      "sha256": "cdd7a5b9db2e60e6585a4a9df10e2930ec43945ee2ae641a9aa038ee160f0221"
+    },
+    "latency": {
+      "path": "results/ablations/task18-latency/summary.json",
+      "sha256": "0672bfdc927c884d6a4bba446659d0ecacbfc0405532b00bfb66a44079c06f81"
+    },
+    "transfer": {
+      "path": "docs/superpowers/evidence/task19/gate.json",
+      "sha256": "efb3a894bcd6f7b8808176966a0de3de2a342b3722385594f62403cf8f04f8b3"
+    },
+    "baseline_register": {
+      "path": "configs/mandatory_baselines.json",
+      "sha256": "bdbb7b7793d5c80513733ab7e929b5dae99d130639f068be75366642e969d9d6"
+    },
+    "training": {
+      "path": "docs/superpowers/evidence/task12-model-card.json",
+      "sha256": "75db09e3360ac026bfcbf14d0d8eca6053030646d4de1e0d7251255a90843a39"
+    },
+    "requirements": {
+      "path": "requirements.lock",
+      "sha256": "3938eacd4e8c91bb083bcb77a7211e5d9da8bc2f9b8827d777d63f1f643ff0b0"
+    }
+  },
+  "packages": [
+    {
+      "name": "WP00 environment/native capability",
+      "status": "complete",
+      "reason": "Tasks1\u20132: installed-build checks and serial execution; private machine identifiers retained locally only."
+    },
+    {
+      "name": "WP01 bookkeeping/data",
+      "status": "complete",
+      "reason": "Tasks3\u20135: analytical invariants and tiny exact correctness; no empirical solver gain."
+    },
+    {
+      "name": "WP02 cold harness/controls",
+      "status": "complete",
+      "reason": "Tasks6\u20138: receipt deadlines, immutable recovery and native/shared controls."
+    },
+    {
+      "name": "WP03 headroom/tuning",
+      "status": "complete",
+      "reason": "Task9: 1,059 retained attempts; discovery control rows are discovery, not validation; finite hindsight envelope is not an executable comparator."
+    },
+    {
+      "name": "WP04 features/collection/learning",
+      "status": "complete with historical failures",
+      "reason": "Tasks10\u201312: 192 local/109 pooled columns; eight raw eligibility flags have a reviewed derived correction; raw labels preserved; failed fits/probes/orphan rebid costs retained."
+    },
+    {
+      "name": "WP05 controls/contemporary reproduction",
+      "status": "partial; named methods blocked",
+      "reason": "Tasks13\u201314: 2,106 requests/53 candidate executions, original and fix1 generations; Labassi, Mattick\u2013Mutschler, TRGNN, DeepBound and TreeCL blocked, not beaten. See baselines/cards and source/access audits."
+    },
+    {
+      "name": "WP06 freeze",
+      "status": "complete; predecessors superseded",
+      "reason": "Task15 public calibration and A000\u2013A003 remain; actual protected protocol A004, with exposure/source receipts."
+    },
+    {
+      "name": "WP07 confirmation/analysis",
+      "status": "complete; negative/inconclusive",
+      "reason": "Tasks16\u201317: full A004 cohort; negative A\u2013B2, no positive superiority; B6 Monte Carlo unstable."
+    },
+    {
+      "name": "WP08 robustness",
+      "status": "partial; wider studies unexecuted",
+      "reason": "Task18: public finite latency diagnostic only; population and broader robustness entry gates unmet; preflight failure preserved."
+    },
+    {
+      "name": "WP09 transfer",
+      "status": "skipped; feasibility unassessed",
+      "reason": "Task19: four tracks unexecuted; unmet scientific predicate, no code/data downloads or transfer study."
+    },
+    {
+      "name": "WP10 final handoff",
+      "status": "implemented; review closure pending",
+      "reason": "Task20: report/claims/reproduction/archive; controller Task20 review, whole-branch review, possible single fix wave and scoped rereview remain pending."
+    }
+  ],
+  "limitations": [
+    "No registered positive superiority, no equivalence or practical matched-quality speedup; no contemporary-method defeat.",
+    "Conditional on one fitted bundle, finite designed population, near-ceiling utilities and frozen horizons; unobserved tails unavailable.",
+    "B6 frozen Monte Carlo diagnostic fails; no extra draws, seed search, new fit or protected cohort.",
+    "Unknown resource tails and overlapping scopes prevent an exact project total.",
+    "Task2 backend and Task16 orchestration modularity consciously deferred: broad refactoring would create an unexecuted source generation without changing scientific evidence.",
+    "Task9 label/duplicate/incomplete-cohort guards and Task17 renderer/standalone annotation are corrected in current code only; historical immutable artifacts remain.",
+    "Task12 selected_deployment belongs to train-summary.json; model-card hook is selected.allocator and selected.learned.",
+    "Final Task20 and whole-branch independent review/archive closure are controller-owned and pending at this pre-final handoff."
+  ]
+}

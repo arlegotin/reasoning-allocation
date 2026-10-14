@@ -232,25 +232,8 @@ def _analyze_complete(config_path,out):
     from ra.stats import paired_frontier_intervals
     if out.exists() and any(out.iterdir()): raise ValueError('analysis output exists; preserve original fixed analysis')
     start,cpu=time.perf_counter_ns(),time.process_time_ns()
-    checked,root=historical_inventory(config_path);config=checked['manifest']['scientific_config']
-    audit,seal=_authenticate_execution(config,root,checked)
-    queue=read(Path(config['queue']['path']));validate_inventory(queue,seal)
-    metadata={r['request_id']:r for r in queue}
-    expected={r.request_id:r for r in _frozen_requests(config,queue)}
-    actual_dirs={p.parent.resolve() for p in root.glob('attempts/*/*/attempt.json')}
-    effective_dirs={(root/r['directory']).resolve() for r in seal['effective_attempts']}
-    if actual_dirs!=effective_dirs: raise ValueError('unreconciled physical attempts; explicit interruption accounting required')
-    attempts=[]
-    for i,entry in enumerate(seal['effective_attempts']):
-        directory=root/entry['directory']
-        if not directory.resolve().is_relative_to(root.resolve()): raise ValueError('attempt path escape')
-        if hashlib.sha256((directory/'attempt.json').read_bytes()).hexdigest()!=entry['manifest_sha256']: raise ValueError('sealed attempt hash mismatch')
-        a=reconstruct_attempt(directory); q=metadata[a.request_id]
-        if (a.attempt_id!=entry['attempt_id'] or _request_identity(asdict(a.request))!=_request_identity(asdict(expected[a.request_id]))
-                or a.template_id!=q['template_id'] or a.cell_id!=q['cell_id'] or a.request.deadline_ns-a.request.launch_ns!=q['budget_ns']):
-            raise ValueError('historical raw request/model/source/environment/build/queue identity drift')
-        attempts.append(a)
-        if (i+1)%210==0: print(f'Authenticated and reconstructed {i+1}/{len(queue)} cold endpoints',flush=True)
+    config,audit,checked,attempts,metadata = reconstruct_frozen(config_path)
+    _,root=historical_inventory(config_path)
     reconstructed=time.perf_counter_ns()
     rows=summarize_attempts(attempts,config)
     inference=paired_frontier_intervals(rows,config)
@@ -375,7 +358,12 @@ def project_cost_inventory(out, *, project=None):
 
 
 def render_report(out,config,inference,curves,audit):
-    """Publish all primary tests and explicitly exploratory secondary endpoints."""
+    """Legacy A004-only renderer; reject any alternate scientific input.
+
+    Its narrative and historical costs are fixed. Future cohorts must use a new
+    report contract, never inherit these claims by supplying different arrays.
+    """
+    _validate_a004_render(config,inference,curves,audit)
     from ra.freeze import read
     import csv
     all_curves={(r['method'],r['budget_ns']):r for r in curves if r['scope']=='all'}
@@ -445,9 +433,11 @@ def plot_report(out):
         ax.plot([lo,hi],[i,i],color='#254b74',linewidth=2)
         ax.plot([a,b],[i,i],color='#254b74',linewidth=5)
         ax.plot(estimate,i,'o',color='#c25724')
-    ax.axvline(0,color='0.4',linewidth=.8);ax.set_yticks(range(len(contrasts)),[f"A − {c['baseline']}" for c in contrasts])
+    ax.axvline(0,color='0.4',linewidth=.8);ax.set_yticks(range(len(contrasts)),[f"A − {c['baseline']}" + (" * UNSTABLE" if not c["quantile_stable"] else "") for c in contrasts])
     ax.set_xlabel('Paired frontier difference');ax.set_title('A004: conditional on one frozen fit\nThin: Bonferroni simultaneous; thick: ordinary 95%')
     ax.grid(axis='x',alpha=.2)
+    if any(not c['quantile_stable'] for c in contrasts):
+        ax.set_xlabel('Paired frontier difference\n* Frozen Monte Carlo endpoint diagnostic failed; no additional draws')
     for suffix in ('pdf','png'):fig.savefig(out/f'primary_intervals.{suffix}',dpi=180)
     plt.close(fig)
     with (out/'curves.csv').open() as stream: rows=[r for r in csv.DictReader(stream) if r['scope']=='all']
@@ -507,4 +497,148 @@ def secondary_effects(curves,protocol):
                     x,y=first[metric],second[metric]
                     row[metric+'_difference']=None if x is None or y is None else x-y
                 result.append(row)
+    return result
+
+
+def reconstruct_frozen(config_path):
+    """Authenticate/reconstruct the complete historical cohort, with no writes."""
+    import hashlib
+    from pathlib import Path
+    from dataclasses import asdict
+    from ra.freeze import read
+    from ra.runner import _frozen_requests, _request_identity
+    checked,root=historical_inventory(config_path);config=checked['manifest']['scientific_config']
+    audit,seal=_authenticate_execution(config,root,checked)
+    queue=read(Path(config['queue']['path']));validate_inventory(queue,seal)
+    metadata={r['request_id']:r for r in queue}
+    expected={r.request_id:r for r in _frozen_requests(config,queue)}
+    actual_dirs={p.parent.resolve() for p in root.glob('attempts/*/*/attempt.json')}
+    effective_dirs={(root/r['directory']).resolve() for r in seal['effective_attempts']}
+    if actual_dirs!=effective_dirs: raise ValueError('unreconciled physical attempts; explicit interruption accounting required')
+    attempts=[]
+    for i,entry in enumerate(seal['effective_attempts']):
+        directory=root/entry['directory']
+        if not directory.resolve().is_relative_to(root.resolve()): raise ValueError('attempt path escape')
+        if hashlib.sha256((directory/'attempt.json').read_bytes()).hexdigest()!=entry['manifest_sha256']: raise ValueError('sealed attempt hash mismatch')
+        a=reconstruct_attempt(directory); q=metadata[a.request_id]
+        if (a.attempt_id!=entry['attempt_id'] or _request_identity(asdict(a.request))!=_request_identity(asdict(expected[a.request_id]))
+                or a.template_id!=q['template_id'] or a.cell_id!=q['cell_id'] or a.request.deadline_ns-a.request.launch_ns!=q['budget_ns']):
+            raise ValueError('historical raw request/model/source/environment/build/queue identity drift')
+        attempts.append(a)
+        if (i+1)%210==0: print(f'Authenticated and reconstructed {i+1}/{len(queue)} cold endpoints',flush=True)
+    return config,audit,checked,attempts,metadata
+
+
+def numerical_inference_digest(inference):
+    """Claim text is presentation; every other inference field is numerical evidence."""
+    import copy
+    from ra.freeze import digest
+    value=copy.deepcopy(inference)
+    for contrast in value['contrasts']: contrast.pop('claim',None)
+    return digest(value)
+
+
+def _validate_a004_render(config,inference,curves,audit):
+    from pathlib import Path
+    from ra.freeze import read
+    project=Path(__file__).resolve().parents[2]
+    if (config!=read(project/'configs/confirmatory-A004.json')
+            or numerical_inference_digest(inference)!='6339521bccab940fe0ec0546792a3c6012e65644fe7f63a5dde6418717b83d69'
+            or audit!=read(project/'docs/superpowers/evidence/task16/execution-audit.json')
+            or curves!=_read_table(project/'results/confirmatory/curves.csv')):
+        raise ValueError('legacy renderer requires exact validated A004 inputs; alternate cohort rejected')
+
+
+def _read_table(path):
+    import csv,json
+    with path.open() as stream:
+        result=[]
+        for raw in csv.DictReader(stream):
+            row={}
+            for key,value in raw.items():
+                try: row[key]=json.loads(value) if value else None
+                except (ValueError,TypeError): row[key]=value
+            result.append(row)
+    return result
+
+
+def build_report(manifest_path, out, *, dry_run=False):
+    """Build scope-limited prose/tables from authenticated stored artifacts only.
+
+    JSON achieved-scope manifests support analytical, blocked and validation
+    stops. A004's explicit .sha256 envelope is the sole completed experiment
+    contract; it resolves the versioned handoff manifest and verifies its inputs.
+    This command never calls a solver or recomputes bootstrap inference.
+    """
+    from pathlib import Path
+    from ra.freeze import read,check_reference,verify_envelope
+    project=Path(__file__).resolve().parents[2]
+    manifest_path,out=Path(manifest_path),Path(out)
+    if manifest_path.suffix=='.sha256':
+        envelope=verify_envelope(manifest_path)
+        if envelope['digest']!='72aba9929daa98bb48c64237ebba47e2c6d66e75d65165bf78a0355a53455457':
+            raise ValueError('completed report supports only the authenticated A004 achieved scope')
+        manifest=read(project/'configs/report-achieved.json')
+        if manifest['scope']!='confirmation': raise ValueError('confirmation manifest scope mismatch')
+    else:
+        manifest=read(manifest_path)
+        if manifest.get('scope')=='confirmation':
+            raise ValueError('completed confirmation requires its explicit frozen .sha256 manifest')
+    if manifest.get('schema_version')!=1 or manifest.get('scope') not in {'analytical','blocked','validation','confirmation'}:
+        raise ValueError('invalid achieved-scope manifest')
+    if manifest.get('empirical_solver_claims'): raise ValueError('claims must be derived from authenticated evidence')
+    refs=manifest.get('references',{})
+    for ref in refs.values(): check_reference({'path':str(project/ref['path']),'sha256':ref['sha256']})
+    lines=['# Reasoning allocation: achieved scope','',f"Achieved scope: **{manifest['scope']}**.",'']
+    claims=[];headlines=[]
+    if manifest['scope']!='confirmation':
+        lines+=['Confirmation not executed. No empirical solver gain is established by this report.','']
+    else:
+        config=read(project/refs['config']['path']); inference=read(project/refs['inference']['path'])
+        audit=read(project/refs['audit']['path']); curves=_read_table(project/refs['curves']['path'])
+        resources=_read_table(project/refs['resources']['path'])
+        _validate_a004_render(config,inference,curves,audit)
+        lines+=(project/refs['narrative']['path']).read_text().splitlines()+['']
+        table={(r['method'],r['budget_ns']):r for r in curves if r['scope']=='all'}
+        for contrast in inference['contrasts']:
+            baseline=contrast['baseline']
+            effects={key:sum(w*(table['A',b][key]-table[baseline,b][key])
+                for b,w in zip(config['deadlines_ns'],config['weights'])) for key in ('primal','dual')}
+            claim=classify_claim(contrast['simultaneous_interval'],precision=config['planning']['useful_precision'])
+            if contrast['correctness_quarantined']:claim='quarantined correctness alarm; no solver claim'
+            if not contrast['quantile_stable']:claim+='; Monte Carlo UNSTABLE'
+            claims.append(f"A–{baseline}: {claim}")
+            headlines.append(dict(competitor=f"A versus {baseline}: {manifest['methods'][baseline]}",
+                population=manifest['population'],templates=inference['independent_templates'],fits=inference['independent_fit_runs'],
+                deadlines_ns=config['deadlines_ns'],estimate=contrast['estimate'],ordinary_interval=contrast['ordinary_interval'],
+                simultaneous_interval=contrast['simultaneous_interval'],primal_difference=effects['primal'],dual_difference=effects['dual'],
+                resources=[r for r in resources if r['method'] in ('A',baseline)],training=manifest['training'],
+                claim=claim,caveat='Conditional on one fitted bundle; near-ceiling designed population; exploratory primal/dual; no transfer'))
+        lines+=['## Primary headline comparisons','',
+            'All rows: '+manifest['population']+'; 60 independent originals; one genuine fit; two timing repeats. Cold deadlines (ns): '+str(config['deadlines_ns'])+'.',
+            'Training/tuning: '+manifest['training'],
+            'Paired absolute frontier effects; ordinary 95% and six-contrast Bonferroni simultaneous intervals. Primal/dual are exploratory integrated original-objective differences. Per-method resources are in the next table; no matched-quality positive time saving or break-even reuse is established.','',
+            '| Exact competitor | Effect | Ordinary 95% | Simultaneous interval | Primal difference | Dual difference | Claim / caveat |',
+            '|---|---:|---|---|---:|---:|---|']
+        for row in headlines:
+            lines.append('| '+' | '.join(str(row[k]) for k in ('competitor','estimate','ordinary_interval','simultaneous_interval','primal_difference','dual_difference'))+' | '+row['claim']+'; '+row['caveat']+' |')
+        lines+=['','## Cold endpoint and resource table','',
+            'Every row has 120 physical requests, 60 originals and two timing repeats. Wall includes publication; worker CPU is a lower bound, parent CPU overlaps wall. Overshoot is a wall subset; RSS is a maximum. These columns must not be added together. LP counts denote native LP solves, not LP iterations. All endpoint/native-work rows remain in `results/confirmatory/endpoints.csv`.','',
+            '| Method | Deadline ns | Utility | Primal | Dual | Solved | Fault | Wall s | Worker CPU lower bound s | Parent CPU s | Overshoot s | Peak RSS bytes |',
+            '|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|']
+        for r in resources:
+            c=table[r['method'],r['budget_ns']]
+            values=[r['method'],r['budget_ns'],*[c[k] for k in ('utility','primal','dual','solved','fault')],
+                *[r[k]/1e9 for k in ('wall_including_publication_ns','worker_cpu_ns_lower_bound','parent_cpu_ns','overshoot_ns_subset')],r['peak_worker_rss_bytes']]
+            lines.append('| '+' | '.join(str(v) for v in values)+' |')
+        lines+=['','[Qualified standalone primary plot](results/handoff/primary_intervals.png); [PDF](results/handoff/primary_intervals.pdf). B6 carries its frozen Monte Carlo instability marker. Original plots and artifact indexes remain immutable.','']
+    lines+=['## Package dispositions','', '| Package | Status | Evidence / reason |','|---|---|---|']
+    for package in manifest['packages']:
+        lines.append(f"| {package['name']} | {package['status']} | {package['reason']} |")
+    lines+=['','## Limits','']+['- '+item for item in manifest.get('limitations',[])]+['','## Authenticated sources','']
+    for name,ref in refs.items():lines.append(f"- {name}: [{ref['path']}]({ref['path']}), SHA256 `{ref['sha256']}`")
+    result=dict(success=True,dry_run=dry_run,scope=manifest['scope'],empirical_solver_claims=claims,headline_rows=headlines,out=str(out))
+    if not dry_run:
+        out.parent.mkdir(parents=True,exist_ok=True)
+        out.write_text('\n'.join(lines)+'\n')
     return result

@@ -1,0 +1,12 @@
+{
+  "scope": "all path/sha256 references recursively embedded in every freeze manifest and confirmatory config; references authenticated without mutation",
+  "reference_count": 3250,
+  "sdd_references": [],
+  "problems": [],
+  "inventory": {
+    "path": "artifacts/task20/frozen-reference-inventory.json",
+    "sha256": "ae9686ca827b0dbd89cbc67a5d0eaafec474220cfb14e10a7d7edeb3fe633f7c",
+    "bytes": 1116115
+  },
+  "restore": "Preserve all original absolute paths/bytes; ignored inventory is retained; no SDD frozen asset reference found."
+}

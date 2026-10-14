@@ -204,3 +204,57 @@ def test_secondary_budget_effects_keep_raw_components_without_inference():
     assert len(result)==3
     assert all(r['utility_difference']==pytest.approx(.02) and r['primal_difference']==10 and r['dual_difference']==12 for r in result)
     assert all(r['scope']=='all' and r['inference']=='exploratory point differences only' for r in result)
+
+
+@pytest.mark.parametrize('scope', ['analytical', 'blocked', 'validation'])
+def test_achieved_scope_cannot_promote_unexecuted_confirmation(scope, tmp_path):
+    import json
+    from ra.report import build_report
+    manifest=tmp_path/'achieved.json'
+    manifest.write_text(json.dumps({'schema_version':1,'scope':scope,
+        'packages':[{'name':'native capability','status':'blocked','reason':'unavailable'},
+                    {'name':'failed pilot','status':'failed','reason':'retained fault'}],
+        'references':{},'limitations':['No protected experiment executed.']}))
+    out=tmp_path/'REPORT.md'
+    result=build_report(manifest,out)
+    assert result['empirical_solver_claims']==[]
+    text=out.read_text().lower()
+    assert 'confirmation not executed' in text
+    assert 'native capability' in text and 'failed pilot' in text and 'blocked' in text
+    assert '60 independent' not in text and '65536' not in text
+
+
+def test_blocked_manifest_cannot_smuggle_in_confirmatory_claims(tmp_path):
+    import json
+    from ra.report import build_report
+    p=tmp_path/'scope.json';p.write_text(json.dumps({'schema_version':1,'scope':'blocked',
+        'packages':[], 'references':{},'empirical_solver_claims':['beats contemporary selector']}))
+    with pytest.raises(ValueError,match='claim'):build_report(p,tmp_path/'out.md')
+
+
+def test_complete_report_rebuilds_all_headlines_and_dry_run_is_read_only(tmp_path):
+    from pathlib import Path
+    from ra.report import build_report
+    out=tmp_path/'REPORT.md'
+    result=build_report(Path('protocol/freeze-A004.sha256'),out,dry_run=True)
+    assert not out.exists() and result['dry_run']
+    result=build_report(Path('protocol/freeze-A004.sha256'),out)
+    assert len(result['headline_rows'])==6
+    for row in result['headline_rows']:
+        assert {'competitor','population','templates','fits','deadlines_ns','estimate','simultaneous_interval',
+                'primal_difference','dual_difference','resources','training','claim','caveat'}<=row.keys()
+    assert all('positive frontier' not in c for c in result['empirical_solver_claims'])
+    assert 'B6' in out.read_text() and 'UNSTABLE' in out.read_text()
+
+
+def test_a004_renderer_rejects_alternate_input_before_writing(tmp_path):
+    from ra.report import render_report
+    with pytest.raises(ValueError,match='A004'):
+        render_report(tmp_path,{'source_commit':'alternate'}, {'contrasts':[]},[],{})
+    assert not (tmp_path/'confirmatory_report.md').exists()
+
+
+def test_report_cli_manifest_dry_run(tmp_path,capsys):
+    from ra.cli import main
+    assert main(['report','--manifest','protocol/freeze-A004.sha256','--out',str(tmp_path/'out'),'--dry-run'])==0
+    assert not (tmp_path/'out').exists()

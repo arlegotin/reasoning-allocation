@@ -14,7 +14,22 @@ from ra.runner import _read_attempt
 def summarize_records(rows):
     if not rows:
         raise ValueError('nonempty retained native validation records required')
+    phases={r['request']['phase'] for r in rows}
+    if len(phases)!=1 or not phases <= {'discovery','pilot','validation'}:
+        raise ValueError('one public phase required')
+    phase=next(iter(phases))
     budgets=sorted({r['request']['budget_ns'] for r in rows})
+    cohorts=defaultdict(list)
+    for row in rows:
+        request=row['request']
+        cohorts[request['method'],request['instance_hash'],request['solver_seed']].append(request['budget_ns'])
+    for values in cohorts.values():
+        if len(values)!=len(set(values)): raise ValueError('duplicate budget in paired cohort')
+        if sorted(values)!=budgets: raise ValueError('incomplete budget cohort')
+    support={method:{(original,seed) for m,original,seed in cohorts if m==method}
+             for method,_,_ in cohorts}
+    if any(value!=next(iter(support.values())) for value in support.values()):
+        raise ValueError('incomplete matched method cohort')
     weights=[.25,.5,.25] if len(budgets)==3 else [1/len(budgets)]*len(budgets)
     by=defaultdict(list)
     for r in rows:
@@ -32,7 +47,7 @@ def summarize_records(rows):
         result[method]={'mean_F':statistics.mean(fs.values()),'original_F':fs,'templates':len(fs),
             'attempts':len(records),'wall_s':sum(r['resources']['end_to_end_ns'] for r in records)/1e9,
             'statuses':dict(__import__('collections').Counter(r['status'] for r in records))}
-    return {'scope':'public validation ranking over coordinator-validated original instances; finite candidates, no protected/fitted result',
+    return {'scope':f'public {phase} ranking over coordinator-validated original instances; finite candidates, no protected/fitted result',
         'budgets_ns':budgets,'weights':weights,'ranking':sorted(result,key=lambda m:result[m]['mean_F'],reverse=True),'methods':result}
 
 

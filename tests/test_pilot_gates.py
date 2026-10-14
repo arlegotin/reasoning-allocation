@@ -129,3 +129,19 @@ def test_ranking_missing_worker_identity_uses_validated_original_without_new_uni
     result=summarize_records(records)['methods']['B0']
     assert result['templates']==2 and result['attempts']==6
     assert result['mean_F']==pytest.approx(.95)
+
+
+def test_tuning_helper_preserves_discovery_scope_and_rejects_bad_budget_cohorts():
+    from checks.pilot_tuning_summary import summarize_records
+    from dataclasses import asdict
+    records=[]
+    for identity in ['first','second']:
+        for budget in [100,200,400]:
+            a=asdict(attempt(phase='discovery'))
+            a['request'].update(instance_hash=identity,budget_ns=budget)
+            records.append(a)
+    assert 'public discovery' in summarize_records(records)['scope']
+    with pytest.raises(ValueError,match='duplicate'): summarize_records(records+[records[0]])
+    with pytest.raises(ValueError,match='incomplete'): summarize_records(records[:-1])
+    records[-1]['request']['phase']='validation'
+    with pytest.raises(ValueError,match='phase'): summarize_records(records)
