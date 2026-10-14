@@ -1,0 +1,94 @@
+{
+  "derivation": {
+    "path": "docs/superpowers/evidence/task20/reuse-definition.json",
+    "sha256": "0b631648f11e8be509860d97c3d53dd1df69a5c032f29ad29eb4d982f08b1a90"
+  },
+  "data": {
+    "baseline": "B0",
+    "break_even_reuse": null,
+    "budget_ns": 2106828958,
+    "cost_rows": [
+      {
+        "baseline_cold_request_wall_s": 1.0928320208333333,
+        "baseline_selected_fit_s_per_request": 0,
+        "candidate_cold_request_wall_s": 1.1257570434666666,
+        "complete_extra_preparation_s_per_request": null,
+        "reuse_count": 1,
+        "selected_fit_wall_s_per_request": 0.109858
+      },
+      {
+        "baseline_cold_request_wall_s": 1.0928320208333333,
+        "baseline_selected_fit_s_per_request": 0,
+        "candidate_cold_request_wall_s": 1.1257570434666666,
+        "complete_extra_preparation_s_per_request": null,
+        "reuse_count": 10,
+        "selected_fit_wall_s_per_request": 0.0109858
+      },
+      {
+        "baseline_cold_request_wall_s": 1.0928320208333333,
+        "baseline_selected_fit_s_per_request": 0,
+        "candidate_cold_request_wall_s": 1.1257570434666666,
+        "complete_extra_preparation_s_per_request": null,
+        "reuse_count": 100,
+        "selected_fit_wall_s_per_request": 0.00109858
+      },
+      {
+        "baseline_cold_request_wall_s": 1.0928320208333333,
+        "baseline_selected_fit_s_per_request": 0,
+        "candidate_cold_request_wall_s": 1.1257570434666666,
+        "complete_extra_preparation_s_per_request": null,
+        "reuse_count": 1000,
+        "selected_fit_wall_s_per_request": 0.00010985799999999999
+      }
+    ],
+    "selected_asset_sha256": "8aca421ab3a648b5555e0eee826094e2b073bf9cec1856bb22321f2a0b519d58",
+    "selected_fit_cpu_ns": 109795000,
+    "selected_fit_wall_ns": 109858000,
+    "utility_rows": [
+      {
+        "baseline_utility": 0.9960759657929124,
+        "candidate_utility": 0.9964784528642193,
+        "primary_effect": -0.0009064855530258782,
+        "primary_simultaneous_interval": [
+          -0.0020026598875891523,
+          2.7574589489313432e-05
+        ],
+        "reuse_count": 1,
+        "utility_difference": 0.00040248707130696726
+      },
+      {
+        "baseline_utility": 0.9960759657929124,
+        "candidate_utility": 0.9964784528642193,
+        "primary_effect": -0.0009064855530258782,
+        "primary_simultaneous_interval": [
+          -0.0020026598875891523,
+          2.7574589489313432e-05
+        ],
+        "reuse_count": 10,
+        "utility_difference": 0.00040248707130696726
+      },
+      {
+        "baseline_utility": 0.9960759657929124,
+        "candidate_utility": 0.9964784528642193,
+        "primary_effect": -0.0009064855530258782,
+        "primary_simultaneous_interval": [
+          -0.0020026598875891523,
+          2.7574589489313432e-05
+        ],
+        "reuse_count": 100,
+        "utility_difference": 0.00040248707130696726
+      },
+      {
+        "baseline_utility": 0.9960759657929124,
+        "candidate_utility": 0.9964784528642193,
+        "primary_effect": -0.0009064855530258782,
+        "primary_simultaneous_interval": [
+          -0.0020026598875891523,
+          2.7574589489313432e-05
+        ],
+        "reuse_count": 1000,
+        "utility_difference": 0.00040248707130696726
+      }
+    ]
+  }
+}

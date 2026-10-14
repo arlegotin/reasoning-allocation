@@ -91,6 +91,14 @@
     "native_work_table": {
       "path": "docs/superpowers/evidence/task20/native-work.md",
       "sha256": "543423d05f1d27642bb1c20668ac998e65af760ba6ac66ef92c17861092986ca"
+    },
+    "reuse_fit_card": {
+      "path": "artifacts/task13/models/B5/fit-card.json",
+      "sha256": "2535b6846657d21cb0c9b8321458424e774dc17cf8694a56511c856caf0bd484"
+    },
+    "reuse_definition": {
+      "path": "docs/superpowers/evidence/task20/reuse-definition.json",
+      "sha256": "0b631648f11e8be509860d97c3d53dd1df69a5c032f29ad29eb4d982f08b1a90"
     }
   },
   "packages": [

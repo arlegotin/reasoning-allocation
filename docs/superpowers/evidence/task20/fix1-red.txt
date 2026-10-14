@@ -1,0 +1,18 @@
+............................F                                            [100%]
+=================================== FAILURES ===================================
+________ test_completed_report_separates_reuse_costs_from_fixed_utility ________
+
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1901/test_completed_report_separate0')
+
+    def test_completed_report_separates_reuse_costs_from_fixed_utility(tmp_path):
+        from pathlib import Path
+        from ra.report import build_report
+        result=build_report(Path('protocol/freeze-A004.sha256'),tmp_path/'report.md')
+>       reuse=result['reuse_presentation']
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'reuse_presentation'
+
+tests/test_report.py:267: KeyError
+=========================== short test summary info ============================
+FAILED tests/test_report.py::test_completed_report_separates_reuse_costs_from_fixed_utility
+1 failed, 28 passed in 1.34s

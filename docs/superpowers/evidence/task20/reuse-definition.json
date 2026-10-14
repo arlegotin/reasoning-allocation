@@ -1,0 +1,51 @@
+{
+  "scope": "saved-asset cost allocation and fixed observed utility; no inference/solver execution",
+  "candidate": "A, frozen local-matched ridge1-seed17",
+  "comparator": "B0 native default SCIP",
+  "reuse_counts": [
+    1,
+    10,
+    100,
+    1000
+  ],
+  "deadline_rule": "middle of the three registered cold deadlines; illustrative display, not outcome-selected optimum",
+  "deadline_ns": 2106828958,
+  "fit_asset_match": "fit-card candidate status=fitted, sha256 and absolute asset path match A allocator in authenticated A004 config; historical directory B5 is not the final B5 comparator",
+  "preparation_formula": "selected candidate fit_wall_ns / 1e9 / N; B0 learned-fitting-operation component=0 only",
+  "complete_extra_preparation_A_minus_B0": "unavailable; no attribution of shared collection, search/tuning, failed/pre-fix work, setup or unknown tails; selected component is not a bound on total difference",
+  "cold_request_formula": "saved wall_including_publication_ns / 1e9 / physical_attempts, separately for A/B0 at the stated deadline; unchanged across N",
+  "utility_formula": "saved all-scope population-weighted utility for A/B0 and their point difference at stated deadline; unchanged across N",
+  "uncertainty": "copy the registered primary A\u2013B0 frontier effect and simultaneous interval unchanged, never reinterpret as a deadline interval or narrow with N",
+  "limits": [
+    "one genuine fit,60 original templates,two timing repeats",
+    "no warm-service forecast or utility-to-seconds exchange",
+    "no speedup/saving or break-even reuse claim",
+    "measured fit is a nested component; do not add overlapping historical envelopes"
+  ],
+  "sources": {
+    "config": {
+      "path": "configs/confirmatory-A004.json",
+      "sha256": "e13f31a7b098f372e12d653e46513d9f2d52fd587cb5841aff36ffbd8f36bffe"
+    },
+    "inference": {
+      "path": "results/confirmatory/inference.json",
+      "sha256": "c72b4940fd1bf646c9c2dc99ed38658035d90a8142f8b4442ac9e773765669b5"
+    },
+    "curves": {
+      "path": "results/confirmatory/curves.csv",
+      "sha256": "92236660088ee9be2771dbb6cfca01a91f430e7381abd6366e866bc2c86de91f"
+    },
+    "resources": {
+      "path": "results/confirmatory/resource_summary.csv",
+      "sha256": "ef43c4a67e679bc1747a623f6807419583a7b79c743dc953fc1391ebebbb9c85"
+    },
+    "historical_cost_envelopes": {
+      "path": "results/confirmatory/historical_resource_evidence.json",
+      "sha256": "cdd7a5b9db2e60e6585a4a9df10e2930ec43945ee2ae641a9aa038ee160f0221"
+    },
+    "reuse_fit_card": {
+      "path": "artifacts/task13/models/B5/fit-card.json",
+      "sha256": "2535b6846657d21cb0c9b8321458424e774dc17cf8694a56511c856caf0bd484"
+    }
+  }
+}

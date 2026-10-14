@@ -1,0 +1,12 @@
+{
+  "fix_base": "fb033cf",
+  "finding": "I1",
+  "saved_report_rebuild_byte_equal": true,
+  "original_result_index_entries_verified": 23,
+  "original_numeric_digest_unchanged": true,
+  "reuse_table_matches_report_return": true,
+  "report_sources_authenticated": true,
+  "verification": "29 report tests passed in1.06s; no full suite/solver/inference/reproduction repeated",
+  "source_sha256": "1434a0b03336819f95906e821931eb5a83222ad0e20895f940f8279410a4f1ec",
+  "scope": "saved-asset reporting and hash checks; no new empirical evidence; final archive closure pending"
+}

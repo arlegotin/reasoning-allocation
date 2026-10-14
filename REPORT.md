@@ -71,6 +71,29 @@ Every row has 120 physical requests, 60 originals and two timing repeats. Wall i
 | B6 | 2106828958 | 0.9962389058031291 | 813.2583333333333 | 762.7574214596766 | 0.5833333333333333 | 0.0 | 136.537071882 | 127.438624896 | 10.534461 | 2.315419689 | 176930816 |
 | B6 | 8427315832 | 0.998379669491723 | 796.5666666666667 | 774.3654411479639 | 0.7583333333333333 | 0.0 | 402.30985333 | 361.866118248 | 43.496678 | 1.412582371 | 262619136 |
 
+## Cost allocation over reuse counts
+
+Comparator: **B0 native default SCIP**; A uses its one frozen local-matched fitted asset. N is an illustrative number of requests allocated a share of the same historical fit, not extra observations. The selected fitting operation measured 0.109858000 s wall and 0.109795000 s CPU. Only its wall component is divided by N below. B0 has no learned fitting operation, so zero applies only to that component. Complete extra preparation cost A minus B0 is unavailable: shared collection, search/tuning, failed/pre-fix work, setup and unknown tails are not separately attributable. The selected fit is nested in older fit/driver envelopes; those envelopes are not added. This component is not a bound or estimate for the total difference.
+Cold request means use the middle registered deadline 2106828958 ns, 120 physical requests per method (60 originals × two timing repeats), including publication. They are shown unchanged and separately from fit allocation. This is not a warm-service forecast; model loading/startup remains charged. No utility-to-seconds conversion, positive saving or break-even reuse is claimed. See [authenticated reuse inputs and formulas](docs/superpowers/evidence/task20/reuse-definition.json).
+
+| Allocated requests N | A selected-fit wall / N (s/request) | B0 learned-fit component (s/request) | Complete extra preparation / N | Observed A cold wall mean (s) | Observed B0 cold wall mean (s) |
+|---:|---:|---:|---|---:|---:|
+| 1 | 0.109858000 | 0 | unavailable | 1.125757043 | 1.092832021 |
+| 10 | 0.010985800 | 0 | unavailable | 1.125757043 | 1.092832021 |
+| 100 | 0.001098580 | 0 | unavailable | 1.125757043 | 1.092832021 |
+| 1000 | 0.000109858 | 0 | unavailable | 1.125757043 | 1.092832021 |
+
+## Fixed observed utility over reuse counts
+
+These are the same saved population-weighted utilities at that deadline, repeated to keep utility separate from cost allocation. Reuse does not add independent templates or fits, improve utility, or narrow uncertainty. Deadline utility differences are descriptive; the registered three-deadline primary frontier effect and simultaneous interval remain fixed and conditional on one fit. Near-ceiling/designed-population/unobserved-tail limits remain; no new confidence interval is calculated.
+
+| Allocated requests N | Saved A utility | Saved B0 utility | Descriptive deadline difference | Fixed primary A–B0 frontier effect | Fixed primary simultaneous interval |
+|---:|---:|---:|---:|---:|---|
+| 1 | 0.996478452864 | 0.996075965793 | 0.000402487071307 | -0.000906485553026 | [-0.0020026598875891523, 2.7574589489313432e-05] |
+| 10 | 0.996478452864 | 0.996075965793 | 0.000402487071307 | -0.000906485553026 | [-0.0020026598875891523, 2.7574589489313432e-05] |
+| 100 | 0.996478452864 | 0.996075965793 | 0.000402487071307 | -0.000906485553026 | [-0.0020026598875891523, 2.7574589489313432e-05] |
+| 1000 | 0.996478452864 | 0.996075965793 | 0.000402487071307 | -0.000906485553026 | [-0.0020026598875891523, 2.7574589489313432e-05] |
+
 [Qualified standalone primary plot](results/handoff/primary_intervals.png); [PDF](results/handoff/primary_intervals.pdf). B6 carries its frozen Monte Carlo instability marker. Original plots and artifact indexes remain immutable.
 
 ## Package dispositions
@@ -122,3 +145,5 @@ Every row has 120 physical requests, 60 originals and two timing repeats. Wall i
 - qualified_plot: [results/handoff/derivation.json](results/handoff/derivation.json), SHA256 `7397ceb583cf211ddaf754ba1fc51f53e0607164c21140376028e494109e767e`
 - resources_wp10: [docs/superpowers/evidence/task20/resources.md](docs/superpowers/evidence/task20/resources.md), SHA256 `2b34b09f75243196a3289cf268ec058457282163ec4841af5325f3a5f5410dfd`
 - native_work_table: [docs/superpowers/evidence/task20/native-work.md](docs/superpowers/evidence/task20/native-work.md), SHA256 `543423d05f1d27642bb1c20668ac998e65af760ba6ac66ef92c17861092986ca`
+- reuse_fit_card: [artifacts/task13/models/B5/fit-card.json](artifacts/task13/models/B5/fit-card.json), SHA256 `2535b6846657d21cb0c9b8321458424e774dc17cf8694a56511c856caf0bd484`
+- reuse_definition: [docs/superpowers/evidence/task20/reuse-definition.json](docs/superpowers/evidence/task20/reuse-definition.json), SHA256 `0b631648f11e8be509860d97c3d53dd1df69a5c032f29ad29eb4d982f08b1a90`

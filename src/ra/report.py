@@ -590,7 +590,7 @@ def build_report(manifest_path, out, *, dry_run=False):
     refs=manifest.get('references',{})
     for ref in refs.values(): check_reference({'path':str(project/ref['path']),'sha256':ref['sha256']})
     lines=['# Reasoning allocation: achieved scope','',f"Achieved scope: **{manifest['scope']}**.",'']
-    claims=[];headlines=[]
+    claims=[];headlines=[];reuse=None
     if manifest['scope']!='confirmation':
         lines+=['Confirmation not executed. No empirical solver gain is established by this report.','']
     else:
@@ -631,14 +631,73 @@ def build_report(manifest_path, out, *, dry_run=False):
             values=[r['method'],r['budget_ns'],*[c[k] for k in ('utility','primal','dual','solved','fault')],
                 *[r[k]/1e9 for k in ('wall_including_publication_ns','worker_cpu_ns_lower_bound','parent_cpu_ns','overshoot_ns_subset')],r['peak_worker_rss_bytes']]
             lines.append('| '+' | '.join(str(v) for v in values)+' |')
+        fit_card=read(project/refs['reuse_fit_card']['path'])
+        historical=read(project/refs['historical_cost_envelopes']['path'])
+        if not any(r['path']==refs['reuse_fit_card']['path'] and r['sha256']==refs['reuse_fit_card']['sha256'] for r in historical):
+            raise ValueError('reuse fit card must match authenticated historical resource evidence')
+        reuse=cost_utility_reuse(config,inference,curves,resources,fit_card)
+        lines+=['','## Cost allocation over reuse counts','',
+            'Comparator: **B0 native default SCIP**; A uses its one frozen local-matched fitted asset. '
+            'N is an illustrative number of requests allocated a share of the same historical fit, not extra observations. '
+            f"The selected fitting operation measured {reuse['selected_fit_wall_ns']/1e9:.9f} s wall and "
+            f"{reuse['selected_fit_cpu_ns']/1e9:.9f} s CPU. Only its wall component is divided by N below. "
+            'B0 has no learned fitting operation, so zero applies only to that component. '
+            'Complete extra preparation cost A minus B0 is unavailable: shared collection, search/tuning, failed/pre-fix work, '
+            'setup and unknown tails are not separately attributable. The selected fit is nested in older fit/driver envelopes; '
+            'those envelopes are not added. This component is not a bound or estimate for the total difference.',
+            f"Cold request means use the middle registered deadline {reuse['budget_ns']} ns, 120 physical requests per method "
+            '(60 originals × two timing repeats), including publication. They are shown unchanged and separately from fit allocation. '
+            'This is not a warm-service forecast; model loading/startup remains charged. No utility-to-seconds conversion, '
+            'positive saving or break-even reuse is claimed. See [authenticated reuse inputs and formulas](docs/superpowers/evidence/task20/reuse-definition.json).','',
+            '| Allocated requests N | A selected-fit wall / N (s/request) | B0 learned-fit component (s/request) | Complete extra preparation / N | Observed A cold wall mean (s) | Observed B0 cold wall mean (s) |',
+            '|---:|---:|---:|---|---:|---:|']
+        for r in reuse['cost_rows']:
+            lines.append(f"| {r['reuse_count']} | {r['selected_fit_wall_s_per_request']:.9f} | 0 | unavailable | {r['candidate_cold_request_wall_s']:.9f} | {r['baseline_cold_request_wall_s']:.9f} |")
+        lines+=['','## Fixed observed utility over reuse counts','',
+            'These are the same saved population-weighted utilities at that deadline, repeated to keep utility separate from cost allocation. '
+            'Reuse does not add independent templates or fits, improve utility, or narrow uncertainty. Deadline utility differences are descriptive; '
+            'the registered three-deadline primary frontier effect and simultaneous interval remain fixed and conditional on one fit. '
+            'Near-ceiling/designed-population/unobserved-tail limits remain; no new confidence interval is calculated.','',
+            '| Allocated requests N | Saved A utility | Saved B0 utility | Descriptive deadline difference | Fixed primary A–B0 frontier effect | Fixed primary simultaneous interval |',
+            '|---:|---:|---:|---:|---:|---|']
+        for r in reuse['utility_rows']:
+            lines.append(f"| {r['reuse_count']} | {r['candidate_utility']:.12g} | {r['baseline_utility']:.12g} | {r['utility_difference']:.12g} | {r['primary_effect']:.12g} | {r['primary_simultaneous_interval']} |")
         lines+=['','[Qualified standalone primary plot](results/handoff/primary_intervals.png); [PDF](results/handoff/primary_intervals.pdf). B6 carries its frozen Monte Carlo instability marker. Original plots and artifact indexes remain immutable.','']
     lines+=['## Package dispositions','', '| Package | Status | Evidence / reason |','|---|---|---|']
     for package in manifest['packages']:
         lines.append(f"| {package['name']} | {package['status']} | {package['reason']} |")
     lines+=['','## Limits','']+['- '+item for item in manifest.get('limitations',[])]+['','## Authenticated sources','']
     for name,ref in refs.items():lines.append(f"- {name}: [{ref['path']}]({ref['path']}), SHA256 `{ref['sha256']}`")
-    result=dict(success=True,dry_run=dry_run,scope=manifest['scope'],empirical_solver_claims=claims,headline_rows=headlines,out=str(out))
+    result=dict(success=True,dry_run=dry_run,scope=manifest['scope'],empirical_solver_claims=claims,headline_rows=headlines,reuse_presentation=reuse,out=str(out))
     if not dry_run:
         out.parent.mkdir(parents=True,exist_ok=True)
         out.write_text('\n'.join(lines)+'\n')
     return result
+
+
+def cost_utility_reuse(config,inference,curves,resources,fit_card):
+    """Allocate one measured fit component; retain observed cold cost/utility.
+
+    Caller authenticates A004 and saved source hashes. No projection of utility,
+    matched-quality seconds, total preparation difference or warm reuse follows.
+    """
+    from pathlib import Path
+    allocator=config['physical_methods']['A']['allocator']
+    matches=[r for r in fit_card['candidates'] if r['status']=='fitted'
+        and r['sha256']==allocator['model_hash']
+        and Path(r['asset']).resolve()==Path(allocator['model_path']).resolve()]
+    if len(matches)!=1:raise ValueError('selected frozen A asset requires one matching measured fit record')
+    fit=matches[0];budget=config['deadlines_ns'][1]
+    costs={r['method']:r for r in resources if r['budget_ns']==budget}
+    utilities={r['method']:r['utility'] for r in curves if r['scope']=='all' and r['budget_ns']==budget}
+    contrast=next(c for c in inference['contrasts'] if c['method']=='A' and c['baseline']=='B0')
+    counts=(1,10,100,1000)
+    return dict(baseline='B0',budget_ns=budget,selected_fit_wall_ns=fit['fit_wall_ns'],
+        selected_fit_cpu_ns=fit['fit_cpu_ns'],selected_asset_sha256=allocator['model_hash'],break_even_reuse=None,
+        cost_rows=[dict(reuse_count=n,selected_fit_wall_s_per_request=fit['fit_wall_ns']/1e9/n,
+            baseline_selected_fit_s_per_request=0,complete_extra_preparation_s_per_request=None,
+            candidate_cold_request_wall_s=costs['A']['wall_including_publication_ns']/1e9/costs['A']['physical_attempts'],
+            baseline_cold_request_wall_s=costs['B0']['wall_including_publication_ns']/1e9/costs['B0']['physical_attempts']) for n in counts],
+        utility_rows=[dict(reuse_count=n,candidate_utility=utilities['A'],baseline_utility=utilities['B0'],
+            utility_difference=utilities['A']-utilities['B0'],primary_effect=contrast['estimate'],
+            primary_simultaneous_interval=contrast['simultaneous_interval']) for n in counts])

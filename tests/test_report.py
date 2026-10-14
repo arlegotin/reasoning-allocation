@@ -258,3 +258,29 @@ def test_report_cli_manifest_dry_run(tmp_path,capsys):
     from ra.cli import main
     assert main(['report','--manifest','protocol/freeze-A004.sha256','--out',str(tmp_path/'out'),'--dry-run'])==0
     assert not (tmp_path/'out').exists()
+
+
+def test_completed_report_separates_reuse_costs_from_fixed_utility(tmp_path):
+    from pathlib import Path
+    from ra.report import build_report
+    result=build_report(Path('protocol/freeze-A004.sha256'),tmp_path/'report.md')
+    reuse=result['reuse_presentation']
+    assert reuse['baseline']=='B0'
+    assert reuse['selected_fit_wall_ns']==109858000
+    costs=reuse['cost_rows']; utility=reuse['utility_rows']
+    assert [r['reuse_count'] for r in costs]==[1,10,100,1000]
+    assert costs[0]['selected_fit_wall_s_per_request']==pytest.approx(.109858)
+    assert costs[-1]['selected_fit_wall_s_per_request']==pytest.approx(.000109858)
+    assert all(r['complete_extra_preparation_s_per_request'] is None for r in costs)
+    assert all(r['baseline_selected_fit_s_per_request']==0 for r in costs)
+    assert len({r['candidate_cold_request_wall_s'] for r in costs})==1
+    assert len({r['baseline_cold_request_wall_s'] for r in costs})==1
+    assert [r['reuse_count'] for r in utility]==[1,10,100,1000]
+    assert len({r['candidate_utility'] for r in utility})==1
+    assert len({r['baseline_utility'] for r in utility})==1
+    assert len({tuple(r['primary_simultaneous_interval']) for r in utility})==1
+    assert reuse['break_even_reuse'] is None
+    text=(tmp_path/'report.md').read_text()
+    assert 'Cost allocation over reuse counts' in text
+    assert 'Fixed observed utility over reuse counts' in text
+    assert 'unavailable' in text and 'not a warm-service forecast' in text

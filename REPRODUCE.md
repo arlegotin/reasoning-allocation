@@ -94,3 +94,7 @@ shasum -a 256 -c MANIFEST.sha256
 ```
 
 Stage any newly created compact receipts first so `git ls-files` includes them. The ignored raw/audit trees are covered by their retained inventory and sibling receipt hashes, not copied into Git. The current pre-final receipt includes the completed implementer report and publication commit; later controller reviews still require the documented final refresh.
+
+Task20 review fix I1 adds separate reuse tables against B0 over N=1/10/100/1000. Only the authenticated selected-fit component is allocated as wall/N; complete extra preparation cost remains unavailable. Cold-request measurements, utilities and primary uncertainty stay fixed. [Reuse definition](docs/superpowers/evidence/task20/reuse-definition.json) binds inputs/formulas; [reuse table](docs/superpowers/evidence/task20/reuse-table.json) preserves exact values. This saved-asset presentation requires no new study or warm-service assumptions.
+
+The [controller closure recipe](docs/superpowers/evidence/task20/final-closure.md) lists the exact status fields, reference hashes, report outputs, archive/retention pointers and checksum refresh order needed after final review.
