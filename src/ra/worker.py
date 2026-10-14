@@ -54,6 +54,8 @@ def validate_request(request: Request, *, launched: bool = False) -> None:
             'watchdog_grace_ns':request.watchdog_grace_ns,'lease_lengths':request.method_config['lease_lengths'],
             'threads':request.threads,'integrality_tolerance':request.integrality_tolerance,'bound_tolerance':request.bound_tolerance})
         if method['name'] != request.method: raise ValueError('method identity mismatch')
+    if 'collection' in request.method_config and request.phase != 'train':
+        raise ValueError('randomized collection requires train namespace')
     if request.model_path is not None or request.model_hash is not None:
         raise ValueError('model loading is not implemented')
     if type(request.threads) is not int or request.threads != 1:
@@ -177,7 +179,7 @@ def execute_request(request_path: Path) -> int:
     ledger.enter('startup', entry)
     timestamps = {'worker_entry_ns': entry}
     resources = {}
-    backend = model = observer = None
+    backend = model = observer = collection = None
     status, error, exit_code = 'implementation_error', None, 1
     try:
         os.environ.update(THREAD_SETTINGS)
@@ -272,11 +274,18 @@ def execute_request(request_path: Path) -> int:
                         'rng_state_before':pool.rng_state_before,'rng_state_after':pool.rng_state_after,
                         'lease_lengths':request.method_config['lease_lengths'],'allocation':asdict(allocation)})
                     return allocation.root
+            if 'collection' in request.method_config:
+                from ra.collect import CollectionRuntime
+                collection = CollectionRuntime(request, instance, model, observer, Path(request_path).parent / 'trace')
+                lease, allocator, choose = collection.lease, collection.behavior, collection.choose
             backend = ScipBackend(model, costs=instance.costs, rows=rows, observer=observer,
                                   install_selector=shared or (not request.method_config and request.method == 'depth'),
                                   choose=choose if shared else None, lease_controller=lease, deadline_ns=request.deadline_ns,
-                                  stop_poll=channel.stop_pending)
+                                  stop_poll=lambda: channel.stop_pending() or (collection is not None and collection.full()))
+            if collection is not None:
+                collection.backend = backend
             resources['allocation_decisions'] = decisions
+            resources['collection_trace'] = 'trace' if collection is not None else None
             resources['selector_installed'] = backend.selector is not None
             observer.time_ledger = backend.time_ledger = ledger
             ledger.enter('observation', time.perf_counter_ns())

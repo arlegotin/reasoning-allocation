@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "population_evidence": "../docs/superpowers/evidence/task9.json",
+  "generation_config": "../configs/workload_manifest.json",
+  "features": "../configs/features.json",
+  "template_indices": [
+    0,
+    2,
+    4,
+    6,
+    8,
+    10
+  ],
+  "behaviors": [
+    {
+      "policy": "estimate",
+      "length": 4
+    },
+    {
+      "policy": "bound",
+      "length": 16
+    },
+    {
+      "policy": "deepest",
+      "length": 1
+    }
+  ],
+  "epsilon": 0.2,
+  "pool_size": 128,
+  "lease_lengths": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32,
+    64
+  ],
+  "budget_ns": 4213657916,
+  "solver_seed": 17,
+  "pool_seed": 2026101401,
+  "behavior_seed": 2026101402,
+  "max_decisions": 128
+}

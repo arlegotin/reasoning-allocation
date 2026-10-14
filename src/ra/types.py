@@ -140,8 +140,8 @@ class FeatureBatch:
 class Allocation:
     root: NodeKey
     node_limit: int
-    gain_prediction: float
-    seconds_prediction: float
+    gain_prediction: float | None
+    seconds_prediction: float | None
     seconds_q90: float | None
     selection_probability: float | None
     policy_state_hash: str
@@ -151,17 +151,32 @@ class Allocation:
 class LeaseOutcome:
     root: NodeKey
     node_limit: int
-    work: int
+    work: int | None
     entry_ns: int
     dispatch_ns: int | None
     end_ns: int
     end_reason: str
     natural_completion: bool
     censored: bool
-    unused_units: int
+    unused_units: int | None
     body_ns: int
     continuation_ns: int
-    post_deadline_work: int
+    post_deadline_work: int | None
+    snapshot_ns: int | None = None
+    trace_index: int | None = None
+    selected_features: str | None = None
+    pool_hash: str | None = None
+    support_hash: str | None = None
+    gain_prediction: float | None = None
+    seconds_prediction: float | None = None
+    seconds_q90: float | None = None
+    selection_probability: float | None = None
+    policy_state_hash: str | None = None
+    local_utility_entry: float | None = None
+    local_utility_end: float | None = None
+    admin_ns: int | None = None
+    full_ns: int | None = None
+    endpoint_gain: float | None = None
 
 
 @dataclass(frozen=True, slots=True)

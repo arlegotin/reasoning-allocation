@@ -343,9 +343,17 @@ def _run_request(request: Request, out: Path) -> Attempt:
                   f"({termination['origin']}, {termination['kind']})")
         error = f'{error}; {detail}' if error else detail
         censored = True
+    if 'collection' in request.method_config:
+        from ra.collect import finalize_trace
+        try:
+            resources['collection'] = finalize_trace(out, records, request, timestamps['parent_release_ns'], aligned,
+                resources.get('selection_boundaries', []), status, censored)
+        except (ValueError, OSError, TypeError) as exc:
+            status, error = 'implementation_error', f'collection finalization: {exc}'
     resources['parent_cpu_ns'] = time.process_time_ns() - parent_cpu
     resources['parent_observation_ns_overlapping_worker'] = observation_ns
     resources['trace_bytes'] = sum((out / name).stat().st_size for name in ('wire.jsonl', 'progress.jsonl', 'stdout.log', 'stderr.log'))
+    resources['trace_bytes'] += resources.get('collection', {}).get('trace_bytes', 0)
     resources['clock_max_bracket_ns'] = max((end - start for start, _, end in samples), default=None)
     # Flush trace/log data before the final accounting boundary.
     for path in out.rglob('*'):
@@ -516,6 +524,7 @@ def _read_attempt(directory: Path) -> tuple[dict, bool]:
                                                  bound_tolerance=request['bound_tolerance']))
     payload['resources']['trace_bytes'] = sum((directory / name).stat().st_size for name in
         ('wire.jsonl', 'progress.jsonl', 'stdout.log', 'stderr.log') if (directory / name).exists())
+    payload['resources']['trace_bytes'] += sum(p.stat().st_size for p in (directory / 'trace').rglob('*') if p.is_file())
     payload['duration_censored'] = True
     return payload, False
 

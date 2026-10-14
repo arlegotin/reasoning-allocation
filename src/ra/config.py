@@ -176,6 +176,10 @@ def validate_run_config(config: dict[str, object]) -> None:
     from ra.allocators import make_allocator
     required = {'schema_version','purpose','input_manifests','methods','solver_seeds','run_order_seed','budgets_ns',
                 'watchdog_grace_ns','lease_lengths','threads','integrality_tolerance','bound_tolerance'}
+    if isinstance(config, dict) and 'collection' in config:
+        if not isinstance(config['collection'], str) or not config['collection']:
+            raise ConfigError('collection protocol path required')
+        config = {k:v for k,v in config.items() if k != 'collection'}
     if not isinstance(config,dict) or set(config) != required or type(config['schema_version']) is not int or config['schema_version'] != 1 or config['purpose'] != 'exploratory':
         raise ConfigError('unsupported run schema/fields/purpose')
     if config['threads'] != 1 or type(config['threads']) is not int:
@@ -205,7 +209,10 @@ def validate_run_config(config: dict[str, object]) -> None:
             try: resolve_native_overrides(model.getParams(),method['overrides'])
             finally: model.freeProb()
         else:
-            if set(method)!={'name','kind','allocator','pool_size'}: raise ConfigError('invalid shared method')
+            if set(method)-{'collection'}!={'name','kind','allocator','pool_size'}: raise ConfigError('invalid shared method')
+            if 'collection' in method:
+                from ra.collect import validate_collection_method
+                validate_collection_method(method['collection'])
             k=method['pool_size']
             if k is not None and (type(k) is not int or k<=0): raise ConfigError('invalid candidate pool size')
             make_allocator(method['allocator'],0)

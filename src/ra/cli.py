@@ -30,9 +30,17 @@ def main(argv: list[str] | None = None) -> int:
     run.add_argument('--out', type=Path)
     run.add_argument('--resume', action='store_true')
     run.add_argument('--dry-run', action='store_true')
+    collect = subcommands.add_parser('collect', help='Collect bounded randomized training leases')
+    collect.add_argument('--config', type=Path, required=True)
+    collect.add_argument('--split', required=True)
+    collect.add_argument('--out', type=Path, required=True)
+    collect.add_argument('--dry-run', action='store_true')
     args = parser.parse_args(argv)
     try:
-        if args.command == 'run':
+        if args.command == 'collect':
+            from ra.collect import collect_traces
+            report = collect_traces(args.config, args.split, args.out, dry_run=args.dry_run)
+        elif args.command == 'run':
             from ra.runner import run_schedule, schedule_succeeded
             attempts = run_schedule(args.config, args.phase, args.out or Path('artifacts/runs')/args.phase,
                                     resume=args.resume, dry_run=args.dry_run)

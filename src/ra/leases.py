@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import time
+from dataclasses import replace
 from typing import Callable, Mapping, Sequence
 
 from ra.ledger import CreditLedger
@@ -18,11 +19,14 @@ class LeaseController:
     """
     def __init__(self, parents: Mapping[NodeKey, NodeKey | None], *,
                  deadline_ns: int | None = None, request_stop: Callable[[], None] | None = None,
-                 clock: Callable[[], int] = time.perf_counter_ns):
+                 clock: Callable[[], int] = time.perf_counter_ns,
+                 on_dispatch=None, on_finish=None, retain_outcomes=True):
         self.parents = parents
         self.deadline_ns = deadline_ns
         self.request_stop = request_stop
         self.clock = clock
+        self.on_dispatch, self.on_finish = on_dispatch, on_finish
+        self.retain_outcomes = retain_outcomes
         self._allocation: Allocation | None = None
         self._outcome: LeaseOutcome | None = None
         self.ledger: CreditLedger | None = None
@@ -40,11 +44,12 @@ class LeaseController:
     def pending(self) -> bool:
         return self._allocation is not None and self._outcome is None
 
-    def begin(self, allocation: Allocation, decision_start_ns: int) -> None:
+    def begin(self, allocation: Allocation, decision_start_ns: int, *, metadata=None) -> None:
         if self.pending:
             raise RuntimeError('finish the previous lease before beginning another')
         if type(allocation.node_limit) is not int or allocation.node_limit <= 0:
             raise ValueError('lease length must be a positive integer')
+        self._metadata = dict(metadata or {})
         self._allocation, self._outcome = allocation, None
         self._entry_ns, self._dispatch_ns = decision_start_ns, None
         self._reason = None
@@ -154,6 +159,9 @@ class LeaseController:
 
     def mark_dispatch(self, dispatch_ns: int) -> None:
         if self.pending and self._dispatch_ns is None:
+            if self.on_dispatch is not None:
+                self.on_dispatch({**self._metadata, "entry_ns": self._entry_ns, "dispatch_ns": dispatch_ns,
+                                  "allocation": self._allocation})
             self._dispatch_ns = dispatch_ns
         if self.active:
             self._deadline(dispatch_ns)
@@ -176,5 +184,14 @@ class LeaseController:
                 self._reason not in ('node_limit', 'exhaustion', 'terminal'),
                 self._unused, 0 if self._dispatch_ns is None else end_ns-self._dispatch_ns,
                 self._continuation_ns, len(self._post_deadline))
-            self.outcomes.append(self._outcome)
+            self._outcome = replace(self._outcome, **self._metadata,
+                gain_prediction=self._allocation.gain_prediction, seconds_prediction=self._allocation.seconds_prediction,
+                seconds_q90=self._allocation.seconds_q90, selection_probability=self._allocation.selection_probability,
+                policy_state_hash=self._allocation.policy_state_hash,
+                admin_ns=None if self._dispatch_ns is None else self._dispatch_ns-self._entry_ns,
+                full_ns=end_ns-self._entry_ns)
+            if self.retain_outcomes:
+                self.outcomes.append(self._outcome)
+            if self.on_finish is not None:
+                self.on_finish(self._outcome)
         return self._outcome
