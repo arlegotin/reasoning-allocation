@@ -1,0 +1,29 @@
+{
+  "status": "complete",
+  "logical_requests": 2520,
+  "physical_attempts": 2520,
+  "paired_blocks": 360,
+  "status_counts": {
+    "complete": 1640,
+    "deadline": 880
+  },
+  "overshoot_ns": 50364064041,
+  "artifact_bytes": 4591473863,
+  "hash_checked_raw_artifacts": 337955,
+  "hash_checked_raw_bytes": 2573455496,
+  "resource_flags": {
+    "cpu_tail_unmeasured": 2520,
+    "timing_instrumentation_failed": 0,
+    "timing_partition_complete": 2520,
+    "resource_release_confirmed": 2520,
+    "worker_cpu_exact_field_present": 2520,
+    "worker_rss_exact_field_present": 2520,
+    "raw_instance_provenance_available": 2520
+  },
+  "post_run_audit": {
+    "strict_verification_ns": 3800237208,
+    "wall_ns": 104118770833,
+    "cpu_ns": 77585235000,
+    "scope": "post-run reporting audit; outside primary timings; final evidence write tail excluded"
+  }
+}

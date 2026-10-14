@@ -1,0 +1,115 @@
+from pathlib import Path
+from dataclasses import asdict
+from collections import Counter
+import hashlib, json, time
+from ra.freeze import verify_protocol
+from ra.runner import _read_attempt, _request_identity, _frozen_requests, _compact_frozen_attempt, _prior_costs, schedule_succeeded
+
+started, cpu = time.perf_counter_ns(), time.process_time_ns()
+root = Path.cwd()
+out = root/'artifacts/runs/ra-wp07-e005'
+evidence = root/'docs/superpowers/evidence/task16'
+read = lambda p: json.loads(p.read_text())
+sha = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
+ref = lambda p: {'path': str(p.relative_to(root)), 'sha256': sha(p), 'bytes': p.stat().st_size}
+verified = verify_protocol(root/'protocol/freeze-A004.sha256')
+strict_end = time.perf_counter_ns()
+config = read(root/'configs/confirmatory-A004.json')
+queue = read(Path(config['queue']['path']))
+seal = read(out/'execution-seal.json')
+schedule = read(out/'schedule.json')
+batches = list(out.glob('batch-*'))
+assert len(batches) == 1
+batch = batches[0]
+accounting = read(batch/'accounting.json')
+assert schedule_succeeded(out)
+assert seal['logical_request_count'] == seal['physical_attempt_count'] == len(queue) == 2520
+assert schedule['request_order'] == [r['request_id'] for r in queue] == [r['request_id'] for r in seal['effective_attempts']]
+assert len({r['request_id'] for r in queue}) == len({r['attempt_id'] for r in seal['effective_attempts']}) == 2520
+expected = {r.request_id:r for r in _frozen_requests(config, queue)}
+attempts, ranges, statuses, flags = [], [], Counter(), Counter()
+overshoot, artifact_count, hashed_bytes = 0, 0, 0
+for row, entry in zip(queue, seal['effective_attempts']):
+    directory = out/entry['directory']
+    payload, final = _read_attempt(directory)
+    assert final and sha(directory/'attempt.json') == entry['manifest_sha256']
+    assert payload['attempt_id'] == entry['attempt_id'] and payload['request_id'] == row['request_id']
+    assert _request_identity(payload['request']) == _request_identity(asdict(expected[row['request_id']]))
+    assert payload['template_id'] == row['template_id'] and payload['cell_id'] == row['cell_id']
+    assert not payload['request']['prior_attempt_ids'] and not payload['quarantined'] and not payload['duration_censored']
+    r, t = payload['resources'], payload['timestamps']
+    assert r['resource_release_confirmed'] and r['solver_threads'] == r['lp_threads'] == 1
+    assert all(v == '1' for v in r['thread_environment'].values())
+    assert payload['instance_provenance_available'] and payload['clock_aligned']
+    assert payload['request']['deadline_ns'] - payload['request']['launch_ns'] == row['budget_ns']
+    receipt = read(batch/(payload['attempt_id']+'.json'))
+    assert receipt['queue_metadata'] == row and receipt['request_id'] == row['request_id']
+    assert receipt['call_start_ns'] <= t['launch_ns'] < t['parent_release_ns'] <= receipt['call_end_ns']
+    publication = read(directory/'accounting.json')
+    assert publication['attempt_id'] == payload['attempt_id'] and publication['manifest_sha256'] == entry['manifest_sha256']
+    r['publication_ns'] = publication['publication_ns']
+    r['parent_cpu_ns'] += publication['parent_cpu_ns']
+    r['publication_accounting_complete'] = True
+    attempts.append(_compact_frozen_attempt(payload))
+    ranges.append((t['launch_ns'], t['parent_release_ns'], receipt['call_start_ns'], receipt['call_end_ns']))
+    statuses[payload['status']] += 1
+    for key in ('cpu_tail_unmeasured','timing_instrumentation_failed','timing_partition_complete','resource_release_confirmed'):
+        flags[key] += bool(r.get(key))
+    flags['worker_cpu_exact_field_present'] += 'worker_cpu_ns' in r
+    flags['worker_rss_exact_field_present'] += 'worker_peak_rss_bytes' in r
+    flags['raw_instance_provenance_available'] += payload['instance_provenance_available']
+    overshoot += payload['overshoot_ns']
+    artifact_count += len(payload['files_sha256'])
+    hashed_bytes += sum((directory/name).stat().st_size for name in payload['files_sha256'])
+assert all(a[1] <= b[0] and a[3] <= b[2] for a,b in zip(ranges,ranges[1:]))
+assert dict(statuses) == seal['status_counts']
+assert _prior_costs(attempts) == seal['costs']
+actual_dirs = {p.parent for p in out.glob('attempts/*/*/attempt.json')}
+assert actual_dirs == {out/r['directory'] for r in seal['effective_attempts']}
+generations = sorted(p for p in out.glob('blocks/*/generation-*.json') if not p.name.endswith('.closed.json'))
+assert len(generations) == 360 and all(p.name == 'generation-000000.json' for p in generations)
+by_attempt = {r['attempt_id']:r for r in seal['effective_attempts']}
+conditions = []
+for p in generations:
+    g, close = read(p), read(p.with_suffix('.closed.json'))
+    assert not g['prior_generation_ids'] and g['freeze_digest'] == verified['digest']
+    assert close['status'] == 'complete' and close['generation_id'] == g['generation_id']
+    assert len(g['requests']) == len(close['attempt_ids']) == 7
+    for planned, aid, digest in zip(g['requests'],close['attempt_ids'],close['manifest_sha256']):
+        assert by_attempt[aid] == {**planned,'attempt_id':aid,'manifest_sha256':digest}
+    conditions.append(g['conditions'])
+progress = sorted(batch.glob('progress-*.json'))
+assert len(progress) == 360
+assert [read(p)['effective_logical_requests'] for p in progress] == list(range(7,2521,7))
+assert all(read(p)['physical_attempts'] == read(p)['effective_logical_requests'] and read(p)['stop_reason'] is None for p in progress)
+journal = read(out.with_suffix('.access.json'))
+assert len(journal['events']) == 1 and journal['events'][0]['freeze_digest'] == verified['digest']
+assert journal['events'][0]['utc_ns'] < min(c['utc_ns'] for c in conditions)
+assert not (out/'halt.json').exists()
+operational_files = [p for p in out.rglob('*.json') if 'attempts' not in p.relative_to(out).parts]
+operational_files += [out.with_suffix('.access.json')]
+artifact_inventory = {'schema_version':1,'scope':'Operational metadata only; raw attempt manifests and file hashes are transitively bound by execution-seal.json. No effects computed.',
+    'artifacts':[ref(p) for p in sorted(operational_files)]}
+inventory_path = evidence/'operational-artifacts.json'
+inventory_path.write_text(json.dumps(artifact_inventory,indent=2)+'\n')
+condition_summary = {name:{'minimum':min(c[name] for c in conditions),'maximum':max(c[name] for c in conditions)} for name in ('available_memory_bytes','coordinator_rss_bytes','free_storage_bytes','utc_ns','monotonic_ns')}
+condition_summary['load_average_ranges'] = [[min(c['load_average'][i] for c in conditions), max(c['load_average'][i] for c in conditions)] for i in range(3)]
+condition_summary['power_values'] = sorted({json.dumps(c['power'],sort_keys=True) for c in conditions})
+condition_summary['temperature_unavailable_blocks'] = sum(c['temperature'] is None for c in conditions)
+condition_summary['process_count_unavailable_blocks'] = sum(c['process_count'] is None for c in conditions)
+condition_summary['end'] = accounting['conditions_end']
+summary = {'schema_version':1,'status':'complete','source_commit':config['source_commit'],'source_environment_build':config['environment'],
+    'freeze_digest':verified['digest'],'freeze':ref(root/'protocol/freeze-A004.sha256'),'config':ref(root/'configs/confirmatory-A004.json'),
+    'queue':ref(Path(config['queue']['path'])),'execution_seal':ref(out/'execution-seal.json'),'operational_inventory':ref(inventory_path),
+    'cohort':config['sample'],'logical_requests':2520,'physical_attempts':2520,'paired_blocks':360,'repeated_blocks':0,
+    'status_counts':dict(statuses),'method_request_counts':dict(Counter(r['method'] for r in queue)),
+    'repeat_request_counts':dict(Counter(r['repeat'] for r in queue)),'deadline_request_counts':dict(Counter(r['budget_ns'] for r in queue)),
+    'fit_mapping_counts':dict(Counter(r['fit_id'] for r in queue)), 'costs':seal['costs'],'overshoot_ns':overshoot,
+    'batch_accounting':accounting,'resource_flags':dict(flags),'conditions':condition_summary,
+    'artifact_bytes':sum(p.stat().st_size for p in out.rglob('*') if p.is_file()),
+    'hash_checked_attempt_manifests':2520,'hash_checked_raw_artifacts':artifact_count,'hash_checked_raw_bytes':hashed_bytes,
+    'checks':['full strict protocol verification passed after run','all raw manifest and artifact hashes match','all requests match frozen config/model/environment/source/input/deadline identities','all queue mappings/order match exact frozen queue','worker launch/release and coordinator call intervals are serial','all blocks first generation, all attempt/cost/status counts reconcile','single durable access precedes protected blocks','one solver/native thread declared in all2520 worker records'],
+    'post_run_audit':{'strict_verification_ns':strict_end-started,'wall_ns':time.perf_counter_ns()-started,'cpu_ns':time.process_time_ns()-cpu,'scope':'post-run reporting audit; outside primary timings; final evidence write tail excluded'},
+    'limitations':['No effects, significance, utility summaries or scientific claim computed.','Worker CPU includes a measured lower bound; pre-terminal cleanup to process exit has an unmeasured CPU tail in all2520 requests. Parent wall includes actual release.','Final batch accounting write, report writes, some failed static preparation and interactive monitoring costs are not fully instrumented; do not interpret reported sums as exact full-project cost.','Temperature and process-count sensors unavailable for all360 blocks; load/power/memory/disk/time metadata retained.','One genuine frozen policy fit; subsequent inference conditional on frozen fitted assets/training data.','Large raw artifacts and protected input namespaces remain local and preserved; compact metadata is committed, no raw trace staging.']}
+(evidence/'execution-audit.json').write_text(json.dumps(summary,indent=2)+'\n')
+print(json.dumps({k:summary[k] for k in ('status','logical_requests','physical_attempts','paired_blocks','status_counts','overshoot_ns','artifact_bytes','hash_checked_raw_artifacts','hash_checked_raw_bytes','resource_flags','post_run_audit')},indent=2))

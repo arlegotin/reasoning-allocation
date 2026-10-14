@@ -1,0 +1,238 @@
+{
+  "schema_version": 1,
+  "status": "complete",
+  "source_commit": "5acc206a8482710578f21ee90bb80ecd8a092828",
+  "source_environment_build": {
+    "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+    "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+    "source_hash": "a550040a87910fb4aa710ae9d33578dfd623a0b98b8fda0163dd3fb863557a05"
+  },
+  "freeze_digest": "72aba9929daa98bb48c64237ebba47e2c6d66e75d65165bf78a0355a53455457",
+  "freeze": {
+    "path": "protocol/freeze-A004.sha256",
+    "sha256": "c46380a6349f1b77c725d429610a0554eb0335babe66ed78b7ad3f4bf65eaa5b",
+    "bytes": 92
+  },
+  "config": {
+    "path": "configs/confirmatory-A004.json",
+    "sha256": "e13f31a7b098f372e12d653e46513d9f2d52fd587cb5841aff36ffbd8f36bffe",
+    "bytes": 27260
+  },
+  "queue": {
+    "path": "artifacts/task16/source-calibration-v2/protected-queue.json",
+    "sha256": "6fa088859aeeac6bbd050c8e644cd029487ceaf66ca15d65bfbe5dd964d8bbff",
+    "bytes": 1284723
+  },
+  "execution_seal": {
+    "path": "artifacts/runs/ra-wp07-e005/execution-seal.json",
+    "sha256": "fa816d59deb649dafa1a00c5ecb59cb865bcd489a992963f956d986b809645c4",
+    "bytes": 954078
+  },
+  "operational_inventory": {
+    "path": "docs/superpowers/evidence/task16/operational-artifacts.json",
+    "sha256": "7203c157ae40791fd8f21a656c167a9f08979e2d13eedb23495a5b138a348b02",
+    "bytes": 881050
+  },
+  "cohort": {
+    "fit_runs": 1,
+    "original_templates": 60,
+    "templates_per_cell": 10,
+    "timing_repeats": 2,
+    "train_originals": 12
+  },
+  "logical_requests": 2520,
+  "physical_attempts": 2520,
+  "paired_blocks": 360,
+  "repeated_blocks": 0,
+  "status_counts": {
+    "complete": 1640,
+    "deadline": 880
+  },
+  "method_request_counts": {
+    "B1": 360,
+    "B3": 360,
+    "A": 360,
+    "B2": 360,
+    "B0": 360,
+    "B6": 360,
+    "B5": 360
+  },
+  "repeat_request_counts": {
+    "0": 1260,
+    "1": 1260
+  },
+  "deadline_request_counts": {
+    "526707240": 840,
+    "2106828958": 840,
+    "8427315832": 840
+  },
+  "fit_mapping_counts": {
+    "shared": 720,
+    "task13-matched-fit1": 1800
+  },
+  "costs": {
+    "attempt_count": 2520,
+    "duration_censored_attempts": 0,
+    "end_to_end_ns": 3600674989869,
+    "fallback_count": 0,
+    "initialization_cpu_ns": 2958449000,
+    "initialization_ns": 5330012876,
+    "input_bytes": 84752178,
+    "model_bytes": 31725720,
+    "native_lps": 419314,
+    "native_nodes": 147800,
+    "parent_cpu_ns": 377562958000,
+    "parent_observation_ns_overlapping_worker": 105885548777,
+    "parent_sampling_ns": 2740795883,
+    "publication_ns": 88880694529,
+    "total_observed_ns": 3689555684398,
+    "trace_bytes": 2522350036,
+    "unavailable_counts": {
+      "fallback_count": 0,
+      "initialization_cpu_ns": 0,
+      "initialization_ns": 0,
+      "input_bytes": 0,
+      "model_bytes": 0,
+      "native_lps": 0,
+      "native_nodes": 0,
+      "parent_observation_ns_overlapping_worker": 0,
+      "parent_sampling_ns": 0
+    },
+    "unknown_publication_attempts": 0,
+    "unknown_worker_cpu_attempts": 0,
+    "unknown_worker_rss_attempts": 0,
+    "worker_cpu_ns_lower_bound": 3347089174268,
+    "worker_peak_rss_bytes_lower_bound": 297369600
+  },
+  "overshoot_ns": 50364064041,
+  "batch_accounting": {
+    "conditions_end": {
+      "available_memory_bytes": 12094144512,
+      "coordinator_rss_bytes": 480018432,
+      "cpu_count": 14,
+      "free_storage_bytes": 75361460224,
+      "load_average": [
+        4.82080078125,
+        5.5791015625,
+        5.58837890625
+      ],
+      "monotonic_ns": 240515428792666,
+      "platform": "macOS-26.7.1-arm64-arm-64bit",
+      "power": {
+        "output": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=36634723)\t100%; charged; 0:00 remaining present: true",
+        "returncode": 0
+      },
+      "process_count": null,
+      "process_count_unavailable": "unavailable: PermissionError: [Errno 1] Operation not permitted (originated from sysctl() malloc 1/3)",
+      "temperature": null,
+      "temperature_unavailable": "no supported unprivileged continuous sensor",
+      "utc_ns": 1791972351441672000
+    },
+    "coordinator_cpu_ns": 514584103000,
+    "live_guard_ns": 63295173010,
+    "physical_attempt_count": 2520,
+    "scope": "entry through strict verification, recovery, guards, serial calls, audits and status publication; final accounting write tail unmeasured",
+    "strict_guard_ns": 3718029917,
+    "total_observed_ns": 3834684718000
+  },
+  "resource_flags": {
+    "cpu_tail_unmeasured": 2520,
+    "timing_instrumentation_failed": 0,
+    "timing_partition_complete": 2520,
+    "resource_release_confirmed": 2520,
+    "worker_cpu_exact_field_present": 2520,
+    "worker_rss_exact_field_present": 2520,
+    "raw_instance_provenance_available": 2520
+  },
+  "conditions": {
+    "available_memory_bytes": {
+      "minimum": 10356850688,
+      "maximum": 13839728640
+    },
+    "coordinator_rss_bytes": {
+      "minimum": 119504896,
+      "maximum": 561545216
+    },
+    "free_storage_bytes": {
+      "minimum": 75364175872,
+      "maximum": 81075146752
+    },
+    "utc_ns": {
+      "minimum": 1791968521327417000,
+      "maximum": 1791972349542224000
+    },
+    "monotonic_ns": {
+      "minimum": 236685305184000,
+      "maximum": 240513529339458
+    },
+    "load_average_ranges": [
+      [
+        3.70458984375,
+        8.80712890625
+      ],
+      [
+        4.7724609375,
+        6.8818359375
+      ],
+      [
+        4.9130859375,
+        5.9560546875
+      ]
+    ],
+    "power_values": [
+      "{\"output\": \"Now drawing from 'AC Power'\\n -InternalBattery-0 (id=36634723)\\t100%; charged; 0:00 remaining present: true\", \"returncode\": 0}"
+    ],
+    "temperature_unavailable_blocks": 360,
+    "process_count_unavailable_blocks": 360,
+    "end": {
+      "available_memory_bytes": 12094144512,
+      "coordinator_rss_bytes": 480018432,
+      "cpu_count": 14,
+      "free_storage_bytes": 75361460224,
+      "load_average": [
+        4.82080078125,
+        5.5791015625,
+        5.58837890625
+      ],
+      "monotonic_ns": 240515428792666,
+      "platform": "macOS-26.7.1-arm64-arm-64bit",
+      "power": {
+        "output": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=36634723)\t100%; charged; 0:00 remaining present: true",
+        "returncode": 0
+      },
+      "process_count": null,
+      "process_count_unavailable": "unavailable: PermissionError: [Errno 1] Operation not permitted (originated from sysctl() malloc 1/3)",
+      "temperature": null,
+      "temperature_unavailable": "no supported unprivileged continuous sensor",
+      "utc_ns": 1791972351441672000
+    }
+  },
+  "artifact_bytes": 4591473863,
+  "hash_checked_attempt_manifests": 2520,
+  "hash_checked_raw_artifacts": 337955,
+  "hash_checked_raw_bytes": 2573455496,
+  "checks": [
+    "full strict protocol verification passed after run",
+    "all raw manifest and artifact hashes match",
+    "all requests match frozen config/model/environment/source/input/deadline identities",
+    "all queue mappings/order match exact frozen queue",
+    "worker launch/release and coordinator call intervals are serial",
+    "all blocks first generation, all attempt/cost/status counts reconcile",
+    "single durable access precedes protected blocks",
+    "one solver/native thread declared in all2520 worker records"
+  ],
+  "post_run_audit": {
+    "strict_verification_ns": 3800237208,
+    "wall_ns": 104118770833,
+    "cpu_ns": 77585235000,
+    "scope": "post-run reporting audit; outside primary timings; final evidence write tail excluded"
+  },
+  "limitations": [
+    "No effects, significance, utility summaries or scientific claim computed.",
+    "Worker CPU includes a measured lower bound; pre-terminal cleanup to process exit has an unmeasured CPU tail in all2520 requests. Parent wall includes actual release.",
+    "Final batch accounting write, report writes, some failed static preparation and interactive monitoring costs are not fully instrumented; do not interpret reported sums as exact full-project cost.",
+    "Temperature and process-count sensors unavailable for all360 blocks; load/power/memory/disk/time metadata retained.",
+    "One genuine frozen policy fit; subsequent inference conditional on frozen fitted assets/training data.",
+    "Large raw artifacts and protected input namespaces remain local and preserved; compact metadata is committed, no raw trace staging."
+  ]
+}

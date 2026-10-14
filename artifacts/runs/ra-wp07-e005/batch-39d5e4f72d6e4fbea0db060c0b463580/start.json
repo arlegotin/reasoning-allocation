@@ -1,0 +1,7 @@
+{
+  "admitted_ns": 236685274977916,
+  "entry_cpu_ns": 104741000,
+  "entry_monotonic_ns": 236680732683166,
+  "scope": "interrupted batches retain lower bounds; absent final accounting means unknown tail",
+  "strict_guard_ns": 3718029917
+}

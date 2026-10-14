@@ -1,0 +1,8 @@
+{
+  "event_id": "8dcf6e99e0474574b2491aa293b8266e",
+  "freeze_digest": "72aba9929daa98bb48c64237ebba47e2c6d66e75d65165bf78a0355a53455457",
+  "operation": "execute_or_resume",
+  "resume": true,
+  "strict_guard_ns": 3718029917,
+  "utc_ns": 1791968520477951000
+}

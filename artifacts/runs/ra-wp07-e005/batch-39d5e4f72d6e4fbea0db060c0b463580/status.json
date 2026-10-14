@@ -1,0 +1,9 @@
+{
+  "freeze_digest": "72aba9929daa98bb48c64237ebba47e2c6d66e75d65165bf78a0355a53455457",
+  "phase": "confirmatory",
+  "physical_attempt_count": 2520,
+  "request_count": 2520,
+  "schema_version": 1,
+  "stop_reason": null,
+  "success": true
+}
