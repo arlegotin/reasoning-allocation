@@ -249,3 +249,35 @@ def build_features(context: DecisionContext, candidates: Sequence[NodeRecord], l
             action_rows.append((node.key, length))
             row_index += 1
     return FeatureBatch(matrix, tuple(action_rows), schema_hash, time.perf_counter_ns()-started)
+
+
+def pooled_schema(schema: FeatureSchema) -> FeatureSchema:
+    """Distinct 301-column tabular treatment; the local schema is unchanged."""
+    from dataclasses import replace
+    validate_schema(schema)
+    statistics = ('mean', 'population_std', 'min', 'max', 'unavailable_fraction',
+                  'valid_count', 'all_missing', 'missing_fraction', 'infinite_fraction')
+    pooled = tuple(FeatureSpec(f'pool_{f.name}_{stat}', f.unit if stat in statistics[:4] else 'count-or-fraction',
+                              'pool.unique_nodes.' + f.name + '.' + stat, (-1e300, 1e300), ())
+                   for f in schema.features if (f.origin.startswith('node.') or f.origin.startswith('ancestry.'))
+                   and not f.name.startswith('category_') for stat in statistics)
+    pooled += (FeatureSpec('pool_frontier_size', 'nodes', 'context.frontier_size', (0,1e300), ()),)
+    return replace(schema, features=schema.features + pooled, preprocessing='local-masks-pooled-explicit-v1')
+
+
+def append_pooled_context(batch: FeatureBatch, schema: FeatureSchema) -> FeatureBatch:
+    """Append Task11's exact finite unique-node summaries, charging extraction."""
+    from ra.collect import pooled_features
+    started = time.perf_counter_ns()
+    if batch.schema_hash != schema.hash or batch.matrix.shape != (len(batch.action_rows),len(schema.names)):
+        raise ValueError('pooled context requires aligned local batch')
+    first = {}
+    for i, (key, length) in enumerate(batch.action_rows):
+        first.setdefault(key, i)
+    if not first:
+        raise ValueError('pooled context requires candidate nodes')
+    unique = FeatureBatch(batch.matrix[list(first.values())],tuple(batch.action_rows[i] for i in first.values()),schema.hash,0)
+    frontier = batch.matrix[0,schema.names.index('frontier_size')]
+    values, _, _ = pooled_features(unique,schema,len(first),1,frontier)
+    matrix = np.concatenate((batch.matrix,np.repeat(values,len(batch.matrix),axis=0)),axis=1)
+    return FeatureBatch(matrix,batch.action_rows,pooled_schema(schema).hash,batch.extraction_ns+time.perf_counter_ns()-started)

@@ -88,10 +88,15 @@ class BidderExpired(Exception):
 
 
 class LocalBidder:
-    def __init__(self, bundle, schema, *, c_min, fallback_length=4, clock=None, request_stop=None):
+    def __init__(self, bundle, schema, *, c_min, fallback_length=4, clock=None, request_stop=None, control_id=None, fixed_length=None):
         import time
         if not math.isfinite(c_min) or c_min <= 0 or type(fallback_length) is not int or fallback_length <= 0:
             raise ValueError('positive measured floor and fixed fallback length required')
+        if control_id not in (None, "B3", "B4", "B5", "B6"):
+            raise ValueError("unknown attribution control")
+        if (control_id == "B4") != (type(fixed_length) is int and fixed_length > 0):
+            raise ValueError("B4 requires one fixed supported length")
+        self.control_id, self.fixed_length = control_id, fixed_length
         self.bundle, self.schema = bundle, schema
         self.c_min, self.fallback_length = c_min, fallback_length
         self.clock, self.request_stop = clock or time.perf_counter_ns, request_stop
@@ -100,8 +105,30 @@ class LocalBidder:
 
     def choose(self, context, candidates, lease_lengths):
         from ra.features import build_features
-        batch = build_features(context, candidates, lease_lengths, self.ancestry, self.schema)
+        batch = build_features(context, candidates, self.action_lengths(lease_lengths), self.ancestry, self.schema)
         return self.choose_batch(context, candidates, batch)
+
+    def action_lengths(self, lengths):
+        length = 1 if self.control_id == 'B3' else self.fixed_length
+        if length is not None:
+            if length not in lengths: raise ValueError('control length outside support')
+            return (length,)
+        return tuple(lengths)
+
+    @property
+    def compact_diagnostics(self):
+        import numpy as np
+        d = self._diagnostics
+        result = {k:v for k,v in d.items() if not hasattr(v, 'tolist') and k != 'body_q90'}
+        result.update(prediction_sha256=self._prediction_hash, action_rows=len(d['gain']),
+                      negative_gain_count=int(np.sum(d['gain'] < 0)),
+                      negative_body_count=int(np.sum(d['body_seconds'] < 0)))
+        if hasattr(self, '_selected'):
+            i = self._selected
+            result.update(selected_gain=float(d['gain'][i]), selected_body_seconds=float(d['body_seconds'][i]),
+                          selected_body_q90=None if d['body_q90'] is None else float(d['body_q90'][i]),
+                          selected_rate=float(d['rates'][i]))
+        return result
 
     @property
     def last_diagnostics(self):
@@ -109,8 +136,22 @@ class LocalBidder:
 
     def choose_batch(self, context, candidates, batch):
         import time
+        if hasattr(self, '_selected'): del self._selected
         if context.entry_ns is None or context.entry_ns > context.snapshot_ns:
             raise ValueError('current rebid entry timing required')
+        if self.control_id in ("B3", "B4"):
+            allowed = self.action_lengths(tuple(sorted({n for _,n in batch.action_rows})))
+            if any(n not in allowed for _,n in batch.action_rows):
+                from ra.types import FeatureBatch
+                indices = [i for i,(_,n) in enumerate(batch.action_rows) if n in allowed]
+                batch = FeatureBatch(batch.matrix[indices],tuple(batch.action_rows[i] for i in indices),batch.schema_hash,batch.extraction_ns)
+        if self.control_id == "B6":
+            from ra.features import append_pooled_context
+            from ra.collect import pooled_metadata
+            local_extraction_ns = batch.extraction_ns
+            batch = append_pooled_context(batch, self.schema)
+            self.pooled_audit = (batch.matrix[:1,len(self.schema.names):].copy(), pooled_metadata(self.schema),
+                                 batch.extraction_ns - local_extraction_ns)
         started = time.perf_counter_ns()
         prediction = self.bundle.predict(batch)
         prediction.validate(len(batch.action_rows))
@@ -132,9 +173,15 @@ class LocalBidder:
         rates = np.maximum(0., prediction.gain) / total
         surviving = (np.ones(len(rates), dtype=bool) if prediction.body_q90 is None else
                      prediction.body_q90 <= max(0., (context.deadline_ns-now)/1e9))
+        eligible = np.ones(len(rates), dtype=bool)
+        if self.control_id == "B5":
+            root = min(candidates,key=lambda n:(n.native_estimate,n.native_lower_bound,n.key.number)).key
+            eligible = np.array([key == root for key,_ in batch.action_rows])
+            surviving &= eligible
         tail_exception = not surviving.any()
         if tail_exception:
-            surviving = np.array([length == 1 for _, length in batch.action_rows])
+            fallback = self.fixed_length if self.control_id == "B4" else 1
+            surviving = eligible & np.array([length == fallback for _, length in batch.action_rows])
         # Keep arrays until after the final decision. Large diagnostic conversions
         # and hashes must not precede dispatch after the clock has been sampled.
         self._diagnostics = {'gain': prediction.gain, 'body_seconds': prediction.body_seconds,
@@ -158,6 +205,7 @@ class LocalBidder:
             lengths = {batch.action_rows[i][1] for i in indices}
             length = max((n for n in lengths if n <= self.fallback_length), default=min(lengths))
             selected = next(i for i in indices if batch.action_rows[i][1] == length)
+        self._selected = selected
         root, length = batch.action_rows[selected]
         state = hashlib.sha256(json.dumps([self._prediction_hash, now, selected, self.c_min,
             self.fallback_length, self._diagnostics['fallback'], bool(tail_exception)]).encode()).hexdigest()
@@ -171,8 +219,13 @@ class LocalBidder:
 def validate_local_config(config):
     from pathlib import Path
     required = {'policy', 'model_path', 'model_hash', 'schema_path', 'schema_hash', 'c_min', 'fallback_length'}
-    if set(config) != required or config['policy'] != 'local':
+    if set(config) - {'control_id', 'fixed_length'} != required or config['policy'] != 'local':
         raise ValueError('invalid local model configuration')
+    control = config.get('control_id')
+    if control not in (None, 'B3', 'B4', 'B5', 'B6') or (control == 'B4') != ('fixed_length' in config):
+        raise ValueError('invalid attribution control configuration')
+    if control == 'B4' and (type(config['fixed_length']) is not int or config['fixed_length'] <= 0):
+        raise ValueError('positive fixed control length required')
     for key in ('model_path', 'schema_path'):
         if not isinstance(config[key], str) or not Path(config[key]).is_absolute():
             raise ValueError('absolute model/schema path required')
@@ -198,8 +251,11 @@ def load_local_allocator(config):
     if schema.hash != config['schema_hash']:
         raise ValueError('schema hash mismatch')
     bundle = ModelBundle.load(config['model_path'])
-    if bundle.schema_hash != schema.hash:
+    from ra.features import pooled_schema
+    expected = pooled_schema(schema).hash if config.get("control_id") == "B6" else schema.hash
+    if bundle.schema_hash != expected:
         raise ValueError('model schema mismatch')
-    bidder = LocalBidder(bundle, schema, c_min=config['c_min'], fallback_length=config['fallback_length'])
+    bidder = LocalBidder(bundle, schema, c_min=config['c_min'], fallback_length=config['fallback_length'],
+                         control_id=config.get('control_id'), fixed_length=config.get('fixed_length'))
     bidder.loading_ns, bidder.model_bytes = time.perf_counter_ns()-started, len(raw)
     return bidder

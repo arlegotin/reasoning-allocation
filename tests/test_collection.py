@@ -203,8 +203,9 @@ def test_selected_original_weights_preserve_locked_cell_mass():
     ([.001, .04], [.2, .3], [.005, .02], None, 25_000_000),  # Two revisions, then expiry.
 ])
 @pytest.mark.parametrize('behavior_seed', [None, 1, 5])
+@pytest.mark.parametrize('compact_logging', [False, True])
 def test_local_final_decision_refreshes_after_slow_trace_without_reprediction(
-        tmp_path, monkeypatch, q90, gain, body, expected_length, revision_delay, behavior_seed):
+        tmp_path, monkeypatch, q90, gain, body, expected_length, revision_delay, behavior_seed, compact_logging):
     from collections import OrderedDict
     from dataclasses import asdict
     from types import SimpleNamespace
@@ -223,6 +224,7 @@ def test_local_final_decision_refreshes_after_slow_trace_without_reprediction(
             calls.append(batch)
             return PredictionBatch(np.array(gain), np.array(body), None if q90 is None else np.array(q90))
     local = LocalBidder(Model(), schema, c_min=1e-6, clock=lambda: now[0])
+    local.compact_logging = compact_logging
     runtime = collection.CollectionRuntime.__new__(collection.CollectionRuntime)
     runtime.request = SimpleNamespace(request_id='r', deadline_ns=2_100_000_000, launch_ns=0, p0=10, solver_seed=17,
         method_config={'pool_size': 2, 'lease_lengths': [1, 4], 'allocator': {'policy': 'local'},

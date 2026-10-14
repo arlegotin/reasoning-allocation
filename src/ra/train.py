@@ -15,7 +15,7 @@ def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
-def load_training_rows(roots, schema):
+def load_training_rows(roots, schema, *, control_id=None, fixed_length=None):
     """Read selected executed local rows only; raw historical flags never win."""
     import numpy as np
     from ra.types import FeatureBatch, NodeKey
@@ -27,6 +27,7 @@ def load_training_rows(roots, schema):
         if sha(CORRECTION) != CORRECTION_HASH: raise ValueError('duration correction hash mismatch')
         corrections = {str(Path(r['source_label']).resolve()): r for r in strict_json(CORRECTION.read_text())['rows']}
     attempts, seen, all_labels = {}, set(), []
+    skipped = Counter()
     for root in roots:
         for path in sorted(Path(root).rglob('label-*.json')):
             path = path.resolve()
@@ -58,6 +59,13 @@ def load_training_rows(roots, schema):
                 continue
             decision_path = path.with_name(f"decision-{label['trace_index']:06d}.json")
             decision = read_decision(decision_path, inventory=inventory)
+            regime = [1] if control_id == 'B3' else [fixed_length] if control_id == 'B4' else None
+            if regime is not None and decision['support_lengths'] != regime:
+                skipped['unsupported_regime'] += 1
+                continue
+            if control_id == 'B6' and 'pooled_features' not in decision:
+                skipped['missing_pooled_context'] += 1
+                continue
             selected = path.parent / decision['selected_features']
             if selected.parent.resolve() != path.parent or decision['feature_schema_hash'] != schema.hash:
                 raise ValueError('local selected row/schema mismatch')
@@ -72,6 +80,21 @@ def load_training_rows(roots, schema):
             if matrix.shape != (1,len(schema.names)) or matrix.dtype != np.float64 or not np.isfinite(matrix).all():
                 raise ValueError('invalid selected local matrix')
             inventory[str(selected)] = sha(selected); inventory[str(decision_path)] = sha(decision_path)
+            if control_id == 'B6':
+                from ra.features import pooled_schema
+                from ra.collect import pooled_metadata, digest
+                pool_path = path.parent / decision['pooled_features']
+                if pool_path.parent.resolve() != path.parent or sha(pool_path) != decision['pooled_sha256']:
+                    raise ValueError('pooled selected row hash/path mismatch')
+                # Recompute the schema descriptor, never fabricate historical values.
+                expected = pooled_metadata(schema)
+                if decision['pooled_schema'] != expected or decision['pooled_schema_hash'] != digest(expected):
+                    raise ValueError('pooled training/runtime schema mismatch')
+                pool = np.load(pool_path,allow_pickle=False)
+                if pool.shape != (1,len(pooled_schema(schema).names)-len(schema.names)) or pool.dtype != np.float64 or not np.isfinite(pool).all():
+                    raise ValueError('invalid pooled matrix')
+                matrix = np.concatenate((matrix,pool),axis=1)
+                inventory[str(pool_path)] = sha(pool_path)
             matrices.append(matrix[0]); labels.append(label)
             originals.append(attempt['request']['instance_hash'])
             families.append(attempt['lineage']['cell']['family'])
@@ -79,7 +102,9 @@ def load_training_rows(roots, schema):
             # Offline rows span decisions: synthetic row keys keep action alignment unique.
             actions.append((NodeKey(0,len(actions)), label['node_limit']))
     if not matrices: raise ValueError('no supported training rows')
-    return {'batch': FeatureBatch(np.asarray(matrices), tuple(actions), schema.hash, 0),
+    from ra.features import pooled_schema
+    input_schema = pooled_schema(schema) if control_id == 'B6' else schema
+    return {'batch': FeatureBatch(np.asarray(matrices), tuple(actions), input_schema.hash, 0),
             'gain': np.asarray([x['endpoint_gain'] for x in labels]),
             'body': np.asarray([x['body_ns']/1e9 for x in labels]),
             'eligible': np.asarray([x['body_fit_eligible'] for x in labels],dtype=bool),
@@ -87,7 +112,7 @@ def load_training_rows(roots, schema):
             'originals': originals, 'families': families, 'budgets': budgets, 'labels': labels,
             'censoring':['lower_bound' if x['duration_lower_bound'] else 'deadline' if x['deadline_censored']
                          else 'natural_unknown' if not x['completion_outcome_known'] else 'natural_known' for x in labels],
-            'sensitivity':target_sensitivity(all_labels), 'inventory': inventory, 'correction_sha256': CORRECTION_HASH if corrections else None,
+            'sensitivity':{**target_sensitivity(all_labels), 'skipped_control_rows':dict(skipped)}, 'inventory': inventory, 'correction_sha256': CORRECTION_HASH if corrections else None,
             'scheduled_originals': sorted({a['request']['instance_hash'] for a,_ in attempts.values()})}
 
 
@@ -114,7 +139,7 @@ def fit(data, schema, candidate, seed):
     from ra.models import fit_bundle
     return fit_bundle(data['batch'], schema, data['gain'], data['body'], data['originals'], data['eligible'],
                       kind=candidate['kind'], seed=seed, parameters=candidate['parameters'],
-                      quantile=candidate.get('quantile',False), supported_lengths=(1,2,4,8,16,32,64),
+                      quantile=candidate.get('quantile',False), supported_lengths=tuple(sorted({n for _,n in data['batch'].action_rows})),
                       gain_eligible=data['gain_eligible'])
 
 
@@ -185,7 +210,7 @@ def validation_scores(attempts, budget_weights):
     return result
 
 
-def fit_models(config_path: Path, trace_root: Path, output: Path, *, dry_run=False):
+def fit_models(config_path: Path, trace_root: Path, output: Path, *, dry_run=False, control_id=None):
     import fcntl
     import tempfile
     from ra.config import load_config, load_feature_schema
@@ -199,7 +224,9 @@ def fit_models(config_path: Path, trace_root: Path, output: Path, *, dry_run=Fal
         try: fcntl.flock(lock,fcntl.LOCK_EX | fcntl.LOCK_NB)
         except BlockingIOError: raise ValueError('training cannot overlap timed solver work') from None
         roots = [Path(trace_root), *[(config_path.parent/p).resolve() for p in options.get('additional_trace_roots',[])]]
-        data = load_training_rows(roots,schema)
+        data = load_training_rows(roots,schema,control_id=control_id,fixed_length=options.get("fixed_length"))
+        from ra.features import pooled_schema
+        input_schema = pooled_schema(schema) if control_id == "B6" else schema
         forecast = {'success':True,'dry_run':dry_run,'rows':len(data['gain']),
                     'originals':len(set(data['originals'])),'candidates':len(options['grid'])*len(options['fit_seeds'])}
         if dry_run: return forecast
@@ -225,12 +252,12 @@ def fit_models(config_path: Path, trace_root: Path, output: Path, *, dry_run=Fal
                 try:
                     for count in sorted({max(1,len(available)//2),len(available)}):
                         ids=set(available[:count]); train=subset(data,[i for i,g in enumerate(data['originals']) if g in ids])
-                        cb=time.perf_counter_ns(); m=fit(train,schema,candidate,seed)
+                        cb=time.perf_counter_ns(); m=fit(train,input_schema,candidate,seed)
                         record['curves'].append({'train_originals':sorted(ids),'held_originals':sorted(held),
                             'fit_ns':time.perf_counter_ns()-cb,'diagnostics':diagnostics(m,held_data)})
-                    model=fit(data,schema,candidate,seed)
+                    model=fit(data,input_schema,candidate,seed)
                     # Supported actions are calibrated runtime support, with observed support reported separately.
-                    model.supported_lengths=tuple(config['lease_lengths'])
+                    model.supported_lengths=tuple(sorted({n for _,n in data['batch'].action_rows}))
                     original_asset=output/(name+'.pkl'); model.save(original_asset)
                     asset=output/(name+'.json'); model.export(asset)
                     from ra.models import ModelBundle
@@ -251,6 +278,16 @@ def fit_models(config_path: Path, trace_root: Path, output: Path, *, dry_run=Fal
             _atomic_json(output/'failed-training.json', {'success':False,'candidates':records,
                 'wall_ns':time.perf_counter_ns()-started,'cpu_ns':time.process_time_ns()-cpu},immutable=True)
             return {'success':False,'dry_run':False,'reason':'all fits failed','output':str(output)}
+        if options.get('defer_validation', False):
+            card = {**forecast, 'dry_run':False, 'control_id':control_id, 'candidates':records,
+                    'schema':asdict(input_schema), 'schema_hash':input_schema.hash, 'local_schema_hash':schema.hash,
+                    'source_hash':code_hash,'environment_hash':environment_hash,'build_hash':build_hash,
+                    'data_hash':sha(output/'data-inventory.json'), 'config_hash':sha(output/'config.json'),
+                    'training_originals':originals,'target_sensitivity':data['sensitivity'],
+                    'wall_ns':time.perf_counter_ns()-started,'cpu_ns':time.process_time_ns()-cpu,
+                    'selection':'deferred to a separate paired public validation schedule; no winner yet'}
+            _atomic_json(output/'fit-card.json',card,immutable=True)
+            return {'success':True,'card':str(output/'fit-card.json')}
         # This boundary starts only after all fits and diagnostics finish.
         from ra.data import generate_workload
         generation=load_config((config_path.parent/options['generation_config']).resolve(),'generation')
@@ -267,6 +304,9 @@ def fit_models(config_path: Path, trace_root: Path, output: Path, *, dry_run=Fal
                     name=r['name'] if len(fallback_lengths)==1 else f"{r['name']}-fallback{length}"
                     methods.append(learned_method(r['asset'],schema_path,schema,name=name,
                         c_min=options['c_min'],fallback_length=length))
+                    if control_id is not None:
+                        methods[-1]['allocator']['control_id'] = control_id
+                        if control_id == 'B4': methods[-1]['allocator']['fixed_length'] = options['fixed_length']
         methods.extend(options.get('validation_extra_methods',[]))
         run={k:v for k,v in config.items() if k not in ('training','collection')}
         run.update(input_manifests=[str(output/'validation-inputs'/'selected-manifest.json')],methods=methods,
@@ -291,7 +331,7 @@ def fit_models(config_path: Path, trace_root: Path, output: Path, *, dry_run=Fal
         eligible=[m for m in methods if m['kind']=='shared' and not failures[m['name']]]
         selected=max(eligible,key=lambda m:(scores[m['name']],-Path(m['allocator']['model_path']).stat().st_size)) if eligible else None
         import resource,sys
-        card={**forecast,'dry_run':False,'success':selected is not None,'schema':asdict(schema),'schema_hash':schema.hash,
+        card={**forecast,'dry_run':False,'success':selected is not None,'schema':asdict(input_schema),'schema_hash':input_schema.hash,'local_schema_hash':schema.hash,
               'source_hash':code_hash,'environment_hash':environment_hash,'build_hash':build_hash,
               'config_hash':sha(output/'config.json'),'data_hash':sha(output/'data-inventory.json'),
               'correction_sha256':data['correction_sha256'],'candidates':records,
@@ -310,3 +350,10 @@ def fit_models(config_path: Path, trace_root: Path, output: Path, *, dry_run=Fal
               'claim':'exploratory working bidder only; Task13 controls, Task14 gates and Task15 freeze pending'}
         _atomic_json(output/'model-card.json',card,immutable=True)
         return {'success':card['success'],'dry_run':False,'selected':card['selected'],'card':str(output/'model-card.json')}
+
+
+def fit_control(control_id: str, config_path: Path, trace_root: Path, output: Path) -> dict[str, object]:
+    """Fit executed supported regimes and select on public validation only."""
+    if control_id not in ('B3','B4','B5','B6'):
+        raise ValueError('unknown control ID')
+    return fit_models(config_path,trace_root,output,control_id=control_id)

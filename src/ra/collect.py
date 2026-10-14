@@ -195,7 +195,8 @@ def read_decision(path, *, inventory=None):
         raise ValueError('prepared/final action mismatch')
     if prepared['selected_features'] != dispatch['selected_features']:
         raise ValueError('prepared/final selected row mismatch')
-    return {**prepared, 'allocation': dispatch['allocation'], 'heuristic': final['heuristic']}
+    pool = {k:v for k,v in initial.items() if k.startswith('pooled_')}
+    return {**pool, **prepared, 'allocation': dispatch['allocation'], 'heuristic': final['heuristic']}
 
 
 def pooled_features(batch, schema, pool_size, length_count, frontier_size):
@@ -222,13 +223,18 @@ def pooled_features(batch, schema, pool_size, length_count, frontier_size):
                        float(np.mean(np.any(rows[:, [schema.names.index(field + '__' + mask) for mask in
                            ('value_infinite', 'lower_infinite', 'cutoff_infinite')]] != 0, axis=1)))])
     result.append(frontier_size)
-    metadata = {'version': 1, 'fields': fields,
+    metadata = pooled_metadata(schema)
+    return np.asarray(result, dtype=np.float64)[None, :], metadata, time.perf_counter_ns() - started
+
+
+def pooled_metadata(schema):
+    fields = [f.name for f in schema.features if (f.origin.startswith('node.') or f.origin.startswith('ancestry.'))
+              and not f.name.startswith('category_')]
+    return {'version': 1, 'fields': fields,
                 'statistics': ['mean', 'population_std', 'min', 'max', 'unavailable_fraction', 'valid_count', 'all_missing', 'missing_fraction', 'infinite_fraction'],
                 'tail': ['frontier_size'], 'source_local_schema': schema.hash,
                 'population': 'unique pre-allocation candidate pool nodes, one row per node',
                 'invalid': 'any missing/value-infinity/reference-infinity mask; capped finite observations retained'}
-    return np.asarray(result, dtype=np.float64)[None, :], metadata, time.perf_counter_ns() - started
-
 
 def collect_traces(config_path: Path, split: str, out: Path, *, dry_run: bool = False) -> dict[str, object]:
     if split != 'train':
@@ -237,8 +243,10 @@ def collect_traces(config_path: Path, split: str, out: Path, *, dry_run: bool = 
 
 
 def validate_collection_method(config):
-    if not isinstance(config, dict) or set(config) != {'epsilon', 'pool_seed', 'behavior_seed', 'schema_path', 'schema_hash', 'max_decisions'}:
+    if not isinstance(config, dict) or set(config) - {'compact_logging'} != {'epsilon', 'pool_seed', 'behavior_seed', 'schema_path', 'schema_hash', 'max_decisions'}:
         raise ValueError('invalid collection method fields')
+    if 'compact_logging' in config and type(config['compact_logging']) is not bool:
+        raise ValueError('compact logging requires a boolean')
     if config['epsilon'] != .2 or type(config['epsilon']) is not float:
         raise ValueError('epsilon is locked at .2 pending support evidence')
     if any(type(config[k]) is not int or config[k] < 0 for k in ('pool_seed', 'behavior_seed')):
@@ -269,6 +277,8 @@ class CollectionRuntime:
         self.randomized = 'collection' in request.method_config
         self.behavior = (RandomizedBehavior(request.method_config['allocator'], config['epsilon'], config['behavior_seed'])
                          if self.randomized else make_allocator(request.method_config['allocator'], config['behavior_seed']))
+        local = self.behavior.heuristic if self.randomized else self.behavior
+        local.compact_logging = config.get('compact_logging', False)
         self.diagnostics = []
         self.pending_decision = None
         self.lease = LeaseController({}, deadline_ns=request.deadline_ns,
@@ -294,7 +304,7 @@ class CollectionRuntime:
                            decision_residual_ns=payload['dispatch_ns'] - pending['decision_ns'])
         _atomic_json(self.writer.directory / f"dispatch-{payload['trace_index']:06d}.json", payload, immutable=True)
         if pending is not None:
-            diagnostics = pending['local'].last_diagnostics
+            diagnostics = pending['local'].compact_diagnostics if getattr(pending['local'], 'compact_logging', False) else pending['local'].last_diagnostics
             diagnostics.update(prepared_revisions=pending['revisions'],
                                decision_residual_ns=payload['decision_residual_ns'])
             diagnostics['dispatch_journal_ns'] = time.perf_counter_ns() - started
@@ -352,18 +362,22 @@ class CollectionRuntime:
             history = tuple(sorted(services, key=lambda h: h.end_ns)[-8:]) if services or key is None else None
             ancestry[n.key] = AncestrySummary(*parent, history)
         lengths = self.request.method_config['lease_lengths']
+        local = self.behavior.heuristic if self.randomized else self.behavior
+        if hasattr(local, 'action_lengths'): lengths = list(local.action_lengths(lengths))
         batch = build_features(context, pool.records, lengths, ancestry, self.schema)
         pooled = (pooled_features(batch, self.schema, len(pool.ids), len(lengths), len(records))
-                  if self.randomized and self.request.method_config['allocator']['policy'] != 'local' else None)
+                  if self.randomized else None)
         from ra.allocators import BidderExpired
         local = self.behavior.heuristic if self.randomized else self.behavior
         try:
             allocation = (self.behavior.choose(context, pool.records, lengths, batch=batch) if self.randomized
                           else self.behavior.choose_batch(context, pool.records, batch))
         except BidderExpired:
-            self.diagnostics.append(dict(local.last_diagnostics))
+            self.diagnostics.append((local.compact_diagnostics if getattr(local, "compact_logging", False) else dict(local.last_diagnostics)))
             b.request_stop()
             return min(pool.records, key=lambda n: n.key).key
+        if getattr(local, 'control_id', None) == 'B6':
+            pooled = local.pooled_audit
         action = (allocation.root, allocation.node_limit)
         selected = batch.action_rows.index(action)
         support_hash = digest([pool.pool_hash, lengths])
@@ -389,7 +403,7 @@ class CollectionRuntime:
                     final = (self.behavior.refresh_batch(pool.records, lengths) if self.randomized
                              else local.refresh_batch())
                 except BidderExpired:
-                    diagnostics = local.last_diagnostics
+                    diagnostics = local.compact_diagnostics if getattr(local, "compact_logging", False) else local.last_diagnostics
                     diagnostics['prepared_revisions'] = revision
                     self.diagnostics.append(diagnostics)
                     b.request_stop()
@@ -412,7 +426,7 @@ class CollectionRuntime:
         if time.perf_counter_ns() >= self.request.deadline_ns:
             b.request_stop()  # This selected row has no dispatched lease and receives no label.
             if hasattr(local, 'last_diagnostics'):
-                self.diagnostics.append({**local.last_diagnostics, 'expired_before_lease': True})
+                self.diagnostics.append({**(local.compact_diagnostics if getattr(local, 'compact_logging', False) else local.last_diagnostics), 'expired_before_lease': True})
             self.pending_decision = None
             return allocation.root
         self.lease.begin(allocation, b.last_callback_entry_ns, metadata={'snapshot_ns': snapshot,

@@ -35,37 +35,44 @@ class MaskPreprocessor:
     centers: np.ndarray
     scales: np.ndarray
 
+    local_width: int | None = None
+
     @staticmethod
-    def _matrix(matrix):
+    def _matrix(matrix, local_width=None):
         if (not isinstance(matrix, np.ndarray) or matrix.dtype != np.float64 or matrix.ndim != 2
-                or matrix.shape[1] % 6 or not np.isfinite(matrix).all()):
+                or (matrix.shape[1] if local_width is None else local_width) % 6 or not np.isfinite(matrix).all()):
             raise ValueError('finite float64 local feature matrix required')
-        masks = matrix.reshape(len(matrix), -1, 6)[:, :, 1:]
+        width = matrix.shape[1] if local_width is None else local_width
+        if not 0 < width <= matrix.shape[1]: raise ValueError("invalid local prefix width")
+        masks = matrix[:, :width].reshape(len(matrix), -1, 6)[:, :, 1:]
         if not np.isin(masks, [0., 1.]).all():
             raise ValueError('binary feature masks required')
         return matrix.copy()
 
     @classmethod
     def fit(cls, matrix, schema: FeatureSchema):
-        x = cls._matrix(matrix)
+        width = next((i for i, name in enumerate(schema.names) if name.startswith("pool_")), len(schema.names))
+        x = cls._matrix(matrix, width)
         if len(x) == 0 or x.shape[1] != len(schema.names):
             raise ValueError('nonempty schema-aligned training matrix required')
         medians = np.zeros(x.shape[1])
-        for j in range(0, x.shape[1], 6):
+        for j in range(0, width, 6):
             missing = np.any(x[:, j+1:j+5] != 0, axis=1)
             medians[j] = np.median(x[~missing, j]) if (~missing).any() else 0.
             x[missing, j] = medians[j]
         centers = np.zeros(x.shape[1]); scales = np.ones(x.shape[1])
-        centers[::6] = x[:, ::6].mean(axis=0)
-        scales[::6] = x[:, ::6].std(axis=0)
+        columns = list(range(0, width, 6)) + list(range(width, x.shape[1]))
+        centers[columns] = x[:, columns].mean(axis=0)
+        scales[columns] = x[:, columns].std(axis=0)
         scales[scales == 0] = 1.
-        return cls(medians, centers, scales)
+        return cls(medians, centers, scales, None if width == x.shape[1] else width)
 
     def transform(self, matrix):
-        x = self._matrix(matrix)
+        x = self._matrix(matrix, self.local_width)
+        width = x.shape[1] if self.local_width is None else self.local_width
         if x.shape[1] != len(self.medians):
             raise ValueError('preprocessing dimension mismatch')
-        for j in range(0, x.shape[1], 6):
+        for j in range(0, width, 6):
             missing = np.any(x[:, j+1:j+5] != 0, axis=1)
             x[missing, j] = self.medians[j]
         return (x - self.centers) / self.scales
@@ -122,6 +129,8 @@ class ModelBundle:
              'preprocessing':{k:getattr(self.preprocessing,k).tolist() for k in ('medians','centers','scales')},
              'gain':estimator(self.gain_model),'body':estimator(self.body_model),'q90':estimator(self.quantile_model),
              'counts':self.counts,'metadata':self.metadata}
+        if self.preprocessing.local_width is not None:
+            raw['preprocessing']['local_width'] = self.preprocessing.local_width
         with Path(path).open('x') as stream: json.dump(raw,stream,allow_nan=False,separators=(',',':'))
 
     @classmethod
@@ -132,7 +141,7 @@ class ModelBundle:
             if (raw['version']!=1 or raw.get('estimator_library')!='scikit-learn1.9.1'
                     or raw.get('tree_schema')!='numeric-threshold-v1'):
                 raise ValueError('unsupported numeric model/library schema')
-            prep=MaskPreprocessor(**{k:np.asarray(v,dtype=float) for k,v in raw['preprocessing'].items()})
+            prep=MaskPreprocessor(**{k:(v if k == "local_width" else np.asarray(v,dtype=float)) for k,v in raw['preprocessing'].items()})
             return cls(raw['schema_hash'],tuple(raw['supported_lengths']),prep,
                 NumericRegressor(raw['gain']),NumericRegressor(raw['body']),
                 None if raw['q90'] is None else NumericRegressor(raw['q90']),raw['counts'],raw['metadata'])
