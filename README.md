@@ -11,7 +11,7 @@ The repository contains the specification, implementation plan, environment doct
 
 WP01's correctness gate has passed, including generated-cover checks against tiny exhaustive optima. WP02's cold parent/worker harness, immutable recovery and native/shared controls have passed review. WP03's reviewed native pilot supports continuing to local features and learning, with finite workload cells and action support recorded in [pilot evidence](docs/superpowers/evidence/task9.json). Native defaults remain the selected tuned configuration; no learned gain is established. A frozen protocol gates confirmation; evidence gates population engineering and transfer. A rigorous negative result or an explicit blocked gate is a valid scoped outcome.
 
-`doctor`, `check --suite analytical`, `generate`, and `run` are available. Use a native ARM64 Python 3.12 environment on the target Mac; the artifact lock records the resolved macOS wheels.
+`doctor`, `check --suite analytical`, `generate`, `run`, and `collect` are available. Use a native ARM64 Python 3.12 environment on the target Mac; the artifact lock records the resolved macOS wheels.
 
 ```bash
 python3.12 -m venv .venv
@@ -25,6 +25,7 @@ python3.12 -m venv .venv
 .venv/bin/python -m ra.cli generate --config configs/workload_probes.json --split discovery --dry-run
 .venv/bin/python -m ra.cli generate --config configs/workload_probes.json --split discovery
 .venv/bin/python -m ra.cli run --config configs/exploratory.json --phase pilot --dry-run
+.venv/bin/python -m ra.cli collect --config configs/exploratory.json --split train --out data/traces/train --dry-run
 ```
 
 The doctor records actual hardware, memory/disk/power, interpreter/native versions, full SCIP parameters, numerical-library configuration, thread settings, and diagnostic timing/RSS. It solves costs `(1,2,1)` with rows `x0+x1 >= 1`, `x1+x2 >= 1`, then independently checks binary feasibility and objective 2, and runs the native capability fixtures. Solver and LP thread limits are one. Dry-run writes nothing; a native failure preserves its report and exits nonzero. Non-ARM64 diagnostics cannot pass the target architecture gate.

@@ -154,6 +154,8 @@ Freeze cell weights and indexed seed derivation namespaces before training, and 
 
 14 October 2026 — Accepted Task 10 at `210bf3d` after clean independent review and 43 matching source/inventory references. Feature values use primitive pre-allocation records; unknown history differs from known empty history, unexpected NaN fails, and solver-infinity/cap masks are explicit. The installed magnitude-infinity convention is verified before recording a primitive threshold. Original utility references and transformed node normalization remain separate. The 192-column float64 schema has an explicit 6 MiB buffer bound; fitting medians/scales remains training-only work. Task 11 owns runtime history and actual receipt-gated lease labels.
 
+14 October 2026 — Accepted Task 11 at `1852383` after scoped review closed duration eligibility and failed-finalization byte-accounting findings. The cost target is observed dispatch-to-boundary elapsed body time; unknown eventual natural completion does not exclude an exact valid interval. Missing-terminal, lower-bound and invalid evidence remain distinct exclusions, while validated earlier prefixes survive a later method fault. Preserve the 306 raw labels and join the sealed derived eligibility view; cohort weights and expired-rebid residual also have explicit derived corrections. The six-original first shard supports initial fitting and support diagnostics, without supplying final inference precision or a learned-utility claim.
+
 
 ## D027 — Bounded randomized training trace and pooled-context preparation
 
