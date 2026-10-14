@@ -1,0 +1,3798 @@
+{
+  "attempts": 252,
+  "all_startup_timeout": true,
+  "any_input_loaded": false,
+  "progress_bytes": 0,
+  "wire_kinds": [
+    "pong",
+    "terminal"
+  ],
+  "budgets_ns": [
+    1,
+    4,
+    16
+  ],
+  "worker_source_sha256": "3b1de8fd0bee837e3b76ecaf07a432b01939344689d6590f6ca05df44c7a6d2a",
+  "records": [
+    {
+      "attempt_sha256": "f7af2fe399af703bdc2fee56b66aaa70116df0fd9438d91f8a34d998756081cc",
+      "status": "startup_timeout",
+      "instance_hash": "3b372cfd6e35af19189fc8ef2ae946ec3a095108a9868b2dcdd018ca8721fe38",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "843191819497f1beec15e34c86653296b38fb9a94de0134caf456cfd0569698e",
+      "status": "startup_timeout",
+      "instance_hash": "d1b09e1d8e34d8915cabd1740eb111b77a57b72b8df1c0e7f1518a5218d60ea4",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "05d5009c8b2204eaedbc3ef961a42228d3c0e48aae03cc88c43499b758f09eb9",
+      "status": "startup_timeout",
+      "instance_hash": "fe91a8fe030a604c0a066756bf0f85612b9697fcae267410e464f163aa1c4283",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "bd00a53cb11f7136eefcb9636c10592ab4eedba59e188c7ba62889c5ae17e9d6",
+      "status": "startup_timeout",
+      "instance_hash": "b0067ac4bac5e47f64cb07222bee740e9ce353f62054428df1de2f2574cc5ac6",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "5accc56135c7436ec2e05851f8caedeabb23766a3298dc32752dc3e1beb5946d",
+      "status": "startup_timeout",
+      "instance_hash": "3b372cfd6e35af19189fc8ef2ae946ec3a095108a9868b2dcdd018ca8721fe38",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "66429791a1d2b9355c5256ce2cc336bb571c54e7081a9e5c13401c9324318abb",
+      "status": "startup_timeout",
+      "instance_hash": "fe91a8fe030a604c0a066756bf0f85612b9697fcae267410e464f163aa1c4283",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "4cb63129aaba700affca29a398a18888e6f37bbb233b12c8c080066800ba9d8e",
+      "status": "startup_timeout",
+      "instance_hash": "88913b7e4aff56b0a56bc44cecb9de90595c9e8cd2b12c4fba39a8f0cd65c50d",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "428c1f3c1c6f3739c8e461e54fe2b443ecc2a587441955214b7b61f8083efce4",
+      "status": "startup_timeout",
+      "instance_hash": "eab54fb3d606e15fa75ae942ff91e5d681c2c16ce9131637281ec406c0c59df9",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "25060e88858faaafcc09cf18bd0dd3d75d5a517b2a866e94fb4bab9083ae6499",
+      "status": "startup_timeout",
+      "instance_hash": "88913b7e4aff56b0a56bc44cecb9de90595c9e8cd2b12c4fba39a8f0cd65c50d",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "233a139cc4cb7031fb5e84dff9bc89a0cd2ee23794b3f66bc9f3e19a51268ea9",
+      "status": "startup_timeout",
+      "instance_hash": "d1b09e1d8e34d8915cabd1740eb111b77a57b72b8df1c0e7f1518a5218d60ea4",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "0be49a375b123a8f39cc9a7072254e59b9dc886fc82106534ec4344f88a2dd09",
+      "status": "startup_timeout",
+      "instance_hash": "fe91a8fe030a604c0a066756bf0f85612b9697fcae267410e464f163aa1c4283",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "8c4c1598add45269443f4eaf0906195966c51f71f6401b9db756d9168db77e39",
+      "status": "startup_timeout",
+      "instance_hash": "5995eda627940d5b938799174e82d2c483f46e6652a168d7e6ab474315856402",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "6d4a8bca7496d3c985b75370e180498ff3b4818b8e90fbb06605fb79c1794f48",
+      "status": "startup_timeout",
+      "instance_hash": "d1b09e1d8e34d8915cabd1740eb111b77a57b72b8df1c0e7f1518a5218d60ea4",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "eb305a8c286f86d8b72f4c51626895468be44531de6c53caa164cbb617127910",
+      "status": "startup_timeout",
+      "instance_hash": "5995eda627940d5b938799174e82d2c483f46e6652a168d7e6ab474315856402",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "f6633ba90c46ba71eb7a0af294ac2b22a31f07fca647c646a6cf8b377f7d96fc",
+      "status": "startup_timeout",
+      "instance_hash": "9a5e071a78fbb90b18e80abf7039a42af88c45c8c353745cf226ef6ad05f27e0",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "26881aac31b4f5b09daf3efc483c71d778daf4356336bb9487ef4b13a84a1d87",
+      "status": "startup_timeout",
+      "instance_hash": "8e3ccf1f360c35480f76c08c197415e277bede12c8aac523bfa7663533ec3c82",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "f815577a7b90a0537bbead9ac139affc2f2f472585b6c5cf21a4373f786a3c5c",
+      "status": "startup_timeout",
+      "instance_hash": "9a5e071a78fbb90b18e80abf7039a42af88c45c8c353745cf226ef6ad05f27e0",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "1ccf4e7533dd6a1abc44dd349b81fc8e4d94faa0ae5def2acb5c26389589dce1",
+      "status": "startup_timeout",
+      "instance_hash": "88913b7e4aff56b0a56bc44cecb9de90595c9e8cd2b12c4fba39a8f0cd65c50d",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "ea813a7eb5da9ee30a7fd4851122fb1128eacbc96bb64d6feed8854f9d4f6f2a",
+      "status": "startup_timeout",
+      "instance_hash": "5995eda627940d5b938799174e82d2c483f46e6652a168d7e6ab474315856402",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "b402560804473910af58f3987f479624b0d7b1a4259272ad008fe5d40fefd79d",
+      "status": "startup_timeout",
+      "instance_hash": "88913b7e4aff56b0a56bc44cecb9de90595c9e8cd2b12c4fba39a8f0cd65c50d",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "9802be6a8de9477fab965626af2a662af95e7190f2601ed70074f87eb46a4ff4",
+      "status": "startup_timeout",
+      "instance_hash": "4c3e41c1a7a80454db05563473ee536a4a39ac51b77855a0374fa55eea6817fe",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "251800a1c4adf33a97f004bff3ca56701735176d6e81ab11beb23f5f30d4def2",
+      "status": "startup_timeout",
+      "instance_hash": "9a5e071a78fbb90b18e80abf7039a42af88c45c8c353745cf226ef6ad05f27e0",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "4c0eaa26c4c3e5da975d024663cc008ee00b0228be96fb1323960a2ebe1cc43b",
+      "status": "startup_timeout",
+      "instance_hash": "97fc56dd0c053d73c1a85cde2c6c3e6ad71418a36a006a53bb69c88d7b2a881e",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "c491445f95273ee2988e18469cef0a9b11e38e4bb488a002005e60d8db36398a",
+      "status": "startup_timeout",
+      "instance_hash": "4c3e41c1a7a80454db05563473ee536a4a39ac51b77855a0374fa55eea6817fe",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "8e56bbbabf36b56811d3480f1040f4c48de9d9ee53991fd501f405e2fae1d35d",
+      "status": "startup_timeout",
+      "instance_hash": "3b372cfd6e35af19189fc8ef2ae946ec3a095108a9868b2dcdd018ca8721fe38",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "2385406244a07bee43a8177f2efd33010e956333321dd0b6e55cfc579907419b",
+      "status": "startup_timeout",
+      "instance_hash": "5995eda627940d5b938799174e82d2c483f46e6652a168d7e6ab474315856402",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "fdbe24c13b4791dd6bcb449b31292e215fc978d41faf6ca6cf3daf9c4f529b2e",
+      "status": "startup_timeout",
+      "instance_hash": "eab54fb3d606e15fa75ae942ff91e5d681c2c16ce9131637281ec406c0c59df9",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "6bf11ac798d6471507fabc7a704b552a20c50cc2554217b2cb59a288c41ceb65",
+      "status": "startup_timeout",
+      "instance_hash": "3b372cfd6e35af19189fc8ef2ae946ec3a095108a9868b2dcdd018ca8721fe38",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "649aab2ccc73389add542d6d42fe26af046d39dd887598626cd656ee9e2dfbc8",
+      "status": "startup_timeout",
+      "instance_hash": "b0067ac4bac5e47f64cb07222bee740e9ce353f62054428df1de2f2574cc5ac6",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "0c295beaaeaebf025f73aae46c24e7fe5515c7594f41f64885f620ace4f42679",
+      "status": "startup_timeout",
+      "instance_hash": "b0067ac4bac5e47f64cb07222bee740e9ce353f62054428df1de2f2574cc5ac6",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "a01f78b6f335afb1d1c3df4b9ac66800826aac4c71a84d5fb4d7f80cec5c3f4e",
+      "status": "startup_timeout",
+      "instance_hash": "5995eda627940d5b938799174e82d2c483f46e6652a168d7e6ab474315856402",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "778207e41476192468f6c3ab8f6593486a84dfbc80348b63892f4ae0cdc9c839",
+      "status": "startup_timeout",
+      "instance_hash": "9a5e071a78fbb90b18e80abf7039a42af88c45c8c353745cf226ef6ad05f27e0",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "56e4885fb1e3b8fe8ff8bffcff939e3b5d84e987f6db5e7348c7b88cc2f0dccc",
+      "status": "startup_timeout",
+      "instance_hash": "97fc56dd0c053d73c1a85cde2c6c3e6ad71418a36a006a53bb69c88d7b2a881e",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "74f7b10d32646b1420d8fd0f6af28694e41c5bee7c20f1f78e8015cd76165c15",
+      "status": "startup_timeout",
+      "instance_hash": "b0067ac4bac5e47f64cb07222bee740e9ce353f62054428df1de2f2574cc5ac6",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "9c243d15be90d6227a68a5d25604bfa09c5d1f90fac8282280cf3d075e1172f4",
+      "status": "startup_timeout",
+      "instance_hash": "fe91a8fe030a604c0a066756bf0f85612b9697fcae267410e464f163aa1c4283",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "803bea69bae4b04584e551d8c6e1d6766c977b5d1d1fccc8c14e34ad02e0f703",
+      "status": "startup_timeout",
+      "instance_hash": "88913b7e4aff56b0a56bc44cecb9de90595c9e8cd2b12c4fba39a8f0cd65c50d",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "3a3cee5f0264a4d0d4964320eecf7adf34c22c5f1bcd16c2df4ef755f168162d",
+      "status": "startup_timeout",
+      "instance_hash": "5995eda627940d5b938799174e82d2c483f46e6652a168d7e6ab474315856402",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "d299fda625a899ae9fc463c45e276635481c0e7ece40691e2258facf6b43a8c1",
+      "status": "startup_timeout",
+      "instance_hash": "3b372cfd6e35af19189fc8ef2ae946ec3a095108a9868b2dcdd018ca8721fe38",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "b9b11b3433f1d531df13696bf114d4d331084394f6c57de482b10708e2efd64b",
+      "status": "startup_timeout",
+      "instance_hash": "b0067ac4bac5e47f64cb07222bee740e9ce353f62054428df1de2f2574cc5ac6",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "df650f64cb34a2d28c977c9991c0191e96e0933fd0e2e1e28ad4def896d0314e",
+      "status": "startup_timeout",
+      "instance_hash": "88913b7e4aff56b0a56bc44cecb9de90595c9e8cd2b12c4fba39a8f0cd65c50d",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "dcb93853033835e79be4a7c752da7fd72a6f38fb5c292872e3b4b3019296d146",
+      "status": "startup_timeout",
+      "instance_hash": "79a18f63a524d4092aacb0c56ebac29b0e851f45f3d6b5b2a60b3039dca0998b",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "cd38b7a63fd30e44cc488a869b4638493e9a88548e2d8c238cc73d0baceea96d",
+      "status": "startup_timeout",
+      "instance_hash": "d1b09e1d8e34d8915cabd1740eb111b77a57b72b8df1c0e7f1518a5218d60ea4",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "2e581a7e7c8cde9902902dc419ba8bc6c2025264bee2df5c3c82117cfb728f9c",
+      "status": "startup_timeout",
+      "instance_hash": "88913b7e4aff56b0a56bc44cecb9de90595c9e8cd2b12c4fba39a8f0cd65c50d",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "79bd1fb0b2ac1c29676b7949279a7198911b4d5a1e8ac46cb03c66607b51a91a",
+      "status": "startup_timeout",
+      "instance_hash": "b0067ac4bac5e47f64cb07222bee740e9ce353f62054428df1de2f2574cc5ac6",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "36783ba2f69a3a90bf85ce2ce24e246461a44e1c1a442d3b633a8de3e31f3c92",
+      "status": "startup_timeout",
+      "instance_hash": "8e3ccf1f360c35480f76c08c197415e277bede12c8aac523bfa7663533ec3c82",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "463104fc898ccc460b6ced29052d35492ec2e48eba3d0625bad09b7889a12a11",
+      "status": "startup_timeout",
+      "instance_hash": "eab54fb3d606e15fa75ae942ff91e5d681c2c16ce9131637281ec406c0c59df9",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "6eb723d69af7d6278106b803c3e26e0897b997a8e83448e2700cf3f2f0ab28d6",
+      "status": "startup_timeout",
+      "instance_hash": "8e3ccf1f360c35480f76c08c197415e277bede12c8aac523bfa7663533ec3c82",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "88593440b0766ce47f8d7b4e0b62dae8d369b4684ff8b8684d521df3328d3299",
+      "status": "startup_timeout",
+      "instance_hash": "d1b09e1d8e34d8915cabd1740eb111b77a57b72b8df1c0e7f1518a5218d60ea4",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "0cbdc1e2aa75bf547e44bfd017e077b4a42185d7cf730c9aaadb3d42362570d9",
+      "status": "startup_timeout",
+      "instance_hash": "97fc56dd0c053d73c1a85cde2c6c3e6ad71418a36a006a53bb69c88d7b2a881e",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "d39aa1c8099dfc32caab93c4b4e3b76efd14201270aebe0e36a882f51a9bd26d",
+      "status": "startup_timeout",
+      "instance_hash": "d1b09e1d8e34d8915cabd1740eb111b77a57b72b8df1c0e7f1518a5218d60ea4",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "438540257103b2668ac1fa377466bca08f7aa652c20344ca8e9f20e1c8c4ac12",
+      "status": "startup_timeout",
+      "instance_hash": "97fc56dd0c053d73c1a85cde2c6c3e6ad71418a36a006a53bb69c88d7b2a881e",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "f46c7800c60c29dd422c016c143f8bb11bb4879c9375679f781720a2e0c2c707",
+      "status": "startup_timeout",
+      "instance_hash": "fe91a8fe030a604c0a066756bf0f85612b9697fcae267410e464f163aa1c4283",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "cf56978270ab93962c1d5fdce2770c7aa1a38caa24676673a6871a39c1194881",
+      "status": "startup_timeout",
+      "instance_hash": "eab54fb3d606e15fa75ae942ff91e5d681c2c16ce9131637281ec406c0c59df9",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "9abed3c13b1ad14408ca3a3f7feb034ebc3bef04d137f46a7b9fcd291f331b03",
+      "status": "startup_timeout",
+      "instance_hash": "eab54fb3d606e15fa75ae942ff91e5d681c2c16ce9131637281ec406c0c59df9",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "b7693a51252a84ef21dc5faad787d1bed704680f4fd3ad6cfb0ef1cffed7faa9",
+      "status": "startup_timeout",
+      "instance_hash": "88913b7e4aff56b0a56bc44cecb9de90595c9e8cd2b12c4fba39a8f0cd65c50d",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "96a451a43b56d8072f390b3e12e35595da546d811039f9bc7c897dcd3f0b8cfd",
+      "status": "startup_timeout",
+      "instance_hash": "d1b09e1d8e34d8915cabd1740eb111b77a57b72b8df1c0e7f1518a5218d60ea4",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "f4119ca5660355a6a229f09db9f18d6d81c245fbf19d84a6551e98c27174214d",
+      "status": "startup_timeout",
+      "instance_hash": "4c3e41c1a7a80454db05563473ee536a4a39ac51b77855a0374fa55eea6817fe",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "5666c5645ddb29cfc7f4629b6e431ebc0e04e1f0c02d8d1261887f5b88dcfb2e",
+      "status": "startup_timeout",
+      "instance_hash": "79a18f63a524d4092aacb0c56ebac29b0e851f45f3d6b5b2a60b3039dca0998b",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "224bc6f3e2563f58afd79430907827247a7db35fe6cc8b74a35a1cf6e6d02b55",
+      "status": "startup_timeout",
+      "instance_hash": "9a5e071a78fbb90b18e80abf7039a42af88c45c8c353745cf226ef6ad05f27e0",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "3021d982cd86aa010a4809b3d48a167f4ce465411180926f2bf071e3a33cb8bb",
+      "status": "startup_timeout",
+      "instance_hash": "5995eda627940d5b938799174e82d2c483f46e6652a168d7e6ab474315856402",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "e8ac583280d73008f85f44f0c36c74e334a48761464cf0b939e5ea267ec33bbe",
+      "status": "startup_timeout",
+      "instance_hash": "8e3ccf1f360c35480f76c08c197415e277bede12c8aac523bfa7663533ec3c82",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "10e4820480148e3868517dc00e9e6b2e7388c1f734ae4f8e3a0051e2f4fdd3fd",
+      "status": "startup_timeout",
+      "instance_hash": "79a18f63a524d4092aacb0c56ebac29b0e851f45f3d6b5b2a60b3039dca0998b",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "a27fbd050072e1417e0c8f5542e4e7254c3fcb4bf81af852445ae2dd1bfaf298",
+      "status": "startup_timeout",
+      "instance_hash": "eab54fb3d606e15fa75ae942ff91e5d681c2c16ce9131637281ec406c0c59df9",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "d8e2fb3d4624aba56f015f2509fc0991ee32e519a83144d4c074e00d6be5d687",
+      "status": "startup_timeout",
+      "instance_hash": "79a18f63a524d4092aacb0c56ebac29b0e851f45f3d6b5b2a60b3039dca0998b",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "fee0d8a532a5e343015c41dd171b26cdccd373b8def01ae1343ce353dfa28e7a",
+      "status": "startup_timeout",
+      "instance_hash": "eab54fb3d606e15fa75ae942ff91e5d681c2c16ce9131637281ec406c0c59df9",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "9380e80b35b7a053a8cd7129a06bc7324443a12d48b41cb016bbb4eb7d4659fc",
+      "status": "startup_timeout",
+      "instance_hash": "88913b7e4aff56b0a56bc44cecb9de90595c9e8cd2b12c4fba39a8f0cd65c50d",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "c4b48f41b25ae25dced4c5dbd48cea99e629ca7b7e13f5b0374ff3f71d95c2cc",
+      "status": "startup_timeout",
+      "instance_hash": "9a5e071a78fbb90b18e80abf7039a42af88c45c8c353745cf226ef6ad05f27e0",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "d99d09d83d01226fe65953d86dd5b3637252f3894761fa4d6f2a8e136ccbc853",
+      "status": "startup_timeout",
+      "instance_hash": "79a18f63a524d4092aacb0c56ebac29b0e851f45f3d6b5b2a60b3039dca0998b",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "3376022ea3dbb8501078f5d8e2273b6561ed353d5f651433efba5f0e53e3b617",
+      "status": "startup_timeout",
+      "instance_hash": "b0067ac4bac5e47f64cb07222bee740e9ce353f62054428df1de2f2574cc5ac6",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "4d7682ddfa0457c7c523a228a7b275a92c3756189fadf5219e3115e128f7f6db",
+      "status": "startup_timeout",
+      "instance_hash": "8e3ccf1f360c35480f76c08c197415e277bede12c8aac523bfa7663533ec3c82",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "f32188865b88af810794e156af90d3e51ae01d35689d1caa2f92f72cda994230",
+      "status": "startup_timeout",
+      "instance_hash": "79a18f63a524d4092aacb0c56ebac29b0e851f45f3d6b5b2a60b3039dca0998b",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "a63a8882a934266bccefdc4e379ae24afa2a10ca76dde935601deae7f6046aaf",
+      "status": "startup_timeout",
+      "instance_hash": "97fc56dd0c053d73c1a85cde2c6c3e6ad71418a36a006a53bb69c88d7b2a881e",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "54df74dfaa2d7ed452f7baeb6b4d43038aadda1ab014570a53115036b0d2d810",
+      "status": "startup_timeout",
+      "instance_hash": "fe91a8fe030a604c0a066756bf0f85612b9697fcae267410e464f163aa1c4283",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "f3219d49f087d37d80666ebbac39f87d010e0624811aa6495601f11d2ad5a28a",
+      "status": "startup_timeout",
+      "instance_hash": "3b372cfd6e35af19189fc8ef2ae946ec3a095108a9868b2dcdd018ca8721fe38",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "4752c43bc479769678dc225d15669a0ff2ebf83fb10bd9f97e9a51d11641c71a",
+      "status": "startup_timeout",
+      "instance_hash": "5995eda627940d5b938799174e82d2c483f46e6652a168d7e6ab474315856402",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "51b95cebd5dded849c53738afe88c1f05ad8b535ecf0b96c6c1cf13309e4d096",
+      "status": "startup_timeout",
+      "instance_hash": "eab54fb3d606e15fa75ae942ff91e5d681c2c16ce9131637281ec406c0c59df9",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "b881ad48c12ca657d40220c396635310dd17357e1a848852d3ebd0599e9c5bf7",
+      "status": "startup_timeout",
+      "instance_hash": "fe91a8fe030a604c0a066756bf0f85612b9697fcae267410e464f163aa1c4283",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "99da664e667f092bb27c73c13a39764563a6bff26359e1c8577dbb29c7e5a3c6",
+      "status": "startup_timeout",
+      "instance_hash": "97fc56dd0c053d73c1a85cde2c6c3e6ad71418a36a006a53bb69c88d7b2a881e",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "57c1b608e3f20808f1650ef086faf3bb66f27702831effa6b31ca5a292ef6627",
+      "status": "startup_timeout",
+      "instance_hash": "d1b09e1d8e34d8915cabd1740eb111b77a57b72b8df1c0e7f1518a5218d60ea4",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "cd69ce7dc8955b85b1b4c7fd9001e8c3bfac57370d17ef16dc1ff602daa2600f",
+      "status": "startup_timeout",
+      "instance_hash": "3b372cfd6e35af19189fc8ef2ae946ec3a095108a9868b2dcdd018ca8721fe38",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "a09c0d19f8103482c9aeabf51e3e219842845eaed9d7953d8deee688fd91d43a",
+      "status": "startup_timeout",
+      "instance_hash": "fe91a8fe030a604c0a066756bf0f85612b9697fcae267410e464f163aa1c4283",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "e72306f3993fb69151597cbd454b1c45d3c201fede39e5fb41adf057c7b4468a",
+      "status": "startup_timeout",
+      "instance_hash": "5995eda627940d5b938799174e82d2c483f46e6652a168d7e6ab474315856402",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "b4fad38b1151b365fc450918287c51a88253f0493589cfa752d4d046d9e8b31e",
+      "status": "startup_timeout",
+      "instance_hash": "4c3e41c1a7a80454db05563473ee536a4a39ac51b77855a0374fa55eea6817fe",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "48f0212bbd564d0fc34aa7590a3923bbf8c649bdb08bfc6a56903e6bc5cb51b8",
+      "status": "startup_timeout",
+      "instance_hash": "3b372cfd6e35af19189fc8ef2ae946ec3a095108a9868b2dcdd018ca8721fe38",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "4e741baad847726f72aceb186cba898f2612f7d00ddc7cd50584ed5780b79558",
+      "status": "startup_timeout",
+      "instance_hash": "5995eda627940d5b938799174e82d2c483f46e6652a168d7e6ab474315856402",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "6e8c3c3492ebcd29dc72a843762809d6a679ae6f9b634a63f20aaa6af3daa51d",
+      "status": "startup_timeout",
+      "instance_hash": "eab54fb3d606e15fa75ae942ff91e5d681c2c16ce9131637281ec406c0c59df9",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "8f4734300b78e8c44654238c0c202a40a09dcebc0515cd978565762be8fd2251",
+      "status": "startup_timeout",
+      "instance_hash": "97fc56dd0c053d73c1a85cde2c6c3e6ad71418a36a006a53bb69c88d7b2a881e",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "cd8e0de470553135e621cc64523a64e546c6e4923a608af2617724a72046ad99",
+      "status": "startup_timeout",
+      "instance_hash": "8e3ccf1f360c35480f76c08c197415e277bede12c8aac523bfa7663533ec3c82",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "b2f3fbcb252179d31336f2b2905bc243b5b07604dbabfac0d0fb7e6e4c00e298",
+      "status": "startup_timeout",
+      "instance_hash": "79a18f63a524d4092aacb0c56ebac29b0e851f45f3d6b5b2a60b3039dca0998b",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "d98f29cc0bb037e072155e0e1ba4d3e20d500fc6ac13f00bfb6b9785e3e43b98",
+      "status": "startup_timeout",
+      "instance_hash": "88913b7e4aff56b0a56bc44cecb9de90595c9e8cd2b12c4fba39a8f0cd65c50d",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "3848b6a466bce9ad5d54fc1d28def32a6e6c2a430ff23f825caf6289c989ed97",
+      "status": "startup_timeout",
+      "instance_hash": "4c3e41c1a7a80454db05563473ee536a4a39ac51b77855a0374fa55eea6817fe",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "8d210cbac0477575ffb0d48df24f7ffaa6d38726e15f53750a97eda6bb2fa489",
+      "status": "startup_timeout",
+      "instance_hash": "8e3ccf1f360c35480f76c08c197415e277bede12c8aac523bfa7663533ec3c82",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "fef3d435fcf1a7ea6fe90b562c2c95b1773a33d0a133979936e8213ef10c2b3a",
+      "status": "startup_timeout",
+      "instance_hash": "9a5e071a78fbb90b18e80abf7039a42af88c45c8c353745cf226ef6ad05f27e0",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "a478edcf6f8b90296e4ec638012f32952d523d8260ba7300435e31d9d805d10c",
+      "status": "startup_timeout",
+      "instance_hash": "3b372cfd6e35af19189fc8ef2ae946ec3a095108a9868b2dcdd018ca8721fe38",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "d75d3578726ece5349cd9c984e75e0f44016f2e80e007ee2895e3e2ee2ff00a1",
+      "status": "startup_timeout",
+      "instance_hash": "8e3ccf1f360c35480f76c08c197415e277bede12c8aac523bfa7663533ec3c82",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "f0d8eab8e8da1576f9ae8750fa242b957d319a8a16fed42a55881df0c597f36f",
+      "status": "startup_timeout",
+      "instance_hash": "4c3e41c1a7a80454db05563473ee536a4a39ac51b77855a0374fa55eea6817fe",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "aa6c0c7dccfe9467eafe83f67c726b55b31681f643f5fef97c188b1239aa0105",
+      "status": "startup_timeout",
+      "instance_hash": "88913b7e4aff56b0a56bc44cecb9de90595c9e8cd2b12c4fba39a8f0cd65c50d",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "360b9624f3e60fe83d91e451a7fb763eb13e5552156a25049fe799a675e5aff5",
+      "status": "startup_timeout",
+      "instance_hash": "eab54fb3d606e15fa75ae942ff91e5d681c2c16ce9131637281ec406c0c59df9",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "0f37f7c13d0769f9033d5c389ebe225ab569ce4fb27cddf7393eef6e7918bc2c",
+      "status": "startup_timeout",
+      "instance_hash": "8e3ccf1f360c35480f76c08c197415e277bede12c8aac523bfa7663533ec3c82",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "7446c634553a3a9a152f452f8a5589cb7b58e74959699bfe335d7a8cd736494f",
+      "status": "startup_timeout",
+      "instance_hash": "88913b7e4aff56b0a56bc44cecb9de90595c9e8cd2b12c4fba39a8f0cd65c50d",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "de767e661bdc7e62ec4ce25619b5556bed49a0e19f134aa79ec07a724a9d6d4e",
+      "status": "startup_timeout",
+      "instance_hash": "d1b09e1d8e34d8915cabd1740eb111b77a57b72b8df1c0e7f1518a5218d60ea4",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "1c7567ef80fddc1a1f09d70af16ac2bd1899d4ab8000ed7c8aacf680e37a8d56",
+      "status": "startup_timeout",
+      "instance_hash": "79a18f63a524d4092aacb0c56ebac29b0e851f45f3d6b5b2a60b3039dca0998b",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "8ff0e6c39deecd81d1ed5733d5da40eefb73f64433bd0f9ae4153148ca7d3e46",
+      "status": "startup_timeout",
+      "instance_hash": "b0067ac4bac5e47f64cb07222bee740e9ce353f62054428df1de2f2574cc5ac6",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "dc4b5023d201b270838533db16016924ca54bac9b436723f340f385747137a53",
+      "status": "startup_timeout",
+      "instance_hash": "b0067ac4bac5e47f64cb07222bee740e9ce353f62054428df1de2f2574cc5ac6",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "59640aa36ea01bd5b6379c9b0a6d639ff97e1ede673ae0805523c388633ddbcb",
+      "status": "startup_timeout",
+      "instance_hash": "79a18f63a524d4092aacb0c56ebac29b0e851f45f3d6b5b2a60b3039dca0998b",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "32a78daebebba4630be57235aa4b57d44546de21c163c6b301479e50ff16d433",
+      "status": "startup_timeout",
+      "instance_hash": "8e3ccf1f360c35480f76c08c197415e277bede12c8aac523bfa7663533ec3c82",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "7137ec689cb297bf3bf2cb9f2da87fe359a92de8b06df76827f6b0fd399fe8f8",
+      "status": "startup_timeout",
+      "instance_hash": "97fc56dd0c053d73c1a85cde2c6c3e6ad71418a36a006a53bb69c88d7b2a881e",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "db623aec937fa9daab150483831b92efaf1863da8ab55a663f7cacb686c85738",
+      "status": "startup_timeout",
+      "instance_hash": "79a18f63a524d4092aacb0c56ebac29b0e851f45f3d6b5b2a60b3039dca0998b",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "12596d52ffbfa50d4dbb5533dda55e66b3e5141ab2155026912b318db6306ee8",
+      "status": "startup_timeout",
+      "instance_hash": "eab54fb3d606e15fa75ae942ff91e5d681c2c16ce9131637281ec406c0c59df9",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "8888ec70cc626b54394f36697e481aa2d4aeb6d1d16e9e6e2676249a6959f6eb",
+      "status": "startup_timeout",
+      "instance_hash": "97fc56dd0c053d73c1a85cde2c6c3e6ad71418a36a006a53bb69c88d7b2a881e",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "3b07218a3e272e7e6846226f2815142d2b6d3b7fd0189e9dc5e06f4e79f43cd5",
+      "status": "startup_timeout",
+      "instance_hash": "4c3e41c1a7a80454db05563473ee536a4a39ac51b77855a0374fa55eea6817fe",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "000661f43cc5f59e282ac603b3fe7383010f79b52154ade60d2ff7329ccc020b",
+      "status": "startup_timeout",
+      "instance_hash": "9a5e071a78fbb90b18e80abf7039a42af88c45c8c353745cf226ef6ad05f27e0",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "79de022b12fa85e8adf7fa0cf272b994fe7613f74ec02e6f590d9407c7900410",
+      "status": "startup_timeout",
+      "instance_hash": "b0067ac4bac5e47f64cb07222bee740e9ce353f62054428df1de2f2574cc5ac6",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "4b9e6ff21aac9f76f22e67079b9f6d7dfdc9f196e40998ecf2c81f5fb685599b",
+      "status": "startup_timeout",
+      "instance_hash": "4c3e41c1a7a80454db05563473ee536a4a39ac51b77855a0374fa55eea6817fe",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "abbec1cb268124ec514e1d92febae2d75c61f3c643850a97d1bffc33c86dd799",
+      "status": "startup_timeout",
+      "instance_hash": "3b372cfd6e35af19189fc8ef2ae946ec3a095108a9868b2dcdd018ca8721fe38",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "0d28ce77ee4293c4c7591b8c9c9a6612ceaf52f543001d81923e9ba7c1ca8478",
+      "status": "startup_timeout",
+      "instance_hash": "d1b09e1d8e34d8915cabd1740eb111b77a57b72b8df1c0e7f1518a5218d60ea4",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "f1ce39ab1567a0571069c95453433c80ddc4e86ca44dc519325c7c64bd4b5d6c",
+      "status": "startup_timeout",
+      "instance_hash": "d1b09e1d8e34d8915cabd1740eb111b77a57b72b8df1c0e7f1518a5218d60ea4",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "affa9aee1e058ec666cc28e76b1c938b005183ae6e5e4969124291c6e63657ba",
+      "status": "startup_timeout",
+      "instance_hash": "d1b09e1d8e34d8915cabd1740eb111b77a57b72b8df1c0e7f1518a5218d60ea4",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "14b7518a582e1e4be3f09a55e49ea7e5e4ac2b38abd6ebf1c4050c63e12611e4",
+      "status": "startup_timeout",
+      "instance_hash": "b0067ac4bac5e47f64cb07222bee740e9ce353f62054428df1de2f2574cc5ac6",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "5337fd9ab99d1e0b0de1452ae7550607219fea5fb415685d1287d9838dc5d569",
+      "status": "startup_timeout",
+      "instance_hash": "eab54fb3d606e15fa75ae942ff91e5d681c2c16ce9131637281ec406c0c59df9",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "0e177dd35d1042769d1eda603f3aed3a8ba4151fce13e0528da937b573d08202",
+      "status": "startup_timeout",
+      "instance_hash": "fe91a8fe030a604c0a066756bf0f85612b9697fcae267410e464f163aa1c4283",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "3686474337f76bc2858768fb67fbd7c2f859102a4ae0407d9dc023d08bb39fc6",
+      "status": "startup_timeout",
+      "instance_hash": "79a18f63a524d4092aacb0c56ebac29b0e851f45f3d6b5b2a60b3039dca0998b",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "ce5565aa88c6ecd085cbbded5e4ca214ec0009267ed8bc7bc8ab6b50437a0bbf",
+      "status": "startup_timeout",
+      "instance_hash": "b0067ac4bac5e47f64cb07222bee740e9ce353f62054428df1de2f2574cc5ac6",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "4c63c0ef030e8d5ea9094e49cf67d4b50adc4ec911c209bc9b5b8becba57f472",
+      "status": "startup_timeout",
+      "instance_hash": "b0067ac4bac5e47f64cb07222bee740e9ce353f62054428df1de2f2574cc5ac6",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "9bb6ae9a0d37d48cab21727b47c251c85ffbccbffd72e4e78e5819f190e7fbef",
+      "status": "startup_timeout",
+      "instance_hash": "4c3e41c1a7a80454db05563473ee536a4a39ac51b77855a0374fa55eea6817fe",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "f4ddc323d2e51cf814be27dac44813d7ed4a3aa0c702415ffe83895531123697",
+      "status": "startup_timeout",
+      "instance_hash": "5995eda627940d5b938799174e82d2c483f46e6652a168d7e6ab474315856402",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "36c4592fa74cc055a16834155981ecbead3a2ad0471c1aa2fe2cacef32843a14",
+      "status": "startup_timeout",
+      "instance_hash": "9a5e071a78fbb90b18e80abf7039a42af88c45c8c353745cf226ef6ad05f27e0",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "5c4bd7915d8843c166c91455e42ebc4a47bda1f40f5b418f17f9a028521adf86",
+      "status": "startup_timeout",
+      "instance_hash": "79a18f63a524d4092aacb0c56ebac29b0e851f45f3d6b5b2a60b3039dca0998b",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "0e81e49db9c3e36fc3c6fec1bbd32d2d51a7d63aaca65da848b7e131af413fc9",
+      "status": "startup_timeout",
+      "instance_hash": "eab54fb3d606e15fa75ae942ff91e5d681c2c16ce9131637281ec406c0c59df9",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "0c6dc0b67a0989df53614740032e57ff350d45ff321ec45f31c11ab83050fe46",
+      "status": "startup_timeout",
+      "instance_hash": "d1b09e1d8e34d8915cabd1740eb111b77a57b72b8df1c0e7f1518a5218d60ea4",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "af6e0a30606efa070234bfc9d06838c8cf4618e8c3eabeb2e1272b5482dc8c52",
+      "status": "startup_timeout",
+      "instance_hash": "4c3e41c1a7a80454db05563473ee536a4a39ac51b77855a0374fa55eea6817fe",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "069be2edeb9f9ca45748603d1b1fefd4c21b104120e4c7f628dcceef19a485ac",
+      "status": "startup_timeout",
+      "instance_hash": "79a18f63a524d4092aacb0c56ebac29b0e851f45f3d6b5b2a60b3039dca0998b",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "55d88644899c5de7147677e89c3ee4ad20c3b988cea05b25ae44b37817322673",
+      "status": "startup_timeout",
+      "instance_hash": "b0067ac4bac5e47f64cb07222bee740e9ce353f62054428df1de2f2574cc5ac6",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "472e81db4648f78d15b0d97c61b05e13a75943d434a985f7b79061d534b265ea",
+      "status": "startup_timeout",
+      "instance_hash": "d1b09e1d8e34d8915cabd1740eb111b77a57b72b8df1c0e7f1518a5218d60ea4",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "87ba5bf67435c91e2434e96f7848d71f216f0ce6c2e1969bf2641f747b4ed3df",
+      "status": "startup_timeout",
+      "instance_hash": "9a5e071a78fbb90b18e80abf7039a42af88c45c8c353745cf226ef6ad05f27e0",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "414602b8771d7db63e750ade00301c2be76813bbded3af12e0993b65ef07825e",
+      "status": "startup_timeout",
+      "instance_hash": "5995eda627940d5b938799174e82d2c483f46e6652a168d7e6ab474315856402",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "31f5743bfdc3d1d4592b39632f1287e73f08c8c9008dfd6a995efc7d57eeb14f",
+      "status": "startup_timeout",
+      "instance_hash": "d1b09e1d8e34d8915cabd1740eb111b77a57b72b8df1c0e7f1518a5218d60ea4",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "60e9eeadb8f71ac37b6602bc681951dd92d0c86585f02c148cd8ab53696f6086",
+      "status": "startup_timeout",
+      "instance_hash": "3b372cfd6e35af19189fc8ef2ae946ec3a095108a9868b2dcdd018ca8721fe38",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "cf307e14acad44d1865ba7585f15e40a5199eabb2228b80218a2cfef7a95c25f",
+      "status": "startup_timeout",
+      "instance_hash": "9a5e071a78fbb90b18e80abf7039a42af88c45c8c353745cf226ef6ad05f27e0",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "02da9993b63426959a971463016150e8eea0c0e4a462669f55bff506c092a524",
+      "status": "startup_timeout",
+      "instance_hash": "3b372cfd6e35af19189fc8ef2ae946ec3a095108a9868b2dcdd018ca8721fe38",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "2e099b536d1169065d02da31430400b5d3a57dccc3912cc3418ba6f85e21d415",
+      "status": "startup_timeout",
+      "instance_hash": "4c3e41c1a7a80454db05563473ee536a4a39ac51b77855a0374fa55eea6817fe",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "271a8c1646208c8aa4cc87c25e24982d0cd80cab6ca0ed47e89d99b0089e44e6",
+      "status": "startup_timeout",
+      "instance_hash": "9a5e071a78fbb90b18e80abf7039a42af88c45c8c353745cf226ef6ad05f27e0",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "00a4470fba86ef7a126db4492010b38d9e5b42d7b651c7000d25418d6cbe42e7",
+      "status": "startup_timeout",
+      "instance_hash": "79a18f63a524d4092aacb0c56ebac29b0e851f45f3d6b5b2a60b3039dca0998b",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "1ac4a61a84e88f9b7390750ef7f70c618d985733361cf5ab37b704e32f4ecc4b",
+      "status": "startup_timeout",
+      "instance_hash": "b0067ac4bac5e47f64cb07222bee740e9ce353f62054428df1de2f2574cc5ac6",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "7148ff674f7fab6c881f8ad0ea2736a3b375459f40dec55c1c15efdc6b8a89d9",
+      "status": "startup_timeout",
+      "instance_hash": "97fc56dd0c053d73c1a85cde2c6c3e6ad71418a36a006a53bb69c88d7b2a881e",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "f39dded111894216622e517da33967e9fdcd33623268334c699a6f960d93dd06",
+      "status": "startup_timeout",
+      "instance_hash": "5995eda627940d5b938799174e82d2c483f46e6652a168d7e6ab474315856402",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "c81c7aea8e5a4b830a615850e06d549bc0d8e9be727a679aeb743d6d3bde0c8b",
+      "status": "startup_timeout",
+      "instance_hash": "eab54fb3d606e15fa75ae942ff91e5d681c2c16ce9131637281ec406c0c59df9",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "e54ba789a4ad4ee88f4113070e84b2b39f828e081991e4a7f219f1a7743992b0",
+      "status": "startup_timeout",
+      "instance_hash": "8e3ccf1f360c35480f76c08c197415e277bede12c8aac523bfa7663533ec3c82",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "653101613f74e8b920cf50c77bfb70e12cfda496d753257ebc151d6582ad8b77",
+      "status": "startup_timeout",
+      "instance_hash": "79a18f63a524d4092aacb0c56ebac29b0e851f45f3d6b5b2a60b3039dca0998b",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "a18ebde2297cf983d0ec0a2a4704f9110db4e88ce3e42578a83dceb490e558f8",
+      "status": "startup_timeout",
+      "instance_hash": "3b372cfd6e35af19189fc8ef2ae946ec3a095108a9868b2dcdd018ca8721fe38",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "a1661c87bf6e95f37810e044270537ac8c3c626078097cdaf070028478c93377",
+      "status": "startup_timeout",
+      "instance_hash": "4c3e41c1a7a80454db05563473ee536a4a39ac51b77855a0374fa55eea6817fe",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "757306c68a7e8f0fd6dbecf2bb1dbcf9bbdef8d92539fa4f16ab03a03a9a5719",
+      "status": "startup_timeout",
+      "instance_hash": "3b372cfd6e35af19189fc8ef2ae946ec3a095108a9868b2dcdd018ca8721fe38",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "29f5f08399f43004d91d6951fc18074f6cd1b52156956a2d63f8ed449526bc9d",
+      "status": "startup_timeout",
+      "instance_hash": "4c3e41c1a7a80454db05563473ee536a4a39ac51b77855a0374fa55eea6817fe",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "cc2325fe427d1d14ace0fc9043402ba3dc0ef4a17283db5960f8aa4ddfad120d",
+      "status": "startup_timeout",
+      "instance_hash": "88913b7e4aff56b0a56bc44cecb9de90595c9e8cd2b12c4fba39a8f0cd65c50d",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "ae621abf67463a25613e2fbf686abe6c1fad76080baec30bcc545fadf4610ff0",
+      "status": "startup_timeout",
+      "instance_hash": "8e3ccf1f360c35480f76c08c197415e277bede12c8aac523bfa7663533ec3c82",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "5ee4616ade13980578c8b808e04f943866f93b405cebea0ccacee986f10d55a7",
+      "status": "startup_timeout",
+      "instance_hash": "eab54fb3d606e15fa75ae942ff91e5d681c2c16ce9131637281ec406c0c59df9",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "623502efbc45dd0e9f5e975cd53ffab5902b06308cfd7bf8090605c9d1a4b80a",
+      "status": "startup_timeout",
+      "instance_hash": "4c3e41c1a7a80454db05563473ee536a4a39ac51b77855a0374fa55eea6817fe",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "61272008c0925cc7bc64aeceb3ef5d81a316beb7b77c8a110b939fb41d02c1fe",
+      "status": "startup_timeout",
+      "instance_hash": "4c3e41c1a7a80454db05563473ee536a4a39ac51b77855a0374fa55eea6817fe",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "263c94485b69ed2d2fd3965ea3749d6d3b797c4e8d3eb17c27592eeda28cd764",
+      "status": "startup_timeout",
+      "instance_hash": "9a5e071a78fbb90b18e80abf7039a42af88c45c8c353745cf226ef6ad05f27e0",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "d321e3048da6f07cb58c05325cfaf83ff83dc5dc43f4453ae973bc78855da08e",
+      "status": "startup_timeout",
+      "instance_hash": "9a5e071a78fbb90b18e80abf7039a42af88c45c8c353745cf226ef6ad05f27e0",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "3bb02acb68936a5240e12709b64418be46795e46990f2845c70d92587fb2d4e8",
+      "status": "startup_timeout",
+      "instance_hash": "79a18f63a524d4092aacb0c56ebac29b0e851f45f3d6b5b2a60b3039dca0998b",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "6f2fb01ec507175c1fd2e200aeddec6a34855a438f7e9ef7d5a020bdda88592b",
+      "status": "startup_timeout",
+      "instance_hash": "fe91a8fe030a604c0a066756bf0f85612b9697fcae267410e464f163aa1c4283",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "9a26d1e2bdb2e82410f8577c2da36d6336200d204679216be2c41d018d35cda5",
+      "status": "startup_timeout",
+      "instance_hash": "3b372cfd6e35af19189fc8ef2ae946ec3a095108a9868b2dcdd018ca8721fe38",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "8e17900b9d3c15c2ff133d1a9508e2158df733ee8758bcbc1f72cf5b7a1a1f25",
+      "status": "startup_timeout",
+      "instance_hash": "eab54fb3d606e15fa75ae942ff91e5d681c2c16ce9131637281ec406c0c59df9",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "55637c41c39c384246d0f2fe79f4c7c5f34e8f1eecdabf6ccde10470ad0ce5b5",
+      "status": "startup_timeout",
+      "instance_hash": "8e3ccf1f360c35480f76c08c197415e277bede12c8aac523bfa7663533ec3c82",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "f86e30c3d6e237117170df84f68f6c98ccfc74053abc84c9f2a94297dd66828d",
+      "status": "startup_timeout",
+      "instance_hash": "fe91a8fe030a604c0a066756bf0f85612b9697fcae267410e464f163aa1c4283",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "da0b570b3142dac75248bc0b1977b5e9b328162df585a6748b2b2af8a2adfec7",
+      "status": "startup_timeout",
+      "instance_hash": "5995eda627940d5b938799174e82d2c483f46e6652a168d7e6ab474315856402",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "0ed1479f524a7ebd804a5d8363428b1fa122d9760479470427ed2da0df5a5937",
+      "status": "startup_timeout",
+      "instance_hash": "d1b09e1d8e34d8915cabd1740eb111b77a57b72b8df1c0e7f1518a5218d60ea4",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "c50bf541ce15a9aec2ebe4d2c6c02c612000691ac5f9827b2c14a10f3cc9d147",
+      "status": "startup_timeout",
+      "instance_hash": "5995eda627940d5b938799174e82d2c483f46e6652a168d7e6ab474315856402",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "e22f5b301e2b401ea5927fc60dcb0fe53ed84057562489d254b8ea532244cd66",
+      "status": "startup_timeout",
+      "instance_hash": "8e3ccf1f360c35480f76c08c197415e277bede12c8aac523bfa7663533ec3c82",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "97def5ecc007ed5609975c57ae6c7fda87b7aa3dcba1322f3fb1ea22a5e1e876",
+      "status": "startup_timeout",
+      "instance_hash": "d1b09e1d8e34d8915cabd1740eb111b77a57b72b8df1c0e7f1518a5218d60ea4",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "f61eda21fae5cd06528771c28da2d9b7206734e598d723d9029645f39eb0711e",
+      "status": "startup_timeout",
+      "instance_hash": "3b372cfd6e35af19189fc8ef2ae946ec3a095108a9868b2dcdd018ca8721fe38",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "19953160e64e728752c50ef9b27f864548d5817a17389c1a2220999e87734329",
+      "status": "startup_timeout",
+      "instance_hash": "fe91a8fe030a604c0a066756bf0f85612b9697fcae267410e464f163aa1c4283",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "d02e7b8abfb981436e9fcda5490eb55b8be46cd083c021fa40e789f230a135f0",
+      "status": "startup_timeout",
+      "instance_hash": "8e3ccf1f360c35480f76c08c197415e277bede12c8aac523bfa7663533ec3c82",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "f7f3968f3305380171b70ace7e7e25f9688dd53760b30ce2c7ee156b5544c735",
+      "status": "startup_timeout",
+      "instance_hash": "b0067ac4bac5e47f64cb07222bee740e9ce353f62054428df1de2f2574cc5ac6",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "f0e3b04d1ac0e34b3c31aeb1d9e72befbe7237485745ae10349e985c3b345532",
+      "status": "startup_timeout",
+      "instance_hash": "97fc56dd0c053d73c1a85cde2c6c3e6ad71418a36a006a53bb69c88d7b2a881e",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "788a41d45c154ee4e1add6914729ec4efbe1fee6029c50042939f6e4d94e2f28",
+      "status": "startup_timeout",
+      "instance_hash": "8e3ccf1f360c35480f76c08c197415e277bede12c8aac523bfa7663533ec3c82",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "ac94c99bf84e72c1a6eb895cd62f8cae7556e97b3e04b8810d9f997183f14b06",
+      "status": "startup_timeout",
+      "instance_hash": "88913b7e4aff56b0a56bc44cecb9de90595c9e8cd2b12c4fba39a8f0cd65c50d",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "7478c738c22fc1fbe1451ab7873546668c22465bca50db87beb5dfec97be70df",
+      "status": "startup_timeout",
+      "instance_hash": "3b372cfd6e35af19189fc8ef2ae946ec3a095108a9868b2dcdd018ca8721fe38",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "880b0962336b3f409b2a10e069cf8afff63e967d3900e7935c731991f7b073b2",
+      "status": "startup_timeout",
+      "instance_hash": "97fc56dd0c053d73c1a85cde2c6c3e6ad71418a36a006a53bb69c88d7b2a881e",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "9073195c57ceb37044d6badff29cd68e94905284e5c5e77b7fa7b04fa00615cb",
+      "status": "startup_timeout",
+      "instance_hash": "5995eda627940d5b938799174e82d2c483f46e6652a168d7e6ab474315856402",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "07a38d5a6a46b663ffe6d04dec5764bf0560ae3ea1801b4e8227ffe3b01e99ab",
+      "status": "startup_timeout",
+      "instance_hash": "88913b7e4aff56b0a56bc44cecb9de90595c9e8cd2b12c4fba39a8f0cd65c50d",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "ac64f281df847fd9adacbfb2d39acb130e02bf6cb8dd0b9afacfe1ab9dcc0a06",
+      "status": "startup_timeout",
+      "instance_hash": "4c3e41c1a7a80454db05563473ee536a4a39ac51b77855a0374fa55eea6817fe",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "b50f58a79d678d3c8dba3308e76e51fa1c1ca43de02409b8bc89d8e6d3ea348b",
+      "status": "startup_timeout",
+      "instance_hash": "8e3ccf1f360c35480f76c08c197415e277bede12c8aac523bfa7663533ec3c82",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "8cc6eb10f0982f8485316c7fa4e31db0f04169500aaa8b9caa40afb4dcad6aaf",
+      "status": "startup_timeout",
+      "instance_hash": "4c3e41c1a7a80454db05563473ee536a4a39ac51b77855a0374fa55eea6817fe",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "b89d183a3540f9a8e0019d9f7cc10b38e0d512207d064b78b991974648183e7d",
+      "status": "startup_timeout",
+      "instance_hash": "8e3ccf1f360c35480f76c08c197415e277bede12c8aac523bfa7663533ec3c82",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "3dd40ad1c702b68eb5cf9f214a7185048e66692e491564c952998c399a381726",
+      "status": "startup_timeout",
+      "instance_hash": "fe91a8fe030a604c0a066756bf0f85612b9697fcae267410e464f163aa1c4283",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "66976003c0c0e47620eae1f308b650312d2b03030b7af285d2f6809baf25adca",
+      "status": "startup_timeout",
+      "instance_hash": "fe91a8fe030a604c0a066756bf0f85612b9697fcae267410e464f163aa1c4283",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "410ca3a21853d9867f8eedb9faa00a760328c4a773fb908e48549ca65240fe97",
+      "status": "startup_timeout",
+      "instance_hash": "b0067ac4bac5e47f64cb07222bee740e9ce353f62054428df1de2f2574cc5ac6",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "539a2c063cb245927d7edc5ddade3cec7f09433ed44658132ad6c18f29fb74d8",
+      "status": "startup_timeout",
+      "instance_hash": "4c3e41c1a7a80454db05563473ee536a4a39ac51b77855a0374fa55eea6817fe",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "322dee76ce7ef676a960a14835d6296fb1a3cc5f1572c593037e18342731ebdc",
+      "status": "startup_timeout",
+      "instance_hash": "79a18f63a524d4092aacb0c56ebac29b0e851f45f3d6b5b2a60b3039dca0998b",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "cece8f43ba3d989eec1839532b11e2c2a356cc3f1443b00c9bb70099aea5271c",
+      "status": "startup_timeout",
+      "instance_hash": "97fc56dd0c053d73c1a85cde2c6c3e6ad71418a36a006a53bb69c88d7b2a881e",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "3e214b4021dceabddfca37f917f6f23a08a774e15016b7a1a8b869f27e817bd1",
+      "status": "startup_timeout",
+      "instance_hash": "88913b7e4aff56b0a56bc44cecb9de90595c9e8cd2b12c4fba39a8f0cd65c50d",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "8eabd65ed282ccf4a9968644cad501fad2927a5e60f75377cfe9174221e9f543",
+      "status": "startup_timeout",
+      "instance_hash": "3b372cfd6e35af19189fc8ef2ae946ec3a095108a9868b2dcdd018ca8721fe38",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "f36c719d8ba379a7f5307f8e7b4f072164333baf884c8ed283db3c7cdbf42518",
+      "status": "startup_timeout",
+      "instance_hash": "3b372cfd6e35af19189fc8ef2ae946ec3a095108a9868b2dcdd018ca8721fe38",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "12c2112ab67bd6223b5b94c56bc65d82c25617609b536b39ad499d00e70bf1c0",
+      "status": "startup_timeout",
+      "instance_hash": "5995eda627940d5b938799174e82d2c483f46e6652a168d7e6ab474315856402",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "cb688fd8b3fe4e025fba924b76b424aa2a909a0556bc5178f09bb22c8b09e606",
+      "status": "startup_timeout",
+      "instance_hash": "8e3ccf1f360c35480f76c08c197415e277bede12c8aac523bfa7663533ec3c82",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "4e98751a64fcdff9085b76a005bda568a3cc83a88f6e113d0818ba76035c5a55",
+      "status": "startup_timeout",
+      "instance_hash": "eab54fb3d606e15fa75ae942ff91e5d681c2c16ce9131637281ec406c0c59df9",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "c9dd5fbc60bf1d56c4bbc1522b7ac1842a7093e75498f60c8bd90d9eb34cc7a2",
+      "status": "startup_timeout",
+      "instance_hash": "eab54fb3d606e15fa75ae942ff91e5d681c2c16ce9131637281ec406c0c59df9",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "0b4d7c056317ba89170a8696679c85c8a66ef3ecc4ff40f02c0ecaf89aa8ca94",
+      "status": "startup_timeout",
+      "instance_hash": "79a18f63a524d4092aacb0c56ebac29b0e851f45f3d6b5b2a60b3039dca0998b",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "f7fbff65223eab04982f7849da5b9a6bf9dc15e86edeeb14fa8493df5f942d8b",
+      "status": "startup_timeout",
+      "instance_hash": "9a5e071a78fbb90b18e80abf7039a42af88c45c8c353745cf226ef6ad05f27e0",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "8f3f937728c2034ca1426ad39a75dc1e8e8e10fd9804544616b60fae77b035fe",
+      "status": "startup_timeout",
+      "instance_hash": "d1b09e1d8e34d8915cabd1740eb111b77a57b72b8df1c0e7f1518a5218d60ea4",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "02f1315262738874a1fbd3c171dfb761928a7d5bc777347a4b36b63c2ef73e29",
+      "status": "startup_timeout",
+      "instance_hash": "d1b09e1d8e34d8915cabd1740eb111b77a57b72b8df1c0e7f1518a5218d60ea4",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "91ee14038c7d35587ffa5127f29ec67c63e90a5ca9ea48e969b020253e594411",
+      "status": "startup_timeout",
+      "instance_hash": "eab54fb3d606e15fa75ae942ff91e5d681c2c16ce9131637281ec406c0c59df9",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "eebee7954f267d1c0b19bdcbb6584fbfb5c1867239274bae6cfc3344316f438b",
+      "status": "startup_timeout",
+      "instance_hash": "97fc56dd0c053d73c1a85cde2c6c3e6ad71418a36a006a53bb69c88d7b2a881e",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "4e631b40a6702c4e344cdebcf46ffa3ea4dbb0129db708888088020633b7a0d0",
+      "status": "startup_timeout",
+      "instance_hash": "fe91a8fe030a604c0a066756bf0f85612b9697fcae267410e464f163aa1c4283",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "f8b8c3c5afe8ac0089c3249528930a6d861eb69d9a90d403d59b2de41c078ae2",
+      "status": "startup_timeout",
+      "instance_hash": "97fc56dd0c053d73c1a85cde2c6c3e6ad71418a36a006a53bb69c88d7b2a881e",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "b1ad07ecdb5b951b38f3d846b4f82f216652a3715e05a483e9db82df3a79fcb0",
+      "status": "startup_timeout",
+      "instance_hash": "88913b7e4aff56b0a56bc44cecb9de90595c9e8cd2b12c4fba39a8f0cd65c50d",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "c5a4ff23018858bbeecc2b0db0bbc2191f43cc460f216dff7effe535502ca40b",
+      "status": "startup_timeout",
+      "instance_hash": "79a18f63a524d4092aacb0c56ebac29b0e851f45f3d6b5b2a60b3039dca0998b",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "7c4aeff26ad2b778880f30a6d9e6adaf44f5b2fb851e71cab6d737fd97873803",
+      "status": "startup_timeout",
+      "instance_hash": "4c3e41c1a7a80454db05563473ee536a4a39ac51b77855a0374fa55eea6817fe",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "4af1f959e76da7998c3e61b1ded9a0315b5b81127cb0fd17bc9b304d2b913f9e",
+      "status": "startup_timeout",
+      "instance_hash": "5995eda627940d5b938799174e82d2c483f46e6652a168d7e6ab474315856402",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "1b73b4a86410fed9bbb8e14ab6014e6569a6ee9bf65006222179cab5ca2c0cab",
+      "status": "startup_timeout",
+      "instance_hash": "88913b7e4aff56b0a56bc44cecb9de90595c9e8cd2b12c4fba39a8f0cd65c50d",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "014ad86d2a2b4d271ca9dfc0e7b98ad96a223141bad7cbd6a2fc2bea77cc08c9",
+      "status": "startup_timeout",
+      "instance_hash": "b0067ac4bac5e47f64cb07222bee740e9ce353f62054428df1de2f2574cc5ac6",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "656e274dba12ab8328eea4b90e357c550c78e3371986a177c12a2d7f7b3ecba1",
+      "status": "startup_timeout",
+      "instance_hash": "8e3ccf1f360c35480f76c08c197415e277bede12c8aac523bfa7663533ec3c82",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "e689597be27cf9307344ecd3bfd0c2311a80dc9af56515c8786d3cec4b8c0997",
+      "status": "startup_timeout",
+      "instance_hash": "eab54fb3d606e15fa75ae942ff91e5d681c2c16ce9131637281ec406c0c59df9",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "c0960d900c16b58a40a12f0311fa195a21670921179e1743ef9ece75a33d39b5",
+      "status": "startup_timeout",
+      "instance_hash": "97fc56dd0c053d73c1a85cde2c6c3e6ad71418a36a006a53bb69c88d7b2a881e",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "ab4668fe9febe3346b2e3eb0371e8330dffb173aeb92371881f1f339e0aaeed1",
+      "status": "startup_timeout",
+      "instance_hash": "3b372cfd6e35af19189fc8ef2ae946ec3a095108a9868b2dcdd018ca8721fe38",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "143dda408e15560e6763e782b86545878d92bd6f95f7b81728eb7c1f3113049b",
+      "status": "startup_timeout",
+      "instance_hash": "d1b09e1d8e34d8915cabd1740eb111b77a57b72b8df1c0e7f1518a5218d60ea4",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "e9378512b442e3b3ef0d84fee13d6d126a3e2f86cd27e4d840c0ae58d2386baa",
+      "status": "startup_timeout",
+      "instance_hash": "fe91a8fe030a604c0a066756bf0f85612b9697fcae267410e464f163aa1c4283",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "dd275f134f27b1f7593f7b60ec1882bfa10998d6facc785634eaab682846a9e3",
+      "status": "startup_timeout",
+      "instance_hash": "88913b7e4aff56b0a56bc44cecb9de90595c9e8cd2b12c4fba39a8f0cd65c50d",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "de27fc8eb33f51fbd8927cc6cabb1450e2d2564aeac73881ad21de793d5c0da8",
+      "status": "startup_timeout",
+      "instance_hash": "fe91a8fe030a604c0a066756bf0f85612b9697fcae267410e464f163aa1c4283",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "5400180e952d00a06689c543fa263e445c2ee97f5614c2a35ed15b41a3827541",
+      "status": "startup_timeout",
+      "instance_hash": "b0067ac4bac5e47f64cb07222bee740e9ce353f62054428df1de2f2574cc5ac6",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "938ba6cea429fc741eac38aa2bb6848134e912a4f3cb2c6f86c007e2c970721c",
+      "status": "startup_timeout",
+      "instance_hash": "97fc56dd0c053d73c1a85cde2c6c3e6ad71418a36a006a53bb69c88d7b2a881e",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "dc22b91376f42d4dd16ca935afd481e5ce3b41da358afa77ea51e528a814bc72",
+      "status": "startup_timeout",
+      "instance_hash": "88913b7e4aff56b0a56bc44cecb9de90595c9e8cd2b12c4fba39a8f0cd65c50d",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "087cdf07e8f7d2e47ad97b53f43bf3125b53608ddf57602424cefc442294f83b",
+      "status": "startup_timeout",
+      "instance_hash": "9a5e071a78fbb90b18e80abf7039a42af88c45c8c353745cf226ef6ad05f27e0",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "a3d038bf67fbe190a66f698dcfa25a9756a5c1822399ab32cd7369eee041f65a",
+      "status": "startup_timeout",
+      "instance_hash": "97fc56dd0c053d73c1a85cde2c6c3e6ad71418a36a006a53bb69c88d7b2a881e",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "bc3da3228121adeda22eb4d4e62c787d03971a675439cbd0a0e6f5587157e8b9",
+      "status": "startup_timeout",
+      "instance_hash": "fe91a8fe030a604c0a066756bf0f85612b9697fcae267410e464f163aa1c4283",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "a2295e85315a900469bbb6980b5e61cdea78ce288e0f8a4e81b1e7c9481932bf",
+      "status": "startup_timeout",
+      "instance_hash": "4c3e41c1a7a80454db05563473ee536a4a39ac51b77855a0374fa55eea6817fe",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "90d6716485842619c1b202544c02da3caa7fefd5436fe76e532e0b50efe7ae31",
+      "status": "startup_timeout",
+      "instance_hash": "9a5e071a78fbb90b18e80abf7039a42af88c45c8c353745cf226ef6ad05f27e0",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "dd6c796ebec88d9602c13ecc8013e1dcbbd0c0ca1341421ad4d6d78b7120233c",
+      "status": "startup_timeout",
+      "instance_hash": "d1b09e1d8e34d8915cabd1740eb111b77a57b72b8df1c0e7f1518a5218d60ea4",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "ce3217badaa482c1b6dba6ec30147289307b761808a85d357d708c6039b030fe",
+      "status": "startup_timeout",
+      "instance_hash": "9a5e071a78fbb90b18e80abf7039a42af88c45c8c353745cf226ef6ad05f27e0",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "2b6c4248d3b538dafdb32a2ece33235f9446b9f6c1330594191b2a933fedf0f1",
+      "status": "startup_timeout",
+      "instance_hash": "eab54fb3d606e15fa75ae942ff91e5d681c2c16ce9131637281ec406c0c59df9",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "96239792d774ab40604a4c8eca835eb3dcb493c73a01360f73ffe6ee7cade254",
+      "status": "startup_timeout",
+      "instance_hash": "9a5e071a78fbb90b18e80abf7039a42af88c45c8c353745cf226ef6ad05f27e0",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "01283fc42ca8d6d92ea901ef2635546ff1ac03a2856dd9e5a8fde6d1af44ced7",
+      "status": "startup_timeout",
+      "instance_hash": "5995eda627940d5b938799174e82d2c483f46e6652a168d7e6ab474315856402",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "0b59fc9c20d7892cf5d90421aa154010e00b9f6663568b5dda8aa6e3d71cabd3",
+      "status": "startup_timeout",
+      "instance_hash": "79a18f63a524d4092aacb0c56ebac29b0e851f45f3d6b5b2a60b3039dca0998b",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "db291e19f1a3d82dc8527e649c5f48df9a6a7653c2a0ab0eb580386a8e77b365",
+      "status": "startup_timeout",
+      "instance_hash": "fe91a8fe030a604c0a066756bf0f85612b9697fcae267410e464f163aa1c4283",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "05c1b8cf3123910dfb23408d06325da9567be24405e5d6262a7d8be30b4b7ea4",
+      "status": "startup_timeout",
+      "instance_hash": "5995eda627940d5b938799174e82d2c483f46e6652a168d7e6ab474315856402",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "e41dc4655c7ab999c649d95f374c371b86d12eb7158b7a7dc89e0bf36c4863ae",
+      "status": "startup_timeout",
+      "instance_hash": "97fc56dd0c053d73c1a85cde2c6c3e6ad71418a36a006a53bb69c88d7b2a881e",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "2b53309c4a2452508d9925bf99cb176634b388568cd9df08dfa435743170e81e",
+      "status": "startup_timeout",
+      "instance_hash": "88913b7e4aff56b0a56bc44cecb9de90595c9e8cd2b12c4fba39a8f0cd65c50d",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "9bd8cf1d721b688d9733beb23aa1565955cf3e91da4604141a1eea1aa61d4786",
+      "status": "startup_timeout",
+      "instance_hash": "b0067ac4bac5e47f64cb07222bee740e9ce353f62054428df1de2f2574cc5ac6",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "49b4f57a720f0b872811ef5045392c0d7ca3021af25810ef15eafa65f58d7806",
+      "status": "startup_timeout",
+      "instance_hash": "fe91a8fe030a604c0a066756bf0f85612b9697fcae267410e464f163aa1c4283",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "d75b26fb6042a00a6b21a6d4bae2d38b1ab24aab427bf0f1514083643ac9d88a",
+      "status": "startup_timeout",
+      "instance_hash": "79a18f63a524d4092aacb0c56ebac29b0e851f45f3d6b5b2a60b3039dca0998b",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "d20c9cbbb7e7279489c3ec9556a6cf569ade5ebd910393eac9e73b6487d52f62",
+      "status": "startup_timeout",
+      "instance_hash": "3b372cfd6e35af19189fc8ef2ae946ec3a095108a9868b2dcdd018ca8721fe38",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "026538d6897f86d858c05207d8c596afd0c731161f160ba6339b81f1111bf737",
+      "status": "startup_timeout",
+      "instance_hash": "fe91a8fe030a604c0a066756bf0f85612b9697fcae267410e464f163aa1c4283",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "a7b2f6b495c79f7f4ace1a4e423f6774bad9e2e3488cf7ff8b9a73b1d1526669",
+      "status": "startup_timeout",
+      "instance_hash": "8e3ccf1f360c35480f76c08c197415e277bede12c8aac523bfa7663533ec3c82",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "7177dfbe030712989e7d58bfc6d30793a415f8a9cf850e6eec77b455989ab185",
+      "status": "startup_timeout",
+      "instance_hash": "5995eda627940d5b938799174e82d2c483f46e6652a168d7e6ab474315856402",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "d7a07d8743af8bce1cdbb4b6dfd516aae3c7e220e5da080e511ec7a550cb8021",
+      "status": "startup_timeout",
+      "instance_hash": "9a5e071a78fbb90b18e80abf7039a42af88c45c8c353745cf226ef6ad05f27e0",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "5f4b8807499fa0a23696d3c77975de30548b399fd0744ec59336953b0d5dc91d",
+      "status": "startup_timeout",
+      "instance_hash": "4c3e41c1a7a80454db05563473ee536a4a39ac51b77855a0374fa55eea6817fe",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "4257bf827ce0e1c0aa939bf715d957dfe0f0f4db6463f7d8179565220c572aa0",
+      "status": "startup_timeout",
+      "instance_hash": "97fc56dd0c053d73c1a85cde2c6c3e6ad71418a36a006a53bb69c88d7b2a881e",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "0df8a00cd4d42ae9441733461c40fea85b572565b19e11de9bd85d2e83b32053",
+      "status": "startup_timeout",
+      "instance_hash": "b0067ac4bac5e47f64cb07222bee740e9ce353f62054428df1de2f2574cc5ac6",
+      "budget_ns": 4,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "2efb89ed8cb45fbc331ab2896c0484b345cfe7e7df77f9569749d5314b978a8d",
+      "status": "startup_timeout",
+      "instance_hash": "97fc56dd0c053d73c1a85cde2c6c3e6ad71418a36a006a53bb69c88d7b2a881e",
+      "budget_ns": 16,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    },
+    {
+      "attempt_sha256": "1e76d6375b6f52176518659ebaf8b0ca2eaca04b932daa6798c84a9d661152d1",
+      "status": "startup_timeout",
+      "instance_hash": "9a5e071a78fbb90b18e80abf7039a42af88c45c8c353745cf226ef6ad05f27e0",
+      "budget_ns": 1,
+      "instance_loaded": false,
+      "input_bytes": false,
+      "progress_bytes": 0,
+      "wire_kinds": [
+        "pong",
+        "pong",
+        "pong",
+        "terminal"
+      ]
+    }
+  ]
+}

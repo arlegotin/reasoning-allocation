@@ -1,0 +1,23 @@
+{
+  "additional_guard_allowance_ns": 630000000000,
+  "capacity": {
+    "basis": "Separate conservative4x artifact/worker envelopes; no identified RSS slope, no guaranteed bound",
+    "coordinator_reserve_bytes": 21474836480,
+    "free_storage_bytes": 81087307776,
+    "joint_memory_bytes": 26987134976,
+    "observed_worker_peak_including_samples_bytes": 304332800,
+    "os_reserve_bytes": 4294967296,
+    "physical_memory_bytes": 38654705664,
+    "storage_envelope_bytes": 33576268800,
+    "worker_observation_basis": "Largest observed exact or sampled process RSS across retained generations; sampled peaks are lower bounds, never replace missing exact finals with zero",
+    "worker_peak_envelope_bytes": 1217331200
+  },
+  "public_batch_wall_ns": 620011421708,
+  "public_resource_forecast": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task16/source-calibration-v2/power-design.json",
+    "sha256": "2e801ff1a72269136da75b09bc6dd0228d2edefddcff577cef13a1b96b9347e2"
+  },
+  "request_wall_ns_with_reserve": 5649229508850,
+  "scope": "registered empirical public extrapolation plus prospective guard allowance; strict full-guard/preparation actual costs separately recorded; assumptions not hard guarantees",
+  "total_with_guard_allowance_ns": 6279229508850
+}

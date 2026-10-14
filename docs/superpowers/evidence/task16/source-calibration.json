@@ -1,0 +1,85 @@
+{
+  "source_commit": "5acc206a8482710578f21ee90bb80ecd8a092828",
+  "environment": {
+    "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+    "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+    "source_hash": "a550040a87910fb4aa710ae9d33578dfd623a0b98b8fda0163dd3fb863557a05"
+  },
+  "freeze_digest": "72aba9929daa98bb48c64237ebba47e2c6d66e75d65165bf78a0355a53455457",
+  "freeze": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/protocol/freeze-A004.sha256",
+    "sha256": "c46380a6349f1b77c725d429610a0554eb0335babe66ed78b7ad3f4bf65eaa5b"
+  },
+  "config": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/confirmatory-A004.json",
+    "sha256": "e13f31a7b098f372e12d653e46513d9f2d52fd587cb5841aff36ffbd8f36bffe"
+  },
+  "queue": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task16/source-calibration-v2/protected-queue.json",
+    "sha256": "6fa088859aeeac6bbd050c8e644cd029487ceaf66ca15d65bfbe5dd964d8bbff"
+  },
+  "logical_request_count": 2520,
+  "sample": {
+    "fit_runs": 1,
+    "original_templates": 60,
+    "templates_per_cell": 10,
+    "timing_repeats": 2,
+    "train_originals": 12
+  },
+  "public_physical_attempt_count": 504,
+  "public_status_counts": {
+    "deadline": 160,
+    "complete": 344
+  },
+  "public_costs": {
+    "batch_wall_ns": 620011421708,
+    "request_wall_including_publication_ns": 606645019707,
+    "worker_cpu_ns": 553212898000,
+    "unknown_worker_cpu_attempts": 0,
+    "parent_cpu_ns": 47175934000,
+    "publication_ns": 12860799093,
+    "overshoot_ns": 8996475717,
+    "artifact_bytes": 618594750,
+    "peak_worker_rss_bytes": 256983040
+  },
+  "preflight": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task16/source-calibration-v2/preflight.json",
+    "sha256": "0529f68989555dd859d92d86394ae13f8cccd4a7ec8413839365711d1f9b43b8"
+  },
+  "rows": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task16/source-calibration-v2/pilot-rows.json",
+    "sha256": "e07a7f0d1b498e4fe8ad67c4619cf1f2e5138a35985e1cab14234abf86b625f8"
+  },
+  "freshness": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task16/source-calibration-v2/freshness-audit.json",
+    "sha256": "76ca5d9c22ad16145e670d0e02fc45f6bba2e57fd7fb872655bcb2472e05a140"
+  },
+  "freeze_preparation": {
+    "digest": "72aba9929daa98bb48c64237ebba47e2c6d66e75d65165bf78a0355a53455457",
+    "freeze": {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/protocol/freeze-A004.sha256",
+      "sha256": "c46380a6349f1b77c725d429610a0554eb0335babe66ed78b7ad3f4bf65eaa5b"
+    },
+    "preparation_cpu_ns": 2324670000,
+    "preparation_wall_ns": 2801007417,
+    "scope": "full prospective resolution, scientific calibration and source/asset/ancestry checks plus seal publication; protected workers not launched"
+  },
+  "strict_launch_verification": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task16/source-calibration-v2/launch-verification.json",
+    "sha256": "fb8b2d5eb0355bf9f128280b1e2ec0198c975175df89f131c502945735ae3803"
+  },
+  "failed_static_preparations": [
+    {
+      "namespace": "artifacts/task16/source-calibration",
+      "cause": "sandbox denied CPU-brand sysctl; zero solvers; outputs preserved",
+      "full_duration_ns": null
+    },
+    {
+      "scope": "first metadata-only freshness audit",
+      "cause": "minimal public fixture manifests omit template_id; completed audit resolves template from declared input metadata",
+      "full_duration_ns": null,
+      "solver_requests": 0
+    }
+  ],
+  "interpretation": "operational/current-public evidence only; no protected solver result or effect/significance analysis"
+}

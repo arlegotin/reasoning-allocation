@@ -1,0 +1,64 @@
+{
+  "ancestors": [
+    {
+      "experiment_id": "ra-wp06-e004",
+      "freeze": {
+        "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/protocol/freeze-A003.sha256",
+        "sha256": "3ad4b3c20fe75831c59cbb2616016553007bc12ae0ef1ddee17221e7b811e74c"
+      },
+      "journal_absent_or_empty": true,
+      "outcome_namespace_absent_or_empty": true
+    },
+    {
+      "experiment_id": "ra-wp06-e003",
+      "freeze": {
+        "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/protocol/freeze-A002.sha256",
+        "sha256": "7627f88a82819f67ce692aece5156cf3e5aa3d69c232c2385a1a6cd76eb2fc2d"
+      },
+      "journal_absent_or_empty": true,
+      "outcome_namespace_absent_or_empty": true
+    },
+    {
+      "experiment_id": "ra-wp06-e002",
+      "freeze": {
+        "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/protocol/freeze-A001.sha256",
+        "sha256": "50c3eeb4d4e6bd7d4df50c673e722f1f21301fbd7a3ea2643e3f86c71b08ac9c"
+      },
+      "journal_absent_or_empty": true,
+      "outcome_namespace_absent_or_empty": true
+    },
+    {
+      "experiment_id": "ra-wp06-e001",
+      "freeze": {
+        "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/protocol/freeze.sha256",
+        "sha256": "a6e09ae9148ac3e6e813eafeec6f7b7e9d52fad40acc15ced5330eff40270686"
+      },
+      "journal_absent_or_empty": true,
+      "outcome_namespace_absent_or_empty": true
+    }
+  ],
+  "cli_dry_run_exit": 0,
+  "config": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/confirmatory-A004.json",
+    "sha256": "e13f31a7b098f372e12d653e46513d9f2d52fd587cb5841aff36ffbd8f36bffe"
+  },
+  "cpu_ns": 3291906000,
+  "environment": {
+    "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+    "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+    "source_hash": "a550040a87910fb4aa710ae9d33578dfd623a0b98b8fda0163dd3fb863557a05"
+  },
+  "execution_journal": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/runs/ra-wp07-e005.access.json",
+  "freeze": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/protocol/freeze-A004.sha256",
+    "sha256": "c46380a6349f1b77c725d429610a0554eb0335babe66ed78b7ad3f4bf65eaa5b"
+  },
+  "protected_namespace_unopened": true,
+  "queue": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task16/source-calibration-v2/protected-queue.json",
+    "sha256": "6fa088859aeeac6bbd050c8e644cd029487ceaf66ca15d65bfbe5dd964d8bbff"
+  },
+  "queue_count": 2520,
+  "source_commit": "5acc206a8482710578f21ee90bb80ecd8a092828",
+  "strict_guard_and_ancestry_audit_wall_ns": 4052680917
+}

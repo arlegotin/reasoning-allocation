@@ -1,0 +1,35 @@
+{
+  "amendment": 4,
+  "calibration_helper": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/checks/task15_design.py",
+    "sha256": "5eb436d3362b5f02d1ce7756a6cbb12ea5a8e09cc5faee062e1d3fed4c024cad"
+  },
+  "experiment_id": "ra-wp07-e005",
+  "fixed_protected_logical_requests": 2520,
+  "fixed_public_requests": 504,
+  "freshness": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task16/source-calibration-v2/freshness-audit.json",
+    "sha256": "76ca5d9c22ad16145e670d0e02fc45f6bba2e57fd7fb872655bcb2472e05a140"
+  },
+  "guard_allowance_ns_per_request": 250000000,
+  "guard_allowance_total_ns": 630000000000,
+  "guard_basis": "single observed cold identity call0.112229s; conservative0.25s perrequest allowance; actual guards/coordinator costs reported",
+  "previous": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/protocol/freeze-A003.sha256",
+    "sha256": "3ad4b3c20fe75831c59cbb2616016553007bc12ae0ef1ddee17221e7b811e74c"
+  },
+  "prior_static_preparation": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task16/source-calibration",
+    "status": "sysctl CPU brand denied before hardware/prospective publication; no solver launched; artifacts preserved"
+  },
+  "public_timing_policy": "one worker/thread serial; no concurrent edits/tests/fits",
+  "resource_policy": {
+    "action": "halt_and_quarantine",
+    "minimum_available_memory_bytes": 4294967296,
+    "minimum_free_storage_bytes": 1073741824,
+    "temperature": "record_available_sensor_or_unavailable"
+  },
+  "schema_version": 1,
+  "source_commit": "5acc206a8482710578f21ee90bb80ecd8a092828",
+  "stopping": "fixed queue; no effects or significance; ordinary faults and resource/correctness/hash alarms halt; no tuning"
+}
