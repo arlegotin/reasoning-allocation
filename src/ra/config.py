@@ -176,6 +176,9 @@ def validate_run_config(config: dict[str, object]) -> None:
     from ra.allocators import make_allocator
     required = {'schema_version','purpose','input_manifests','methods','solver_seeds','run_order_seed','budgets_ns',
                 'watchdog_grace_ns','lease_lengths','threads','integrality_tolerance','bound_tolerance'}
+    if isinstance(config, dict) and 'training' in config:
+        if not isinstance(config['training'], dict): raise ConfigError('training object required')
+        config = {k:v for k,v in config.items() if k != 'training'}
     if isinstance(config, dict) and 'collection' in config:
         if not isinstance(config['collection'], str) or not config['collection']:
             raise ConfigError('collection protocol path required')
@@ -209,13 +212,23 @@ def validate_run_config(config: dict[str, object]) -> None:
             try: resolve_native_overrides(model.getParams(),method['overrides'])
             finally: model.freeProb()
         else:
-            if set(method)-{'collection'}!={'name','kind','allocator','pool_size'}: raise ConfigError('invalid shared method')
+            if set(method)-{'collection','learned'}!={'name','kind','allocator','pool_size'}: raise ConfigError('invalid shared method')
             if 'collection' in method:
                 from ra.collect import validate_collection_method
                 validate_collection_method(method['collection'])
             k=method['pool_size']
             if k is not None and (type(k) is not int or k<=0): raise ConfigError('invalid candidate pool size')
-            make_allocator(method['allocator'],0)
+            if method['allocator'].get('policy') == 'local':
+                from ra.allocators import validate_local_config
+                validate_local_config(method['allocator'])
+                if 'learned' not in method and 'collection' not in method:
+                    raise ConfigError('local model requires measured runtime context')
+            else:
+                make_allocator(method['allocator'],0)
+            if 'learned' in method:
+                if 'collection' in method: raise ConfigError('ambiguous runtime mode')
+                from ra.collect import validate_collection_method
+                validate_collection_method(method['learned'])
             lengths=method['allocator'].get('bin_lengths',[method['allocator'].get('length',1)])
             if any(n not in config['lease_lengths'] for n in lengths): raise ConfigError('method length outside configured support')
 

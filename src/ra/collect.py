@@ -32,17 +32,18 @@ def mixture_probability(selected: tuple[NodeKey, int], heuristic: tuple[NodeKey,
 class RandomizedBehavior:
     def __init__(self, config, epsilon, seed):
         from ra.allocators import make_allocator
-        if config.get('policy') not in ('estimate', 'bound', 'deepest', 'fifo'):
+        if config.get('policy') not in ('estimate', 'bound', 'deepest', 'fifo', 'local'):
             raise ValueError('collection requires a declared fixed deterministic heuristic')
         mixture_probability((NodeKey(0, 1), 1), (NodeKey(0, 1), 1), 1, 1, epsilon)
         self.heuristic = make_allocator(config, seed)
         self.config, self.epsilon, self.seed = dict(config), epsilon, seed
         self.rng = random.Random(seed)
 
-    def choose(self, context, candidates, lengths):
+    def choose(self, context, candidates, lengths, batch=None):
         if len(set(lengths)) != len(lengths):
             raise ValueError('duplicate supported length')
-        h = self.heuristic.choose(context, candidates, lengths)
+        h = (self.heuristic.choose_batch(context, candidates, batch) if self.config['policy'] == 'local' and batch is not None
+             else self.heuristic.choose(context, candidates, lengths))
         self.last_rng_before = self.rng.getstate()
         self.explored = self.rng.random() < self.epsilon
         action = ((self.rng.choice(candidates).key, self.rng.choice(lengths)) if self.explored
@@ -204,13 +205,18 @@ class CollectionRuntime:
         from collections import OrderedDict
         from ra.config import load_feature_schema
         from ra.leases import LeaseController
-        validate_training_instance(instance)
+        if 'collection' in request.method_config:
+            validate_training_instance(instance)
         self.request, self.instance, self.model, self.observer = request, instance, model, observer
-        config = request.method_config['collection']
+        config = request.method_config.get('collection', request.method_config.get('learned'))
         self.schema = load_feature_schema(Path(config['schema_path']))
         self.writer = TraceWriter(directory, self.schema, max_decisions=config['max_decisions'])
         self.pool_rng = random.Random(config['pool_seed'])
-        self.behavior = RandomizedBehavior(request.method_config['allocator'], config['epsilon'], config['behavior_seed'])
+        from ra.allocators import make_allocator
+        self.randomized = 'collection' in request.method_config
+        self.behavior = (RandomizedBehavior(request.method_config['allocator'], config['epsilon'], config['behavior_seed'])
+                         if self.randomized else make_allocator(request.method_config['allocator'], config['behavior_seed']))
+        self.diagnostics = []
         self.lease = LeaseController({}, deadline_ns=request.deadline_ns,
             on_dispatch=self.dispatched, on_finish=self.finished, retain_outcomes=False)
         self.bounds, self.history = OrderedDict(), OrderedDict()
@@ -262,7 +268,7 @@ class CollectionRuntime:
             original_rows=rows, original_density=self.instance.incidence.nnz/(rows*columns),
             initial_primal_original=self.request.p0, initial_dual_original=0.,
             last_verified_improvement_ns=self.last_improvement, native_incumbent_count=int(model.getNSolsFound()),
-            past_throughput_per_second=b.processed_nodes*1e9/elapsed, solver_infinity=float(model.infinity()))
+            past_throughput_per_second=b.processed_nodes*1e9/elapsed, solver_infinity=float(model.infinity()), entry_ns=b.last_callback_entry_ns)
         for n in records:
             self.bounds[n.key] = (n.native_lower_bound, n.native_estimate)
             self.bounds.move_to_end(n.key)
@@ -281,8 +287,19 @@ class CollectionRuntime:
             ancestry[n.key] = AncestrySummary(*parent, history)
         lengths = self.request.method_config['lease_lengths']
         batch = build_features(context, pool.records, lengths, ancestry, self.schema)
-        pooled = pooled_features(batch, self.schema, len(pool.ids), len(lengths), len(records))
-        allocation = self.behavior.choose(context, pool.records, lengths)
+        pooled = (pooled_features(batch, self.schema, len(pool.ids), len(lengths), len(records))
+                  if self.randomized and self.request.method_config['allocator']['policy'] != 'local' else None)
+        from ra.allocators import BidderExpired
+        local = self.behavior.heuristic if self.randomized else self.behavior
+        try:
+            allocation = (self.behavior.choose(context, pool.records, lengths, batch=batch) if self.randomized
+                          else self.behavior.choose_batch(context, pool.records, batch))
+        except BidderExpired:
+            self.diagnostics.append(dict(local.last_diagnostics))
+            b.request_stop()
+            return min(pool.records, key=lambda n: n.key).key
+        if hasattr(local, 'last_diagnostics'):
+            self.diagnostics.append(dict(local.last_diagnostics))
         action = (allocation.root, allocation.node_limit)
         selected = batch.action_rows.index(action)
         support_hash = digest([pool.pool_hash, lengths])
@@ -291,11 +308,13 @@ class CollectionRuntime:
                     'pool_ids': [asdict(k) for k in pool.ids], 'pool_hash': pool.pool_hash,
                     'strata': [(name, [asdict(k) for k in keys]) for name, keys in pool.strata],
                     'pool_rng_before': pool.rng_state_before, 'pool_rng_after': pool.rng_state_after,
-                    'behavior_rng_before': self.behavior.last_rng_before, 'behavior_rng_after': self.behavior.last_rng_after,
-                    'explored': self.behavior.explored, 'heuristic': [asdict(self.behavior.last_heuristic[0]), self.behavior.last_heuristic[1]],
+                    'behavior_rng_before': self.behavior.last_rng_before if self.randomized else None,
+                    'behavior_rng_after': self.behavior.last_rng_after if self.randomized else None,
+                    'explored': self.behavior.explored if self.randomized else False,
+                    'heuristic': [asdict(self.behavior.last_heuristic[0]), self.behavior.last_heuristic[1]] if self.randomized else None,
                     'support_lengths': lengths, 'support_hash': support_hash, 'allocation': asdict(allocation),
-                    'prediction_status': 'unavailable-no-model', 'feature_extraction_ns': batch.extraction_ns,
-                    'rng_streams': {'solver': self.request.solver_seed, **{k: self.request.method_config['collection'][k]
+                    'prediction_status': 'model' if hasattr(local, 'bundle') else 'unavailable-no-model', 'feature_extraction_ns': batch.extraction_ns,
+                    'rng_streams': {'solver': self.request.solver_seed, **{k: self.request.method_config.get('collection', self.request.method_config.get('learned'))[k]
                                    for k in ('pool_seed', 'behavior_seed')}}, 'selected_parent': asdict(next(n for n in pool.records if n.key == allocation.root).parent)
                     if next(n for n in pool.records if n.key == allocation.root).parent is not None else None}
         path = self.writer.decision(batch.matrix[selected], metadata, pooled)
@@ -350,10 +369,15 @@ def finalize_trace(out, progress, request, release_ns, aligned, boundaries, stat
             lengths = item['support_lengths']
             if root not in pool or allocation['node_limit'] not in lengths:
                 raise ValueError('dispatched action outside support')
-            h = (NodeKey(**item['heuristic'][0]), item['heuristic'][1])
-            expected = mixture_probability((root, allocation['node_limit']), h, len(pool), len(lengths), .2)
-            if allocation['selection_probability'] != expected:
-                raise ValueError('behavior propensity mismatch')
+            if item['heuristic'] is None:
+                if ('learned' not in request.method_config or request.method_config['allocator']['policy'] != 'local'
+                        or allocation['selection_probability'] is not None):
+                    raise ValueError('invalid deterministic learned propensity metadata')
+            else:
+                h = (NodeKey(**item['heuristic'][0]), item['heuristic'][1])
+                expected = mixture_probability((root, allocation['node_limit']), h, len(pool), len(lengths), .2)
+                if allocation['selection_probability'] != expected:
+                    raise ValueError('behavior propensity mismatch')
             summary['dispatched'] += 1
             dispatched_entries.add(dispatch['entry_ns'])
             observed.add(allocation['node_limit'])
@@ -430,7 +454,7 @@ def _collection_plan(config_path):
         RandomizedBehavior(behavior, protocol['epsilon'], protocol['behavior_seed'])
         methods.append({'name': 'collect-' + behavior['policy'], 'kind': 'shared', 'allocator': behavior,
                         'pool_size': protocol['pool_size'], 'collection': method_collection})
-    run = {k: v for k, v in base.items() if k != 'collection'}
+    run = {k: v for k, v in base.items() if k not in ('collection', 'training')}
     run.update(methods=methods, solver_seeds=[protocol['solver_seed']], budgets_ns=[protocol['budget_ns']],
                lease_lengths=protocol['lease_lengths'], input_manifests=['placeholder'])
     from ra.config import validate_run_config

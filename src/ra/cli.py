@@ -35,9 +35,17 @@ def main(argv: list[str] | None = None) -> int:
     collect.add_argument('--split', required=True)
     collect.add_argument('--out', type=Path, required=True)
     collect.add_argument('--dry-run', action='store_true')
+    train = subcommands.add_parser('train', help='Fit local bids and select by cold public validation')
+    train.add_argument('--config',type=Path,required=True)
+    train.add_argument('--trace-root',type=Path,default=Path('data/traces/train'))
+    train.add_argument('--output',type=Path,required=True)
+    train.add_argument('--dry-run',action='store_true')
     args = parser.parse_args(argv)
     try:
-        if args.command == 'collect':
+        if args.command == 'train':
+            from ra.train import fit_models
+            report = fit_models(args.config,args.trace_root,args.output,dry_run=args.dry_run)
+        elif args.command == 'collect':
             from ra.collect import collect_traces
             report = collect_traces(args.config, args.split, args.out, dry_run=args.dry_run)
         elif args.command == 'run':

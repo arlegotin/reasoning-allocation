@@ -116,5 +116,67 @@
       "pool_size": 128
     }
   ],
-  "collection": "../protocol/collection.json"
+  "collection": "../protocol/collection.json",
+  "training": {
+    "schema": "features.json",
+    "generation_config": "workload_manifest.json",
+    "fit_seeds": [
+      17,
+      43
+    ],
+    "grid": [
+      {
+        "name": "ridge1",
+        "kind": "ridge",
+        "parameters": {
+          "alpha": 1.0
+        }
+      },
+      {
+        "name": "ridge10",
+        "kind": "ridge",
+        "parameters": {
+          "alpha": 10.0
+        }
+      },
+      {
+        "name": "hist7",
+        "kind": "histogram",
+        "parameters": {
+          "max_iter": 30,
+          "max_leaf_nodes": 7,
+          "min_samples_leaf": 10
+        },
+        "quantile": true
+      },
+      {
+        "name": "hist15",
+        "kind": "histogram",
+        "parameters": {
+          "max_iter": 80,
+          "max_leaf_nodes": 15,
+          "min_samples_leaf": 10
+        },
+        "quantile": true
+      }
+    ],
+    "validation_indices": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10
+    ],
+    "validation_solver_seeds": [
+      17
+    ],
+    "validation_budgets_ns": [
+      2106828958,
+      4213657916
+    ],
+    "c_min": 4.2e-08,
+    "c_min_source": "Task9 pilot measured timer/trivial-call floor42ns; current administration and actual model loading/inference charged separately",
+    "fallback_length": 4
+  }
 }

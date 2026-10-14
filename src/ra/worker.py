@@ -56,8 +56,12 @@ def validate_request(request: Request, *, launched: bool = False) -> None:
         if method['name'] != request.method: raise ValueError('method identity mismatch')
     if 'collection' in request.method_config and request.phase != 'train':
         raise ValueError('randomized collection requires train namespace')
-    if request.model_path is not None or request.model_hash is not None:
-        raise ValueError('model loading is not implemented')
+    local_config = request.method_config.get('allocator', {})
+    if local_config.get('policy') == 'local':
+        if request.model_path != local_config['model_path'] or request.model_hash != local_config['model_hash']:
+            raise ValueError('request/model identity mismatch')
+    elif request.model_path is not None or request.model_hash is not None:
+        raise ValueError('unexpected model identity')
     if type(request.threads) is not int or request.threads != 1:
         raise ValueError('cold primary requests require one thread')
     if not isinstance(request.request_id, str) or not request.request_id:
@@ -249,7 +253,7 @@ def execute_request(request_path: Path) -> int:
             shared = request.method_config.get('kind') == 'shared'
             lease = allocator = None
             decisions = []
-            if shared:
+            if shared and not ({'collection', 'learned'} & request.method_config.keys()):
                 import random
                 from ra.allocators import make_allocator
                 from ra.candidates import build_pool
@@ -274,7 +278,7 @@ def execute_request(request_path: Path) -> int:
                         'rng_state_before':pool.rng_state_before,'rng_state_after':pool.rng_state_after,
                         'lease_lengths':request.method_config['lease_lengths'],'allocation':asdict(allocation)})
                     return allocation.root
-            if 'collection' in request.method_config:
+            if {'collection', 'learned'} & request.method_config.keys():
                 from ra.collect import CollectionRuntime
                 collection = CollectionRuntime(request, instance, model, observer, Path(request_path).parent / 'trace')
                 lease, allocator, choose = collection.lease, collection.behavior, collection.choose
@@ -284,6 +288,11 @@ def execute_request(request_path: Path) -> int:
                                   stop_poll=lambda: channel.stop_pending() or (collection is not None and collection.full()))
             if collection is not None:
                 collection.backend = backend
+                local = collection.behavior.heuristic if collection.randomized else collection.behavior
+                if hasattr(local, 'loading_ns'):
+                    resources['model_loading_ns'] = local.loading_ns
+                    resources['model_bytes'] = local.model_bytes
+                resources['bidder_diagnostics'] = collection.diagnostics
             resources['allocation_decisions'] = decisions
             resources['collection_trace'] = 'trace' if collection is not None else None
             resources['selector_installed'] = backend.selector is not None

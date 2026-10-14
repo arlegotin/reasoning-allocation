@@ -1,0 +1,198 @@
+{
+  "schema_version": 1,
+  "purpose": "exploratory",
+  "input_manifests": [
+    "../data/pilot/discovery-64/finite-manifest.json",
+    "../data/pilot/discovery-256/finite-manifest.json"
+  ],
+  "solver_seeds": [
+    0,
+    17
+  ],
+  "run_order_seed": 20261014,
+  "budgets_ns": [
+    2106828958
+  ],
+  "watchdog_grace_ns": 2000000000,
+  "lease_lengths": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32,
+    64
+  ],
+  "threads": 1,
+  "integrality_tolerance": 1e-06,
+  "bound_tolerance": 1e-06,
+  "methods": [
+    {
+      "name": "B0",
+      "kind": "native",
+      "overrides": {}
+    },
+    {
+      "name": "B1-tuned",
+      "kind": "native",
+      "overrides": {}
+    },
+    {
+      "name": "B1-no-plunge",
+      "kind": "native",
+      "overrides": {
+        "nodeselection/estimate/maxplungedepth": 0
+      }
+    },
+    {
+      "name": "B2-fifo",
+      "kind": "shared",
+      "allocator": {
+        "policy": "fifo",
+        "length": 4
+      },
+      "pool_size": 128
+    },
+    {
+      "name": "B2-round_robin_parent_groups",
+      "kind": "shared",
+      "allocator": {
+        "policy": "round_robin_parent_groups",
+        "length": 4
+      },
+      "pool_size": 128
+    },
+    {
+      "name": "B2-uniform",
+      "kind": "shared",
+      "allocator": {
+        "policy": "uniform",
+        "length": 4
+      },
+      "pool_size": 128
+    },
+    {
+      "name": "B2-estimate",
+      "kind": "shared",
+      "allocator": {
+        "policy": "estimate",
+        "length": 4
+      },
+      "pool_size": 128
+    },
+    {
+      "name": "B2-bound",
+      "kind": "shared",
+      "allocator": {
+        "policy": "bound",
+        "length": 4
+      },
+      "pool_size": 128
+    },
+    {
+      "name": "B2-deepest",
+      "kind": "shared",
+      "allocator": {
+        "policy": "deepest",
+        "length": 4
+      },
+      "pool_size": 128
+    },
+    {
+      "name": "B2-budget_sensitive",
+      "kind": "shared",
+      "allocator": {
+        "policy": "budget_sensitive",
+        "remaining_time_bins": [
+          0.5267072395,
+          2.106828958
+        ],
+        "bin_lengths": [
+          1,
+          4,
+          16
+        ]
+      },
+      "pool_size": 128
+    }
+  ],
+  "collection": "../protocol/collection.json",
+  "training": {
+    "schema": "features.json",
+    "generation_config": "workload_manifest.json",
+    "fit_seeds": [
+      17,
+      43
+    ],
+    "grid": [
+      {
+        "kind": "ridge",
+        "name": "ridge1",
+        "parameters": {
+          "alpha": 1.0
+        }
+      }
+    ],
+    "validation_indices": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10
+    ],
+    "validation_solver_seeds": [
+      17
+    ],
+    "validation_budgets_ns": [
+      526707240,
+      2106828958,
+      8427315832
+    ],
+    "c_min": 4.2e-08,
+    "c_min_source": "Task9 pilot measured timer/trivial-call floor42ns; current administration and actual model loading/inference charged separately",
+    "fallback_length": 4,
+    "additional_trace_roots": [
+      "../data/traces/task12-odd",
+      "../data/traces/task12-learned/runs"
+    ],
+    "diagnostic_holdout_originals": [
+      "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+      "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+    ],
+    "fallback_lengths": [
+      1,
+      4,
+      16
+    ],
+    "validation_budget_weights": [
+      0.25,
+      0.5,
+      0.25
+    ],
+    "validation_extra_methods": [
+      {
+        "name": "pre-refit-ridge1",
+        "kind": "shared",
+        "allocator": {
+          "policy": "local",
+          "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/models/expanded/ridge1-seed17.json",
+          "model_hash": "be4cc089a3827b1831ea51d9fd3fcf84d1d792fe097ee5e0455b9d30c8f5eba0",
+          "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json",
+          "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+          "c_min": 4.2e-08,
+          "fallback_length": 4
+        },
+        "pool_size": 128,
+        "learned": {
+          "epsilon": 0.2,
+          "pool_seed": 2026101412,
+          "behavior_seed": 2026101413,
+          "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json",
+          "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+          "max_decisions": 512
+        }
+      }
+    ]
+  }
+}

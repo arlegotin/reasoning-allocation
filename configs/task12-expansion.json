@@ -1,0 +1,182 @@
+{
+  "schema_version": 1,
+  "purpose": "exploratory",
+  "input_manifests": [
+    "../data/pilot/discovery-64/finite-manifest.json",
+    "../data/pilot/discovery-256/finite-manifest.json"
+  ],
+  "solver_seeds": [
+    0,
+    17
+  ],
+  "run_order_seed": 20261014,
+  "budgets_ns": [
+    2106828958
+  ],
+  "watchdog_grace_ns": 2000000000,
+  "lease_lengths": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32,
+    64
+  ],
+  "threads": 1,
+  "integrality_tolerance": 1e-06,
+  "bound_tolerance": 1e-06,
+  "methods": [
+    {
+      "name": "B0",
+      "kind": "native",
+      "overrides": {}
+    },
+    {
+      "name": "B1-tuned",
+      "kind": "native",
+      "overrides": {}
+    },
+    {
+      "name": "B1-no-plunge",
+      "kind": "native",
+      "overrides": {
+        "nodeselection/estimate/maxplungedepth": 0
+      }
+    },
+    {
+      "name": "B2-fifo",
+      "kind": "shared",
+      "allocator": {
+        "policy": "fifo",
+        "length": 4
+      },
+      "pool_size": 128
+    },
+    {
+      "name": "B2-round_robin_parent_groups",
+      "kind": "shared",
+      "allocator": {
+        "policy": "round_robin_parent_groups",
+        "length": 4
+      },
+      "pool_size": 128
+    },
+    {
+      "name": "B2-uniform",
+      "kind": "shared",
+      "allocator": {
+        "policy": "uniform",
+        "length": 4
+      },
+      "pool_size": 128
+    },
+    {
+      "name": "B2-estimate",
+      "kind": "shared",
+      "allocator": {
+        "policy": "estimate",
+        "length": 4
+      },
+      "pool_size": 128
+    },
+    {
+      "name": "B2-bound",
+      "kind": "shared",
+      "allocator": {
+        "policy": "bound",
+        "length": 4
+      },
+      "pool_size": 128
+    },
+    {
+      "name": "B2-deepest",
+      "kind": "shared",
+      "allocator": {
+        "policy": "deepest",
+        "length": 4
+      },
+      "pool_size": 128
+    },
+    {
+      "name": "B2-budget_sensitive",
+      "kind": "shared",
+      "allocator": {
+        "policy": "budget_sensitive",
+        "remaining_time_bins": [
+          0.5267072395,
+          2.106828958
+        ],
+        "bin_lengths": [
+          1,
+          4,
+          16
+        ]
+      },
+      "pool_size": 128
+    }
+  ],
+  "collection": "../protocol/collection-task12.json",
+  "training": {
+    "schema": "features.json",
+    "generation_config": "workload_manifest.json",
+    "fit_seeds": [
+      17,
+      43
+    ],
+    "grid": [
+      {
+        "name": "ridge1",
+        "kind": "ridge",
+        "parameters": {
+          "alpha": 1.0
+        }
+      },
+      {
+        "name": "ridge10",
+        "kind": "ridge",
+        "parameters": {
+          "alpha": 10.0
+        }
+      },
+      {
+        "name": "hist7",
+        "kind": "histogram",
+        "parameters": {
+          "max_iter": 30,
+          "max_leaf_nodes": 7,
+          "min_samples_leaf": 10
+        },
+        "quantile": true
+      },
+      {
+        "name": "hist15",
+        "kind": "histogram",
+        "parameters": {
+          "max_iter": 80,
+          "max_leaf_nodes": 15,
+          "min_samples_leaf": 10
+        },
+        "quantile": true
+      }
+    ],
+    "validation_indices": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10
+    ],
+    "validation_solver_seeds": [
+      17
+    ],
+    "validation_budgets_ns": [
+      2106828958,
+      4213657916
+    ],
+    "c_min": 4.2e-08,
+    "c_min_source": "Task9 pilot measured timer/trivial-call floor42ns; current administration and actual model loading/inference charged separately",
+    "fallback_length": 4
+  }
+}

@@ -343,7 +343,7 @@ def _run_request(request: Request, out: Path) -> Attempt:
                   f"({termination['origin']}, {termination['kind']})")
         error = f'{error}; {detail}' if error else detail
         censored = True
-    if 'collection' in request.method_config:
+    if {'collection', 'learned'} & request.method_config.keys():
         from ra.collect import finalize_trace
         try:
             resources['collection'] = finalize_trace(out, records, request, timestamps['parent_release_ns'], aligned,
@@ -715,7 +715,9 @@ def prepare_schedule(config_path: Path, phase: str) -> tuple[list[Request], dict
                         block.append(replace(provisional, request_id=_digest(identity), method=method['name'],
                             phase=phase, solver_seed=seed, budget_ns=budget, watchdog_grace_ns=config['watchdog_grace_ns'],
                             integrality_tolerance=config['integrality_tolerance'], bound_tolerance=config['bound_tolerance'],
-                            build_hash=build_hash, method_config={**method,'lease_lengths':config['lease_lengths']}))
+                            build_hash=build_hash, method_config={**method,'lease_lengths':config['lease_lengths']},
+                            model_path=method.get('allocator',{}).get('model_path'),
+                            model_hash=method.get('allocator',{}).get('model_hash')))
                     order_seed = int(_digest([config['run_order_seed'],phase,instance.instance_id,seed,budget]),16)
                     random.Random(order_seed).shuffle(block)
                     requests.extend(block)

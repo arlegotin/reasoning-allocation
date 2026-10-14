@@ -174,3 +174,25 @@ def test_finalizer_keeps_valid_closed_prefix_separate_from_later_fault(tmp_path,
     assert label['duration_observation_known'] is eligible
     assert label['natural_completion'] is None
     assert summary['body_fit_eligible'] == int(eligible)
+
+
+def test_deterministic_learned_trace_does_not_invent_randomized_propensity(tmp_path):
+    import json
+    from types import SimpleNamespace
+    import numpy as np
+    from pathlib import Path
+    from ra.collect import TraceWriter, finalize_trace
+    from ra.config import load_feature_schema
+    from ra.runner import _atomic_json
+    schema=load_feature_schema(Path('configs/features.json'))
+    writer=TraceWriter(tmp_path/'trace',schema,max_decisions=1)
+    allocation={'root':{'epoch':1,'number':1},'node_limit':1,'selection_probability':None,
+                'policy_state_hash':'p','gain_prediction':.1,'seconds_prediction':.01,'seconds_q90':None}
+    writer.decision(np.zeros(192),{'allocation':allocation,'pool_ids':[allocation['root']],
+        'pool_hash':'pool','support_lengths':[1],'support_hash':'support','heuristic':None})
+    _atomic_json(tmp_path/'trace/dispatch-000000.json',{'allocation':allocation,'pool_hash':'pool',
+        'entry_ns':0,'snapshot_ns':2,'dispatch_ns':5,'local_utility_entry':0.},immutable=True)
+    request=SimpleNamespace(deadline_ns=10,p0=100,method_config={'learned':{},'allocator':{'policy':'local'}})
+    result=finalize_trace(tmp_path,[],request,20,True,[],'deadline',True)
+    assert result['labels']==1
+    assert json.loads((tmp_path/'trace/label-000000.json').read_text())['selection_probability'] is None

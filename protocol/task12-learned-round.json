@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "purpose": "training-only learned-state and budget-support check",
+  "source_model": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/models/expanded/ridge1-seed17.json",
+  "source_model_sha256": "be4cc089a3827b1831ea51d9fd3fcf84d1d792fe097ee5e0455b9d30c8f5eba0",
+  "original_indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "budgets_ns": [
+    526707240,
+    2106828958,
+    8427315832
+  ],
+  "epsilon": 0.2,
+  "solver_seed": 17,
+  "pool_seed": 2026101441,
+  "behavior_seed": 2026101442,
+  "named_uncertainty": "Initial randomized data has only2*T0; collect shortest/T0/4*T0 contexts and learned policy states before refit; repeated originals do not increase N",
+  "run_config": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/data/traces/task12-learned/run.json"
+}

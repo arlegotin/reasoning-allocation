@@ -89,6 +89,7 @@ class DecisionContext:
     native_incumbent_count: int | None = None
     past_throughput_per_second: float | None = None
     solver_infinity: float | None = None
+    entry_ns: int | None = None
 
 
 @dataclass(frozen=True, slots=True)
