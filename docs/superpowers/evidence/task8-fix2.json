@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "task": 8,
+  "fix_round": 2,
+  "base_commit": "6059624a2711201aea3c07c48f7af431745f8e75",
+  "status": "locally verified; independent scoped re-review pending",
+  "change": "Full-history effective status audit and immutable status/pointer publication occur under primary admission before collection endpoint; CLI reads bounded hash-validated status only.",
+  "red": {
+    "command": ".venv/bin/python -m pytest tests/test_harness_controls.py::test_status_audit_holds_admission_and_precedes_accounting tests/test_harness_controls.py::test_cli_complete_resume_uses_published_status_without_post_return_audit -q",
+    "output": "2 failed in0.74s",
+    "exit": 1
+  },
+  "green": {
+    "command": ".venv/bin/python -m pytest tests/test_harness_controls.py::test_status_audit_holds_admission_and_precedes_accounting tests/test_harness_controls.py::test_cli_complete_resume_uses_published_status_without_post_return_audit tests/test_harness_controls.py::test_cli_resume_retains_failure_status_without_rerunning_fault tests/test_harness_controls.py::test_identical_named_native_controls_couple_logical_output_and_reap_serially tests/test_harness_controls.py::test_contended_primary_lock_never_enters_preparation -q",
+    "output": "5 passed in1.20s",
+    "exit": 0
+  },
+  "actual_accounting_regression": {
+    "collection_end_ns": 207268032182500,
+    "status_audit_ns": 6237250,
+    "status_audit_end_ns": 207268031538500,
+    "status_publication_ns": 643291,
+    "status_publication_end_ns": 207268032182416,
+    "total_observed_ns": 209169625,
+    "coordinator_cpu_ns": 52917000,
+    "scope": "entry through configuration/resume, serial workers, full request publication/accounting writes, effective-outcome audit and status publication; this final audit write is report-generation overhead"
+  },
+  "source_sha256": {
+    "src/ra/runner.py": "9bbd59f8ac31a8f051a7baaf102c8d6b52b04db3ae7d617c21125807890990f3",
+    "tests/test_harness_controls.py": "9e4ff873389cdf30e69e6531668ee823daaa4da170bd4c07aa74773fa029e4e5"
+  },
+  "inventory": {
+    "path": "artifacts/checks/task8/fix2/inventory.json",
+    "sha256": "fda51b9e6c982428807def02430c6373f4057fbd368afdf98d527b874ae2b58f",
+    "files": 323
+  },
+  "limits": [
+    "No full suite or separate native/control/observer pilot repeated. Fix1 actual observer gate remains historical accepted scoped evidence.",
+    "Selected tests use existing tiny cold request fixtures; external pytest CPU/tail costs remain unmeasured, not zero.",
+    "Status audit/publication timers are contained within batch elapsed/coordinator costs, not extra summands.",
+    "Final accounting audit-write and reporting receipt tail retain explicit report-generation scope; CLI bounded status read/JSON output is report-generation overhead.",
+    "Retained terminal fault and no-op resume semantics preserved; public run_schedule still returns only new attempts.",
+    "Infinity Minor remains Task9-owned."
+  ]
+}

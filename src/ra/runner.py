@@ -752,26 +752,38 @@ def _run_schedule(config_path: Path, phase: str, out: Path, *, resume: bool) -> 
             attempts.append(attempt)
             _atomic_json(batch/(attempt.attempt_id+'.json'),{'attempt_id':attempt.attempt_id,
                 'call_start_ns':call_start,'call_end_ns':call_end,'scope':'full run_request including accounting audit write'},immutable=True)
+        status_audit_start = time.perf_counter_ns()
+        success = _audit_schedule_status(out, metadata['request_order'])
+        status_audit_end = time.perf_counter_ns()
+        status = {'schema_version':1, 'success':success, 'config_hash':metadata['config_hash'],
+                  'phase':phase, 'request_count':len(requests), 'audit_end_ns':status_audit_end}
+        status_publication_start = time.perf_counter_ns()
+        _atomic_json(batch/'status.json', status, immutable=True)
+        _atomic_json(out/'schedule-status.json', {'schema_version':1,
+            'path':str((batch/'status.json').relative_to(out)), 'sha256':_digest(status)})
+        status_publication_end = time.perf_counter_ns()
         collection_end=time.perf_counter_ns()
         audit_start=time.perf_counter_ns()
         _atomic_json(batch/'accounting.json',{'schema_version':1,'collection_end_ns':collection_end,
+            'status_audit_ns':status_audit_end-status_audit_start,
+            'status_publication_ns':status_publication_end-status_publication_start,
+            'status_audit_end_ns':status_audit_end,'status_publication_end_ns':status_publication_end,
             'total_observed_ns':collection_end-batch_start,'coordinator_cpu_ns':time.process_time_ns()-batch_cpu,
             'coordinator_peak_rss_bytes':int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)*(1 if sys.platform=='darwin' else 1024),'attempt_ids':[a.attempt_id for a in attempts],
             'report_generation_tail_ns':None,
-            'scope':'entry through configuration/resume, serial workers, full request publication and accounting writes; this final audit write is report-generation overhead'},immutable=True)
+            'scope':'entry through configuration/resume, serial workers, full request publication/accounting writes, effective-outcome audit and status publication; this final audit write is report-generation overhead'},immutable=True)
         _atomic_json(batch/'reporting.json',{'accounting_audit_write_ns':time.perf_counter_ns()-audit_start,
             'scope':'measured final accounting audit write; this reporting receipt tail remains unmeasured'},immutable=True)
     return attempts
 
 
-def schedule_succeeded(out: Path) -> bool:
-    """Reconstruct effective complete-schedule status, including retained faults.
+def _audit_schedule_status(out: Path, expected: Sequence[str]) -> bool:
+    """Under primary admission, audit effective status including retained faults.
 
     An external interruption can be superseded by its valid retry; a terminal
     method fault remains an outcome and is never converted to success by resume.
     """
     out = Path(out).resolve()
-    expected = strict_json((out/'schedule.json').read_text())['request_order']
     effective = {}
     for manifest in sorted((out/'attempts').rglob('attempt.json')):
         payload, final = _read_attempt(manifest.parent)
@@ -783,3 +795,23 @@ def schedule_succeeded(out: Path) -> bool:
                 raise ValueError('duplicate terminal outcome for scheduled request')
             effective[identity] = payload['status']
     return bool(expected) and all(effective.get(identity) in ('complete','deadline','startup_timeout') for identity in expected)
+
+
+def schedule_succeeded(out: Path) -> bool:
+    """Read the bounded hash-validated status published under primary admission.
+
+    The expensive complete-history artifact audit has already been charged inside
+    run_schedule. CLI reads only this pointer and its small immutable status file.
+    """
+    out = Path(out).resolve()
+    pointer = strict_json((out/'schedule-status.json').read_text())
+    path = (out/pointer['path']).resolve()
+    if not path.is_relative_to(out):
+        raise ValueError('schedule status path escapes output')
+    raw = path.read_bytes()
+    if len(raw) > 4096 or hashlib.sha256(raw).hexdigest() != pointer['sha256']:
+        raise ValueError('schedule status hash/size mismatch')
+    status = strict_json(raw.decode())
+    if pointer.get('schema_version') != 1 or status.get('schema_version') != 1 or type(status.get('success')) is not bool:
+        raise ValueError('invalid published schedule status')
+    return status['success']

@@ -219,3 +219,47 @@ def test_request_identity_collision_rejects_before_publication(tmp_path,monkeypa
     with pytest.raises(ValueError,match='scheduled request identity'):
         runner.run_schedule(path,'discovery',tmp_path/'out')
     assert not (tmp_path/'out').exists()
+
+
+def test_status_audit_holds_admission_and_precedes_accounting(tmp_path,monkeypatch,capsys):
+    import fcntl,tempfile,time
+    path=configuration(tmp_path,[{'name':'B0','kind':'native','overrides':{}}])
+    out=tmp_path/'runs';audits=[];original=runner._read_attempt
+    def read(directory):
+        with (Path(tempfile.gettempdir())/'ra-primary-timed.lock').open('a+b') as lock:
+            try:fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+            except BlockingIOError:pass
+            else:raise AssertionError('status audit ran outside primary admission')
+        assert not list(out.glob('batch-*/accounting.json'))
+        time.sleep(.003)  # Ensure the accounting check detects an excluded audit.
+        result=original(directory);audits.append(time.perf_counter_ns());return result
+    monkeypatch.setattr(runner,'_read_attempt',read)
+    assert main(['run','--config',str(path),'--phase','discovery','--out',str(out)])==0
+    assert json.loads(capsys.readouterr().out)['success'] is True
+    assert len(audits)==1
+    accounting=json.loads(next(out.glob('batch-*/accounting.json')).read_text())
+    assert accounting['collection_end_ns']>=audits[-1]
+    assert accounting['status_audit_ns']>=3_000_000
+    assert accounting['status_publication_ns']>0
+    status_path=out/'schedule-status.json'
+    assert status_path.exists()
+    assert status_path.stat().st_mtime_ns<=next(out.glob('batch-*/accounting.json')).stat().st_mtime_ns
+
+
+def test_cli_complete_resume_uses_published_status_without_post_return_audit(tmp_path,monkeypatch,capsys):
+    path=configuration(tmp_path,[{'name':'B0','kind':'native','overrides':{}}])
+    out=tmp_path/'runs';args=['run','--config',str(path),'--phase','discovery','--out',str(out)]
+    assert main(args)==0
+    capsys.readouterr()
+    original=runner.run_schedule
+    def run(*args,**kwargs):
+        result=original(*args,**kwargs)
+        # After admitted schedule returns, forbid any whole-artifact history read.
+        def forbidden(*args):raise AssertionError('post-return artifact audit')
+        monkeypatch.setattr(runner,'_read_attempt',forbidden)
+        return result
+    monkeypatch.setattr(runner,'run_schedule',run)
+    assert main([*args,'--resume'])==0
+    report=json.loads(capsys.readouterr().out)
+    assert report['success'] is True and report['attempt_ids']==[]
+    assert len(list(out.rglob('attempt.json')))==1
