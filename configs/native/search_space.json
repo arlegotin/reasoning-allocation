@@ -1,0 +1,277 @@
+{
+  "schema_version": 1,
+  "purpose": "native_search_support",
+  "status": "initial prospective candidates; not tuned",
+  "allowed_namespace": "nodeselection/",
+  "installed_support": {
+    "nodeselection/estimate/stdpriority": {
+      "type": "int",
+      "minimum": -536870912.0,
+      "maximum": 1073741823.0,
+      "default": 200000
+    },
+    "nodeselection/estimate/memsavepriority": {
+      "type": "int",
+      "minimum": -536870912.0,
+      "maximum": 536870911.0,
+      "default": 100
+    },
+    "nodeselection/estimate/minplungedepth": {
+      "type": "int",
+      "minimum": -1.0,
+      "maximum": 2147483647.0,
+      "default": -1
+    },
+    "nodeselection/estimate/maxplungedepth": {
+      "type": "int",
+      "minimum": -1.0,
+      "maximum": 2147483647.0,
+      "default": -1
+    },
+    "nodeselection/estimate/maxplungequot": {
+      "type": "real",
+      "minimum": 0.0,
+      "maximum": Infinity,
+      "default": 0.25
+    },
+    "nodeselection/estimate/bestnodefreq": {
+      "type": "int",
+      "minimum": 0.0,
+      "maximum": 2147483647.0,
+      "default": 10
+    },
+    "nodeselection/estimate/breadthfirstdepth": {
+      "type": "int",
+      "minimum": -1.0,
+      "maximum": 2147483647.0,
+      "default": -1
+    },
+    "nodeselection/estimate/plungeoffset": {
+      "type": "int",
+      "minimum": 0.0,
+      "maximum": 2147483647.0,
+      "default": 0
+    },
+    "nodeselection/bfs/stdpriority": {
+      "type": "int",
+      "minimum": -536870912.0,
+      "maximum": 1073741823.0,
+      "default": 100000
+    },
+    "nodeselection/bfs/memsavepriority": {
+      "type": "int",
+      "minimum": -536870912.0,
+      "maximum": 536870911.0,
+      "default": 0
+    },
+    "nodeselection/bfs/minplungedepth": {
+      "type": "int",
+      "minimum": -1.0,
+      "maximum": 2147483647.0,
+      "default": -1
+    },
+    "nodeselection/bfs/maxplungedepth": {
+      "type": "int",
+      "minimum": -1.0,
+      "maximum": 2147483647.0,
+      "default": -1
+    },
+    "nodeselection/bfs/maxplungequot": {
+      "type": "real",
+      "minimum": 0.0,
+      "maximum": Infinity,
+      "default": 0.25
+    },
+    "nodeselection/hybridestim/stdpriority": {
+      "type": "int",
+      "minimum": -536870912.0,
+      "maximum": 1073741823.0,
+      "default": 50000
+    },
+    "nodeselection/hybridestim/memsavepriority": {
+      "type": "int",
+      "minimum": -536870912.0,
+      "maximum": 536870911.0,
+      "default": 50
+    },
+    "nodeselection/hybridestim/minplungedepth": {
+      "type": "int",
+      "minimum": -1.0,
+      "maximum": 2147483647.0,
+      "default": -1
+    },
+    "nodeselection/hybridestim/maxplungedepth": {
+      "type": "int",
+      "minimum": -1.0,
+      "maximum": 2147483647.0,
+      "default": -1
+    },
+    "nodeselection/hybridestim/maxplungequot": {
+      "type": "real",
+      "minimum": 0.0,
+      "maximum": Infinity,
+      "default": 0.25
+    },
+    "nodeselection/hybridestim/bestnodefreq": {
+      "type": "int",
+      "minimum": 0.0,
+      "maximum": 2147483647.0,
+      "default": 1000
+    },
+    "nodeselection/hybridestim/estimweight": {
+      "type": "real",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "default": 0.1
+    },
+    "nodeselection/restartdfs/stdpriority": {
+      "type": "int",
+      "minimum": -536870912.0,
+      "maximum": 1073741823.0,
+      "default": 10000
+    },
+    "nodeselection/restartdfs/memsavepriority": {
+      "type": "int",
+      "minimum": -536870912.0,
+      "maximum": 536870911.0,
+      "default": 50000
+    },
+    "nodeselection/restartdfs/selectbestfreq": {
+      "type": "int",
+      "minimum": 0.0,
+      "maximum": 2147483647.0,
+      "default": 100
+    },
+    "nodeselection/uct/stdpriority": {
+      "type": "int",
+      "minimum": -536870912.0,
+      "maximum": 1073741823.0,
+      "default": 10
+    },
+    "nodeselection/uct/memsavepriority": {
+      "type": "int",
+      "minimum": -536870912.0,
+      "maximum": 536870911.0,
+      "default": 0
+    },
+    "nodeselection/uct/nodelimit": {
+      "type": "int",
+      "minimum": 0.0,
+      "maximum": 1000000.0,
+      "default": 31
+    },
+    "nodeselection/uct/weight": {
+      "type": "real",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "default": 0.1
+    },
+    "nodeselection/dfs/stdpriority": {
+      "type": "int",
+      "minimum": -536870912.0,
+      "maximum": 1073741823.0,
+      "default": 0
+    },
+    "nodeselection/dfs/memsavepriority": {
+      "type": "int",
+      "minimum": -536870912.0,
+      "maximum": 536870911.0,
+      "default": 100000
+    },
+    "nodeselection/breadthfirst/stdpriority": {
+      "type": "int",
+      "minimum": -536870912.0,
+      "maximum": 1073741823.0,
+      "default": -10000
+    },
+    "nodeselection/breadthfirst/memsavepriority": {
+      "type": "int",
+      "minimum": -536870912.0,
+      "maximum": 536870911.0,
+      "default": -1000000
+    },
+    "nodeselection/childsel": {
+      "type": "char",
+      "choices": [
+        "d",
+        "u",
+        "p",
+        "i",
+        "l",
+        "r",
+        "h"
+      ],
+      "default": "h"
+    },
+    "nodeselection/restartdfs/countonlyleaves": {
+      "type": "bool",
+      "choices": [
+        false,
+        true
+      ],
+      "default": true
+    },
+    "nodeselection/uct/useestimate": {
+      "type": "bool",
+      "choices": [
+        false,
+        true
+      ],
+      "default": false
+    }
+  },
+  "selector_roles": {
+    "estimate": "native estimate/plunging",
+    "bfs": "native best bound",
+    "dfs": "native depth first",
+    "breadthfirst": "native breadth first"
+  },
+  "initial_candidates": [
+    {
+      "name": "estimate",
+      "overrides": {
+        "nodeselection/estimate/stdpriority": 300000
+      }
+    },
+    {
+      "name": "bfs",
+      "overrides": {
+        "nodeselection/bfs/stdpriority": 300000
+      }
+    },
+    {
+      "name": "dfs",
+      "overrides": {
+        "nodeselection/dfs/stdpriority": 300000
+      }
+    },
+    {
+      "name": "breadthfirst",
+      "overrides": {
+        "nodeselection/breadthfirst/stdpriority": 300000
+      }
+    }
+  ],
+  "plunge_grid": {
+    "nodeselection/estimate/minplungedepth": [
+      -1,
+      0,
+      2,
+      8
+    ],
+    "nodeselection/estimate/maxplungedepth": [
+      -1,
+      2,
+      8,
+      32
+    ],
+    "nodeselection/estimate/maxplungequot": [
+      0.0,
+      0.1,
+      0.25,
+      1.0
+    ]
+  },
+  "nonallocation_settings": "installed defaults except common thread, seed, tolerance and request time; enhancements remain enabled",
+  "expansion_and_stopping": "Task9 records costs, failures, expansions and saturation before validation selection"
+}

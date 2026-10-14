@@ -150,6 +150,7 @@ class Request:
     build_hash: str | None = None
     prior_attempt_ids: tuple[str, ...] = ()
     prior_costs: dict[str, object] = field(default_factory=dict)
+    method_config: dict[str, object] = field(default_factory=dict)
     launch_ns: int | None = None
     deadline_ns: int | None = None
     schema_version: int = 1

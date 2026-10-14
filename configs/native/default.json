@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "purpose": "exploratory",
+  "input_manifests": [
+    "../../data/discovery/manifest.json"
+  ],
+  "solver_seeds": [
+    0,
+    17
+  ],
+  "run_order_seed": 20261014,
+  "budgets_ns": [
+    1000000000
+  ],
+  "watchdog_grace_ns": 2000000000,
+  "lease_lengths": [
+    1,
+    2,
+    4,
+    8
+  ],
+  "threads": 1,
+  "integrality_tolerance": 1e-06,
+  "bound_tolerance": 1e-06,
+  "methods": [
+    {
+      "name": "B0",
+      "kind": "native",
+      "overrides": {}
+    }
+  ]
+}

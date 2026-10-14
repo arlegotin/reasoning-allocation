@@ -1,6 +1,6 @@
 """Cold single-request parent with authoritative complete-frame receipt times.
 
-Immutable attempt publication and recovery; general run configuration is Task 8.
+Immutable attempt publication/recovery and serial public control schedules.
 """
 from __future__ import annotations
 
@@ -607,3 +607,144 @@ def resume_requests(requests: Sequence[Request], root: Path) -> list[Request]:
         pending.append(replace(request, prior_attempt_ids=tuple(item['attempt_id'] for item, _ in prior),
                                prior_costs=_prior_costs([item for item, _ in prior])))
     return pending
+
+
+def _digest(value) -> str:
+    return hashlib.sha256(_json_bytes(value)).hexdigest()
+
+
+def _runtime_identity() -> tuple[str, str, str, dict]:
+    """Exact source/dependency/build identity without raw hardware identifiers."""
+    import platform
+    from importlib import metadata
+    import pyscipopt
+    sources = {str(p.relative_to(Path(__file__).parent)): hashlib.sha256(p.read_bytes()).hexdigest()
+               for p in sorted(Path(__file__).parent.glob('*.py'))}
+    binary = Path(pyscipopt.scip.__file__)
+    # Hash the extension plus the linked wheel's native SCIP library.
+    libraries = [binary, *sorted(binary.parent.parent.glob('pyscipopt.libs/*')),
+                 *sorted(binary.parent.glob('.dylibs/*'))]
+    build = {str(p.name): hashlib.sha256(p.read_bytes()).hexdigest() for p in libraries if p.is_file()}
+    packages = {d.metadata['Name']: d.version for d in metadata.distributions()}
+    environment = {'python': sys.version, 'executable': sys.executable, 'machine': platform.machine(),
+                   'platform': platform.platform(), 'packages': packages, 'build': build}
+    return _digest(sources), _digest(environment), _digest(build), {'sources': sources, 'environment': environment}
+
+
+def prepare_schedule(config_path: Path, phase: str) -> tuple[list[Request], dict]:
+    """Validate public ownership and resolve a deterministic serial request list."""
+    from ra.config import load_config
+    from ra.provenance import SplitOwnership
+    from ra.worker import load_instance
+    import random
+    if phase not in ('discovery','pilot','train','validation'):
+        raise ValueError('protected/confirmatory execution unavailable until freeze')
+    config_path = Path(config_path).resolve()
+    config = load_config(config_path, 'run')
+    code_hash, environment_hash, build_hash, inventory = _runtime_identity()
+    config_hash = _digest(config)
+    allowed = {'discovery'} if phase in ('discovery','pilot') else {phase}
+    requests = []
+    manifest_hashes = {}
+    seen_inputs = set()
+    ownership = SplitOwnership()
+    for manifest_name in config['input_manifests']:
+        manifest_path = Path(manifest_name)
+        if not manifest_path.is_absolute(): manifest_path = config_path.parent / manifest_path
+        manifest_path = manifest_path.resolve()
+        raw = manifest_path.read_bytes()
+        manifest_hashes[str(manifest_path)] = hashlib.sha256(raw).hexdigest()
+        manifest = strict_json(raw.decode())
+        if not isinstance(manifest,dict) or manifest.get('split') not in allowed or not isinstance(manifest.get('instances'),list) or not manifest['instances'] or not isinstance(manifest.get('ownership_registry'),str) or not manifest['ownership_registry']:
+            raise ValueError('manifest must contain configured public phase inputs')
+        registry_path = Path(manifest['ownership_registry'])
+        if not registry_path.is_absolute():
+            registry_path = registry_path.resolve() if registry_path.exists() else manifest_path.parent / registry_path
+        manifest_hashes[str(registry_path.resolve())] = hashlib.sha256(registry_path.read_bytes()).hexdigest()
+        owners = SplitOwnership.load(registry_path)
+        for item in manifest['instances']:
+            if (not isinstance(item,dict) or not {'path','sha256','instance_id'} <= item.keys()
+                    or any(not isinstance(item[k],str) or not item[k] for k in ('path','sha256','instance_id'))):
+                raise ValueError('invalid input manifest record')
+            input_path = (manifest_path.parent / item['path']).resolve()
+            if not input_path.is_relative_to(manifest_path.parent) or input_path in seen_inputs:
+                raise ValueError('input path escapes namespace or is duplicated')
+            seen_inputs.add(input_path)
+            payload = strict_json(input_path.read_text())
+            if not isinstance(payload,dict) or not isinstance(payload.get('lineage'),dict) or not isinstance(payload.get('costs'),list) or any(type(c) is not int or c <= 0 for c in payload['costs']):
+                raise ValueError('invalid original input metadata/costs')
+            if 'split' in payload['lineage'] and payload['lineage']['split'] != manifest['split']:
+                raise ValueError('input lineage/manifest split mismatch')
+            provisional = Request('validation', str(input_path), item['sha256'], item['instance_id'], config_hash,
+                code_hash, environment_hash, 'native', manifest['split'], 0, 1, 1, sum(payload['costs']))
+            instance = load_instance(provisional)
+            local = SplitOwnership(); local.register(instance,manifest['split'])
+            if any(owners.owners.get(key) != split for key,split in local.owners.items()):
+                raise ValueError('input is not registered in declared public namespace')
+            ownership.register(instance,manifest['split'])
+            for seed in config['solver_seeds']:
+                for budget in config['budgets_ns']:
+                    block=[]
+                    for method in config['methods']:
+                        identity = [phase, instance.instance_id, method['name'], seed, budget]
+                        block.append(replace(provisional, request_id=_digest(identity), method=method['name'],
+                            phase=phase, solver_seed=seed, budget_ns=budget, watchdog_grace_ns=config['watchdog_grace_ns'],
+                            integrality_tolerance=config['integrality_tolerance'], bound_tolerance=config['bound_tolerance'],
+                            build_hash=build_hash, method_config={**method,'lease_lengths':config['lease_lengths']}))
+                    order_seed = int(_digest([config['run_order_seed'],phase,instance.instance_id,seed,budget]),16)
+                    random.Random(order_seed).shuffle(block)
+                    requests.extend(block)
+    metadata = {'schema_version':1, 'config':config, 'config_path':str(config_path), 'config_hash':config_hash,
+                'phase':phase, 'input_manifest_sha256':manifest_hashes, 'inventory':inventory,
+                'request_order':[r.request_id for r in requests], 'serial':True, 'threads':1}
+    return requests, metadata
+
+
+def run_schedule(config_path: Path, phase: str, out: Path, *, resume: bool = False,
+                 dry_run: bool = False) -> list[Attempt]:
+    """Cold serial requests, immutable per-attempt output and batch accounting.
+
+    Batch elapsed includes request bootstrap, audit writes, release and publication.
+    Coordinator CPU overlaps child CPU and is reported separately, never summed as wall time.
+    """
+    batch_start, batch_cpu = time.perf_counter_ns(), time.process_time_ns()
+    requests, metadata = prepare_schedule(config_path, phase)
+    if dry_run: return []
+    out = Path(out).resolve()
+    if out.exists() and any(out.iterdir()) and not resume:
+        raise ValueError('nonempty run output requires --resume')
+    out.mkdir(parents=True,exist_ok=True)
+    # Serialize coordinators as well as workers; a second timed run cannot overlap.
+    import tempfile
+    import resource
+    with (Path(tempfile.gettempdir())/'ra-primary-timed.lock').open('a+b') as timed_lock, (out/'schedule.lock').open('a+b') as lock:
+        try: fcntl.flock(timed_lock,fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError: raise ValueError('another primary timed run is active') from None
+        try: fcntl.flock(lock,fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError: raise ValueError('schedule already active') from None
+        schedule_path = out/'schedule.json'
+        if schedule_path.exists():
+            if strict_json(schedule_path.read_text()) != metadata:
+                raise ValueError('schedule identity/hash mismatch on resume')
+        else: _atomic_json(schedule_path,metadata,immutable=True)
+        pending = resume_requests(requests,out) if resume else requests
+        batch = out/('batch-'+uuid4().hex); batch.mkdir()
+        _atomic_json(batch/'request-order.json',[asdict(r) for r in pending],immutable=True)
+        attempts=[]
+        for request in pending:
+            call_start = time.perf_counter_ns()
+            attempt = run_request(request,out/'attempts'/request.request_id/uuid4().hex)
+            call_end = time.perf_counter_ns()
+            attempts.append(attempt)
+            _atomic_json(batch/(attempt.attempt_id+'.json'),{'attempt_id':attempt.attempt_id,
+                'call_start_ns':call_start,'call_end_ns':call_end,'scope':'full run_request including accounting audit write'},immutable=True)
+        collection_end=time.perf_counter_ns()
+        audit_start=time.perf_counter_ns()
+        _atomic_json(batch/'accounting.json',{'schema_version':1,'collection_end_ns':collection_end,
+            'total_observed_ns':collection_end-batch_start,'coordinator_cpu_ns':time.process_time_ns()-batch_cpu,
+            'coordinator_peak_rss_bytes':int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)*(1 if sys.platform=='darwin' else 1024),'attempt_ids':[a.attempt_id for a in attempts],
+            'report_generation_tail_ns':None,
+            'scope':'entry through configuration/resume, serial workers, full request publication and accounting writes; this final audit write is report-generation overhead'},immutable=True)
+        _atomic_json(batch/'reporting.json',{'accounting_audit_write_ns':time.perf_counter_ns()-audit_start,
+            'scope':'measured final accounting audit write; this reporting receipt tail remains unmeasured'},immutable=True)
+    return attempts

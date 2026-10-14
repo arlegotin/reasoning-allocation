@@ -1,7 +1,7 @@
 """Single cold request. Standard-library imports only until threads are fixed.
 
 The parent owns the transport descriptor and launch/deadline envelope. This module
-is an internal process entry point, not the future general scientific run CLI.
+is an internal process entry point used by the serial public run CLI.
 """
 from __future__ import annotations
 
@@ -41,8 +41,19 @@ def strict_json(raw: str):
 def validate_request(request: Request, *, launched: bool = False) -> None:
     if request.schema_version != 1 or type(request.schema_version) is not int:
         raise ValueError('unsupported request schema')
-    if request.method not in ('native', 'depth') or request.phase not in ('harness_validation', 'discovery'):
-        raise ValueError('unsupported method/phase; no learned or protected execution is implemented')
+    if request.phase not in ('harness_validation', 'discovery', 'pilot', 'train', 'validation'):
+        raise ValueError('unsupported phase; protected execution is unavailable')
+    if not request.method_config:
+        if request.method not in ('native','depth'):
+            raise ValueError('unsupported method; no learned execution is implemented')
+    else:
+        from ra.config import validate_run_config
+        method = {k:v for k,v in request.method_config.items() if k != 'lease_lengths'}
+        validate_run_config({'schema_version':1,'purpose':'exploratory','input_manifests':['validated'],
+            'methods':[method],'solver_seeds':[request.solver_seed],'run_order_seed':0,'budgets_ns':[request.budget_ns],
+            'watchdog_grace_ns':request.watchdog_grace_ns,'lease_lengths':request.method_config['lease_lengths'],
+            'threads':request.threads,'integrality_tolerance':request.integrality_tolerance,'bound_tolerance':request.bound_tolerance})
+        if method['name'] != request.method: raise ValueError('method identity mismatch')
     if request.model_path is not None or request.model_hash is not None:
         raise ValueError('model loading is not implemented')
     if type(request.threads) is not int or request.threads != 1:
@@ -169,6 +180,7 @@ def execute_request(request_path: Path) -> int:
     backend = model = observer = None
     status, error, exit_code = 'implementation_error', None, 1
     try:
+        os.environ.update(THREAD_SETTINGS)
         request = Request(**strict_json(Path(request_path).read_text()))
         validate_request(request)
         launch = channel.receive()
@@ -214,6 +226,14 @@ def execute_request(request_path: Path) -> int:
             startup_check()
             model = Model('ra-cold-cover')
             model.hideOutput()
+            from ra.config import resolve_native_overrides
+            defaults = model.getParams()
+            overrides = request.method_config.get('overrides', {})
+            resolved = resolve_native_overrides(defaults, overrides)
+            for name, value in overrides.items(): model.setParam(name, resolved[name])
+            resources['native_settings'] = {k:v for k,v in resolved.items() if k.startswith('nodeselection/')}
+            resources['native_overrides'] = overrides
+            resources['method_config'] = request.method_config
             model.setIntParam('parallel/maxnthreads', request.threads)
             model.setIntParam('lp/threads', request.threads)
             model.setIntParam('randomization/randomseedshift', request.solver_seed)
@@ -224,9 +244,40 @@ def execute_request(request_path: Path) -> int:
                 model.addCons(quicksum(variables[j] for j in row) >= 1)
             observer = Observer(instance, request_id=request.request_id,
                                 integrality_tolerance=request.integrality_tolerance, bound_tolerance=request.bound_tolerance)
+            shared = request.method_config.get('kind') == 'shared'
+            lease = allocator = None
+            decisions = []
+            if shared:
+                import random
+                from ra.allocators import make_allocator
+                from ra.candidates import build_pool
+                from ra.leases import LeaseController
+                from ra.types import DecisionContext
+                from dataclasses import fields
+                context_schema_hash = hashlib.sha256(json.dumps([f.name for f in fields(DecisionContext)]).encode()).hexdigest()
+                allocator = make_allocator(request.method_config['allocator'], request.solver_seed)
+                pool_rng = random.Random(request.solver_seed)
+                lease = LeaseController({}, deadline_ns=request.deadline_ns)
+                def choose(records):
+                    if lease.outcomes: allocator.observe(lease.outcomes[-1])
+                    pool = build_pool(records, request.method_config['pool_size'], pool_rng)
+                    primal, dual, utility = observer.available_local()
+                    snapshot = time.perf_counter_ns()
+                    context = DecisionContext(request.request_id, snapshot, request.deadline_ns, utility, primal, dual,
+                        float(model.getLowerbound()), float(model.getCutoffbound()), backend.processed_nodes, len(records), context_schema_hash)
+                    allocation = allocator.choose(context, pool.records, request.method_config['lease_lengths'])
+                    lease.begin(allocation, backend.last_callback_entry_ns)
+                    decisions.append({'context':asdict(context), 'pool_ids':[asdict(k) for k in pool.ids],
+                        'pool_hash':pool.pool_hash,'strata':[(name,[asdict(k) for k in keys]) for name,keys in pool.strata],
+                        'rng_state_before':pool.rng_state_before,'rng_state_after':pool.rng_state_after,
+                        'lease_lengths':request.method_config['lease_lengths'],'allocation':asdict(allocation)})
+                    return allocation.root
             backend = ScipBackend(model, costs=instance.costs, rows=rows, observer=observer,
-                                  install_selector=request.method == 'depth', deadline_ns=request.deadline_ns,
+                                  install_selector=shared or (not request.method_config and request.method == 'depth'),
+                                  choose=choose if shared else None, lease_controller=lease, deadline_ns=request.deadline_ns,
                                   stop_poll=channel.stop_pending)
+            resources['allocation_decisions'] = decisions
+            resources['selector_installed'] = backend.selector is not None
             observer.time_ledger = backend.time_ledger = ledger
             ledger.enter('observation', time.perf_counter_ns())
             timestamps['anchor_validation_start_ns'] = time.perf_counter_ns()
@@ -269,6 +320,8 @@ def execute_request(request_path: Path) -> int:
                 backend.optimize()
             finally:
                 ledger.leave(time.perf_counter_ns())
+            if allocator is not None and lease.outcomes:
+                allocator.observe(lease.outcomes[-1])
             timestamps['solve_end_ns'] = time.perf_counter_ns()
             resources['native_status'] = str(model.getStatus())
             status = ('deadline' if time.perf_counter_ns() >= request.deadline_ns or backend.stop_requested

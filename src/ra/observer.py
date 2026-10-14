@@ -61,6 +61,9 @@ class Observer:
             assignment = verify_cover(self.instance, values, self.integrality_tolerance)
         except CoverValidationError as exc:
             raise NumericalAlarm(str(exc)) from None
+        return self._commit_incumbent(assignment, event_ns)
+
+    def _commit_incumbent(self, assignment: VerifiedAssignment, event_ns: int) -> ProgressRecord:
         primal = self.scale * assignment.objective + self.offset
         self._check(primal, self.dual)
         if self.primal is None or primal < self.primal:
@@ -96,6 +99,11 @@ class Observer:
                 native = float(model.getSolObjVal(sol, original=True))
                 if not math.isfinite(native):
                     raise NumericalAlarm('nonfinite original primal')
+                # A public validated anchor (or another cached deliverable) at
+                # this exact cost is already sufficient. Never publish the new
+                # native values without verification; keep the checked array.
+                if native == self.primal:
+                    self._last_native_objective = native
                 if native != self._last_native_objective:
                     variables = {v.name: v for v in model.getVars(transformed=False)}
                     if set(variables) != set(variable_names):
@@ -109,7 +117,7 @@ class Observer:
                     expected = self.scale * assignment.objective + self.offset
                     if abs(native - expected) > self.bound_tolerance:
                         raise NumericalAlarm('original objective mismatch')
-                    self.validate_incumbent(values, event_ns)
+                    self._commit_incumbent(assignment, event_ns)
                     self._last_native_objective = native
             dual = float(model.getDualbound())
             if model.isInfinity(abs(dual)):

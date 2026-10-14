@@ -175,3 +175,41 @@ def test_native_focused_trajectory_parity_on_branched_public_fixture(tmp_path):
     assert len(results[0]['focused']) > 1
     assert results[0] == results[1]
     (tmp_path / 'native-parity.json').write_text(json.dumps(results, indent=2))
+
+
+def test_changed_native_incumbent_is_verified_once_then_committed(cover, monkeypatch):
+    import ra.observer as module
+    original = module.verify_cover
+    checks=[]
+    def counted(*args):
+        checks.append(1)
+        return original(*args)
+    monkeypatch.setattr(module,'verify_cover',counted)
+    model=make_model(cover)
+    observer=Observer(cover,request_id='single-check')
+    backend=ScipBackend(model,costs=cover.costs,rows=((0,1),(1,2)),observer=observer,install_selector=False)
+    backend.optimize()
+    assert observer.available_local()==(2.,2.,1.)
+    assert len(checks)==len(observer.assignments)
+    observer.poll(model,('x0','x1','x2'),time.perf_counter_ns())
+    assert len(checks)==len(observer.assignments)
+    model.freeProb()
+
+
+def test_verified_anchor_is_not_rescanned_when_native_reports_same_objective(cover,monkeypatch):
+    import ra.observer as module
+    model=make_model(cover)
+    observer=Observer(cover,request_id='anchor-cache')
+    anchor=observer.validate_incumbent((1,1,1),0)
+    variables=model.getVars();sol=model.createSol()
+    for v in variables:model.setSolVal(sol,v,1)
+    assert model.addSol(sol,free=True)
+    model.setRealParam('limits/time',0.)
+    checks=[];original=module.verify_cover
+    def counted(*args):checks.append(1);return original(*args)
+    monkeypatch.setattr(module,'verify_cover',counted)
+    backend=ScipBackend(model,costs=cover.costs,rows=((0,1),(1,2)),observer=observer,install_selector=False)
+    backend.optimize()
+    assert observer.primal==4 and observer.incumbent_hash==anchor.incumbent_hash
+    assert checks==[]
+    model.freeProb()

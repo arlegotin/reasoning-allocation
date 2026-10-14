@@ -1,0 +1,358 @@
+{
+  "schema_version": 1,
+  "task": 8,
+  "base_commit": "af52833a316243c3680899131dc6c9f63601f734",
+  "status": "locally verified; independent review pending",
+  "serial_controls": {
+    "null_pairs": [
+      {
+        "names": [
+          "B0",
+          "native-alias"
+        ],
+        "identical": true,
+        "nodes": 1,
+        "lps": 1,
+        "lease_count": 0
+      },
+      {
+        "names": [
+          "B2-estimate",
+          "estimate-alias"
+        ],
+        "identical": true,
+        "nodes": 1,
+        "lps": 1,
+        "lease_count": 1
+      }
+    ],
+    "delay_scores": [
+      1.0,
+      0.0
+    ],
+    "delayed_payoff": {
+      "execution": [
+        {
+          "policy": "estimate",
+          "path": "AA",
+          "utility": 0.6,
+          "allocation": {
+            "root": {
+              "epoch": 0,
+              "number": 1
+            },
+            "node_limit": 2,
+            "gain_prediction": 0.0,
+            "seconds_prediction": 0.0,
+            "seconds_q90": null,
+            "selection_probability": null,
+            "policy_state_hash": "1dbb695f81ea59d85098c3ab0803b9ced0e0174a8e29272b0d58888a673ca8f3"
+          },
+          "outcome": {
+            "root": {
+              "epoch": 0,
+              "number": 1
+            },
+            "node_limit": 2,
+            "work": 2,
+            "entry_ns": 0,
+            "dispatch_ns": 0,
+            "end_ns": 2,
+            "end_reason": "node_limit",
+            "natural_completion": true,
+            "censored": false,
+            "unused_units": 0,
+            "body_ns": 2,
+            "continuation_ns": 0,
+            "post_deadline_work": 0
+          }
+        },
+        {
+          "policy": "bound",
+          "path": "BB",
+          "utility": 1.0,
+          "allocation": {
+            "root": {
+              "epoch": 0,
+              "number": 2
+            },
+            "node_limit": 2,
+            "gain_prediction": 0.0,
+            "seconds_prediction": 0.0,
+            "seconds_q90": null,
+            "selection_probability": null,
+            "policy_state_hash": "dc7dbbfe1d8934dad974f2bce21f7d15054f6c104e03609d0907db84d18d95b5"
+          },
+          "outcome": {
+            "root": {
+              "epoch": 0,
+              "number": 2
+            },
+            "node_limit": 2,
+            "work": 2,
+            "entry_ns": 0,
+            "dispatch_ns": 0,
+            "end_ns": 2,
+            "end_reason": "node_limit",
+            "natural_completion": true,
+            "censored": false,
+            "unused_units": 0,
+            "body_ns": 2,
+            "continuation_ns": 0,
+            "post_deadline_work": 0
+          }
+        }
+      ],
+      "independently_enumerated": {
+        "AA": 0.6,
+        "AB": 0.6,
+        "BA": 0.6,
+        "BB": 1.0
+      },
+      "optimum_path": "BB",
+      "scope": "analytical reward fixture using actual allocator/lease, not a SCIP headroom comparison"
+    },
+    "wall_ns": 2263316458,
+    "coordinator_cpu_ns": 213671000
+  },
+  "observer_initial": {
+    "contrasts": {
+      "minimal-solve_ns": {
+        "n": 8,
+        "paired_differences_ns": [
+          1557000,
+          1491083,
+          1371334,
+          1833416,
+          1452208,
+          1421208,
+          1493125,
+          1507501
+        ],
+        "mean_difference_ns": 1515859.375,
+        "student_t_95_ci_ns": [
+          1398631.7677262167,
+          1633086.9822737833
+        ],
+        "mean_relative_difference": 1.3612879920818726,
+        "median_relative_difference": 1.3385146559488734
+      },
+      "minimal-parent_launch_through_release_ns": {
+        "n": 8,
+        "paired_differences_ns": [
+          1024667,
+          1612042,
+          3515167,
+          9150333,
+          855833,
+          -1126583,
+          8134501,
+          5996875
+        ],
+        "mean_difference_ns": 3645354.375,
+        "student_t_95_ci_ns": [
+          524296.6487867967,
+          6766412.101213204
+        ],
+        "mean_relative_difference": 0.0243623850211009,
+        "median_relative_difference": 0.01728810241646528
+      },
+      "diagnostic-solve_ns": {
+        "n": 8,
+        "paired_differences_ns": [
+          6024291,
+          6122709,
+          6058792,
+          6099125,
+          6234042,
+          6269624,
+          6338791,
+          6446042
+        ],
+        "mean_difference_ns": 6199177,
+        "student_t_95_ci_ns": [
+          6075673.854955222,
+          6322680.145044778
+        ],
+        "mean_relative_difference": 5.564103420540343,
+        "median_relative_difference": 5.5883559855346
+      },
+      "diagnostic-parent_launch_through_release_ns": {
+        "n": 8,
+        "paired_differences_ns": [
+          7409625,
+          5795126,
+          7246375,
+          15423792,
+          5722583,
+          2990792,
+          4769418,
+          5335624
+        ],
+        "mean_difference_ns": 6836666.875,
+        "student_t_95_ci_ns": [
+          3710506.6991071235,
+          9962827.050892876
+        ],
+        "mean_relative_difference": 0.0457406446750023,
+        "median_relative_difference": 0.03853255268913558
+      }
+    },
+    "wall_ns": 4061483708,
+    "coordinator_cpu_ns": 402434000,
+    "source_hashes": {
+      "__init__.py": "af231eb3ba064a73f3f70e7e506d6685a6452c6d46291578fa25bfe1e76aaa23",
+      "allocators.py": "b7e8e23dbafcbf5394936c85fa4a77fdffafbdd87b6e47019e73ce2a745ec2d6",
+      "candidates.py": "be5f6e872511bb5dd51de0fcf23c95bf8638572f7f5df09cfcc41509d7181f0f",
+      "checks.py": "4bc71d7d9888cd9429467f45c1b7648224d05a2c265c0897eb2b230057e59d1f",
+      "cli.py": "3b7da87efa0b3c1df09677ce9d20163a9147b16b257efe03246ffb8575902358",
+      "config.py": "d94a096146e4ae310f82e1d35cad982618d93ec4209cc3e28e3a31ecc57cf06e",
+      "data.py": "073aa4e94a4d1c7c6315552575b0c400cd8f78e03974842b7dd51f3b81ac2aa4",
+      "doctor.py": "629d86ada68f6c0c37a508c4d4b7338f1a67229b5990bb6f2103d3ed567b294b",
+      "exact.py": "455683ed023d7b00604b27d2db16d5098323a4726dd7efb5469de7c9fe690b0c",
+      "leases.py": "82259ec6eae2e7daca2040c5cff53b00b39b3abaa446a6a8343a1cda9fe15742",
+      "ledger.py": "94500f07b4d1aefa63d7cea11d6ddfe2fc37582ef46349fcaa7885f7e791dcab",
+      "metrics.py": "575028b9a47ab3ca201cbae981f4cd08586874487fe148b5978931bd0bc0bcd3",
+      "observer.py": "23a139bc06a68982da67df54132f46ec529ce0a7983726391b4f983657dab5ba",
+      "provenance.py": "97ea0ade60db01db82595423f4a88e36a6352b5451b7f46ee50dc28798770c61",
+      "runner.py": "79191a241ca126c3c86d4552bbfba92e10e05a83a2ceb91a4e456fb0d9ef6099",
+      "scip_backend.py": "3d99db4f031f4db54ba85702f7c6b5e40a53677cd7ae34d630b8355326215a12",
+      "types.py": "871d7eb654af23449ea9a8c3a7700529c62a31ddc5083df88cb7f1d47f264d52",
+      "worker.py": "006111b4b1f1d1f0ad661c2fe9dfaee7bd72ac1f2e3d2e73515a76e458296337"
+    }
+  },
+  "observer_simplified": {
+    "contrasts": {
+      "minimal-solve_ns": {
+        "n": 8,
+        "paired_differences_ns": [
+          1124292,
+          1233209,
+          1054625,
+          1133375,
+          1103958,
+          1132583,
+          1205500,
+          1166791
+        ],
+        "mean_difference_ns": 1144291.625,
+        "student_t_95_ci_ns": [
+          1096912.5081558905,
+          1191670.7418441095
+        ],
+        "mean_relative_difference": 0.9932100310532639,
+        "median_relative_difference": 1.0200895295620023
+      },
+      "minimal-parent_launch_through_release_ns": {
+        "n": 8,
+        "paired_differences_ns": [
+          1926208,
+          -1197583,
+          -378625,
+          2980874,
+          -1722582,
+          2416874,
+          -678792,
+          3170416
+        ],
+        "mean_difference_ns": 814598.75,
+        "student_t_95_ci_ns": [
+          -862979.8761980629,
+          2492177.3761980627
+        ],
+        "mean_relative_difference": 0.005475085364840704,
+        "median_relative_difference": 0.005250142342542008
+      },
+      "diagnostic-solve_ns": {
+        "n": 8,
+        "paired_differences_ns": [
+          5870917,
+          5679042,
+          5875000,
+          5963125,
+          5764666,
+          6126083,
+          6155042,
+          5908292
+        ],
+        "mean_difference_ns": 5917770.875,
+        "student_t_95_ci_ns": [
+          5781384.995656753,
+          6054156.754343247
+        ],
+        "mean_relative_difference": 5.135452798716649,
+        "median_relative_difference": 5.226530320721272
+      },
+      "diagnostic-parent_launch_through_release_ns": {
+        "n": 8,
+        "paired_differences_ns": [
+          7413958,
+          2971000,
+          8662917,
+          5236291,
+          -3317082,
+          10686583,
+          9372083,
+          1651750
+        ],
+        "mean_difference_ns": 5334687.5,
+        "student_t_95_ci_ns": [
+          1408850.7796538952,
+          9260524.220346104
+        ],
+        "mean_relative_difference": 0.035442057371835284,
+        "median_relative_difference": 0.041999503769687974
+      }
+    },
+    "wall_ns": 4094055834,
+    "coordinator_cpu_ns": 399021000,
+    "source_hashes": {
+      "__init__.py": "af231eb3ba064a73f3f70e7e506d6685a6452c6d46291578fa25bfe1e76aaa23",
+      "allocators.py": "b7e8e23dbafcbf5394936c85fa4a77fdffafbdd87b6e47019e73ce2a745ec2d6",
+      "candidates.py": "be5f6e872511bb5dd51de0fcf23c95bf8638572f7f5df09cfcc41509d7181f0f",
+      "checks.py": "4bc71d7d9888cd9429467f45c1b7648224d05a2c265c0897eb2b230057e59d1f",
+      "cli.py": "3b7da87efa0b3c1df09677ce9d20163a9147b16b257efe03246ffb8575902358",
+      "config.py": "d94a096146e4ae310f82e1d35cad982618d93ec4209cc3e28e3a31ecc57cf06e",
+      "data.py": "073aa4e94a4d1c7c6315552575b0c400cd8f78e03974842b7dd51f3b81ac2aa4",
+      "doctor.py": "629d86ada68f6c0c37a508c4d4b7338f1a67229b5990bb6f2103d3ed567b294b",
+      "exact.py": "455683ed023d7b00604b27d2db16d5098323a4726dd7efb5469de7c9fe690b0c",
+      "leases.py": "82259ec6eae2e7daca2040c5cff53b00b39b3abaa446a6a8343a1cda9fe15742",
+      "ledger.py": "94500f07b4d1aefa63d7cea11d6ddfe2fc37582ef46349fcaa7885f7e791dcab",
+      "metrics.py": "575028b9a47ab3ca201cbae981f4cd08586874487fe148b5978931bd0bc0bcd3",
+      "observer.py": "074a92b6cde7497838c08ec6f69812a2fde1bbbcd9b36f118a3a60250699d6d1",
+      "provenance.py": "97ea0ade60db01db82595423f4a88e36a6352b5451b7f46ee50dc28798770c61",
+      "runner.py": "79191a241ca126c3c86d4552bbfba92e10e05a83a2ceb91a4e456fb0d9ef6099",
+      "scip_backend.py": "3d99db4f031f4db54ba85702f7c6b5e40a53677cd7ae34d630b8355326215a12",
+      "types.py": "871d7eb654af23449ea9a8c3a7700529c62a31ddc5083df88cb7f1d47f264d52",
+      "worker.py": "006111b4b1f1d1f0ad661c2fe9dfaee7bd72ac1f2e3d2e73515a76e458296337"
+    }
+  },
+  "observer_scope": "cold subprocess instrumentation pilot; solve interval compares actual common Observer/ScipBackend with no observer and heavier full-check diagnostics. Stdout serialization proxy, not primary parent receipt scoring; no costs subtracted",
+  "tests": {
+    "argv": [
+      "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/.venv/bin/python",
+      "-m",
+      "pytest",
+      "-q"
+    ],
+    "returncode": 0,
+    "elapsed_ns": 23922909667,
+    "coordinator_cpu_ns": 6354000,
+    "child_cpu_ns": 19634624000,
+    "child_peak_rss_bytes": 201932800,
+    "scope": "one final full-suite subprocess including reaped descendants; child peak RSS is process maximum, not simultaneous sum; summary-write tail remains unmeasured"
+  },
+  "artifact_inventory": {
+    "path": "artifacts/checks/task8/artifact-inventory.json",
+    "sha256": "412d74ba6fec96cad3361572f7b31cb079630df660e05331c4a0dbd725f2e7fe"
+  },
+  "limits": [
+    "WP02 awaits independent review.",
+    "B1 search candidates are prepared, not validation tuned.",
+    "8 paired seeds on one public64 fixture; observer stdout serialization proxy is not primary parent transport.",
+    "Power/background snapshots for observer pilots were collected after the pilots; final primary controls have before-run power/load snapshots.",
+    "Common observer overhead stays positive and charged; native workload scale reassessment belongs to Task9.",
+    "Allocation control predictions are unused zero-valued fixed fields, not measured costs.",
+    "Final audit/reporting receipt tails remain explicitly unmeasured."
+  ]
+}

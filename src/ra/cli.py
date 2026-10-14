@@ -24,9 +24,22 @@ def main(argv: list[str] | None = None) -> int:
     generate.add_argument("--split", choices=['discovery', 'train', 'validation', 'confirmatory', 'shift'], required=True)
     generate.add_argument("--out", type=Path, help="Output directory (default: data/LABEL)")
     generate.add_argument("--dry-run", action="store_true", help="Validate and describe without writing")
+    run = subcommands.add_parser('run', help='Run serial public native/shared controls')
+    run.add_argument('--config', type=Path, required=True)
+    run.add_argument('--phase', required=True)
+    run.add_argument('--out', type=Path)
+    run.add_argument('--resume', action='store_true')
+    run.add_argument('--dry-run', action='store_true')
     args = parser.parse_args(argv)
     try:
-        if args.command == "generate":
+        if args.command == 'run':
+            from ra.runner import run_schedule
+            attempts = run_schedule(args.config, args.phase, args.out or Path('artifacts/runs')/args.phase,
+                                    resume=args.resume, dry_run=args.dry_run)
+            report = {'success': all(a.status in ('complete','deadline','startup_timeout') for a in attempts),
+                      'dry_run': args.dry_run, 'phase': args.phase, 'attempt_ids':[a.attempt_id for a in attempts],
+                      'out':str(args.out or Path('artifacts/runs')/args.phase)}
+        elif args.command == "generate":
             from ra.config import load_config
             from ra.data import generate_workload
             raw = load_config(args.config, 'generation')
