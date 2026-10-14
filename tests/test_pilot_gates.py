@@ -89,3 +89,27 @@ def test_finite_envelope_pairs_same_instance_seed_and_deadline():
     paired=next(x for x in pairs if x['solver_seed']==0)
     assert paired['gain_over_B0']==pytest.approx(.1)
     assert next(x for x in pairs if x['solver_seed']==17)['gain_over_B0'] is None
+
+
+def test_installed_support_is_harvested_once_per_cold_process_with_defensive_copies():
+    """Repeat validation must not pay for three identical native dump harvests."""
+    import subprocess,sys
+    code='''
+import os
+os.environ['OPENBLAS_NUM_THREADS']='1'
+import pyscipopt
+original=pyscipopt.Model
+calls=[]
+def model(*args,**kwargs):
+    calls.append(1)
+    return original(*args,**kwargs)
+pyscipopt.Model=model
+from ra.config import native_parameter_support
+first=native_parameter_support()
+first['nodeselection/estimate/maxplungequot']['maximum']=17
+second=native_parameter_support()
+assert second['nodeselection/estimate/maxplungequot']['maximum'] is None
+assert len(calls)==1, f'harvested installed support {len(calls)} times'
+'''
+    p=subprocess.run([sys.executable,'-c',code],capture_output=True,text=True)
+    assert p.returncode==0,p.stderr

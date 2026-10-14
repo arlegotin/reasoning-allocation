@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from dataclasses import fields
+from functools import lru_cache
 import json
 import math
 from pathlib import Path
@@ -104,6 +105,17 @@ def validate_config(config: dict[str, object], kind: str) -> None:
 
 
 def native_parameter_support() -> dict[str, dict[str, object]]:
+    """Return independent metadata; harvest once per process/linked build.
+
+    Each cold worker still pays its first installed-build harvest. Repeated
+    request validation never repeats that immutable read or shares mutable maps.
+    """
+    from copy import deepcopy
+    return deepcopy(_installed_native_parameter_support())
+
+
+@lru_cache(maxsize=1)
+def _installed_native_parameter_support() -> dict[str, dict[str, object]]:
     """Read names, types and ranges from this linked build's commented dump.
 
     Nothing here comes from remembered/web defaults. No solving is performed.
