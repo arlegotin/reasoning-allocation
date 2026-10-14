@@ -37,6 +37,12 @@ def survivors(methods,scores):
     return [m for m in methods if m['name'] in chosen]
 
 
+def expansion_request(name,utility_gain,cold_cost_ratio,median_prediction_ns):
+    if utility_gain < .0002 or cold_cost_ratio > 1.25 or median_prediction_ns > 5_000_000:
+        return None
+    return {'ridge0p1':'ridge0p01','ridge10':'ridge100','hist7':'hist15'}.get(name.rsplit('-',1)[1])
+
+
 def prepare():
     from ra.runner import _runtime_identity
     source,environment,build,_=_runtime_identity()

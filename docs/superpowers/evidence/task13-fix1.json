@@ -1,0 +1,4396 @@
+{
+  "artifact_index": {
+    "path": "artifacts/task13/fix1/artifact-index.json",
+    "sha256": "a512a45e672cb5ca3b60f6bb607269cf9708e2546581d0d76947c9b46f945063"
+  },
+  "batch_accounting": [
+    {
+      "attempt_ids": [
+        "659ad29a67fe4107a2766c593c34875a",
+        "a1bbd3e9d16f4caba8e60936c6fd51e1",
+        "a5ecf6e64a8a40f2aa87bb1f7bb4ae38",
+        "848c41b40ad941f38a6b4a85467a8b74",
+        "f7a3997dbca144d7877f1a849bddda82",
+        "faf73fb3865e47dc8db5987bc87d6d0a",
+        "91be6eb138314fb9984a6e57b27dcf99",
+        "64927e8aa5104b6bad879e702b2fa97f",
+        "c8d9188408a84d888131411b765c6616",
+        "4efdf378bdbe4552b528113fb3225480",
+        "327459b2c95a44ba8c96a4d6aee2f699",
+        "61641c86039140e895c97d0d81476a9a",
+        "0ae6462f27994508acc9d10f96f25496",
+        "825f424fab154be49eb72deccf1ab846",
+        "ba037f9691994a19aeb81c7cc5207b51",
+        "3b0a4fde55744f579a4fbc4b6733800a",
+        "9941c5b9bf6b40279493354cc3cba1cf",
+        "7943afbc750c4f27b8ebf6bcd01f2072",
+        "70bbb434fab2455eb68d7cdb71ca53e5",
+        "5ed04aae15fb46898effe0f321566215",
+        "87800db0d36448569bbc80f52b898f7d",
+        "9b7da82d88004af8ac08cf94abc52205",
+        "4b3455a1727e4448a3e7dddd37d10334",
+        "30f627e0476349f68c319061f423068f",
+        "a6c6dfb08ab44ceba93dcf133fd02fde",
+        "3b8a10fa240f4cdaa28575a96c9ae45f",
+        "c7988db4e6904a69812b47b7ad131742",
+        "102f8feb82f74e2cb536f03d9cf0d357",
+        "33e1a028440042f58d5ff06639daeaf3",
+        "2e2e2006c45542338913fdf771eab793",
+        "a6896061427542f5b65b2f33d54bf7b5",
+        "774d68819e3344dfa84b41df4aea351a",
+        "f8e8627a45694516a4d52e43fa407380",
+        "a9284a9b82b344bfb4b3ba47b99ccd26",
+        "dbb56242626544b38499ded2ae52ba87",
+        "2407fb6c76924bab8b1c92d9f88ba015",
+        "52ca3fda09d947ddb9f08ad5eb0128f4",
+        "df88af7b600845768df0be9b1c1b701d",
+        "c275e1238bb54a10bd73ab85ba6c1a71",
+        "216fc292e0cf454f95857fc01213b8af",
+        "2911fc7948b34f60ab3787469331aa31",
+        "7233a8080c4446318cc80dbab983d818",
+        "b0ade11dcbcf4f60bda3eb055ef1a122",
+        "7819b9543aed4f4aae79e89dc25f5871",
+        "cb7261e752bf4cdb90d57d6538f6b155",
+        "407d6ec203ac41459c3af22a9a6d9e68",
+        "457f108546854afcaf9c20e93da0d041",
+        "b6228cde8ee1474285e13a8d12bb35cf",
+        "655499f514f049aab29cf738ce1b9788",
+        "a17587553542417daed1f48214bceee6",
+        "4aeb49de2c3b4fb9a576a575b37a284f",
+        "730a5c22c1674641adbcd9965184fcf6",
+        "0cc51a7c4c5448838a705b6d0d41bbe7",
+        "83570dec923a4872a47e6bad90e7dcde",
+        "90baf109a51643928cb04dfb775d07cb",
+        "e9786ed432c147eea9c393448c5ed0bb",
+        "92cac83fa9de499fbe72ac0a38f0f9a4",
+        "47e80629a8bf41bfa24fb593d1827c3b",
+        "606302c8387d4d1ba2abc62bb0598bb9",
+        "b61f4babb28c4f30a8f65bede3b72edc",
+        "45723839b7dc4190b9d6b6e819ec7cd6",
+        "95c5fece486948439395f98d5b680e65",
+        "d400395848354d4c9ef0589b3a06d015",
+        "b8a4a6c043a04ab6b9b5026bde5f2dc3",
+        "2a17f0884aa1416887909c2adee63193",
+        "8b7857448623495e95c688408e9e5c89",
+        "696c4fad29394fda856e71954b5ee182",
+        "2d8897ad736e4d2c8660cf177611c9e5",
+        "ed214d0b5fdb4d388cb5e9d8bdd5a486",
+        "b8c0d2561839424282e18cffe4c286f3",
+        "492b529a5480450da53dd8bbc547eb9f",
+        "bce3a78026c64b43af2c2c8032ba8c3e",
+        "c99cab6269af4c80b04bdc12372fe6d7",
+        "c3fef084f4624f2bb62fd041ff10f667",
+        "98c74c5feb294d2fb5a35e41e73584e6",
+        "7eeb6f080674469c8e62bf8f9494b3bf",
+        "0bec921a8eae45e1af8d7ad9074cbef0",
+        "5b8b9750e6444e3fb51a0e64139fd088",
+        "d10da458fe474633b842ee01a5b239fb",
+        "6c1e2f836bf743c88ad9f26a3c6844dc",
+        "f194513b372e4aa293af669f4ad58b36",
+        "26fabf50c4314f569c0f2edfefb724f5",
+        "deede7f47b144608b0ca980f35650ec8",
+        "3aaf5d7db3ec498fba529ed93b5631d8",
+        "ff097440b0754b90b5455a3c238024c2",
+        "7bb954db711143ddb56a078d83c391ab",
+        "bc4f89aa6deb42fb83f323063b8d8809",
+        "50adff57c64e4aed90b12e1c6bb17498",
+        "a8f6160a67a54393af0a3f39c74c4f6e",
+        "5367fd73da57449ba03067a1d6d85060"
+      ],
+      "collection_end_ns": 224012202105208,
+      "coordinator_cpu_ns": 7545459000,
+      "coordinator_peak_rss_bytes": 109068288,
+      "path": "artifacts/task13/fix1/final-2106828958/batch-10f567665066464398fba66a8490395e/accounting.json",
+      "report_generation_tail_ns": null,
+      "schema_version": 1,
+      "scope": "entry through configuration/resume, serial workers, full request publication/accounting writes, effective-outcome audit and status publication; this final audit write is report-generation overhead",
+      "status_audit_end_ns": 224012200955708,
+      "status_audit_ns": 939606208,
+      "status_publication_end_ns": 224012202105125,
+      "status_publication_ns": 1147959,
+      "total_observed_ns": 94074316875
+    },
+    {
+      "attempt_ids": [
+        "6531a7d5b74a4c3a858fd7be57591864",
+        "3284325e4e9a4ab38e5a532482daa5b0",
+        "f563e59b2c284a9bbd15419605e7f682",
+        "6e6febef8bb744fcbc9120ca3ea57e02",
+        "e2919bbb5a1e4f42a0fc62deee9e69ce",
+        "f1dbe54ed9db4388900b3343ba16a25b",
+        "253e11a345584455af993b402c025c6e",
+        "e96f305eb64b44709506e8c3d0dcc7c9",
+        "a2d7a2dc32e245af910e851f11e0a09d",
+        "d2f8b4a16fb148af9903a666163325a0",
+        "d5495f54d6d24509916213726877cff4",
+        "42f018941f7e4704a1110b83a31e094d",
+        "ebc8921487c44f74a9549e2abd78eb02",
+        "4810dd32726a4056bb0d083d9b6855bf",
+        "5b0d632b3ee84d0fa8a976503d9b9d9c",
+        "230407d72e7a4b70899fd6f57b79ae42",
+        "900c8e1322904b6eafbaf22718a6749a",
+        "ed082cdf27484c39b17c3d2ad256ab68",
+        "093197d065884d8e81605177132588a4",
+        "d0fc3b5abc024f70bcee8fb4bcac4a30",
+        "69a331ee1eeb4faf9181e5717b5a59b0",
+        "f19179d266ba4cdda2ff00bc6b887da3",
+        "580f52340a4947248e3aebd5d7de676b",
+        "20a60cf5c1964f3180fca1b8da33f7f5",
+        "2ca21167760e49f5bc4735828f37e628",
+        "7b4253d423ff45eb9c507fd5e5665b91",
+        "792852687f794bee91c998031be52233",
+        "206f6ce2a68f4b698cff6d4445086845",
+        "9d1412b5b8d745e6bd853aa2647a0fb6",
+        "aa0e614ccf99428bba22c3af01d14211",
+        "14a3f1e53bd5498ea3e9239e5781770c",
+        "acce672c1d9f4a08873636544676c4d6",
+        "7ed31804b8e04e1d8faba676c8a41c08",
+        "ea30974a5ae949dd9d5aecd87ddd15a5",
+        "33d0a73975694b66b6a421ada5124f77",
+        "ebd4ed1d516146d4a0204f519614b465",
+        "47ec92fac8c64ac68e75806a94856a09",
+        "bea07ab50e4f4ea689de20cbf90c379f",
+        "c46177318e304abea0b4debc206acf25",
+        "7962a2fc503b49518a9667df598b469b",
+        "c723a80a22174c4590352dcdab91abfc",
+        "4de6d6f9186443c8905222704f39a508",
+        "89ec2699c3844ec6a430f646312fc362",
+        "954f4ac47e504c10b05606752de40678",
+        "d817d6b41d8444d28e803c3ed1212142",
+        "dbd6cb94598f4790a1f3d2b438eefba0",
+        "9e264b4f84724334bc815e7df0e05afa",
+        "fd1042678a404e26866642931560b01b",
+        "0971b778bd1f4eb8ada9b7720526fddc",
+        "e3ab8c509b99493f95c2f9973c67cfdf",
+        "0979335b9f414be889b962a3d5368352",
+        "012403519a6d4facaf502a9af94ead60",
+        "4c4583e58da24310a567e93ac32e0974",
+        "873045b84213407b8343efebba1696f3",
+        "aa0d3ecd7ba4437fa091d2133a11d441",
+        "416ce61501d247d3b575e06881ddfc49",
+        "abed3488c12c4b0d82a6e48934b302f8",
+        "95cf34b7bf8a4195a70bc1acf717365d",
+        "1270d4d81e0f4f8faf43d424d04babe3",
+        "2568d2a6183245909a617c50aa8a7bcc",
+        "2f2983aac00f4a768d1b45130157c408",
+        "49d67613c4424697abaff6ce8dbd41d8",
+        "1b2908b426c943c2b85a48823963644a",
+        "bdbb392d7e8b426cbe5b4e3f09a3aa7b",
+        "1da87803f23b4f7984cc41db669dc6c3",
+        "4014e6ca0d83475b8891782829e4c445",
+        "8009331097424f608dd2b2d065053d77",
+        "9d9342481b084f58af789d5099b20817",
+        "810c08c4282f40b39cd595fd63c79421",
+        "4d488dabad1d4cf6b38e8fd98910e008",
+        "4222fb1db2ef4711b5f7c95348333cd8",
+        "d2e5acf53f494476a808ca2269476b11",
+        "d85edb2868564911a11ef192584fa42d",
+        "91efc45ac0a24aeca5d0e0fa453bd307",
+        "511e79a80a824eeda86757355780b56d",
+        "99ea1c62e74845ac8318bba8dd3db441",
+        "7b39fc46f629475f96bec4853d1986c4",
+        "5fbf2f56c49f4714ad8b183b53f31a1f",
+        "12b75df6d5564ddda5f98f4d670d1a99",
+        "80e76a25111d4831b88d9543f8c87cd0",
+        "a8c4a934d8294a96ac2ed25fe349bd7a",
+        "c1cdef0b26734e27926732835262a0d9",
+        "787a9ee634204f558f8ca2c2b4d9eaf1",
+        "d8336d1e256b418fa33c4597da987892",
+        "7db8ac9ffc9d4acfa319b72a26e61597",
+        "82e80030b1b7411ea25dcd21e0d1b913",
+        "6f0e3f71395d410b816cc61b3a1fba78",
+        "a86aa7bac0e940ed9bb116e4ea21c3ea",
+        "bbfc37275d2642f2aa95b8cae73fe10e",
+        "0468f4ec068f4da8b024194f1fa75576"
+      ],
+      "collection_end_ns": 223918125608958,
+      "coordinator_cpu_ns": 3672574000,
+      "coordinator_peak_rss_bytes": 100909056,
+      "path": "artifacts/task13/fix1/final-526707240/batch-f05bb73c5b2d40a581625006009aff4a/accounting.json",
+      "report_generation_tail_ns": null,
+      "schema_version": 1,
+      "scope": "entry through configuration/resume, serial workers, full request publication/accounting writes, effective-outcome audit and status publication; this final audit write is report-generation overhead",
+      "status_audit_end_ns": 223918124487333,
+      "status_audit_ns": 274092042,
+      "status_publication_end_ns": 223918125608916,
+      "status_publication_ns": 1119958,
+      "total_observed_ns": 34738538375
+    },
+    {
+      "attempt_ids": [
+        "024000f4d4654745b993b9440333aaa9",
+        "e618fa31990b426abf0e1634f073cc5c",
+        "7e271c59b5cc4e748bfa9c0422c11b5c",
+        "a8d364d318474a7fa8ea8243ce126c65",
+        "0066eae19db746029498ec3cb3cebf25",
+        "5a62f0bb4e2444bfb87d2c79f5f8612b",
+        "e4a7fa0f35a644e083571cf52a318abc",
+        "7c4b701f31234c16940376700446d6c1",
+        "ad4d26ef37ac4ba599d636285e1e19dc",
+        "c09af61c16884b218b95acc95141a393",
+        "884cddeddd2947e0bfa1b88a86fe4a88",
+        "7d309d392e5640378a0502d105928fd4",
+        "36613ec646db4dd78406e34dd773eec2",
+        "bce7e0b5d8c046d58e72a80cd7a5bbc0",
+        "ff62f4b0cfd8420cb5fa49bd12c48086",
+        "3901cad7e6fc462d8daf0696de3518bb",
+        "f6bc5d28e93d4547a82142b35ef37a35",
+        "22df8887333946b184b648319a9c2fa0",
+        "dacd20f9d55a42cb845d3454a7cb131a",
+        "d48cb57fb8504c4fb5f109c8c422186d",
+        "d3a3e4582db843dfb07a38b5a9a4424f",
+        "3311fcdc221544e1bd8dfea5bea638d9",
+        "68556e40fa134b87b2d8a116456894f0",
+        "8d61ab461c2b4391bfe507e066895774",
+        "4ed5b267b6c24a06bea02bc672dc8d02",
+        "2034cca42167454394e37b8e129ff055",
+        "70546330b7dc4a079b8109b7fc937bb5",
+        "f9c9a733a07b4cf7aa5ff585207dea37",
+        "70dd5cfbeeea4a949fc9cde47dae6b2e",
+        "dc7fa8eb34674d0880cd3ae8d755ce1e",
+        "ca2720720a9b48b981f7db618ebdfaaf",
+        "8d27073bbbd5441ba6e02d40f8bb2b99",
+        "2b8de3ee137248ae828573335d4565c6",
+        "5f1692a6295f4863911d76c340a8364d",
+        "8d9abb221f7f45a688bb83b13e970884",
+        "828f2a1fecd24dc1b21b093c17bde04a",
+        "74061276dff246d1bddb3f8d214f0a69",
+        "50f7ab51b96244f8bfd01f9f55dc5381",
+        "ed3f37e09a894467bf8c994470b05936",
+        "bb148da41ad24a56b224b4707d9cafec",
+        "8a2ab97adbdc45a9a9edfcaee45ead0d",
+        "eb1c2ee1efda4278bfb2afb029507e23",
+        "0b080dac016e4e6a8989189864059d79",
+        "75d46af8d1f448f58e2433197d33e131",
+        "9cfadf3f23bb4d6f848d374d31ffa23e",
+        "fa9d0404e61142f183fa6e7d331502d4",
+        "9691cada1bb54c12b1cf1e1cb1bc7b0c",
+        "6306afc1be7b450eab756ab777b0145b",
+        "7317c9562c4b4b06b4b4cfbf8ba59819",
+        "60dd49610a6d48829bb1374358defe06",
+        "f202cc30766e43018d203c31f55f9715",
+        "f5bcde26368445e9bc5b7d4f6c086295",
+        "7cc8e0689e1947acb2ea5621070c51d9",
+        "438ec74555ef41708971edcc79e4f260",
+        "e6af287bf5d742849c179582c8c2ad0a",
+        "b871f834254e40aeb0d0d175c5e64fd5",
+        "c0c15ce9da424ac19c5f7091d71a977d",
+        "935df43d778646d9a8f08dd32c273f3e",
+        "f2ae73c9099c4293a839e44461b521ce",
+        "d6835562c86b44edb721663947c3535d",
+        "7c09abd19ecf468e95a11d29b18c605f",
+        "d2220fdb32c649c3b4da5f22913b29f6",
+        "4c598cdace6745888b5d2033666d8f0b",
+        "196f3e4612d345b8aa26dc1689383523",
+        "b5115569a19d4f46abe506481243e780",
+        "355d3ec7223f48cab22e7383715d4609",
+        "884d02dfb1c64b76a9481adb487ee97f",
+        "20bc3c1086834c519664851a5bd41afd",
+        "e38e0218474f4eadb58848aa75d45a57",
+        "5f84f898eddd4ef8a7ca22ae71abb17b",
+        "683f4f77e4e342bc968c4b3a9a377b37",
+        "dd1709eb8bc44d42aacdf903b99d1d61",
+        "0c497f6169be4d54bd9deb09d5a91286",
+        "25435bcec67e4398a0ee5361b7a33c86",
+        "d907bcc3fb0840fda822bf5dab74bbf7",
+        "12784818eea64f21bd6f2caf0e27b20b",
+        "2d966450bf3b4e868ebbcf65fb4cfd11",
+        "f6a4a4f1f6074f1e966c25c9f5644a04",
+        "4894b8d0ff5a4e25ba0905b03ee18515",
+        "59fbba6d5ae8450b8bcdb88e5ac8bc27",
+        "b76843334a5e4d5f8e61c570185b722a",
+        "1267a76d12d042bea14710b98aac3efc",
+        "7c3d5615e0ec47e3aec5a816edb212b9",
+        "7b95dc638a3540f7b11459d646324345",
+        "a126aea7478f4d538397076bb28a0801",
+        "0fe730deb43f4f0480f72b775f49df8e",
+        "ca49adcdbc764feeabb6df2b3fb818c9",
+        "1118f52cf7dd4da7921e9845cb6bab42",
+        "a094dd7e08ea41bbb87303d51e78b73d",
+        "ee700122cd9743fbaa3b6a43eeb59394"
+      ],
+      "collection_end_ns": 224158423371416,
+      "coordinator_cpu_ns": 15106630000,
+      "coordinator_peak_rss_bytes": 276627456,
+      "path": "artifacts/task13/fix1/final-8427315832/batch-c9b79af48e234d2b927994bd85dddf22/accounting.json",
+      "report_generation_tail_ns": null,
+      "schema_version": 1,
+      "scope": "entry through configuration/resume, serial workers, full request publication/accounting writes, effective-outcome audit and status publication; this final audit write is report-generation overhead",
+      "status_audit_end_ns": 224158422228666,
+      "status_audit_ns": 2368581125,
+      "status_publication_end_ns": 224158423371333,
+      "status_publication_ns": 1141667,
+      "total_observed_ns": 146218438958
+    },
+    {
+      "attempt_ids": [
+        "0c5bc795dd324ae49f34dffa897314ac",
+        "11122ad6606443db944a13bd264dd006",
+        "5f81413fb04e414891bd647559828580",
+        "6177ca5d38d94ee68ab38e0487851bad",
+        "2ebed31b06a34c178e8c6c99dc310d3f",
+        "3ac70a8b528945548dc34bebaa5110c6",
+        "fefb26f4fd62454daee4b55e1dd01a65",
+        "92d2ac73b1784ac1807f56e4cf8cafd5",
+        "9e2377955be046a89602d5cebc560fe8",
+        "3bff79172346495f89c324ea1fe35f75",
+        "8aa5c55409a34474b6b57ac549fefd1f",
+        "efb21a319f2a4df7aa3b7fec4154b787",
+        "f379c17d92e34cd0840b848ef49c92ed",
+        "2d0282e379d2442bbed5460575f88c67",
+        "78df1356373a4453a9714a0c87d2831f",
+        "c6287438b1f94d18bf69ba541e09d606",
+        "7d0bfb2ace464378847dfa7b45196dce",
+        "f4ec862a15bb4a899e0811667af4cf53",
+        "67c5a3d7f1184498b715acd2e370f7f9",
+        "9023876dbaa7465682eb102dc7af6415",
+        "6fcfe24e90b443bf90d18b723cd40063",
+        "70eaec30317740beb52ed0d305326974",
+        "d8cbf95908a948198c9937de7022429b",
+        "668881045ccf4ec2a32521c74b40984a",
+        "a32ed331c26b46e9b3d4cf134db316c8",
+        "a8c01b87a19d4e26b9f12375a9378f2f",
+        "a4a5ca3b27ee492d83e8613f9333dc81",
+        "00d34d212b4f43bf8ffd87b85ae0e40d",
+        "1ff7d5d77f13419d94bd0cabd5ca77da",
+        "78beb75e245b40beac0ae56aade53a22",
+        "646a2f00da704f5ea24c8d789dfd1b69",
+        "eafa75f46417428a9a7f93b53fd335fe",
+        "9e916c0667334fb29de7e92f15e36e90",
+        "caa3a2723586465493a4b629ee441d01",
+        "019b335717db4539b070e1ca9e85cd87",
+        "ccdaff7e2f8d4e3287fba438fde2d423",
+        "ae783652275d4952b58e6dbf05652912",
+        "681fb5a7ca514c03b59923ff70050222",
+        "158a97afe7ed455e9818d0c1408ba620",
+        "3d01585b66e042b4a6e4f9fe18dc7fad",
+        "998a4f6f61d643c6b46e2a20042b7e70",
+        "5ea311e718f04c3995bb64308836cbba",
+        "4ef3e2f2952c49e1a34e8c5c79bf473d",
+        "8bb1f4ff352c4533ace51c4f4ec20e40",
+        "f1bb9931d30c4e628714ee60e59049b5",
+        "e28ee5707ca643998116fe93d12e0596",
+        "4e0e1f317a4a465cbe51953eee2c678f",
+        "18358d9002404076afe89866dabb4cb8",
+        "0c86accc064a4596a3a173e93c540c77",
+        "3e1c0c4ed8bc4f80b1d3c131888eaa45",
+        "e19dd4302fe14f579e6c165f42e3a174",
+        "1eeaeb9a9b974318a8d76e41c30444d8",
+        "71bbc1e77d6a4bc28c0cc254fc7901b9",
+        "5e14f2ec901a4a29915796d44d648173",
+        "03623920f28d43939ca087afd20696f3",
+        "d7ee9764f1aa4d7981184f7ca5c7083a",
+        "829325251a014cae9357ae012482bdbd",
+        "1a211927313c4ad9a699dfa23c5cb5fa",
+        "073273c917074022b6994021c8cf0535",
+        "7a2c9a3f88b2442b96632670078d89e6",
+        "b9166b0ec39748d09cb7ab65dd720478",
+        "cca8858adef2409db45d50632495a1eb",
+        "be98268177504b619119d7d849953d13",
+        "834a15622b9b4e858679b61d508e9929",
+        "9551a4a9a0084329a9853dbf55aeb406",
+        "107b0ca96a4047c8b4376c2357ed9919",
+        "7903fc0c48614b16ac7d0c064db1e039",
+        "575c50cffa2c4a458cde8028273908f3",
+        "718709aecc63412eb83553f564b20466",
+        "6cf25fad28494fe6a354b679dba1dbac",
+        "11e92f81d43341fea77af341674d4707",
+        "8e7ca8bb7adb44dd80ca552a1b9310d1",
+        "f0b2ab30d98341458101c11534537b46",
+        "a716b4f1953f487a8621bda6d40f6254",
+        "f2e648abbdb14c8b9ef992937884cc4a",
+        "251f16ea769943bdaa656aa636556900",
+        "49d6e3b514874781bbdaf6fb5b2e1f99",
+        "5f4cfe5933944540915fc5a8ff12c162",
+        "bd8789cf41784fa5b28cd46e9d011a7d",
+        "3cdeb2eecb74498fb52a48a943e72e2e",
+        "968cbfd0980f438db085582b7bc03f5d",
+        "5376ead8102e4609a2b16463b72b0db6",
+        "d604ea9c567543548cfba20c6857ef94",
+        "44607ae6cb62400a80a627a0e28419a6",
+        "8a6f708b8e4e46658664ca7c54f65137",
+        "20d0138850374718a2a07e6683804c2a",
+        "a7a3a37e69c945eb951d8e6063edbd8e",
+        "d1b2dc965a3e49678adc3ec680b71f14",
+        "59150923a06540beb36c0f34b786123a",
+        "5b03f1ce6a974242b078fe6d8a9b8ad8",
+        "39bc62c4664242f1b32d00637d3968a8",
+        "6adbf8afc63746118c8cdfff01c3eea3",
+        "5709c3db3dd64b569b4038487103e1c5",
+        "44e794e02b314b6eb23e86f61bc69a83",
+        "3a594374b34f4158bcdb08e70a7c89b8",
+        "e5bd4bdd30834316902a055864934b7c",
+        "7bb51125c42842288f602b5c0e65ffcb",
+        "f732e38ab4104d2bbfaeec9bba0f91aa",
+        "4729ead4250241fe80d78d6a142ae0d1",
+        "918b1b9274584548b3f8a7483d1b424d",
+        "58a2643d50c74164be019684fea56fb1",
+        "3e5972dbe0c5478191ec25bcfb8b4ef6",
+        "a1328c9da91548aea04b18bfbf5957aa",
+        "81280d79c33d457eaa5173ddd3ecfaf2",
+        "3ef3011b635a4f0aa00e16d7aa2abf12",
+        "9f87e6b3b44a43bdb55ddb710fe22b9f",
+        "ca08ebd6deb04645bb4337a1c811ab20",
+        "c710bd87f96343acb8a46c724f2a4d71",
+        "5da4d35e404b4585b7e4e543e1f73b43",
+        "598e89d9770a4de4af014d75625cdf7b",
+        "bceea8a100294a349f73b9053251e276",
+        "a74c466075954fe78ebbca8902c88cb7",
+        "3675a708910049c1839709e1150f6246",
+        "b86403a0027749b5a43b90220d02587e",
+        "17cfb14ee5c74c689e0a6976b779c01a",
+        "e24f090f3c6a4a248a5fd9af6b82889b",
+        "82bf00c9764d41028fc82cda1aec9c0a",
+        "cfe87463aba94e5fb52227fd37259f46",
+        "ca077e3a655448b39b15d87f737ad060",
+        "aad19ab4705744c39f4da976d9b2fa1b",
+        "77a48da17349424c9996a0c982552d88",
+        "86796dc5739343ae9f0996dac92d1973",
+        "6c6f2f0975d64c4ba78bfa34e50743aa",
+        "9279870282284157ad6c30cd783a4e4f",
+        "7079b7dc62ed4abf98d13043947ca783",
+        "35dc55db462141b8b3364c602a12fda4",
+        "10724a9346e44f969b8a16e02463dbc7",
+        "a8cd08396a6840fc8ca2aa63b3fe4bc2",
+        "8bfef31ae9bc4d579ea27e9b9ec9121e",
+        "83fccf7546ee4fff96f5bfa0b3b7cf3c",
+        "5cada7b35aba4b16bb4b2a8aee2df9c2",
+        "ba5c13ae5b344e03b307cdc16e052ec2",
+        "c619a82beec747d997421e3eb44134ef",
+        "465b187d08c84463b409ccee295b70d9",
+        "02caeea7db604d8cb7dfaf0966602d3e",
+        "8e93ca0ff06049bfbd2aaf25525d6509",
+        "548df89fb09647b7be21ac4f914021a3",
+        "54735a1d0c044e2884c0e63f6e08e9d1",
+        "66db9400b05e4c3e96f7af26e5283b0f",
+        "d8671a032b3a4574a60bd15c01fe06b6",
+        "d3154b8468484162906f291084db7179",
+        "8a53f8499f8647b98c3ed244e87fc577",
+        "39df4af3301f4b8494c1e991a5808f5b",
+        "161540c7375e4bb2a392fc088f49e8ed",
+        "7749bb53f1ff4ddd87f00d584da9f6b4",
+        "f1582624ac2a457ca45067dffdbc500d",
+        "3596ed5ced7742aab621bba1480be391",
+        "eb6f203fc5414db895ccd3759efed34c",
+        "af9c7fb4a04f41b3bbc5f9410731f09c",
+        "3581d56d25a945c4a2e89c4d0b38c44d",
+        "810fee0c73844feaad3ee4b434fea35c",
+        "3ae561e4903c4b6ba89809fa7e5932ad",
+        "e617e2dbbef844dd8d38e402768588ea",
+        "40522b89c9dd431499ca036f548df878",
+        "b25aa300f0c44821beea35718da6ba45",
+        "5a42881f05c04a0e90d2987cfa68439c",
+        "34eb2e8f7495488d9cc2e93c6868370c",
+        "84c112f17a8e4fa1b92f375323e9facb",
+        "c7459efbedcb442e933e250984f917e9",
+        "157cac7a1a9b4292baec42cf44355e69",
+        "7330b38dc34748bea2db767e7e35a9b4",
+        "8ef53600b2144ba59d32e2cd1f5d923c",
+        "5b381d5aa1de4650bb6c28a9cfcbd627",
+        "37ddb29d9f13450a96306e0a1b624117",
+        "47dddf7fb24c4fd2b117c011ae22b540",
+        "a4dbc4d31d704237be516603b175d8ce",
+        "835f111f0c874e16bcb789600af0344f",
+        "983c0a514fbd46f981ff2740608218ff",
+        "40084466fe2d48e9a99987c42f2d070e",
+        "862f6c19cd8048bfaed294f563d13481",
+        "a73334c9d3db48c5a6f1ce62fd8c49ef",
+        "c1391fc88ef043b7912081ee688df522",
+        "bc34ae91e6fb45bc97c672efd05559a8",
+        "d8da64a7052f4074acfd48d284766147",
+        "ed3cb0205afd4f9abd7598afee8b3822",
+        "fedcc6f719974c19972718d5415beb48",
+        "ea7aff644fa24693a82f33c10859de6e",
+        "ff4e2c912b9046a5bad17c858ba154a8",
+        "bba06e79eee64779be736162f9587585",
+        "332ff2fcdb184c68b93e2eed1fdd7122",
+        "d606fd641cf2454bb198834cccdfe3d5",
+        "caf47136cb444aca9f5b7a4ba3be32a4",
+        "a2f4fa68ce834bb1bc4b0b74615986bc",
+        "c16cbdad49574bd2be722c2f4a639dce",
+        "c46d3f6813d24c78a0407dfe80b9ac3a",
+        "4bd71efb40fa4914a540b29cff7b95de",
+        "d4c6470381484056994cae75bc68157c",
+        "5c66098a8d7043b683002af9201d1aac",
+        "6c618fd645004f17a1bf3799ca826fe9",
+        "80cae363674342ae97c4f9c5b05eb3ce",
+        "4b32dee483014609904d1f53d9dd0f3f",
+        "7148b2443f144479b44309a6a9f6d2c9",
+        "bb58bf7b3a8b454f8359bfdd9a498ee8",
+        "572a6c2d0e4d492ca515f09bccbe0b34",
+        "a2cf6faf879d4d8abd2aabd11d1fc913",
+        "378b84c620df4aa5bf548cc63dd93483",
+        "b3410d72dad347d6bd5c02d02d10e407",
+        "9b3b63b334e845c1bd3e7cbbe3d6e75c",
+        "3137cee2f8104f0289a98d08c3b322a2",
+        "ba0d94cb1fc6472eadaf7727aab91851",
+        "6c91aed9e6834beb975487ad4b3b6675",
+        "44e20abb0c834da0ac7af043d7925bf3",
+        "305575c75dfb4bdba4ce2548d5372b05",
+        "7468f9db70b74a809e6da7abd1e66d15",
+        "86eb66115e5549f78b1586ef636494e1",
+        "afe7a5ee33a94001b3102ddc71020c8e",
+        "580f66c220914d069e3dd3db974df10c",
+        "82ef1bba719947c69f909dd9d9a4e922",
+        "12763c7e20ff4a89835cd66950e162b4",
+        "0fd87c7c987549a889413255325407ef",
+        "457209d8e7654f598e21b1e1fc67e477",
+        "e1aa48e0dea946aaa7e1ae1806f40290",
+        "5ed43314dd7840e6a18db176da5767ba",
+        "5eeb56e581a04394ad5b892ca61b50a6",
+        "663105b3afac4787b51f6914367164c9",
+        "9033760343cf4e28af17a2606a16fd54",
+        "629e2783782e498b9724de1c20b2827c",
+        "d7d6075672e142a4a00839a327d25c46",
+        "c03f0a4b2bd44fc7a73f9cd2102d2d8f",
+        "ffe8d968b5434845a9a5a8b54cedc485",
+        "106180115f68499e9492e9dd8d9de48f",
+        "176306115a224ab980deaf40a0d1cfd2"
+      ],
+      "collection_end_ns": 223873410937208,
+      "coordinator_cpu_ns": 16537684000,
+      "coordinator_peak_rss_bytes": 103743488,
+      "path": "artifacts/task13/fix1/screen-2106828958/batch-b7a2a671ce074d8da1da05da6fe42a07/accounting.json",
+      "report_generation_tail_ns": null,
+      "schema_version": 1,
+      "scope": "entry through configuration/resume, serial workers, full request publication/accounting writes, effective-outcome audit and status publication; this final audit write is report-generation overhead",
+      "status_audit_end_ns": 223873409781041,
+      "status_audit_ns": 1945360083,
+      "status_publication_end_ns": 223873410937083,
+      "status_publication_ns": 1154375,
+      "total_observed_ns": 229391644375
+    }
+  ],
+  "final_protocol": {
+    "budgets_ns": [
+      526707240,
+      2106828958,
+      8427315832
+    ],
+    "methods": [
+      {
+        "kind": "native",
+        "name": "B0",
+        "overrides": {}
+      },
+      {
+        "kind": "native",
+        "name": "B1-no-plunge",
+        "overrides": {
+          "nodeselection/estimate/maxplungedepth": 0
+        }
+      },
+      {
+        "allocator": {
+          "length": 1,
+          "policy": "estimate"
+        },
+        "kind": "shared",
+        "name": "B2-estimate-L1",
+        "pool_size": 128
+      },
+      {
+        "allocator": {
+          "c_min": 4.2e-08,
+          "control_id": "B3",
+          "fallback_length": 4,
+          "model_hash": "d89a46164b6393b294f154286ec45ee7bf0393d56d7f57ae2387c379142c9cd1",
+          "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/models/B3/ridge1-seed17.json",
+          "policy": "local",
+          "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+          "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+        },
+        "kind": "shared",
+        "learned": {
+          "behavior_seed": 17,
+          "compact_logging": true,
+          "epsilon": 0.2,
+          "max_decisions": 512,
+          "pool_seed": 17,
+          "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+          "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+        },
+        "name": "fix1-L1-ridge1",
+        "pool_size": 128
+      },
+      {
+        "allocator": {
+          "c_min": 4.2e-08,
+          "control_id": "B3",
+          "fallback_length": 4,
+          "model_hash": "3d5e3389e5bd6f311729408806f6a329e5023837b0735cd18045b5b74d66e4b6",
+          "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/fix1/models/L1/ridge0p1-seed17.json",
+          "policy": "local",
+          "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+          "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+        },
+        "kind": "shared",
+        "learned": {
+          "behavior_seed": 17,
+          "compact_logging": true,
+          "epsilon": 0.2,
+          "max_decisions": 512,
+          "pool_seed": 17,
+          "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+          "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+        },
+        "name": "fix1-L1-ridge0p1",
+        "pool_size": 128
+      },
+      {
+        "allocator": {
+          "c_min": 4.2e-08,
+          "control_id": "B3",
+          "fallback_length": 4,
+          "model_hash": "42847cbc158713bff28910d58cd0c38bdc50d61df43f39b701cd39dc49a49a6b",
+          "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/fix1/models/L1/ridge10-seed17.json",
+          "policy": "local",
+          "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+          "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+        },
+        "kind": "shared",
+        "learned": {
+          "behavior_seed": 17,
+          "compact_logging": true,
+          "epsilon": 0.2,
+          "max_decisions": 512,
+          "pool_seed": 17,
+          "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+          "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+        },
+        "name": "fix1-L1-ridge10",
+        "pool_size": 128
+      },
+      {
+        "allocator": {
+          "c_min": 4.2e-08,
+          "control_id": "B4",
+          "fallback_length": 4,
+          "fixed_length": 2,
+          "model_hash": "5e6b7617e89db8e5eb2b1b741521eb544727d755800ac1eabf9bc9cae72ececb",
+          "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/fix1/models/L2/ridge0p1-seed17.json",
+          "policy": "local",
+          "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+          "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+        },
+        "kind": "shared",
+        "learned": {
+          "behavior_seed": 17,
+          "compact_logging": true,
+          "epsilon": 0.2,
+          "max_decisions": 512,
+          "pool_seed": 17,
+          "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+          "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+        },
+        "name": "fix1-L2-ridge0p1",
+        "pool_size": 128
+      },
+      {
+        "allocator": {
+          "c_min": 4.2e-08,
+          "control_id": "B4",
+          "fallback_length": 4,
+          "fixed_length": 4,
+          "model_hash": "db07d4b24c566422ee9e0cfe080c4e26938835cac30b2d45f6a6d96aad12e091",
+          "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/fix1/models/L4/ridge0p1-seed17.json",
+          "policy": "local",
+          "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+          "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+        },
+        "kind": "shared",
+        "learned": {
+          "behavior_seed": 17,
+          "compact_logging": true,
+          "epsilon": 0.2,
+          "max_decisions": 512,
+          "pool_seed": 17,
+          "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+          "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+        },
+        "name": "fix1-L4-ridge0p1",
+        "pool_size": 128
+      },
+      {
+        "allocator": {
+          "c_min": 4.2e-08,
+          "control_id": "B4",
+          "fallback_length": 4,
+          "fixed_length": 8,
+          "model_hash": "b671e9112b2c7c121b4dea1a6ff992ec542858f22ca0ff7e866ae972499e4504",
+          "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/fix1/models/L8/ridge0p1-seed17.json",
+          "policy": "local",
+          "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+          "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+        },
+        "kind": "shared",
+        "learned": {
+          "behavior_seed": 17,
+          "compact_logging": true,
+          "epsilon": 0.2,
+          "max_decisions": 512,
+          "pool_seed": 17,
+          "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+          "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+        },
+        "name": "fix1-L8-ridge0p1",
+        "pool_size": 128
+      },
+      {
+        "allocator": {
+          "c_min": 4.2e-08,
+          "control_id": "B4",
+          "fallback_length": 4,
+          "fixed_length": 16,
+          "model_hash": "84bae22196c8e24d036eb6ece06b34204737f8b1e50a4a26c9b1b459f05502be",
+          "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/fix1/models/L16/ridge0p1-seed17.json",
+          "policy": "local",
+          "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+          "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+        },
+        "kind": "shared",
+        "learned": {
+          "behavior_seed": 17,
+          "compact_logging": true,
+          "epsilon": 0.2,
+          "max_decisions": 512,
+          "pool_seed": 17,
+          "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+          "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+        },
+        "name": "fix1-L16-ridge0p1",
+        "pool_size": 128
+      },
+      {
+        "allocator": {
+          "c_min": 4.2e-08,
+          "control_id": "B4",
+          "fallback_length": 4,
+          "fixed_length": 32,
+          "model_hash": "2d5db9a29d9f8dc8246a5f4445f073bed2d35cea4a52b2fcb0c6e6443c6ce7bf",
+          "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/fix1/models/L32/ridge0p1-seed17.json",
+          "policy": "local",
+          "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+          "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+        },
+        "kind": "shared",
+        "learned": {
+          "behavior_seed": 17,
+          "compact_logging": true,
+          "epsilon": 0.2,
+          "max_decisions": 512,
+          "pool_seed": 17,
+          "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+          "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+        },
+        "name": "fix1-L32-ridge0p1",
+        "pool_size": 128
+      },
+      {
+        "allocator": {
+          "c_min": 4.2e-08,
+          "control_id": "B4",
+          "fallback_length": 4,
+          "fixed_length": 64,
+          "model_hash": "36e0d321ea938d21d513d1d88a28bd0cb550e04b8b65baa4a849d57f0a1c294c",
+          "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/fix1/models/L64/ridge0p1-seed17.json",
+          "policy": "local",
+          "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+          "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+        },
+        "kind": "shared",
+        "learned": {
+          "behavior_seed": 17,
+          "compact_logging": true,
+          "epsilon": 0.2,
+          "max_decisions": 512,
+          "pool_seed": 17,
+          "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+          "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+        },
+        "name": "fix1-L64-ridge0p1",
+        "pool_size": 128
+      },
+      {
+        "allocator": {
+          "c_min": 4.2e-08,
+          "control_id": "B5",
+          "fallback_length": 4,
+          "model_hash": "8aca421ab3a648b5555e0eee826094e2b073bf9cec1856bb22321f2a0b519d58",
+          "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/models/B5/ridge1-seed17.json",
+          "policy": "local",
+          "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+          "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+        },
+        "kind": "shared",
+        "learned": {
+          "behavior_seed": 17,
+          "compact_logging": true,
+          "epsilon": 0.2,
+          "max_decisions": 512,
+          "pool_seed": 17,
+          "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+          "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+        },
+        "name": "fix1-B5-ridge1",
+        "pool_size": 128
+      },
+      {
+        "allocator": {
+          "c_min": 4.2e-08,
+          "control_id": "B5",
+          "fallback_length": 4,
+          "model_hash": "711d05d54197e92512870d577d9a1f12dfb3864634e8dc80bd616761d9212d8d",
+          "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/fix1/models/B5/ridge0p1-seed17.json",
+          "policy": "local",
+          "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+          "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+        },
+        "kind": "shared",
+        "learned": {
+          "behavior_seed": 17,
+          "compact_logging": true,
+          "epsilon": 0.2,
+          "max_decisions": 512,
+          "pool_seed": 17,
+          "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+          "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+        },
+        "name": "fix1-B5-ridge0p1",
+        "pool_size": 128
+      },
+      {
+        "allocator": {
+          "c_min": 4.2e-08,
+          "control_id": "B5",
+          "fallback_length": 4,
+          "model_hash": "21582df36842f18ba009d5023ba47fff1cbff7a54f84b8ebcfa4367b4d6d98eb",
+          "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/models/local-capacity/hist7-seed17.json",
+          "policy": "local",
+          "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+          "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+        },
+        "kind": "shared",
+        "learned": {
+          "behavior_seed": 17,
+          "compact_logging": true,
+          "epsilon": 0.2,
+          "max_decisions": 512,
+          "pool_seed": 17,
+          "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+          "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+        },
+        "name": "fix1-B5-hist7",
+        "pool_size": 128
+      }
+    ],
+    "omitted": [
+      {
+        "flag": "Short/long-budget rank unmeasured; screened under finite resource allocation, not declared saturated",
+        "method": "fix1-L1-hist7"
+      },
+      {
+        "flag": "Short/long-budget rank unmeasured; screened under finite resource allocation, not declared saturated",
+        "method": "fix1-L2-ridge1"
+      },
+      {
+        "flag": "Short/long-budget rank unmeasured; screened under finite resource allocation, not declared saturated",
+        "method": "fix1-L2-ridge10"
+      },
+      {
+        "flag": "Short/long-budget rank unmeasured; screened under finite resource allocation, not declared saturated",
+        "method": "fix1-L2-hist7"
+      },
+      {
+        "flag": "Short/long-budget rank unmeasured; screened under finite resource allocation, not declared saturated",
+        "method": "fix1-L4-ridge1"
+      },
+      {
+        "flag": "Short/long-budget rank unmeasured; screened under finite resource allocation, not declared saturated",
+        "method": "fix1-L4-ridge10"
+      },
+      {
+        "flag": "Short/long-budget rank unmeasured; screened under finite resource allocation, not declared saturated",
+        "method": "fix1-L4-hist7"
+      },
+      {
+        "flag": "Short/long-budget rank unmeasured; screened under finite resource allocation, not declared saturated",
+        "method": "fix1-L8-ridge1"
+      },
+      {
+        "flag": "Short/long-budget rank unmeasured; screened under finite resource allocation, not declared saturated",
+        "method": "fix1-L8-ridge10"
+      },
+      {
+        "flag": "Short/long-budget rank unmeasured; screened under finite resource allocation, not declared saturated",
+        "method": "fix1-L8-hist7"
+      },
+      {
+        "flag": "Short/long-budget rank unmeasured; screened under finite resource allocation, not declared saturated",
+        "method": "fix1-L16-ridge1"
+      },
+      {
+        "flag": "Short/long-budget rank unmeasured; screened under finite resource allocation, not declared saturated",
+        "method": "fix1-L16-ridge10"
+      },
+      {
+        "flag": "Short/long-budget rank unmeasured; screened under finite resource allocation, not declared saturated",
+        "method": "fix1-L16-hist7"
+      },
+      {
+        "flag": "Short/long-budget rank unmeasured; screened under finite resource allocation, not declared saturated",
+        "method": "fix1-L32-ridge1"
+      },
+      {
+        "flag": "Short/long-budget rank unmeasured; screened under finite resource allocation, not declared saturated",
+        "method": "fix1-L32-ridge10"
+      },
+      {
+        "flag": "Short/long-budget rank unmeasured; screened under finite resource allocation, not declared saturated",
+        "method": "fix1-L32-hist7"
+      },
+      {
+        "flag": "Short/long-budget rank unmeasured; screened under finite resource allocation, not declared saturated",
+        "method": "fix1-L64-ridge1"
+      },
+      {
+        "flag": "Short/long-budget rank unmeasured; screened under finite resource allocation, not declared saturated",
+        "method": "fix1-L64-ridge10"
+      },
+      {
+        "flag": "Short/long-budget rank unmeasured; screened under finite resource allocation, not declared saturated",
+        "method": "fix1-L64-hist7"
+      },
+      {
+        "flag": "Short/long-budget rank unmeasured; screened under finite resource allocation, not declared saturated",
+        "method": "fix1-B5-ridge10"
+      },
+      {
+        "flag": "Short/long-budget rank unmeasured; screened under finite resource allocation, not declared saturated",
+        "method": "fix1-B5-hist15"
+      },
+      {
+        "flag": "Short/long-budget rank unmeasured; screened under finite resource allocation, not declared saturated",
+        "method": "fix1-B5-hist31"
+      }
+    ],
+    "originals": 6,
+    "requests": 270,
+    "screen_scores": {
+      "B0": 0.9977924440385437,
+      "B1-no-plunge": 0.9990154576556453,
+      "B2-estimate-L1": 0.998767220168406,
+      "fix1-B5-hist15": 0.9967619363180851,
+      "fix1-B5-hist31": 0.9965255340959601,
+      "fix1-B5-hist7": 0.9982608110100606,
+      "fix1-B5-ridge0p1": 0.9981510004030482,
+      "fix1-B5-ridge1": 0.9981510004030482,
+      "fix1-B5-ridge10": 0.9981510004030482,
+      "fix1-L1-hist7": 0.9952411387457225,
+      "fix1-L1-ridge0p1": 0.9982227789798409,
+      "fix1-L1-ridge1": 0.9987517900522619,
+      "fix1-L1-ridge10": 0.9982577189060168,
+      "fix1-L16-hist7": 0.9965255340959601,
+      "fix1-L16-ridge0p1": 0.9975011956630073,
+      "fix1-L16-ridge1": 0.9970562087583362,
+      "fix1-L16-ridge10": 0.9967129331461614,
+      "fix1-L2-hist7": 0.9976963422327335,
+      "fix1-L2-ridge0p1": 0.997719750417434,
+      "fix1-L2-ridge1": 0.9975165870939303,
+      "fix1-L2-ridge10": 0.9975645704394877,
+      "fix1-L32-hist7": 0.9965893861634901,
+      "fix1-L32-ridge0p1": 0.9967638452943534,
+      "fix1-L32-ridge1": 0.9967638452943534,
+      "fix1-L32-ridge10": 0.9965255340959601,
+      "fix1-L4-hist7": 0.9964363107072501,
+      "fix1-L4-ridge0p1": 0.9984326215933174,
+      "fix1-L4-ridge1": 0.9975172199608511,
+      "fix1-L4-ridge10": 0.9977943269257937,
+      "fix1-L64-hist7": 0.9965893861634901,
+      "fix1-L64-ridge0p1": 0.9966915494715379,
+      "fix1-L64-ridge1": 0.9965893861634901,
+      "fix1-L64-ridge10": 0.9965893861634901,
+      "fix1-L8-hist7": 0.9967367190064295,
+      "fix1-L8-ridge0p1": 0.9980904410961501,
+      "fix1-L8-ridge1": 0.9978743045995956,
+      "fix1-L8-ridge10": 0.9974801733411726
+    },
+    "solver_seeds": [
+      17
+    ],
+    "weights": [
+      0.25,
+      0.5,
+      0.25
+    ]
+  },
+  "fit_cards": [
+    {
+      "data_hash": "ef4d2df3b12f76462e4633e616ff47a52cc9cfdaf0d50c13f4d32359ee92c15e",
+      "path": "artifacts/task13/fix1/models/B5/fit-card.json",
+      "sha256": "54108f1d68ca0fb7b3c816627290b50430e1a115ab276e480a84bd3f6d5793c8"
+    },
+    {
+      "data_hash": "0adde0d67122a5d925a8f522aa684d4b31e96f827033ebf3680d8b1dc492bc63",
+      "path": "artifacts/task13/fix1/models/L1/fit-card.json",
+      "sha256": "4e3fc67439416a477135afdf8e4cf4bd3f0f200f3aaf5043e94b367d08e84976"
+    },
+    {
+      "data_hash": "479948b2c1ba086dbb130b2193ccdcff7fccbcda03f2bab666eaadedb2fa643f",
+      "path": "artifacts/task13/fix1/models/L16/fit-card.json",
+      "sha256": "57e94e00cf2c08efd0fdba88c36e0a95eedfeb17d8d5cc78bce4357be4478ced"
+    },
+    {
+      "data_hash": "ad78bceed9a807a3e10d6305aff5710002d75005d624a7ba9ce0ede000849ba5",
+      "path": "artifacts/task13/fix1/models/L2/fit-card.json",
+      "sha256": "7a506d597918749424f307407ee28899fc2d41855be9afbdfd2780120c419f4d"
+    },
+    {
+      "data_hash": "76514c8efb7146af19c14d15d4b3cbf94cc33efea3cb6a4536091cfc87aa8a89",
+      "path": "artifacts/task13/fix1/models/L32/fit-card.json",
+      "sha256": "90ccb85af43902444c2e86b1e4742dde8fc9a789a66525645278b8d4e1f07574"
+    },
+    {
+      "data_hash": "6bb4a9e85ffa16a75b376f35ceff517394bd4ea95bcbbb293896fe22266f656c",
+      "path": "artifacts/task13/fix1/models/L4/fit-card.json",
+      "sha256": "af8b13d793c756080d63c8825c15bec28fb45b4ead89adba2ec78fa6aa4bcac5"
+    },
+    {
+      "data_hash": "a820e849719c5c42517e707c6b9121d85314b78f1443251d9bfe9e0aa978c467",
+      "path": "artifacts/task13/fix1/models/L64/fit-card.json",
+      "sha256": "e70aa5b5e790a80703271a5545240aa71d5ff8d53f203fd452ebfe2dbc61ca8d"
+    },
+    {
+      "data_hash": "57a1d1c53770ef798c2d622007df53309a4aa664121c434f9ed4e216b26cb6d5",
+      "path": "artifacts/task13/fix1/models/L8/fit-card.json",
+      "sha256": "3505651ec255ea8ebb68c56f26b5f9999c11fd415f024bfdf3099eae2c12a504"
+    }
+  ],
+  "fit_resources": {
+    "cpu_ns": 26436748000,
+    "peak_rss_bytes": 458850304,
+    "results": [
+      {
+        "card": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/fix1/models/L1/fit-card.json",
+        "success": true
+      },
+      {
+        "card": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/fix1/models/L2/fit-card.json",
+        "success": true
+      },
+      {
+        "card": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/fix1/models/L4/fit-card.json",
+        "success": true
+      },
+      {
+        "card": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/fix1/models/L8/fit-card.json",
+        "success": true
+      },
+      {
+        "card": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/fix1/models/L16/fit-card.json",
+        "success": true
+      },
+      {
+        "card": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/fix1/models/L32/fit-card.json",
+        "success": true
+      },
+      {
+        "card": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/fix1/models/L64/fit-card.json",
+        "success": true
+      },
+      {
+        "card": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/fix1/models/B5/fit-card.json",
+        "success": true
+      }
+    ],
+    "scope": "Full tuning fit process from pre-import through export, includes nested fit-card stages; do not add both",
+    "wall_ns": 26875248333
+  },
+  "fit_seeds": [
+    17
+  ],
+  "historical": {
+    "attempts": 1614,
+    "evidence": "docs/superpowers/evidence/task13.json",
+    "preserved": true
+  },
+  "inclusive_batch_wall_ns": 504422938583,
+  "limitations": [
+    "Screening omitted short/long budget outcomes; no global or every-model saturation claim.",
+    "B5 improvement is smaller than previously observed timing displacement; no confirmed effect.",
+    "B3/B4-L1 share one identical logical policy/asset and physical outcome set.",
+    "Seed17 and reused assets are conditional-on-fit evidence; no independent original or fit population added."
+  ],
+  "new_candidate_fits": 23,
+  "new_fits_including_curves": 69,
+  "protocol": {
+    "base_commit": "328013b",
+    "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+    "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+    "exact_regimes": [
+      1,
+      2,
+      4,
+      8,
+      16,
+      32,
+      64
+    ],
+    "expansion": {
+      "max_additional_methods": 9,
+      "max_cold_cost_ratio": 1.25,
+      "max_median_prediction_ns": 5000000,
+      "max_new_candidates": 3,
+      "max_requests": 162,
+      "rule": "Only the best B3, best B4 and best B5 deployments: if improvement over same-stage ridge1 original baseline >=.0002 and full cold sum ratio<=1.25 and measured median inference<=5ms, extend a winning alpha.1/10 boundary once to.01/100, or winning hist7 once tohist15. Reuse B5 assets when identical. Deduplicate L1. Other fixed regimes are bounded joint-search screening, not globally saturated.",
+      "utility_threshold": 0.0002
+    },
+    "final": {
+      "budgets_ns": [
+        526707240,
+        2106828958,
+        8427315832
+      ],
+      "requests_max": 288,
+      "weights": [
+        0.25,
+        0.5,
+        0.25
+      ]
+    },
+    "fit_candidates": 23,
+    "fit_executions_including_two_curves_each": 69,
+    "fit_seeds": [
+      17
+    ],
+    "max_new_requests": 672,
+    "new_B5_grid": [
+      {
+        "kind": "ridge",
+        "name": "ridge0p1",
+        "parameters": {
+          "alpha": 0.1
+        }
+      },
+      {
+        "kind": "ridge",
+        "name": "ridge10",
+        "parameters": {
+          "alpha": 10.0
+        }
+      }
+    ],
+    "new_regime_grid": [
+      {
+        "kind": "ridge",
+        "name": "ridge0p1",
+        "parameters": {
+          "alpha": 0.1
+        }
+      },
+      {
+        "kind": "ridge",
+        "name": "ridge10",
+        "parameters": {
+          "alpha": 10.0
+        }
+      },
+      {
+        "kind": "histogram",
+        "name": "hist7",
+        "parameters": {
+          "max_iter": 30,
+          "max_leaf_nodes": 7,
+          "min_samples_leaf": 10
+        },
+        "quantile": true
+      }
+    ],
+    "reason": "Review I1: fresh B3/B4/B5 actual-regime tuning lacked stopping evidence",
+    "resource_stop": "One actual-regime nonlinear rung and two regularization neighbors per regime, hierarchical survivor allocation, at mostone conditional outward step for each winning control. Further tuning stops at this finite resource allocation; report any continuing trend, do not call it statistical/global convergence.",
+    "reuse": "alpha1 exact-regime assets; B5 matched6564-row hist7/15/31 assets deployed with control_id=B5; no duplicate fits",
+    "run_order_seed": 20261014,
+    "scope": "Public exploratory conditional-on-fit tuning; six originals remain six; preserve all previous1614 attempts/cards; no protected outcomes",
+    "screen": {
+      "budgets_ns": [
+        2106828958
+      ],
+      "methods": 37,
+      "originals": 6,
+      "purpose": "Resource screening only; omitted candidates have unmeasured short/long-budget advantages, flagged explicitly",
+      "requests": 222
+    },
+    "selection": "Completed three-budget weighted utility, ties lower total cold request wall then model bytes/name; no seed aliases or screen score used as final score.",
+    "solver_seeds": [
+      17
+    ],
+    "source_freeze": "No runtime changes, fitting or tests during timed stages",
+    "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+    "survivors": "Winner per fixed regime; L1 runner-up; highest remaining fixed contender; top2 B5; original L1/B5 ridge1; B0/no-plunge/estimate-L1. At most16 methods; exact count/config sealed after screening, before timing.",
+    "training_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "validation_indices": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10
+    ],
+    "version": 1
+  },
+  "raw_outcomes": {
+    "path": "artifacts/task13/fix1/raw-outcomes.json",
+    "sha256": "8fa66d048e16b996bb1dee0c8b0d83fde049efab30377ad97ea56d1b90dc8906"
+  },
+  "reconstruction_cpu_ns": 506155000,
+  "reconstruction_wall_ns": 596903625,
+  "reused_B5_assets": [
+    "local-capacity/hist7-seed17.json",
+    "local-capacity/hist15-seed17.json",
+    "local-capacity-expanded/hist31-seed17.json"
+  ],
+  "scope": "Review fix1 public actual-regime bounded tuning; no protected/frozen/superiority claim",
+  "selected": {
+    "B3": "fix1-L1-ridge1",
+    "B4": "fix1-L1-ridge1",
+    "B5": "fix1-B5-hist7"
+  },
+  "solver_seeds": [
+    17
+  ],
+  "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+  "stages": {
+    "final": {
+      "comparisons": [
+        {
+          "budget_ns": 526707240,
+          "dual_mean": 795.2216578962965,
+          "method": "fix1-B5-hist7",
+          "primal_mean": 881.8333333333334,
+          "raw_gap_mean": 86.6116754370368,
+          "utility_mean": 0.9935892972567051
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 812.7533234326323,
+          "method": "fix1-B5-hist7",
+          "primal_mean": 835.5,
+          "raw_gap_mean": 22.74667656736771,
+          "utility_mean": 0.9982608110100606
+        },
+        {
+          "budget_ns": 8427315832,
+          "dual_mean": 829.3333333333334,
+          "method": "fix1-B5-hist7",
+          "primal_mean": 829.3333333333334,
+          "raw_gap_mean": 0.0,
+          "utility_mean": 1.0
+        },
+        {
+          "budget_ns": 526707240,
+          "dual_mean": 795.2216578962965,
+          "method": "B2-estimate-L1",
+          "primal_mean": 881.8333333333334,
+          "raw_gap_mean": 86.6116754370368,
+          "utility_mean": 0.9935892972567051
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 813.1958026915316,
+          "method": "B2-estimate-L1",
+          "primal_mean": 829.3333333333334,
+          "raw_gap_mean": 16.137530641801693,
+          "utility_mean": 0.998767220168406
+        },
+        {
+          "budget_ns": 8427315832,
+          "dual_mean": 829.3333333333334,
+          "method": "B2-estimate-L1",
+          "primal_mean": 829.3333333333334,
+          "raw_gap_mean": 0.0,
+          "utility_mean": 1.0
+        },
+        {
+          "budget_ns": 526707240,
+          "dual_mean": 795.1658191795196,
+          "method": "fix1-L1-ridge1",
+          "primal_mean": 881.8333333333334,
+          "raw_gap_mean": 86.66751415381366,
+          "utility_mean": 0.9935856791191572
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 808.7177323427871,
+          "method": "fix1-L1-ridge1",
+          "primal_mean": 829.3333333333334,
+          "raw_gap_mean": 20.615600990546152,
+          "utility_mean": 0.9984746766003765
+        },
+        {
+          "budget_ns": 8427315832,
+          "dual_mean": 829.3333333333334,
+          "method": "fix1-L1-ridge1",
+          "primal_mean": 829.3333333333334,
+          "raw_gap_mean": 0.0,
+          "utility_mean": 1.0
+        },
+        {
+          "budget_ns": 526707240,
+          "dual_mean": 795.2216578962965,
+          "method": "fix1-L32-ridge0p1",
+          "primal_mean": 881.8333333333334,
+          "raw_gap_mean": 86.6116754370368,
+          "utility_mean": 0.9935892972567051
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 808.4468373670501,
+          "method": "fix1-L32-ridge0p1",
+          "primal_mean": 852.6666666666666,
+          "raw_gap_mean": 44.21982929961655,
+          "utility_mean": 0.9966216157790437
+        },
+        {
+          "budget_ns": 8427315832,
+          "dual_mean": 829.3333333333334,
+          "method": "fix1-L32-ridge0p1",
+          "primal_mean": 829.3333333333334,
+          "raw_gap_mean": 0.0,
+          "utility_mean": 1.0
+        },
+        {
+          "budget_ns": 526707240,
+          "dual_mean": 795.2216578962965,
+          "method": "fix1-L2-ridge0p1",
+          "primal_mean": 881.8333333333334,
+          "raw_gap_mean": 86.6116754370368,
+          "utility_mean": 0.9935892972567051
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 810.8814731598125,
+          "method": "fix1-L2-ridge0p1",
+          "primal_mean": 838.6666666666666,
+          "raw_gap_mean": 27.78519350685421,
+          "utility_mean": 0.9979465371730875
+        },
+        {
+          "budget_ns": 8427315832,
+          "dual_mean": 829.3333333333334,
+          "method": "fix1-L2-ridge0p1",
+          "primal_mean": 829.3333333333334,
+          "raw_gap_mean": 0.0,
+          "utility_mean": 1.0
+        },
+        {
+          "budget_ns": 526707240,
+          "dual_mean": 795.2216578962965,
+          "method": "fix1-B5-ridge1",
+          "primal_mean": 881.8333333333334,
+          "raw_gap_mean": 86.6116754370368,
+          "utility_mean": 0.9935892972567051
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 814.1409060181912,
+          "method": "fix1-B5-ridge1",
+          "primal_mean": 838.3333333333334,
+          "raw_gap_mean": 24.192427315142066,
+          "utility_mean": 0.998151000403048
+        },
+        {
+          "budget_ns": 8427315832,
+          "dual_mean": 829.3333333333334,
+          "method": "fix1-B5-ridge1",
+          "primal_mean": 829.3333333333334,
+          "raw_gap_mean": 0.0,
+          "utility_mean": 1.0
+        },
+        {
+          "budget_ns": 526707240,
+          "dual_mean": 795.2216578962965,
+          "method": "fix1-L4-ridge0p1",
+          "primal_mean": 881.8333333333334,
+          "raw_gap_mean": 86.6116754370368,
+          "utility_mean": 0.9935892972567051
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 814.3104449174309,
+          "method": "fix1-L4-ridge0p1",
+          "primal_mean": 842.5,
+          "raw_gap_mean": 28.189555082569086,
+          "utility_mean": 0.9978451825720418
+        },
+        {
+          "budget_ns": 8427315832,
+          "dual_mean": 829.3333333333334,
+          "method": "fix1-L4-ridge0p1",
+          "primal_mean": 829.3333333333334,
+          "raw_gap_mean": 0.0,
+          "utility_mean": 1.0
+        },
+        {
+          "budget_ns": 526707240,
+          "dual_mean": 795.2216578962965,
+          "method": "B0",
+          "primal_mean": 881.8333333333334,
+          "raw_gap_mean": 86.6116754370368,
+          "utility_mean": 0.9935892972567051
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 815.8944822346034,
+          "method": "B0",
+          "primal_mean": 844.8333333333334,
+          "raw_gap_mean": 28.93885109872993,
+          "utility_mean": 0.9977924440385437
+        },
+        {
+          "budget_ns": 8427315832,
+          "dual_mean": 829.3333333333334,
+          "method": "B0",
+          "primal_mean": 829.3333333333334,
+          "raw_gap_mean": 0.0,
+          "utility_mean": 1.0
+        },
+        {
+          "budget_ns": 526707240,
+          "dual_mean": 795.2216578962965,
+          "method": "fix1-L16-ridge0p1",
+          "primal_mean": 881.8333333333334,
+          "raw_gap_mean": 86.6116754370368,
+          "utility_mean": 0.9935892972567051
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 810.3030747713572,
+          "method": "fix1-L16-ridge0p1",
+          "primal_mean": 843,
+          "raw_gap_mean": 32.69692522864284,
+          "utility_mean": 0.9975011956630073
+        },
+        {
+          "budget_ns": 8427315832,
+          "dual_mean": 829.3333333333334,
+          "method": "fix1-L16-ridge0p1",
+          "primal_mean": 829.3333333333334,
+          "raw_gap_mean": 0.0,
+          "utility_mean": 1.0
+        },
+        {
+          "budget_ns": 526707240,
+          "dual_mean": 795.1658191795196,
+          "method": "fix1-L1-ridge0p1",
+          "primal_mean": 881.8333333333334,
+          "raw_gap_mean": 86.66751415381366,
+          "utility_mean": 0.9935856791191572
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 814.3104449174309,
+          "method": "fix1-L1-ridge0p1",
+          "primal_mean": 835.5,
+          "raw_gap_mean": 21.189555082569086,
+          "utility_mean": 0.9983796753751428
+        },
+        {
+          "budget_ns": 8427315832,
+          "dual_mean": 829.3333333333334,
+          "method": "fix1-L1-ridge0p1",
+          "primal_mean": 829.3333333333334,
+          "raw_gap_mean": 0.0,
+          "utility_mean": 1.0
+        },
+        {
+          "budget_ns": 526707240,
+          "dual_mean": 795.2216578962965,
+          "method": "fix1-L8-ridge0p1",
+          "primal_mean": 881.8333333333334,
+          "raw_gap_mean": 86.6116754370368,
+          "utility_mean": 0.9935892972567051
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 813.8269494840054,
+          "method": "fix1-L8-ridge0p1",
+          "primal_mean": 838.8333333333334,
+          "raw_gap_mean": 25.006383849327943,
+          "utility_mean": 0.99809044109615
+        },
+        {
+          "budget_ns": 8427315832,
+          "dual_mean": 829.3333333333334,
+          "method": "fix1-L8-ridge0p1",
+          "primal_mean": 829.3333333333334,
+          "raw_gap_mean": 0.0,
+          "utility_mean": 1.0
+        },
+        {
+          "budget_ns": 526707240,
+          "dual_mean": 795.2216578962965,
+          "method": "fix1-B5-ridge0p1",
+          "primal_mean": 881.8333333333334,
+          "raw_gap_mean": 86.6116754370368,
+          "utility_mean": 0.9935892972567051
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 814.1409060181912,
+          "method": "fix1-B5-ridge0p1",
+          "primal_mean": 838.3333333333334,
+          "raw_gap_mean": 24.192427315142066,
+          "utility_mean": 0.998151000403048
+        },
+        {
+          "budget_ns": 8427315832,
+          "dual_mean": 829.3333333333334,
+          "method": "fix1-B5-ridge0p1",
+          "primal_mean": 829.3333333333334,
+          "raw_gap_mean": 0.0,
+          "utility_mean": 1.0
+        },
+        {
+          "budget_ns": 526707240,
+          "dual_mean": 795.1658191795196,
+          "method": "fix1-L1-ridge10",
+          "primal_mean": 881.8333333333334,
+          "raw_gap_mean": 86.66751415381366,
+          "utility_mean": 0.9935856791191572
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 809.3694242457348,
+          "method": "fix1-L1-ridge10",
+          "primal_mean": 833.3333333333334,
+          "raw_gap_mean": 23.96390908759861,
+          "utility_mean": 0.9982577189060169
+        },
+        {
+          "budget_ns": 8427315832,
+          "dual_mean": 829.3333333333334,
+          "method": "fix1-L1-ridge10",
+          "primal_mean": 829.3333333333334,
+          "raw_gap_mean": 0.0,
+          "utility_mean": 1.0
+        },
+        {
+          "budget_ns": 526707240,
+          "dual_mean": 795.2216578962965,
+          "method": "B1-no-plunge",
+          "primal_mean": 881.8333333333334,
+          "raw_gap_mean": 86.6116754370368,
+          "utility_mean": 0.9935892972567051
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 815.9209062607155,
+          "method": "B1-no-plunge",
+          "primal_mean": 829.3333333333334,
+          "raw_gap_mean": 13.412427072617902,
+          "utility_mean": 0.998975491500758
+        },
+        {
+          "budget_ns": 8427315832,
+          "dual_mean": 829.3333333333335,
+          "method": "B1-no-plunge",
+          "primal_mean": 829.3333333333334,
+          "raw_gap_mean": -1.1368683772161603e-13,
+          "utility_mean": 1.0
+        },
+        {
+          "budget_ns": 526707240,
+          "dual_mean": 795.2216578962965,
+          "method": "fix1-L64-ridge0p1",
+          "primal_mean": 881.8333333333334,
+          "raw_gap_mean": 86.6116754370368,
+          "utility_mean": 0.9935892972567051
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 807.1873025835068,
+          "method": "fix1-L64-ridge0p1",
+          "primal_mean": 851.8333333333334,
+          "raw_gap_mean": 44.64603074982646,
+          "utility_mean": 0.99658938616349
+        },
+        {
+          "budget_ns": 8427315832,
+          "dual_mean": 829.3333333333334,
+          "method": "fix1-L64-ridge0p1",
+          "primal_mean": 829.3333333333334,
+          "raw_gap_mean": 0.0,
+          "utility_mean": 1.0
+        }
+      ],
+      "measured": {
+        "B0": {
+          "extraction_ns": null,
+          "full_request_ns": {
+            "count": 18,
+            "max": 3880887041,
+            "median": 369794479.5,
+            "min": 170740542,
+            "sum": 15160706168
+          },
+          "loading_ns": null,
+          "overshoot_ns": 118808239,
+          "parent_cpu_ns": 589309000,
+          "peak_rss_bytes": 188727296,
+          "prediction_ns": null,
+          "publication_ns": {
+            "count": 18,
+            "max": 6610166,
+            "median": 4279688.0,
+            "min": 3754000,
+            "sum": 83098707
+          },
+          "requests": 18,
+          "statuses": {
+            "complete": 14,
+            "deadline": 4
+          },
+          "trace_bytes": 662620,
+          "worker_cpu_ns": 14636299000
+        },
+        "B1-no-plunge": {
+          "extraction_ns": null,
+          "full_request_ns": {
+            "count": 18,
+            "max": 3006778750,
+            "median": 393490812.5,
+            "min": 202182708,
+            "sum": 14873379542
+          },
+          "loading_ns": null,
+          "overshoot_ns": 153381572,
+          "parent_cpu_ns": 607050000,
+          "peak_rss_bytes": 189857792,
+          "prediction_ns": null,
+          "publication_ns": {
+            "count": 18,
+            "max": 6378500,
+            "median": 4460250.0,
+            "min": 3824292,
+            "sum": 84730582
+          },
+          "requests": 18,
+          "statuses": {
+            "complete": 13,
+            "deadline": 5
+          },
+          "trace_bytes": 691895,
+          "worker_cpu_ns": 14311936000
+        },
+        "B2-estimate-L1": {
+          "extraction_ns": null,
+          "full_request_ns": {
+            "count": 18,
+            "max": 3490518958,
+            "median": 389058771.0,
+            "min": 182958250,
+            "sum": 15738113209
+          },
+          "loading_ns": null,
+          "overshoot_ns": 212860573,
+          "parent_cpu_ns": 956837000,
+          "peak_rss_bytes": 217432064,
+          "prediction_ns": null,
+          "publication_ns": {
+            "count": 18,
+            "max": 265781958,
+            "median": 6574396.0,
+            "min": 4982625,
+            "sum": 738134207
+          },
+          "requests": 18,
+          "statuses": {
+            "complete": 13,
+            "deadline": 5
+          },
+          "trace_bytes": 8144157,
+          "worker_cpu_ns": 14148557000
+        },
+        "fix1-B5-hist7": {
+          "extraction_ns": {
+            "count": 388,
+            "max": 4246250,
+            "median": 1507729.5,
+            "min": 311042,
+            "sum": 645537541
+          },
+          "full_request_ns": {
+            "count": 18,
+            "max": 4412969458,
+            "median": 385856416.5,
+            "min": 183387750,
+            "sum": 17482641875
+          },
+          "loading_ns": {
+            "count": 18,
+            "max": 4418958,
+            "median": 3884021.0,
+            "min": 3692042,
+            "sum": 70932207
+          },
+          "overshoot_ns": 157946447,
+          "parent_cpu_ns": 1325473000,
+          "peak_rss_bytes": 205275136,
+          "prediction_ns": {
+            "count": 388,
+            "max": 1737417,
+            "median": 1223812.5,
+            "min": 636959,
+            "sum": 479565177
+          },
+          "publication_ns": {
+            "count": 18,
+            "max": 83735500,
+            "median": 5566770.5,
+            "min": 4575167,
+            "sum": 261938332
+          },
+          "requests": 18,
+          "statuses": {
+            "complete": 13,
+            "deadline": 5
+          },
+          "trace_bytes": 13165833,
+          "worker_cpu_ns": 16000948000
+        },
+        "fix1-B5-ridge0p1": {
+          "extraction_ns": {
+            "count": 225,
+            "max": 6564833,
+            "median": 2004875,
+            "min": 309708,
+            "sum": 537355211
+          },
+          "full_request_ns": {
+            "count": 18,
+            "max": 4052851750,
+            "median": 383668062.5,
+            "min": 183597750,
+            "sum": 17010154791
+          },
+          "loading_ns": {
+            "count": 18,
+            "max": 1671666,
+            "median": 1442874.5,
+            "min": 1347750,
+            "sum": 26319083
+          },
+          "overshoot_ns": 161496697,
+          "parent_cpu_ns": 1047899000,
+          "peak_rss_bytes": 213041152,
+          "prediction_ns": {
+            "count": 225,
+            "max": 493875,
+            "median": 221833,
+            "min": 113208,
+            "sum": 52647209
+          },
+          "publication_ns": {
+            "count": 18,
+            "max": 48988208,
+            "median": 5349708.5,
+            "min": 4679500,
+            "sum": 196478751
+          },
+          "requests": 18,
+          "statuses": {
+            "complete": 13,
+            "deadline": 5
+          },
+          "trace_bytes": 8167716,
+          "worker_cpu_ns": 15864498000
+        },
+        "fix1-B5-ridge1": {
+          "extraction_ns": {
+            "count": 226,
+            "max": 5992791,
+            "median": 2403083.5,
+            "min": 308459,
+            "sum": 561082919
+          },
+          "full_request_ns": {
+            "count": 18,
+            "max": 4079980333,
+            "median": 384399645.5,
+            "min": 184444125,
+            "sum": 17081474330
+          },
+          "loading_ns": {
+            "count": 18,
+            "max": 1653416,
+            "median": 1447375.5,
+            "min": 1359542,
+            "sum": 26223586
+          },
+          "overshoot_ns": 157611156,
+          "parent_cpu_ns": 1056053000,
+          "peak_rss_bytes": 212746240,
+          "prediction_ns": {
+            "count": 226,
+            "max": 489958,
+            "median": 228854.0,
+            "min": 124958,
+            "sum": 53798749
+          },
+          "publication_ns": {
+            "count": 18,
+            "max": 45371791,
+            "median": 5175771.0,
+            "min": 4655667,
+            "sum": 195742997
+          },
+          "requests": 18,
+          "statuses": {
+            "complete": 13,
+            "deadline": 5
+          },
+          "trace_bytes": 8323891,
+          "worker_cpu_ns": 15939153000
+        },
+        "fix1-L1-ridge0p1": {
+          "extraction_ns": {
+            "count": 529,
+            "max": 2607083,
+            "median": 736458,
+            "min": 188083,
+            "sum": 456675282
+          },
+          "full_request_ns": {
+            "count": 18,
+            "max": 4832260625,
+            "median": 380403125.0,
+            "min": 182676333,
+            "sum": 18772846706
+          },
+          "loading_ns": {
+            "count": 18,
+            "max": 1680875,
+            "median": 1412500.0,
+            "min": 1368458,
+            "sum": 26318583
+          },
+          "overshoot_ns": 159360656,
+          "parent_cpu_ns": 1614643000,
+          "peak_rss_bytes": 203849728,
+          "prediction_ns": {
+            "count": 529,
+            "max": 267167,
+            "median": 136500,
+            "min": 96625,
+            "sum": 74870138
+          },
+          "publication_ns": {
+            "count": 18,
+            "max": 118856542,
+            "median": 5122229.5,
+            "min": 4587375,
+            "sum": 328236916
+          },
+          "requests": 18,
+          "statuses": {
+            "complete": 13,
+            "deadline": 5
+          },
+          "trace_bytes": 18256954,
+          "worker_cpu_ns": 16950971000
+        },
+        "fix1-L1-ridge1": {
+          "extraction_ns": {
+            "count": 764,
+            "max": 2106250,
+            "median": 711354.0,
+            "min": 179000,
+            "sum": 588897892
+          },
+          "full_request_ns": {
+            "count": 18,
+            "max": 5024839833,
+            "median": 385495875.0,
+            "min": 184175250,
+            "sum": 21512998333
+          },
+          "loading_ns": {
+            "count": 18,
+            "max": 1514041,
+            "median": 1417500.5,
+            "min": 1354667,
+            "sum": 25691168
+          },
+          "overshoot_ns": 186158530,
+          "parent_cpu_ns": 2036319000,
+          "peak_rss_bytes": 208306176,
+          "prediction_ns": {
+            "count": 764,
+            "max": 234375,
+            "median": 135646.0,
+            "min": 95291,
+            "sum": 104823557
+          },
+          "publication_ns": {
+            "count": 18,
+            "max": 126115583,
+            "median": 5414833.5,
+            "min": 4636959,
+            "sum": 441285002
+          },
+          "requests": 18,
+          "statuses": {
+            "complete": 12,
+            "deadline": 6
+          },
+          "trace_bytes": 26211161,
+          "worker_cpu_ns": 19142182000
+        },
+        "fix1-L1-ridge10": {
+          "extraction_ns": {
+            "count": 853,
+            "max": 5092209,
+            "median": 623291,
+            "min": 178125,
+            "sum": 616919898
+          },
+          "full_request_ns": {
+            "count": 18,
+            "max": 4733368042,
+            "median": 386316020.5,
+            "min": 184264208,
+            "sum": 22276110792
+          },
+          "loading_ns": {
+            "count": 18,
+            "max": 1673500,
+            "median": 1443500.0,
+            "min": 1368875,
+            "sum": 26160708
+          },
+          "overshoot_ns": 192107154,
+          "parent_cpu_ns": 2249901000,
+          "peak_rss_bytes": 200441856,
+          "prediction_ns": {
+            "count": 853,
+            "max": 218000,
+            "median": 132084,
+            "min": 90916,
+            "sum": 114821599
+          },
+          "publication_ns": {
+            "count": 18,
+            "max": 105494417,
+            "median": 5505333.0,
+            "min": 4428667,
+            "sum": 475041626
+          },
+          "requests": 18,
+          "statuses": {
+            "complete": 12,
+            "deadline": 6
+          },
+          "trace_bytes": 29056133,
+          "worker_cpu_ns": 19634971000
+        },
+        "fix1-L16-ridge0p1": {
+          "extraction_ns": {
+            "count": 72,
+            "max": 1364542,
+            "median": 460666.5,
+            "min": 188833,
+            "sum": 40767497
+          },
+          "full_request_ns": {
+            "count": 18,
+            "max": 3331816750,
+            "median": 383180229.0,
+            "min": 182770959,
+            "sum": 15628474294
+          },
+          "loading_ns": {
+            "count": 18,
+            "max": 1644750,
+            "median": 1460687.0,
+            "min": 1368959,
+            "sum": 26359835
+          },
+          "overshoot_ns": 161992280,
+          "parent_cpu_ns": 745245000,
+          "peak_rss_bytes": 197738496,
+          "prediction_ns": {
+            "count": 72,
+            "max": 236458,
+            "median": 150771.0,
+            "min": 105084,
+            "sum": 11107709
+          },
+          "publication_ns": {
+            "count": 18,
+            "max": 24512833,
+            "median": 5046667.0,
+            "min": 4604584,
+            "sum": 126244586
+          },
+          "requests": 18,
+          "statuses": {
+            "complete": 13,
+            "deadline": 5
+          },
+          "trace_bytes": 3226205,
+          "worker_cpu_ns": 14811560000
+        },
+        "fix1-L2-ridge0p1": {
+          "extraction_ns": {
+            "count": 621,
+            "max": 4091667,
+            "median": 839000,
+            "min": 184292,
+            "sum": 695287292
+          },
+          "full_request_ns": {
+            "count": 18,
+            "max": 4557329792,
+            "median": 388024063.0,
+            "min": 183494417,
+            "sum": 20913466545
+          },
+          "loading_ns": {
+            "count": 18,
+            "max": 1669542,
+            "median": 1449229.0,
+            "min": 1369916,
+            "sum": 26481585
+          },
+          "overshoot_ns": 197397530,
+          "parent_cpu_ns": 1802771000,
+          "peak_rss_bytes": 193740800,
+          "prediction_ns": {
+            "count": 621,
+            "max": 261292,
+            "median": 145750,
+            "min": 101541,
+            "sum": 93886598
+          },
+          "publication_ns": {
+            "count": 18,
+            "max": 126863292,
+            "median": 5155979.5,
+            "min": 4565042,
+            "sum": 372127087
+          },
+          "requests": 18,
+          "statuses": {
+            "complete": 12,
+            "deadline": 6
+          },
+          "trace_bytes": 22028690,
+          "worker_cpu_ns": 18855360000
+        },
+        "fix1-L32-ridge0p1": {
+          "extraction_ns": {
+            "count": 134,
+            "max": 1530541,
+            "median": 630354.0,
+            "min": 199875,
+            "sum": 96376248
+          },
+          "full_request_ns": {
+            "count": 18,
+            "max": 8085865042,
+            "median": 379975541.5,
+            "min": 183068417,
+            "sum": 20468698209
+          },
+          "loading_ns": {
+            "count": 18,
+            "max": 1522666,
+            "median": 1436417.0,
+            "min": 1356875,
+            "sum": 25806583
+          },
+          "overshoot_ns": 152918405,
+          "parent_cpu_ns": 935435000,
+          "peak_rss_bytes": 205668352,
+          "prediction_ns": {
+            "count": 134,
+            "max": 221250,
+            "median": 150792.0,
+            "min": 114500,
+            "sum": 20715746
+          },
+          "publication_ns": {
+            "count": 18,
+            "max": 67618958,
+            "median": 5131687.5,
+            "min": 4680375,
+            "sum": 167872208
+          },
+          "requests": 18,
+          "statuses": {
+            "complete": 13,
+            "deadline": 5
+          },
+          "trace_bytes": 5517447,
+          "worker_cpu_ns": 19535006000
+        },
+        "fix1-L4-ridge0p1": {
+          "extraction_ns": {
+            "count": 330,
+            "max": 4534000,
+            "median": 2108125.0,
+            "min": 192917,
+            "sum": 683870369
+          },
+          "full_request_ns": {
+            "count": 18,
+            "max": 6072292833,
+            "median": 387543417.0,
+            "min": 182777125,
+            "sum": 21131083125
+          },
+          "loading_ns": {
+            "count": 18,
+            "max": 1507541,
+            "median": 1424937.5,
+            "min": 1355708,
+            "sum": 25660667
+          },
+          "overshoot_ns": 157140991,
+          "parent_cpu_ns": 1306139000,
+          "peak_rss_bytes": 219512832,
+          "prediction_ns": {
+            "count": 330,
+            "max": 321792,
+            "median": 190542.0,
+            "min": 102417,
+            "sum": 61879124
+          },
+          "publication_ns": {
+            "count": 18,
+            "max": 85352916,
+            "median": 5325479.0,
+            "min": 4594333,
+            "sum": 247797291
+          },
+          "requests": 18,
+          "statuses": {
+            "complete": 13,
+            "deadline": 5
+          },
+          "trace_bytes": 13180616,
+          "worker_cpu_ns": 19672506000
+        },
+        "fix1-L64-ridge0p1": {
+          "extraction_ns": {
+            "count": 50,
+            "max": 1176667,
+            "median": 366166.5,
+            "min": 192959,
+            "sum": 25692914
+          },
+          "full_request_ns": {
+            "count": 18,
+            "max": 4808059666,
+            "median": 380663354.5,
+            "min": 182721500,
+            "sum": 17095445206
+          },
+          "loading_ns": {
+            "count": 18,
+            "max": 1642791,
+            "median": 1460500.0,
+            "min": 1354583,
+            "sum": 26279373
+          },
+          "overshoot_ns": 159006739,
+          "parent_cpu_ns": 747335000,
+          "peak_rss_bytes": 214581248,
+          "prediction_ns": {
+            "count": 50,
+            "max": 206875,
+            "median": 155395.5,
+            "min": 111083,
+            "sum": 7862037
+          },
+          "publication_ns": {
+            "count": 18,
+            "max": 31433750,
+            "median": 5106708.5,
+            "min": 4564084,
+            "sum": 128349917
+          },
+          "requests": 18,
+          "statuses": {
+            "complete": 13,
+            "deadline": 5
+          },
+          "trace_bytes": 2625986,
+          "worker_cpu_ns": 16379615000
+        },
+        "fix1-L8-ridge0p1": {
+          "extraction_ns": {
+            "count": 99,
+            "max": 1405542,
+            "median": 480792,
+            "min": 188042,
+            "sum": 55184039
+          },
+          "full_request_ns": {
+            "count": 18,
+            "max": 3085375125,
+            "median": 381622125.5,
+            "min": 182636416,
+            "sum": 15073154753
+          },
+          "loading_ns": {
+            "count": 18,
+            "max": 1626958,
+            "median": 1449479.0,
+            "min": 1367500,
+            "sum": 26250250
+          },
+          "overshoot_ns": 151323366,
+          "parent_cpu_ns": 781851000,
+          "peak_rss_bytes": 176160768,
+          "prediction_ns": {
+            "count": 99,
+            "max": 226458,
+            "median": 149666,
+            "min": 102083,
+            "sum": 15211167
+          },
+          "publication_ns": {
+            "count": 18,
+            "max": 26325917,
+            "median": 5152875.5,
+            "min": 4422167,
+            "sum": 139556337
+          },
+          "requests": 18,
+          "statuses": {
+            "complete": 13,
+            "deadline": 5
+          },
+          "trace_bytes": 4088369,
+          "worker_cpu_ns": 14222301000
+        }
+      },
+      "peak_rss_bytes": 219512832,
+      "requests": 270,
+      "scores": {
+        "B0": 0.9972935463334481,
+        "B1-no-plunge": 0.9978850700645553,
+        "B2-estimate-L1": 0.9977809343983792,
+        "fix1-B5-hist7": 0.9975277298192066,
+        "fix1-B5-ridge0p1": 0.9974728245157003,
+        "fix1-B5-ridge1": 0.9974728245157003,
+        "fix1-L1-ridge0p1": 0.9975862574673607,
+        "fix1-L1-ridge1": 0.9976337580799776,
+        "fix1-L1-ridge10": 0.9975252792327978,
+        "fix1-L16-ridge0p1": 0.9971479221456799,
+        "fix1-L2-ridge0p1": 0.99737059290072,
+        "fix1-L32-ridge0p1": 0.9967081322036981,
+        "fix1-L4-ridge0p1": 0.9973199156001972,
+        "fix1-L64-ridge0p1": 0.9966920173959214,
+        "fix1-L8-ridge0p1": 0.9974425448622513
+      },
+      "statuses": {
+        "complete": 193,
+        "deadline": 77
+      },
+      "totals": {
+        "full_request_ns": 270218747878,
+        "overshoot_ns": 2479510335,
+        "parent_cpu_ns": 17802260000,
+        "publication_ns": 3986634546,
+        "trace_bytes": 163347673,
+        "worker_cpu_ns": 250105863000
+      }
+    },
+    "screen": {
+      "comparisons": [
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 814.3104449174309,
+          "method": "fix1-L4-ridge0p1",
+          "primal_mean": 834.8333333333334,
+          "raw_gap_mean": 20.52288841590242,
+          "utility_mean": 0.9984326215933174
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 816.4425045481481,
+          "method": "B1-no-plunge",
+          "primal_mean": 829.3333333333334,
+          "raw_gap_mean": 12.890828785185212,
+          "utility_mean": 0.9990154576556453
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 803.7270606014208,
+          "method": "fix1-L1-hist7",
+          "primal_mean": 866.6666666666666,
+          "raw_gap_mean": 62.93960606524589,
+          "utility_mean": 0.9952411387457225
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 810.8814731598125,
+          "method": "fix1-L2-ridge0p1",
+          "primal_mean": 842.1666666666666,
+          "raw_gap_mean": 31.28519350685421,
+          "utility_mean": 0.997719750417434
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 807.1873025835068,
+          "method": "fix1-L64-hist7",
+          "primal_mean": 851.8333333333334,
+          "raw_gap_mean": 44.64603074982646,
+          "utility_mean": 0.99658938616349
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 810.3030747713572,
+          "method": "fix1-L16-ridge10",
+          "primal_mean": 853.3333333333334,
+          "raw_gap_mean": 43.030258561976176,
+          "utility_mean": 0.9967129331461614
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 813.8269494840054,
+          "method": "fix1-L8-ridge1",
+          "primal_mean": 841.6666666666666,
+          "raw_gap_mean": 27.839717182661275,
+          "utility_mean": 0.9978743045995955
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 816.6510886863807,
+          "method": "fix1-L2-hist7",
+          "primal_mean": 846.8333333333334,
+          "raw_gap_mean": 30.18224464695258,
+          "utility_mean": 0.9976963422327334
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 814.3104449174309,
+          "method": "fix1-L4-ridge10",
+          "primal_mean": 843.1666666666666,
+          "raw_gap_mean": 28.856221749235754,
+          "utility_mean": 0.9977943269257937
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 807.1873025835068,
+          "method": "fix1-L16-hist7",
+          "primal_mean": 852.6666666666666,
+          "raw_gap_mean": 45.479364083159794,
+          "utility_mean": 0.9965255340959601
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 807.1873025835068,
+          "method": "fix1-L64-ridge1",
+          "primal_mean": 851.8333333333334,
+          "raw_gap_mean": 44.64603074982646,
+          "utility_mean": 0.99658938616349
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 815.8944822346034,
+          "method": "B0",
+          "primal_mean": 844.8333333333334,
+          "raw_gap_mean": 28.93885109872993,
+          "utility_mean": 0.9977924440385437
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 807.1873025835068,
+          "method": "fix1-L32-ridge10",
+          "primal_mean": 852.6666666666666,
+          "raw_gap_mean": 45.479364083159794,
+          "utility_mean": 0.9965255340959601
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 813.8269494840054,
+          "method": "fix1-L8-ridge0p1",
+          "primal_mean": 838.8333333333334,
+          "raw_gap_mean": 25.006383849327943,
+          "utility_mean": 0.99809044109615
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 807.1873025835068,
+          "method": "fix1-L32-hist7",
+          "primal_mean": 851.8333333333334,
+          "raw_gap_mean": 44.64603074982646,
+          "utility_mean": 0.99658938616349
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 810.3030747713572,
+          "method": "fix1-L16-ridge0p1",
+          "primal_mean": 843,
+          "raw_gap_mean": 32.69692522864284,
+          "utility_mean": 0.9975011956630073
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 812.7533234326323,
+          "method": "fix1-B5-hist7",
+          "primal_mean": 835.5,
+          "raw_gap_mean": 22.74667656736771,
+          "utility_mean": 0.9982608110100606
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 812.9944242457348,
+          "method": "fix1-L1-ridge1",
+          "primal_mean": 829.3333333333334,
+          "raw_gap_mean": 16.33890908759861,
+          "utility_mean": 0.9987517900522619
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 809.69368325063,
+          "method": "fix1-L2-ridge1",
+          "primal_mean": 844,
+          "raw_gap_mean": 34.30631674937005,
+          "utility_mean": 0.9975165870939302
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 810.3030747713572,
+          "method": "fix1-L32-ridge1",
+          "primal_mean": 852.6666666666666,
+          "raw_gap_mean": 42.363591895309504,
+          "utility_mean": 0.9967638452943535
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 810.3030747713572,
+          "method": "fix1-L32-ridge0p1",
+          "primal_mean": 852.6666666666666,
+          "raw_gap_mean": 42.363591895309504,
+          "utility_mean": 0.9967638452943535
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 809.3694242457348,
+          "method": "fix1-L1-ridge10",
+          "primal_mean": 833.3333333333334,
+          "raw_gap_mean": 23.96390908759861,
+          "utility_mean": 0.9982577189060169
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 813.4294567290133,
+          "method": "fix1-L1-ridge0p1",
+          "primal_mean": 836.6666666666666,
+          "raw_gap_mean": 23.23720993765342,
+          "utility_mean": 0.9982227789798409
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 813.1958026915316,
+          "method": "B2-estimate-L1",
+          "primal_mean": 829.3333333333334,
+          "raw_gap_mean": 16.137530641801693,
+          "utility_mean": 0.998767220168406
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 813.8269494840054,
+          "method": "fix1-L8-ridge10",
+          "primal_mean": 846.8333333333334,
+          "raw_gap_mean": 33.00638384932794,
+          "utility_mean": 0.9974801733411726
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 814.1409060181912,
+          "method": "fix1-B5-ridge10",
+          "primal_mean": 838.3333333333334,
+          "raw_gap_mean": 24.192427315142066,
+          "utility_mean": 0.998151000403048
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 807.1873025835068,
+          "method": "fix1-L4-hist7",
+          "primal_mean": 853.8333333333334,
+          "raw_gap_mean": 46.64603074982646,
+          "utility_mean": 0.99643631070725
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 814.1409060181912,
+          "method": "fix1-B5-ridge1",
+          "primal_mean": 838.3333333333334,
+          "raw_gap_mean": 24.192427315142066,
+          "utility_mean": 0.998151000403048
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 810.3030747713572,
+          "method": "fix1-L16-ridge1",
+          "primal_mean": 848.8333333333334,
+          "raw_gap_mean": 38.530258561976176,
+          "utility_mean": 0.9970562087583362
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 814.3104449174309,
+          "method": "fix1-L4-ridge1",
+          "primal_mean": 846.8333333333334,
+          "raw_gap_mean": 32.52288841590242,
+          "utility_mean": 0.9975172199608511
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 810.3199138934992,
+          "method": "fix1-L2-ridge10",
+          "primal_mean": 844,
+          "raw_gap_mean": 33.68008610650077,
+          "utility_mean": 0.9975645704394875
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 807.1873025835068,
+          "method": "fix1-L64-ridge10",
+          "primal_mean": 851.8333333333334,
+          "raw_gap_mean": 44.64603074982646,
+          "utility_mean": 0.99658938616349
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 810.2862993133436,
+          "method": "fix1-B5-hist15",
+          "primal_mean": 852.6666666666666,
+          "raw_gap_mean": 42.38036735332306,
+          "utility_mean": 0.9967619363180851
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 814.1409060181912,
+          "method": "fix1-B5-ridge0p1",
+          "primal_mean": 838.3333333333334,
+          "raw_gap_mean": 24.192427315142066,
+          "utility_mean": 0.998151000403048
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 808.4468373670501,
+          "method": "fix1-L8-hist7",
+          "primal_mean": 851.1666666666666,
+          "raw_gap_mean": 42.71982929961655,
+          "utility_mean": 0.9967367190064296
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 807.1873025835068,
+          "method": "fix1-B5-hist31",
+          "primal_mean": 852.6666666666666,
+          "raw_gap_mean": 45.479364083159794,
+          "utility_mean": 0.9965255340959601
+        },
+        {
+          "budget_ns": 2106828958,
+          "dual_mean": 807.1873025835068,
+          "method": "fix1-L64-ridge0p1",
+          "primal_mean": 850.5,
+          "raw_gap_mean": 43.31269741649313,
+          "utility_mean": 0.996691549471538
+        }
+      ],
+      "measured": {
+        "B0": {
+          "extraction_ns": null,
+          "full_request_ns": {
+            "count": 6,
+            "max": 2144618459,
+            "median": 580772916.5,
+            "min": 172276000,
+            "sum": 5581680209
+          },
+          "loading_ns": null,
+          "overshoot_ns": 32099292,
+          "parent_cpu_ns": 202970000,
+          "peak_rss_bytes": 170852352,
+          "prediction_ns": null,
+          "publication_ns": {
+            "count": 6,
+            "max": 6365417,
+            "median": 4418917.0,
+            "min": 3784083,
+            "sum": 27917083
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 5,
+            "deadline": 1
+          },
+          "trace_bytes": 220379,
+          "worker_cpu_ns": 5407497000
+        },
+        "B1-no-plunge": {
+          "extraction_ns": null,
+          "full_request_ns": {
+            "count": 6,
+            "max": 2148850083,
+            "median": 546394584.0,
+            "min": 202593667,
+            "sum": 5797816042
+          },
+          "loading_ns": null,
+          "overshoot_ns": 69655584,
+          "parent_cpu_ns": 215999000,
+          "peak_rss_bytes": 188678144,
+          "prediction_ns": null,
+          "publication_ns": {
+            "count": 6,
+            "max": 6141375,
+            "median": 4586250.0,
+            "min": 3863250,
+            "sum": 28442084
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 4,
+            "deadline": 2
+          },
+          "trace_bytes": 236784,
+          "worker_cpu_ns": 5618678000
+        },
+        "B2-estimate-L1": {
+          "extraction_ns": null,
+          "full_request_ns": {
+            "count": 6,
+            "max": 2249020291,
+            "median": 525230395.5,
+            "min": 178173958,
+            "sum": 5889484749
+          },
+          "loading_ns": null,
+          "overshoot_ns": 98152542,
+          "parent_cpu_ns": 281607000,
+          "peak_rss_bytes": 193675264,
+          "prediction_ns": null,
+          "publication_ns": {
+            "count": 6,
+            "max": 96584666,
+            "median": 13923020.5,
+            "min": 5125125,
+            "sum": 203877957
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 4,
+            "deadline": 2
+          },
+          "trace_bytes": 2264747,
+          "worker_cpu_ns": 5483368000
+        },
+        "fix1-B5-hist15": {
+          "extraction_ns": {
+            "count": 27,
+            "max": 4828666,
+            "median": 636625,
+            "min": 315375,
+            "sum": 40762665
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2167599667,
+            "median": 593061229.0,
+            "min": 209500292,
+            "sum": 5938791084
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 11714708,
+            "median": 10419563.0,
+            "min": 10140583,
+            "sum": 63519041
+          },
+          "overshoot_ns": 72012500,
+          "parent_cpu_ns": 265715000,
+          "peak_rss_bytes": 189743104,
+          "prediction_ns": {
+            "count": 27,
+            "max": 6724250,
+            "median": 3473250,
+            "min": 1723500,
+            "sum": 110196957
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 11708958,
+            "median": 6331146.0,
+            "min": 4641458,
+            "sum": 43226500
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 4,
+            "deadline": 2
+          },
+          "trace_bytes": 1159773,
+          "worker_cpu_ns": 5657491000
+        },
+        "fix1-B5-hist31": {
+          "extraction_ns": {
+            "count": 15,
+            "max": 976250,
+            "median": 463917,
+            "min": 319584,
+            "sum": 7301294
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2159553958,
+            "median": 615922292.0,
+            "min": 226652583,
+            "sum": 5999369792
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 30102834,
+            "median": 29882791.5,
+            "min": 28598375,
+            "sum": 177834708
+          },
+          "overshoot_ns": 69642292,
+          "parent_cpu_ns": 251260000,
+          "peak_rss_bytes": 195477504,
+          "prediction_ns": {
+            "count": 15,
+            "max": 10508666,
+            "median": 9825416,
+            "min": 6249625,
+            "sum": 141425415
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 8446417,
+            "median": 6221333.0,
+            "min": 4689041,
+            "sum": 38322541
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 4,
+            "deadline": 2
+          },
+          "trace_bytes": 772570,
+          "worker_cpu_ns": 5744757000
+        },
+        "fix1-B5-hist7": {
+          "extraction_ns": {
+            "count": 81,
+            "max": 3383458,
+            "median": 1743792,
+            "min": 325417,
+            "sum": 137082170
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2225927459,
+            "median": 580322728.5,
+            "min": 184089875,
+            "sum": 5977689541
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 4062375,
+            "median": 3839438.0,
+            "min": 3734541,
+            "sum": 23122084
+          },
+          "overshoot_ns": 74323126,
+          "parent_cpu_ns": 354606000,
+          "peak_rss_bytes": 193576960,
+          "prediction_ns": {
+            "count": 81,
+            "max": 1672333,
+            "median": 1311083,
+            "min": 606584,
+            "sum": 102831089
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 21629417,
+            "median": 7911208.5,
+            "min": 4523667,
+            "sum": 63460751
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 4,
+            "deadline": 2
+          },
+          "trace_bytes": 2866968,
+          "worker_cpu_ns": 5570342000
+        },
+        "fix1-B5-ridge0p1": {
+          "extraction_ns": {
+            "count": 51,
+            "max": 4433375,
+            "median": 2489625,
+            "min": 320167,
+            "sum": 112273457
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2199865375,
+            "median": 560558666.5,
+            "min": 182418125,
+            "sum": 5877482166
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 1571500,
+            "median": 1430187.0,
+            "min": 1356375,
+            "sum": 8673166
+          },
+          "overshoot_ns": 72054292,
+          "parent_cpu_ns": 306711000,
+          "peak_rss_bytes": 176357376,
+          "prediction_ns": {
+            "count": 51,
+            "max": 400417,
+            "median": 252708,
+            "min": 131667,
+            "sum": 12273335
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 22052792,
+            "median": 7900125.0,
+            "min": 4641042,
+            "sum": 59114834
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 4,
+            "deadline": 2
+          },
+          "trace_bytes": 1910639,
+          "worker_cpu_ns": 5548367000
+        },
+        "fix1-B5-ridge1": {
+          "extraction_ns": {
+            "count": 50,
+            "max": 4473041,
+            "median": 2075375.0,
+            "min": 311125,
+            "sum": 109210251
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2186599875,
+            "median": 568348416.5,
+            "min": 182620000,
+            "sum": 5882043167
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 1455125,
+            "median": 1390104.0,
+            "min": 1349792,
+            "sum": 8364167
+          },
+          "overshoot_ns": 68282958,
+          "parent_cpu_ns": 315246000,
+          "peak_rss_bytes": 174669824,
+          "prediction_ns": {
+            "count": 50,
+            "max": 399959,
+            "median": 254708.5,
+            "min": 117125,
+            "sum": 11950835
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 14221750,
+            "median": 8070291.5,
+            "min": 4616666,
+            "sum": 51527124
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 4,
+            "deadline": 2
+          },
+          "trace_bytes": 1909475,
+          "worker_cpu_ns": 5567494000
+        },
+        "fix1-B5-ridge10": {
+          "extraction_ns": {
+            "count": 51,
+            "max": 4407416,
+            "median": 2278875,
+            "min": 319166,
+            "sum": 110449706
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2187457291,
+            "median": 566388562.5,
+            "min": 183065125,
+            "sum": 5880952082
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 1535625,
+            "median": 1475646.0,
+            "min": 1386500,
+            "sum": 8849667
+          },
+          "overshoot_ns": 68687125,
+          "parent_cpu_ns": 308171000,
+          "peak_rss_bytes": 174161920,
+          "prediction_ns": {
+            "count": 51,
+            "max": 382667,
+            "median": 244250,
+            "min": 116792,
+            "sum": 12083754
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 14126041,
+            "median": 8240896.0,
+            "min": 4608375,
+            "sum": 52380541
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 4,
+            "deadline": 2
+          },
+          "trace_bytes": 1943324,
+          "worker_cpu_ns": 5565828000
+        },
+        "fix1-L1-hist7": {
+          "extraction_ns": {
+            "count": 216,
+            "max": 1093750,
+            "median": 585062.0,
+            "min": 177250,
+            "sum": 123859366
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2477260375,
+            "median": 1202387062.5,
+            "min": 187472208,
+            "sum": 7477840916
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 4238542,
+            "median": 3884271.0,
+            "min": 3724292,
+            "sum": 23512918
+          },
+          "overshoot_ns": 103473669,
+          "parent_cpu_ns": 586663000,
+          "peak_rss_bytes": 186417152,
+          "prediction_ns": {
+            "count": 216,
+            "max": 1437875,
+            "median": 1236687.5,
+            "min": 822417,
+            "sum": 264395965
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 72825833,
+            "median": 10632062.5,
+            "min": 4614167,
+            "sum": 121402833
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 3,
+            "deadline": 3
+          },
+          "trace_bytes": 7104837,
+          "worker_cpu_ns": 6802164000
+        },
+        "fix1-L1-ridge0p1": {
+          "extraction_ns": {
+            "count": 93,
+            "max": 1065208,
+            "median": 565084,
+            "min": 190125,
+            "sum": 53350874
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2244523625,
+            "median": 625498145.5,
+            "min": 184603791,
+            "sum": 6084850956
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 1760708,
+            "median": 1459291.0,
+            "min": 1421000,
+            "sum": 9214624
+          },
+          "overshoot_ns": 73361834,
+          "parent_cpu_ns": 388247000,
+          "peak_rss_bytes": 193249280,
+          "prediction_ns": {
+            "count": 93,
+            "max": 202083,
+            "median": 147292,
+            "min": 108084,
+            "sum": 14181038
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 24485208,
+            "median": 9328479.0,
+            "min": 4575708,
+            "sum": 68794124
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 4,
+            "deadline": 2
+          },
+          "trace_bytes": 3239771,
+          "worker_cpu_ns": 5673277000
+        },
+        "fix1-L1-ridge1": {
+          "extraction_ns": {
+            "count": 153,
+            "max": 1288084,
+            "median": 438458,
+            "min": 188459,
+            "sum": 76076208
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2248300500,
+            "median": 982974854.0,
+            "min": 182157125,
+            "sum": 6789393999
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 1483458,
+            "median": 1442104.0,
+            "min": 1355500,
+            "sum": 8549916
+          },
+          "overshoot_ns": 72585834,
+          "parent_cpu_ns": 493289000,
+          "peak_rss_bytes": 193429504,
+          "prediction_ns": {
+            "count": 153,
+            "max": 196458,
+            "median": 134750,
+            "min": 97291,
+            "sum": 20975832
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 46864583,
+            "median": 10334021.0,
+            "min": 4363792,
+            "sum": 103382000
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 4,
+            "deadline": 2
+          },
+          "trace_bytes": 5199843,
+          "worker_cpu_ns": 6246127000
+        },
+        "fix1-L1-ridge10": {
+          "extraction_ns": {
+            "count": 256,
+            "max": 1207375,
+            "median": 404771.0,
+            "min": 203875,
+            "sum": 120988038
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2524351167,
+            "median": 1209158520.5,
+            "min": 183771416,
+            "sum": 7575420749
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 1505292,
+            "median": 1425625.0,
+            "min": 1385583,
+            "sum": 8592041
+          },
+          "overshoot_ns": 105728126,
+          "parent_cpu_ns": 679039000,
+          "peak_rss_bytes": 192839680,
+          "prediction_ns": {
+            "count": 256,
+            "max": 197916,
+            "median": 125916.5,
+            "min": 102625,
+            "sum": 33113993
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 84780834,
+            "median": 13022083.0,
+            "min": 4560250,
+            "sum": 144802542
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 3,
+            "deadline": 3
+          },
+          "trace_bytes": 8820054,
+          "worker_cpu_ns": 6775925000
+        },
+        "fix1-L16-hist7": {
+          "extraction_ns": {
+            "count": 21,
+            "max": 746750,
+            "median": 571000,
+            "min": 206459,
+            "sum": 10635959
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2169351250,
+            "median": 565976541.5,
+            "min": 195661375,
+            "sum": 5861240708
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 4109209,
+            "median": 3849583.5,
+            "min": 3723458,
+            "sum": 23357833
+          },
+          "overshoot_ns": 70864000,
+          "parent_cpu_ns": 246243000,
+          "peak_rss_bytes": 190578688,
+          "prediction_ns": {
+            "count": 21,
+            "max": 1454458,
+            "median": 1352416,
+            "min": 766875,
+            "sum": 26082875
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 9808667,
+            "median": 5201562.5,
+            "min": 4475125,
+            "sum": 38380376
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 4,
+            "deadline": 2
+          },
+          "trace_bytes": 970150,
+          "worker_cpu_ns": 5601761000
+        },
+        "fix1-L16-ridge0p1": {
+          "extraction_ns": {
+            "count": 13,
+            "max": 1403417,
+            "median": 712209,
+            "min": 203125,
+            "sum": 8944583
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2160002083,
+            "median": 575407250.0,
+            "min": 184148500,
+            "sum": 5833532208
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 1712958,
+            "median": 1414208.0,
+            "min": 1372708,
+            "sum": 8838083
+          },
+          "overshoot_ns": 65245334,
+          "parent_cpu_ns": 236984000,
+          "peak_rss_bytes": 171311104,
+          "prediction_ns": {
+            "count": 13,
+            "max": 236375,
+            "median": 163875,
+            "min": 143083,
+            "sum": 2294998
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 7882750,
+            "median": 5584104.5,
+            "min": 4697333,
+            "sum": 35891958
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 4,
+            "deadline": 2
+          },
+          "trace_bytes": 715581,
+          "worker_cpu_ns": 5610592000
+        },
+        "fix1-L16-ridge1": {
+          "extraction_ns": {
+            "count": 14,
+            "max": 1265417,
+            "median": 672916.5,
+            "min": 203000,
+            "sum": 9804913
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2164418000,
+            "median": 564642625.0,
+            "min": 184127666,
+            "sum": 5833197875
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 1649250,
+            "median": 1464562.5,
+            "min": 1369334,
+            "sum": 8899710
+          },
+          "overshoot_ns": 71107626,
+          "parent_cpu_ns": 233923000,
+          "peak_rss_bytes": 173047808,
+          "prediction_ns": {
+            "count": 14,
+            "max": 204417,
+            "median": 168604.0,
+            "min": 147250,
+            "sum": 2409040
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 8367500,
+            "median": 5201604.0,
+            "min": 4589708,
+            "sum": 35461958
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 4,
+            "deadline": 2
+          },
+          "trace_bytes": 750645,
+          "worker_cpu_ns": 5600468000
+        },
+        "fix1-L16-ridge10": {
+          "extraction_ns": {
+            "count": 12,
+            "max": 1344250,
+            "median": 402354.0,
+            "min": 203000,
+            "sum": 7691458
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2158512125,
+            "median": 556901916.5,
+            "min": 184493625,
+            "sum": 5798613624
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 1545833,
+            "median": 1454937.5,
+            "min": 1413666,
+            "sum": 8760999
+          },
+          "overshoot_ns": 68332626,
+          "parent_cpu_ns": 224614000,
+          "peak_rss_bytes": 175144960,
+          "prediction_ns": {
+            "count": 12,
+            "max": 224791,
+            "median": 166896.0,
+            "min": 147458,
+            "sum": 2084581
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 7558041,
+            "median": 5276166.5,
+            "min": 4542833,
+            "sum": 34730457
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 4,
+            "deadline": 2
+          },
+          "trace_bytes": 683519,
+          "worker_cpu_ns": 5557670000
+        },
+        "fix1-L2-hist7": {
+          "extraction_ns": {
+            "count": 164,
+            "max": 1074125,
+            "median": 650354.0,
+            "min": 195458,
+            "sum": 100104169
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2376742041,
+            "median": 1190967604.0,
+            "min": 185957500,
+            "sum": 7346976749
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 4139083,
+            "median": 3941979.5,
+            "min": 3822459,
+            "sum": 23710251
+          },
+          "overshoot_ns": 85926708,
+          "parent_cpu_ns": 529095000,
+          "peak_rss_bytes": 177356800,
+          "prediction_ns": {
+            "count": 164,
+            "max": 1474833,
+            "median": 1187458.0,
+            "min": 668042,
+            "sum": 193391538
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 55549541,
+            "median": 8715104.0,
+            "min": 4526584,
+            "sum": 101968458
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 3,
+            "deadline": 3
+          },
+          "trace_bytes": 5599501,
+          "worker_cpu_ns": 6788660000
+        },
+        "fix1-L2-ridge0p1": {
+          "extraction_ns": {
+            "count": 178,
+            "max": 2449792,
+            "median": 995666.5,
+            "min": 203416,
+            "sum": 219769838
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2368782875,
+            "median": 1202926916.5,
+            "min": 182934416,
+            "sum": 7388977707
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 1621208,
+            "median": 1443354.0,
+            "min": 1395708,
+            "sum": 8795458
+          },
+          "overshoot_ns": 101424250,
+          "parent_cpu_ns": 539607000,
+          "peak_rss_bytes": 170852352,
+          "prediction_ns": {
+            "count": 178,
+            "max": 250208,
+            "median": 155187.5,
+            "min": 110250,
+            "sum": 27354547
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 51353209,
+            "median": 11604042.0,
+            "min": 4654250,
+            "sum": 108046877
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 3,
+            "deadline": 3
+          },
+          "trace_bytes": 6475176,
+          "worker_cpu_ns": 6789259000
+        },
+        "fix1-L2-ridge1": {
+          "extraction_ns": {
+            "count": 164,
+            "max": 1230791,
+            "median": 546000.0,
+            "min": 212250,
+            "sum": 101707872
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2331060583,
+            "median": 1210942270.5,
+            "min": 183260833,
+            "sum": 7361226124
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 1530417,
+            "median": 1464333.5,
+            "min": 1356584,
+            "sum": 8715501
+          },
+          "overshoot_ns": 104134251,
+          "parent_cpu_ns": 532166000,
+          "peak_rss_bytes": 185565184,
+          "prediction_ns": {
+            "count": 164,
+            "max": 199000,
+            "median": 140062.5,
+            "min": 112750,
+            "sum": 23268212
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 42054166,
+            "median": 12682437.0,
+            "min": 4536959,
+            "sum": 102259040
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 3,
+            "deadline": 3
+          },
+          "trace_bytes": 5572244,
+          "worker_cpu_ns": 6761924000
+        },
+        "fix1-L2-ridge10": {
+          "extraction_ns": {
+            "count": 163,
+            "max": 1123375,
+            "median": 468459,
+            "min": 204625,
+            "sum": 84163676
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2337671959,
+            "median": 1203816562.5,
+            "min": 184387041,
+            "sum": 7359847708
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 1742750,
+            "median": 1443708.0,
+            "min": 1358542,
+            "sum": 8917791
+          },
+          "overshoot_ns": 105268002,
+          "parent_cpu_ns": 503203000,
+          "peak_rss_bytes": 174882816,
+          "prediction_ns": {
+            "count": 163,
+            "max": 190875,
+            "median": 134500,
+            "min": 112500,
+            "sum": 22726585
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 46326709,
+            "median": 11890374.5,
+            "min": 4678708,
+            "sum": 101071374
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 3,
+            "deadline": 3
+          },
+          "trace_bytes": 5483184,
+          "worker_cpu_ns": 6799061000
+        },
+        "fix1-L32-hist7": {
+          "extraction_ns": {
+            "count": 16,
+            "max": 876125,
+            "median": 620354.0,
+            "min": 205500,
+            "sum": 8537623
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2167437334,
+            "median": 561756104.0,
+            "min": 184429542,
+            "sum": 5826649167
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 4132292,
+            "median": 3896083.0,
+            "min": 3789625,
+            "sum": 23471458
+          },
+          "overshoot_ns": 68597084,
+          "parent_cpu_ns": 242458000,
+          "peak_rss_bytes": 188874752,
+          "prediction_ns": {
+            "count": 16,
+            "max": 1445667,
+            "median": 1222125.0,
+            "min": 718042,
+            "sum": 17931749
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 9648750,
+            "median": 5649167.0,
+            "min": 4653209,
+            "sum": 37849501
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 4,
+            "deadline": 2
+          },
+          "trace_bytes": 816520,
+          "worker_cpu_ns": 5591103000
+        },
+        "fix1-L32-ridge0p1": {
+          "extraction_ns": {
+            "count": 9,
+            "max": 916875,
+            "median": 229334,
+            "min": 203917,
+            "sum": 3751919
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2157497875,
+            "median": 565121333.5,
+            "min": 184663709,
+            "sum": 5824938126
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 1512167,
+            "median": 1448541.5,
+            "min": 1420166,
+            "sum": 8732541
+          },
+          "overshoot_ns": 71917584,
+          "parent_cpu_ns": 230215000,
+          "peak_rss_bytes": 188284928,
+          "prediction_ns": {
+            "count": 9,
+            "max": 197333,
+            "median": 151000,
+            "min": 134833,
+            "sum": 1475791
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 7098833,
+            "median": 5635854.0,
+            "min": 4434833,
+            "sum": 34147250
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 4,
+            "deadline": 2
+          },
+          "trace_bytes": 585285,
+          "worker_cpu_ns": 5594616000
+        },
+        "fix1-L32-ridge1": {
+          "extraction_ns": {
+            "count": 10,
+            "max": 869959,
+            "median": 398250.0,
+            "min": 219125,
+            "sum": 4768375
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2158425250,
+            "median": 557100000.5,
+            "min": 182533375,
+            "sum": 5795739084
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 1520667,
+            "median": 1474208.5,
+            "min": 1390083,
+            "sum": 8794750
+          },
+          "overshoot_ns": 71958793,
+          "parent_cpu_ns": 230923000,
+          "peak_rss_bytes": 188923904,
+          "prediction_ns": {
+            "count": 10,
+            "max": 204208,
+            "median": 169625.0,
+            "min": 144916,
+            "sum": 1708207
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 7153875,
+            "median": 5172479.5,
+            "min": 4597375,
+            "sum": 33758626
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 4,
+            "deadline": 2
+          },
+          "trace_bytes": 617536,
+          "worker_cpu_ns": 5581111000
+        },
+        "fix1-L32-ridge10": {
+          "extraction_ns": {
+            "count": 14,
+            "max": 924584,
+            "median": 602729.0,
+            "min": 203792,
+            "sum": 7291961
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2166403750,
+            "median": 562389521.0,
+            "min": 198488459,
+            "sum": 5842900084
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 1552292,
+            "median": 1425270.5,
+            "min": 1382584,
+            "sum": 8661500
+          },
+          "overshoot_ns": 68823168,
+          "parent_cpu_ns": 235962000,
+          "peak_rss_bytes": 188219392,
+          "prediction_ns": {
+            "count": 14,
+            "max": 202125,
+            "median": 157958.0,
+            "min": 129250,
+            "sum": 2225417
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 8974125,
+            "median": 5177750.0,
+            "min": 4560958,
+            "sum": 35884042
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 4,
+            "deadline": 2
+          },
+          "trace_bytes": 746085,
+          "worker_cpu_ns": 5596011000
+        },
+        "fix1-L4-hist7": {
+          "extraction_ns": {
+            "count": 29,
+            "max": 870334,
+            "median": 446750,
+            "min": 185916,
+            "sum": 12568418
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2179248583,
+            "median": 526317084.0,
+            "min": 194656375,
+            "sum": 5791022792
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 4079375,
+            "median": 3825792.0,
+            "min": 3706291,
+            "sum": 23283166
+          },
+          "overshoot_ns": 70217750,
+          "parent_cpu_ns": 264027000,
+          "peak_rss_bytes": 176521216,
+          "prediction_ns": {
+            "count": 29,
+            "max": 1574958,
+            "median": 1342375,
+            "min": 630834,
+            "sum": 36426210
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 12382750,
+            "median": 6305354.0,
+            "min": 4778708,
+            "sum": 42023250
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 4,
+            "deadline": 2
+          },
+          "trace_bytes": 1202924,
+          "worker_cpu_ns": 5514865000
+        },
+        "fix1-L4-ridge0p1": {
+          "extraction_ns": {
+            "count": 39,
+            "max": 1457292,
+            "median": 659500,
+            "min": 191083,
+            "sum": 27135959
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2176990084,
+            "median": 566263583.0,
+            "min": 180928292,
+            "sum": 5851419458
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 1641083,
+            "median": 1456124.5,
+            "min": 1395209,
+            "sum": 8862583
+          },
+          "overshoot_ns": 66531126,
+          "parent_cpu_ns": 283265000,
+          "peak_rss_bytes": 171343872,
+          "prediction_ns": {
+            "count": 39,
+            "max": 200958,
+            "median": 164333,
+            "min": 107167,
+            "sum": 6267543
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 11896167,
+            "median": 6805812.0,
+            "min": 4565334,
+            "sum": 46199709
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 4,
+            "deadline": 2
+          },
+          "trace_bytes": 1596872,
+          "worker_cpu_ns": 5580747000
+        },
+        "fix1-L4-ridge1": {
+          "extraction_ns": {
+            "count": 34,
+            "max": 1333667,
+            "median": 535750.5,
+            "min": 189750,
+            "sum": 21223587
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2178521958,
+            "median": 573397021.0,
+            "min": 196309958,
+            "sum": 5887193792
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 1523208,
+            "median": 1481979.5,
+            "min": 1453167,
+            "sum": 8935167
+          },
+          "overshoot_ns": 70689001,
+          "parent_cpu_ns": 278889000,
+          "peak_rss_bytes": 169738240,
+          "prediction_ns": {
+            "count": 34,
+            "max": 211916,
+            "median": 172395.5,
+            "min": 106834,
+            "sum": 5639872
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 11940250,
+            "median": 7151854.5,
+            "min": 4546542,
+            "sum": 44903334
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 4,
+            "deadline": 2
+          },
+          "trace_bytes": 1396131,
+          "worker_cpu_ns": 5584346000
+        },
+        "fix1-L4-ridge10": {
+          "extraction_ns": {
+            "count": 36,
+            "max": 1183916,
+            "median": 618416.5,
+            "min": 196916,
+            "sum": 24096626
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2179627750,
+            "median": 571355229.0,
+            "min": 184512458,
+            "sum": 5879807207
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 1712083,
+            "median": 1456875.0,
+            "min": 1356917,
+            "sum": 8920626
+          },
+          "overshoot_ns": 68307084,
+          "parent_cpu_ns": 288450000,
+          "peak_rss_bytes": 166477824,
+          "prediction_ns": {
+            "count": 36,
+            "max": 211666,
+            "median": 172104.5,
+            "min": 104917,
+            "sum": 6065250
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 11242458,
+            "median": 7073249.5,
+            "min": 4626042,
+            "sum": 45160415
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 4,
+            "deadline": 2
+          },
+          "trace_bytes": 1460980,
+          "worker_cpu_ns": 5587286000
+        },
+        "fix1-L64-hist7": {
+          "extraction_ns": {
+            "count": 7,
+            "max": 726500,
+            "median": 228458,
+            "min": 203875,
+            "sum": 2048000
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2155088000,
+            "median": 556736000.0,
+            "min": 184801292,
+            "sum": 5791132208
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 4205042,
+            "median": 3742145.5,
+            "min": 3661208,
+            "sum": 23005499
+          },
+          "overshoot_ns": 67626000,
+          "parent_cpu_ns": 225472000,
+          "peak_rss_bytes": 188399616,
+          "prediction_ns": {
+            "count": 7,
+            "max": 1231917,
+            "median": 856166,
+            "min": 834709,
+            "sum": 6421876
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 7485375,
+            "median": 5153604.0,
+            "min": 4511875,
+            "sum": 33946874
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 4,
+            "deadline": 2
+          },
+          "trace_bytes": 530532,
+          "worker_cpu_ns": 5595038000
+        },
+        "fix1-L64-ridge0p1": {
+          "extraction_ns": {
+            "count": 9,
+            "max": 760209,
+            "median": 245208,
+            "min": 202625,
+            "sum": 3773876
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2156233875,
+            "median": 564710854.0,
+            "min": 181432958,
+            "sum": 5818401166
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 1719042,
+            "median": 1438187.0,
+            "min": 1372459,
+            "sum": 9030500
+          },
+          "overshoot_ns": 69275168,
+          "parent_cpu_ns": 236072000,
+          "peak_rss_bytes": 188465152,
+          "prediction_ns": {
+            "count": 9,
+            "max": 213292,
+            "median": 148042,
+            "min": 124250,
+            "sum": 1401418
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 7865083,
+            "median": 5287875.0,
+            "min": 4409167,
+            "sum": 35157542
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 4,
+            "deadline": 2
+          },
+          "trace_bytes": 601078,
+          "worker_cpu_ns": 5586768000
+        },
+        "fix1-L64-ridge1": {
+          "extraction_ns": {
+            "count": 11,
+            "max": 719334,
+            "median": 572333,
+            "min": 202333,
+            "sum": 4919166
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2160399584,
+            "median": 561457021.0,
+            "min": 181457459,
+            "sum": 5815885127
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 1530750,
+            "median": 1439875.0,
+            "min": 1380500,
+            "sum": 8677917
+          },
+          "overshoot_ns": 71769834,
+          "parent_cpu_ns": 230729000,
+          "peak_rss_bytes": 189300736,
+          "prediction_ns": {
+            "count": 11,
+            "max": 179958,
+            "median": 149667,
+            "min": 129209,
+            "sum": 1655669
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 8260875,
+            "median": 5450020.5,
+            "min": 4673167,
+            "sum": 35689000
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 4,
+            "deadline": 2
+          },
+          "trace_bytes": 629235,
+          "worker_cpu_ns": 5580957000
+        },
+        "fix1-L64-ridge10": {
+          "extraction_ns": {
+            "count": 9,
+            "max": 780042,
+            "median": 244125,
+            "min": 201666,
+            "sum": 3556206
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2156365459,
+            "median": 555731854.5,
+            "min": 181481666,
+            "sum": 5785795875
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 1481583,
+            "median": 1453812.5,
+            "min": 1364583,
+            "sum": 8608000
+          },
+          "overshoot_ns": 66984793,
+          "parent_cpu_ns": 227920000,
+          "peak_rss_bytes": 188399616,
+          "prediction_ns": {
+            "count": 9,
+            "max": 211708,
+            "median": 157125,
+            "min": 123291,
+            "sum": 1424497
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 7948167,
+            "median": 5317854.0,
+            "min": 4446417,
+            "sum": 35598959
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 4,
+            "deadline": 2
+          },
+          "trace_bytes": 593810,
+          "worker_cpu_ns": 5584414000
+        },
+        "fix1-L8-hist7": {
+          "extraction_ns": {
+            "count": 24,
+            "max": 1437458,
+            "median": 419062.5,
+            "min": 198583,
+            "sum": 12095538
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2170603958,
+            "median": 517561666.5,
+            "min": 183207541,
+            "sum": 5733594290
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 4246916,
+            "median": 3942979.5,
+            "min": 3661666,
+            "sum": 23690666
+          },
+          "overshoot_ns": 63337709,
+          "parent_cpu_ns": 247343000,
+          "peak_rss_bytes": 191430656,
+          "prediction_ns": {
+            "count": 24,
+            "max": 1556625,
+            "median": 1333813.0,
+            "min": 759333,
+            "sum": 29449460
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 10754541,
+            "median": 5982562.5,
+            "min": 4520125,
+            "sum": 39885957
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 4,
+            "deadline": 2
+          },
+          "trace_bytes": 1056866,
+          "worker_cpu_ns": 5506389000
+        },
+        "fix1-L8-ridge0p1": {
+          "extraction_ns": {
+            "count": 28,
+            "max": 1445500,
+            "median": 478646.0,
+            "min": 206875,
+            "sum": 16697416
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2178078000,
+            "median": 529553833.0,
+            "min": 181319666,
+            "sum": 5773144040
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 1457875,
+            "median": 1390396.0,
+            "min": 1371292,
+            "sum": 8417626
+          },
+          "overshoot_ns": 69305500,
+          "parent_cpu_ns": 263954000,
+          "peak_rss_bytes": 173375488,
+          "prediction_ns": {
+            "count": 28,
+            "max": 214125,
+            "median": 163042.0,
+            "min": 120917,
+            "sum": 4649377
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 12553959,
+            "median": 5860125.0,
+            "min": 4592291,
+            "sum": 42727999
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 4,
+            "deadline": 2
+          },
+          "trace_bytes": 1200145,
+          "worker_cpu_ns": 5512799000
+        },
+        "fix1-L8-ridge1": {
+          "extraction_ns": {
+            "count": 34,
+            "max": 1605708,
+            "median": 556479.0,
+            "min": 204666,
+            "sum": 26159291
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2179936917,
+            "median": 532094979.5,
+            "min": 181870500,
+            "sum": 5784349709
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 1523375,
+            "median": 1452645.5,
+            "min": 1386750,
+            "sum": 8718875
+          },
+          "overshoot_ns": 66112584,
+          "parent_cpu_ns": 273209000,
+          "peak_rss_bytes": 164544512,
+          "prediction_ns": {
+            "count": 34,
+            "max": 193500,
+            "median": 156979.0,
+            "min": 119042,
+            "sum": 5425458
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 12332125,
+            "median": 5753375.5,
+            "min": 4530125,
+            "sum": 44890085
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 4,
+            "deadline": 2
+          },
+          "trace_bytes": 1420587,
+          "worker_cpu_ns": 5518393000
+        },
+        "fix1-L8-ridge10": {
+          "extraction_ns": {
+            "count": 28,
+            "max": 1408750,
+            "median": 453792.0,
+            "min": 191500,
+            "sum": 15607539
+          },
+          "full_request_ns": {
+            "count": 6,
+            "max": 2179396208,
+            "median": 530873208.0,
+            "min": 191958917,
+            "sum": 5791255333
+          },
+          "loading_ns": {
+            "count": 6,
+            "max": 1736875,
+            "median": 1446666.5,
+            "min": 1422250,
+            "sum": 8948166
+          },
+          "overshoot_ns": 68919001,
+          "parent_cpu_ns": 258521000,
+          "peak_rss_bytes": 168493056,
+          "prediction_ns": {
+            "count": 28,
+            "max": 207542,
+            "median": 155125.5,
+            "min": 117875,
+            "sum": 4416335
+          },
+          "publication_ns": {
+            "count": 6,
+            "max": 12503042,
+            "median": 5949791.5,
+            "min": 4676708,
+            "sum": 41988125
+          },
+          "requests": 6,
+          "statuses": {
+            "complete": 4,
+            "deadline": 2
+          },
+          "trace_bytes": 1196689,
+          "worker_cpu_ns": 5513468000
+        }
+      },
+      "peak_rss_bytes": 195477504,
+      "requests": 222,
+      "scores": {
+        "B0": 0.9977924440385437,
+        "B1-no-plunge": 0.9990154576556453,
+        "B2-estimate-L1": 0.998767220168406,
+        "fix1-B5-hist15": 0.9967619363180851,
+        "fix1-B5-hist31": 0.9965255340959601,
+        "fix1-B5-hist7": 0.9982608110100606,
+        "fix1-B5-ridge0p1": 0.9981510004030482,
+        "fix1-B5-ridge1": 0.9981510004030482,
+        "fix1-B5-ridge10": 0.9981510004030482,
+        "fix1-L1-hist7": 0.9952411387457225,
+        "fix1-L1-ridge0p1": 0.9982227789798409,
+        "fix1-L1-ridge1": 0.9987517900522619,
+        "fix1-L1-ridge10": 0.9982577189060168,
+        "fix1-L16-hist7": 0.9965255340959601,
+        "fix1-L16-ridge0p1": 0.9975011956630073,
+        "fix1-L16-ridge1": 0.9970562087583362,
+        "fix1-L16-ridge10": 0.9967129331461614,
+        "fix1-L2-hist7": 0.9976963422327335,
+        "fix1-L2-ridge0p1": 0.997719750417434,
+        "fix1-L2-ridge1": 0.9975165870939303,
+        "fix1-L2-ridge10": 0.9975645704394877,
+        "fix1-L32-hist7": 0.9965893861634901,
+        "fix1-L32-ridge0p1": 0.9967638452943534,
+        "fix1-L32-ridge1": 0.9967638452943534,
+        "fix1-L32-ridge10": 0.9965255340959601,
+        "fix1-L4-hist7": 0.9964363107072501,
+        "fix1-L4-ridge0p1": 0.9984326215933174,
+        "fix1-L4-ridge1": 0.9975172199608511,
+        "fix1-L4-ridge10": 0.9977943269257937,
+        "fix1-L64-hist7": 0.9965893861634901,
+        "fix1-L64-ridge0p1": 0.9966915494715379,
+        "fix1-L64-ridge1": 0.9965893861634901,
+        "fix1-L64-ridge10": 0.9965893861634901,
+        "fix1-L8-hist7": 0.9967367190064295,
+        "fix1-L8-ridge0p1": 0.9980904410961501,
+        "fix1-L8-ridge1": 0.9978743045995956,
+        "fix1-L8-ridge10": 0.9974801733411726
+      },
+      "statuses": {
+        "complete": 143,
+        "deadline": 79
+      },
+      "totals": {
+        "full_request_ns": 226529655613,
+        "overshoot_ns": 2752734150,
+        "parent_cpu_ns": 11712767000,
+        "publication_ns": 2194272080,
+        "trace_bytes": 79550439,
+        "worker_cpu_ns": 214199021000
+      }
+    }
+  },
+  "stopping": {
+    "B3": {
+      "baseline": "fix1-L1-ridge1",
+      "cold_cost_ratio": 1.0,
+      "median_prediction_ns": 135646.0,
+      "reason": "Observed improvement below predeclared .0002 outward-allocation trigger; retain finite tuned search and omitted-budget uncertainty",
+      "requested_expansion": null,
+      "selected": "fix1-L1-ridge1",
+      "utility_gain": 0.0
+    },
+    "B4": {
+      "baseline": "fix1-L1-ridge1",
+      "cold_cost_ratio": 1.0,
+      "median_prediction_ns": 135646.0,
+      "reason": "Observed improvement below predeclared .0002 outward-allocation trigger; retain finite tuned search and omitted-budget uncertainty",
+      "requested_expansion": null,
+      "selected": "fix1-L1-ridge1",
+      "utility_gain": 0.0
+    },
+    "B5": {
+      "baseline": "fix1-B5-ridge1",
+      "cold_cost_ratio": 1.0234855339328313,
+      "median_prediction_ns": 1223812.5,
+      "reason": "Observed improvement below predeclared .0002 outward-allocation trigger; retain finite tuned search and omitted-budget uncertainty",
+      "requested_expansion": null,
+      "selected": "fix1-B5-hist7",
+      "utility_gain": 5.4905303506269654e-05
+    }
+  },
+  "training_originals": 12,
+  "validation_originals": 6
+}

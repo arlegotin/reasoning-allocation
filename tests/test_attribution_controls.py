@@ -125,3 +125,14 @@ def test_tuning_survivors_preserve_regime_winners_and_ridge_anchors(monkeypatch)
     assert all(f'fix1-L{n}-hist7' in names for n in (1,2,4,8,16,32,64))
     assert {'fix1-L1-ridge1','fix1-B5-ridge1','fix1-B5-hist31','fix1-B5-hist15','B0','B1-no-plunge','B2-estimate-L1'}<=names
     assert len(names)==len(chosen)<=16
+
+
+def test_tuning_expansion_uses_measured_quality_and_actual_deployment_cost(monkeypatch):
+    monkeypatch.syspath_prepend(str(Path('checks').resolve()))
+    from task13_tuning import expansion_request
+    assert expansion_request('fix1-B5-hist7',.0003,1.1,1_200_000)=='hist15'
+    assert expansion_request('fix1-L8-ridge0p1',.0003,1.1,200_000)=='ridge0p01'
+    assert expansion_request('fix1-L1-ridge10',.0003,1.1,200_000)=='ridge100'
+    assert expansion_request('fix1-B5-hist7',.00005,1.1,1_200_000) is None
+    assert expansion_request('fix1-B5-hist7',.0003,1.3,1_200_000) is None
+    assert expansion_request('fix1-B5-hist7',.0003,1.1,6_000_000) is None
