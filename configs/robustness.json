@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "purpose": "exploratory",
+  "input_manifests": [
+    "../artifacts/task13/validation-inputs/selected-manifest.json"
+  ],
+  "solver_seeds": [
+    17
+  ],
+  "run_order_seed": 2026101418,
+  "budgets_ns": [
+    2106828958
+  ],
+  "watchdog_grace_ns": 2000000000,
+  "lease_lengths": [
+    1
+  ],
+  "threads": 1,
+  "integrality_tolerance": 1e-06,
+  "bound_tolerance": 1e-06,
+  "methods": [
+    {
+      "name": "B2-delay-0ms-r0",
+      "kind": "shared",
+      "allocator": {
+        "policy": "estimate",
+        "length": 1
+      },
+      "pool_size": 128,
+      "diagnostic_delay_ns": 0
+    },
+    {
+      "name": "B2-delay-4ms-r0",
+      "kind": "shared",
+      "allocator": {
+        "policy": "estimate",
+        "length": 1
+      },
+      "pool_size": 128,
+      "diagnostic_delay_ns": 4000000
+    },
+    {
+      "name": "B2-delay-10ms-r0",
+      "kind": "shared",
+      "allocator": {
+        "policy": "estimate",
+        "length": 1
+      },
+      "pool_size": 128,
+      "diagnostic_delay_ns": 10000000
+    },
+    {
+      "name": "B2-delay-0ms-r1",
+      "kind": "shared",
+      "allocator": {
+        "policy": "estimate",
+        "length": 1
+      },
+      "pool_size": 128,
+      "diagnostic_delay_ns": 0
+    },
+    {
+      "name": "B2-delay-4ms-r1",
+      "kind": "shared",
+      "allocator": {
+        "policy": "estimate",
+        "length": 1
+      },
+      "pool_size": 128,
+      "diagnostic_delay_ns": 4000000
+    },
+    {
+      "name": "B2-delay-10ms-r1",
+      "kind": "shared",
+      "allocator": {
+        "policy": "estimate",
+        "length": 1
+      },
+      "pool_size": 128,
+      "diagnostic_delay_ns": 10000000
+    }
+  ]
+}

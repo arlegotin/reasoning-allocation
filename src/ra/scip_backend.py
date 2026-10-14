@@ -526,6 +526,8 @@ class _Selector(Nodesel):
                         key = min(records, key=lambda n: (-n.depth, n.key.number)).key
                     else:
                         key = b.choose(records) if b.choose else min(records, key=lambda n: (-n.depth, n.key.number)).key
+                        if b.stop_requested:
+                            boundary(kind='residual', reason='deadline')
                         if lease is not None and lease.pending:
                             # Validate grant provenance independently of next_node:
                             # an unavailable initial root is never natural exhaustion.

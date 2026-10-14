@@ -45,6 +45,8 @@ def validate_request(request: Request, *, launched: bool = False) -> None:
         raise ValueError('unsupported request phase')
     if request.phase == 'confirmatory' and not request.method_config:
         raise ValueError('protected worker requires resolved frozen method configuration')
+    if 'diagnostic_delay_ns' in request.method_config and request.phase not in ('discovery', 'validation'):
+        raise ValueError('public latency diagnostic requires discovery or validation namespace')
     if not request.method_config:
         if request.method not in ('native','depth'):
             raise ValueError('unsupported method; no learned execution is implemented')
@@ -266,6 +268,8 @@ def execute_request(request_path: Path) -> int:
                 allocator = make_allocator(request.method_config['allocator'], request.solver_seed)
                 pool_rng = random.Random(request.solver_seed)
                 lease = LeaseController({}, deadline_ns=request.deadline_ns)
+                if 'diagnostic_delay_ns' in request.method_config:
+                    resources['diagnostic_delays'] = []
                 def choose(records):
                     if lease.outcomes: allocator.observe(lease.outcomes[-1])
                     pool = build_pool(records, request.method_config['pool_size'], pool_rng)
@@ -274,6 +278,20 @@ def execute_request(request_path: Path) -> int:
                     context = DecisionContext(request.request_id, snapshot, request.deadline_ns, utility, primal, dual,
                         float(model.getLowerbound()), float(model.getCutoffbound()), backend.processed_nodes, len(records), context_schema_hash)
                     allocation = allocator.choose(context, pool.records, request.method_config['lease_lengths'])
+                    if 'diagnostic_delay_ns' in request.method_config:
+                        delay = request.method_config['diagnostic_delay_ns']
+                        delay_start = time.perf_counter_ns()
+                        if delay:
+                            time.sleep(delay / 1e9)
+                        delay_end = time.perf_counter_ns()
+                        expired = delay_end >= request.deadline_ns
+                        resources['diagnostic_delays'].append({'requested_ns':delay,
+                            'start_ns':delay_start, 'end_ns':delay_end, 'expired':expired})
+                        if expired:
+                            backend.request_stop()
+                            # Native callback must return a live node while unwinding;
+                            # the late decision receives no lease or dispatch credit.
+                            return allocation.root
                     lease.begin(allocation, backend.last_callback_entry_ns)
                     decisions.append({'context':asdict(context), 'pool_ids':[asdict(k) for k in pool.ids],
                         'pool_hash':pool.pool_hash,'strata':[(name,[asdict(k) for k in keys]) for name,keys in pool.strata],

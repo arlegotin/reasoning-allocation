@@ -1,0 +1,13 @@
+{
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "pytest",
+    "-q"
+  ],
+  "returncode": 0,
+  "elapsed_ns": 159518709000,
+  "child_cpu_seconds": 155.668391,
+  "child_peak_rss_bytes": 376995840,
+  "scope": "cold test process and descendant CPU; Darwin child peak RSS high-water"
+}

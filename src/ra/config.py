@@ -219,7 +219,14 @@ def validate_run_config(config: dict[str, object]) -> None:
             try: resolve_native_overrides(model.getParams(),method['overrides'])
             finally: model.freeProb()
         else:
-            if set(method)-{'collection','learned'}!={'name','kind','allocator','pool_size'}: raise ConfigError('invalid shared method')
+            if set(method)-{'collection','learned','diagnostic_delay_ns'}!={'name','kind','allocator','pool_size'}: raise ConfigError('invalid shared method')
+            if 'diagnostic_delay_ns' in method:
+                delay = method['diagnostic_delay_ns']
+                if (type(delay) is not int or not 0 <= delay <= 1_000_000_000
+                        or method['allocator'] != {'policy':'estimate','length':1}
+                        or method['pool_size'] != 128
+                        or {'collection','learned'} & method.keys()):
+                    raise ConfigError('public latency diagnostic requires fixed B2 estimate L1 K128 and bounded integer delay')
             if 'collection' in method:
                 from ra.collect import validate_collection_method
                 validate_collection_method(method['collection'])
