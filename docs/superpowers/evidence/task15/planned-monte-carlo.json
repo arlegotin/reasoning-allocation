@@ -1,0 +1,109 @@
+{
+  "cpu_ns": 925793000,
+  "design": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task15/generation2/design.json",
+    "sha256": "91d547f1b058204d2a2b81cc4c718cb8ef9d6f3c70093505142ffb173986ae4a"
+  },
+  "peak_rss_bytes": 106758144,
+  "scope": "public planning Monte Carlo check at planned N24; does not estimate fit/population tail uncertainty",
+  "selected_repetitions": 65536,
+  "stages": [
+    {
+      "maximum": 7.620126944305383e-05,
+      "planned_quantile_range_across_four_seeds": [
+        [
+          3.15247574934188e-05,
+          7.620126944305383e-05
+        ],
+        [
+          7.460417626057225e-05,
+          7.460417626057225e-05
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          2.735935606938244e-06,
+          2.44153014062517e-05
+        ],
+        [
+          2.0571504145967367e-05,
+          5.234785725490964e-05
+        ],
+        [
+          1.3489494097506608e-05,
+          1.3578841005244813e-05
+        ]
+      ],
+      "repetitions": 4096,
+      "stable": false,
+      "tolerance": 5e-05
+    },
+    {
+      "maximum": 7.620126944305383e-05,
+      "planned_quantile_range_across_four_seeds": [
+        [
+          7.620126944305383e-05,
+          7.620126944305383e-05
+        ],
+        [
+          6.102601849421131e-05,
+          2.287786096015032e-05
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          2.735935606938244e-06,
+          2.73593560693819e-06
+        ],
+        [
+          2.0571504145967367e-05,
+          0.0
+        ],
+        [
+          1.1094996970122722e-05,
+          1.3578841005244813e-05
+        ]
+      ],
+      "repetitions": 16384,
+      "stable": false,
+      "tolerance": 5e-05
+    },
+    {
+      "maximum": 3.526621025926968e-05,
+      "planned_quantile_range_across_four_seeds": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          3.526621025926968e-05,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "repetitions": 65536,
+      "stable": true,
+      "tolerance": 5e-05
+    }
+  ],
+  "wall_ns": 925895291
+}

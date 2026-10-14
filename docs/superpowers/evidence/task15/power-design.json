@@ -1,0 +1,348 @@
+{
+  "B": 6,
+  "alpha": 0.05,
+  "conservative_basis": "Hoeffding bounded paired differences [-1,1], independent templates, conditional on fixed fit; not empirical power",
+  "conservative_half_width": 0.6758105579809325,
+  "contrasts": [
+    {
+      "across_fit_interval": null,
+      "baseline": "B0",
+      "conditional_interval": [
+        -0.001124299827252595,
+        0.0009542921673969342
+      ],
+      "estimate": -8.500382992783032e-05,
+      "fit_sd_of_mean": null,
+      "method": "A",
+      "ordinary_interval": [
+        -0.0008891953735663167,
+        0.0007191877137106562
+      ],
+      "paired_template_sd_by_cell": {
+        "0ee9c8fc8881b0dade66fbdb6276a7fd431ab3ce8e7b56364c95105724555233": 0.0035356856600941445,
+        "27684ee8780dab526aba88e4ca0a9e1d65bcee255da642521c781ee20c437b74": 0.0,
+        "29acec930494b0792cba46c05bd71419482dadde3a7c0156fe5aada63bc399b2": 0.001994927441864711,
+        "4bb266ead6b231915a078f695c36a11e033dd95b2f0c93f1662d12f580aad368": 0.0032881058664616693,
+        "800a449d63f9410e7e56973a909c255ecec8d5e3b59ff27872b6e0dc090201fb": 0.0,
+        "96ad4726b0f50b8209dd128f0de07c3ba197f25d92651ef9234e3c823eec6978": 0.0
+      },
+      "planned_interval_empirical": [
+        -0.0008891953735663167,
+        0.0007191877137106562
+      ],
+      "population_interval": [
+        -0.001124299827252595,
+        0.0009542921673969342
+      ],
+      "quantile_batch_spread": [
+        0.0,
+        0.0
+      ],
+      "quantile_stable": true,
+      "timing_sd_mean": 0.00013600736656020247
+    },
+    {
+      "across_fit_interval": null,
+      "baseline": "B1",
+      "conditional_interval": [
+        -0.0007354146447741867,
+        0.0010503855057667117
+      ],
+      "estimate": 0.0001574854304962625,
+      "fit_sd_of_mean": null,
+      "method": "A",
+      "ordinary_interval": [
+        -0.0005753548717370716,
+        0.0008903257327295965
+      ],
+      "paired_template_sd_by_cell": {
+        "0ee9c8fc8881b0dade66fbdb6276a7fd431ab3ce8e7b56364c95105724555233": 0.003594129101386698,
+        "27684ee8780dab526aba88e4ca0a9e1d65bcee255da642521c781ee20c437b74": 0.0,
+        "29acec930494b0792cba46c05bd71419482dadde3a7c0156fe5aada63bc399b2": 0.0026242270654451764,
+        "4bb266ead6b231915a078f695c36a11e033dd95b2f0c93f1662d12f580aad368": 0.001358152210916687,
+        "800a449d63f9410e7e56973a909c255ecec8d5e3b59ff27872b6e0dc090201fb": 0.0,
+        "96ad4726b0f50b8209dd128f0de07c3ba197f25d92651ef9234e3c823eec6978": 0.0
+      },
+      "planned_interval_empirical": [
+        -0.0005236285564366495,
+        0.0008385994174291745
+      ],
+      "population_interval": [
+        -0.0007354146447741867,
+        0.0010503855057667117
+      ],
+      "quantile_batch_spread": [
+        0.0,
+        0.0
+      ],
+      "quantile_stable": true,
+      "timing_sd_mean": 0.0007488324056003909
+    },
+    {
+      "across_fit_interval": null,
+      "baseline": "B2",
+      "conditional_interval": [
+        -0.0007783187900515427,
+        -1.7853354548402756e-05
+      ],
+      "estimate": -0.00039808607229997273,
+      "fit_sd_of_mean": null,
+      "method": "A",
+      "ordinary_interval": [
+        -0.0007245829235497473,
+        -7.158922105019819e-05
+      ],
+      "paired_template_sd_by_cell": {
+        "0ee9c8fc8881b0dade66fbdb6276a7fd431ab3ce8e7b56364c95105724555233": 0.00045596394715625516,
+        "27684ee8780dab526aba88e4ca0a9e1d65bcee255da642521c781ee20c437b74": 0.0,
+        "29acec930494b0792cba46c05bd71419482dadde3a7c0156fe5aada63bc399b2": 0.001994927441864711,
+        "4bb266ead6b231915a078f695c36a11e033dd95b2f0c93f1662d12f580aad368": 0.000775490208792542,
+        "800a449d63f9410e7e56973a909c255ecec8d5e3b59ff27872b6e0dc090201fb": 0.0,
+        "96ad4726b0f50b8209dd128f0de07c3ba197f25d92651ef9234e3c823eec6978": 0.0
+      },
+      "planned_interval_empirical": [
+        -0.0007057546580188968,
+        -9.041748658104863e-05
+      ],
+      "population_interval": [
+        -0.0007783187900515427,
+        -1.7853354548402756e-05
+      ],
+      "quantile_batch_spread": [
+        0.0,
+        0.0
+      ],
+      "quantile_stable": true,
+      "timing_sd_mean": 0.0001570133068413313
+    },
+    {
+      "across_fit_interval": null,
+      "baseline": "B3",
+      "conditional_interval": [
+        -0.00041042213820978907,
+        0.0006086041024990125
+      ],
+      "estimate": 9.909098214461173e-05,
+      "fit_sd_of_mean": null,
+      "method": "A",
+      "ordinary_interval": [
+        -0.0003561196641834093,
+        0.0005543016284726328
+      ],
+      "paired_template_sd_by_cell": {
+        "0ee9c8fc8881b0dade66fbdb6276a7fd431ab3ce8e7b56364c95105724555233": 0.00046077177143111404,
+        "27684ee8780dab526aba88e4ca0a9e1d65bcee255da642521c781ee20c437b74": 0.0,
+        "29acec930494b0792cba46c05bd71419482dadde3a7c0156fe5aada63bc399b2": 0.0009679739097555661,
+        "4bb266ead6b231915a078f695c36a11e033dd95b2f0c93f1662d12f580aad368": 0.002894616508886692,
+        "800a449d63f9410e7e56973a909c255ecec8d5e3b59ff27872b6e0dc090201fb": 0.0,
+        "96ad4726b0f50b8209dd128f0de07c3ba197f25d92651ef9234e3c823eec6978": 0.0
+      },
+      "planned_interval_empirical": [
+        -0.0003289684271702194,
+        0.0005271503914594429
+      ],
+      "population_interval": [
+        -0.00041042213820978907,
+        0.0006086041024990125
+      ],
+      "quantile_batch_spread": [
+        0.0,
+        0.0
+      ],
+      "quantile_stable": true,
+      "timing_sd_mean": 0.00035762395561717225
+    },
+    {
+      "across_fit_interval": null,
+      "baseline": "B5",
+      "conditional_interval": [
+        -0.0004329370407376021,
+        0.0009400321426932811
+      ],
+      "estimate": 0.00025354755097783954,
+      "fit_sd_of_mean": null,
+      "method": "A",
+      "ordinary_interval": [
+        -0.0003917940324456674,
+        0.0008988891344013464
+      ],
+      "paired_template_sd_by_cell": {
+        "0ee9c8fc8881b0dade66fbdb6276a7fd431ab3ce8e7b56364c95105724555233": 0.0003491100019396966,
+        "27684ee8780dab526aba88e4ca0a9e1d65bcee255da642521c781ee20c437b74": 0.0,
+        "29acec930494b0792cba46c05bd71419482dadde3a7c0156fe5aada63bc399b2": 0.001994927441864711,
+        "4bb266ead6b231915a078f695c36a11e033dd95b2f0c93f1662d12f580aad368": 0.0034809774759803984,
+        "800a449d63f9410e7e56973a909c255ecec8d5e3b59ff27872b6e0dc090201fb": 0.0,
+        "96ad4726b0f50b8209dd128f0de07c3ba197f25d92651ef9234e3c823eec6978": 0.0
+      },
+      "planned_interval_empirical": [
+        -0.000315384813894463,
+        0.000822479915850142
+      ],
+      "population_interval": [
+        -0.0004329370407376021,
+        0.0009400321426932811
+      ],
+      "quantile_batch_spread": [
+        0.0,
+        0.0
+      ],
+      "quantile_stable": true,
+      "timing_sd_mean": 0.0001116604859715671
+    },
+    {
+      "across_fit_interval": null,
+      "baseline": "B6",
+      "conditional_interval": [
+        7.01538326834857e-05,
+        0.0008676634276088371
+      ],
+      "estimate": 0.0004689086301461614,
+      "fit_sd_of_mean": null,
+      "method": "A",
+      "ordinary_interval": [
+        9.445241364635278e-05,
+        0.00084336484664597
+      ],
+      "paired_template_sd_by_cell": {
+        "0ee9c8fc8881b0dade66fbdb6276a7fd431ab3ce8e7b56364c95105724555233": 0.0006428011662603894,
+        "27684ee8780dab526aba88e4ca0a9e1d65bcee255da642521c781ee20c437b74": 0.0,
+        "29acec930494b0792cba46c05bd71419482dadde3a7c0156fe5aada63bc399b2": 0.00020618029646464394,
+        "4bb266ead6b231915a078f695c36a11e033dd95b2f0c93f1662d12f580aad368": 0.002534565193073283,
+        "800a449d63f9410e7e56973a909c255ecec8d5e3b59ff27872b6e0dc090201fb": 0.0,
+        "96ad4726b0f50b8209dd128f0de07c3ba197f25d92651ef9234e3c823eec6978": 0.0
+      },
+      "planned_interval_empirical": [
+        0.00010803125465159759,
+        0.0008297860056407252
+      ],
+      "population_interval": [
+        7.01538326834857e-05,
+        0.0008676634276088371
+      ],
+      "quantile_batch_spread": [
+        0.0,
+        0.0
+      ],
+      "quantile_stable": true,
+      "timing_sd_mean": 5.9967450756277326e-05
+    }
+  ],
+  "design": {
+    "alpha": 0.05,
+    "bootstrap_repetitions": 65536,
+    "cells": {
+      "0ee9c8fc8881b0dade66fbdb6276a7fd431ab3ce8e7b56364c95105724555233": 0.16666666666666666,
+      "27684ee8780dab526aba88e4ca0a9e1d65bcee255da642521c781ee20c437b74": 0.16666666666666666,
+      "29acec930494b0792cba46c05bd71419482dadde3a7c0156fe5aada63bc399b2": 0.16666666666666666,
+      "4bb266ead6b231915a078f695c36a11e033dd95b2f0c93f1662d12f580aad368": 0.16666666666666666,
+      "800a449d63f9410e7e56973a909c255ecec8d5e3b59ff27872b6e0dc090201fb": 0.16666666666666666,
+      "96ad4726b0f50b8209dd128f0de07c3ba197f25d92651ef9234e3c823eec6978": 0.16666666666666666
+    },
+    "contrasts": [
+      [
+        "A",
+        "B0"
+      ],
+      [
+        "A",
+        "B1"
+      ],
+      [
+        "A",
+        "B2"
+      ],
+      [
+        "A",
+        "B3"
+      ],
+      [
+        "A",
+        "B5"
+      ],
+      [
+        "A",
+        "B6"
+      ]
+    ],
+    "deadlines": [
+      526707240,
+      2106828958,
+      8427315832
+    ],
+    "fit_ids": [
+      "task13-matched-fit1"
+    ],
+    "methods": [
+      "A",
+      "B0",
+      "B1",
+      "B2",
+      "B3",
+      "B5",
+      "B6"
+    ],
+    "native_methods": [
+      "B0",
+      "B1"
+    ],
+    "sample_per_cell": 4,
+    "seed": 2026101502,
+    "timing_repeats": 2,
+    "useful_precision": 0.001
+  },
+  "independent_fit_runs": 1,
+  "independent_templates": 12,
+  "physical_observations": 504,
+  "resources": {
+    "admitted_workers": 1,
+    "censored_count": 0,
+    "failed_count": 0,
+    "forecast_is_upper_bound": false,
+    "measured_wall_ns_total": 576972324413,
+    "missing": {
+      "overshoot_ns": 0,
+      "peak_rss_bytes": 0,
+      "trace_bytes": 0,
+      "wall_ns": 0
+    },
+    "overshoot_ns_total": 11256807254,
+    "peak_rss_bytes_observed": 265863168,
+    "request_count": 1008,
+    "reserve_factor": 1.5,
+    "status_counts": {
+      "complete": 347,
+      "deadline": 157
+    },
+    "storage_bytes_observed_total": 676882637,
+    "storage_bytes_with_reserve": 3357626880,
+    "unknown_components": [
+      "future thermal/background variation",
+      "future tails beyond observed cell/method/budget maxima",
+      "CPU publication tail"
+    ],
+    "wall_ns_observed_max_stratified": 1462673080304,
+    "wall_ns_with_reserve": 2194009620456
+  },
+  "schema_version": 1,
+  "scope": "public pilot planning; no protected result",
+  "templates_per_cell": {
+    "0ee9c8fc8881b0dade66fbdb6276a7fd431ab3ce8e7b56364c95105724555233": 2,
+    "27684ee8780dab526aba88e4ca0a9e1d65bcee255da642521c781ee20c437b74": 2,
+    "29acec930494b0792cba46c05bd71419482dadde3a7c0156fe5aada63bc399b2": 2,
+    "4bb266ead6b231915a078f695c36a11e033dd95b2f0c93f1662d12f580aad368": 2,
+    "800a449d63f9410e7e56973a909c255ecec8d5e3b59ff27872b6e0dc090201fb": 2,
+    "96ad4726b0f50b8209dd128f0de07c3ba197f25d92651ef9234e3c823eec6978": 2
+  },
+  "timing_repeats": 2,
+  "uncertainty": {
+    "across_fit_reliable": false,
+    "extrapolation": "empirical resampling cannot identify unobserved tails; conditional pilot sensitivity, not guaranteed power",
+    "fit_scope": "conditional on frozen fitted assets and training data; training-procedure variability unidentifiable",
+    "within_cell_variance_identified": true
+  },
+  "weights": [
+    0.2499999999144038,
+    0.5,
+    0.2500000000855962
+  ]
+}

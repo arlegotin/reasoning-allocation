@@ -1,0 +1,24 @@
+{
+  "appended_originals": 36,
+  "generation_cpu_ns": 884956000,
+  "generation_wall_ns": 885971208,
+  "new_manifest": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/data/confirmatory/ra-wp06-e003-snapshot/inputs/manifest.json",
+    "sha256": "18c57e1ce37c1765dc833f23384bf9b96076bb592c393c0105e77ae6104b3ff0"
+  },
+  "old_manifest": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/data/confirmatory/ra-wp06-e001/manifest.json",
+    "sha256": "3699eec079c8f5021d5615228fa327998264f0d4a900622312824fa62b984d05"
+  },
+  "outcomes_opened": false,
+  "peak_rss_bytes": 158269440,
+  "prefix_identity_fields": [
+    "instance_id",
+    "template_id",
+    "cell_id",
+    "template_index",
+    "sha256"
+  ],
+  "preserved_prefix_count": 24,
+  "registry_strategy": "Copied frozen predecessor registry into independent successor snapshot before generation; predecessor untouched"
+}

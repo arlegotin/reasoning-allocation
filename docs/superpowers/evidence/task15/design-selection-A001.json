@@ -1,0 +1,158 @@
+{
+  "amendment": {
+    "number": 1,
+    "reason": "Reconcile coordinator peak measurement:1GiB provisional allowance was below observed1.667GB. Preserve prior freeze; reserve8GiB for possible4x one-batch scaling. No sample/method/source/statistical change."
+  },
+  "analysis_cpu_ns": 3418455000,
+  "analysis_peak_rss_bytes": 1186201600,
+  "analysis_wall_ns": 3419008875,
+  "capacity": {
+    "available_physical_memory_bytes": 38654705664,
+    "coordinator_reserve_bytes": 8589934592,
+    "coordinator_scaling_assumption": "4x observed252-request batch peak for a single1008-request queue, rounded up to8GiB; operational allowance, not guaranteed bound",
+    "disk": {
+      "free": 85107937280,
+      "total": 930662584320,
+      "used": 845554647040
+    },
+    "memory_safety_factor": 2.0,
+    "observed_coordinator_peak_rss_bytes": 1667350528,
+    "observed_worker_peak_bytes": 265863168,
+    "os_reserve_bytes": 4294967296,
+    "pilot_requests_per_batch": 252,
+    "planned_joint_memory_bytes": 13416628224,
+    "protected_requests_if_one_batch": 1008,
+    "serial_workers": 1
+  },
+  "decision": "N24 is the smallest tested design meeting .001 empirical half-width on all contrasts. This is a limited conditional-on-assets study; largerN cannot identify training variation or unobserved pilot tails. The one-hour/20GiB numbers are operational assumptions, not user constraints.",
+  "limits": "two pilot originals percell and one genuine fit cannot establish reliable prospective population power; conservative bounded guarantee is impractical (~10.96 million originals).",
+  "monte_carlo": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task15/generation2/planned-monte-carlo.json",
+    "sha256": "2614af7e829adf9edc77c30fa1d5780631436313d661c34460a2c4f1e3575051"
+  },
+  "options": [
+    {
+      "conservative_half_width": 0.9557404566915636,
+      "empirical_half_widths": [
+        0.0010392959973247646,
+        0.0008929000752704492,
+        0.00038023271775156997,
+        0.0005095131203544008,
+        0.0006864845917154416,
+        0.00039875479746267567
+      ],
+      "original_templates": 12,
+      "request_count": 504,
+      "storage_bytes_with_reserve": 1678813440,
+      "templates_per_cell": 2,
+      "wall_seconds_with_reserve": 1097.004810228
+    },
+    {
+      "conservative_half_width": 0.6758105579809325,
+      "empirical_half_widths": [
+        0.0008041915436384864,
+        0.000681113986932912,
+        0.0003076685857189241,
+        0.0004280594093148311,
+        0.0005689323648723025,
+        0.0003608773754945638
+      ],
+      "original_templates": 24,
+      "request_count": 1008,
+      "storage_bytes_with_reserve": 3357626880,
+      "templates_per_cell": 4,
+      "wall_seconds_with_reserve": 2194.009620456
+    },
+    {
+      "conservative_half_width": 0.42742012600180596,
+      "empirical_half_widths": [
+        0.0005102130642182583,
+        0.0004499404677756576,
+        0.00020971953034399173,
+        0.0002952849014548999,
+        0.00038720495005410417,
+        0.0002535402466285881
+      ],
+      "original_templates": 60,
+      "request_count": 2520,
+      "storage_bytes_with_reserve": 8394067200,
+      "templates_per_cell": 10,
+      "wall_seconds_with_reserve": 5485.02405114
+    },
+    {
+      "conservative_half_width": 0.30223166951148556,
+      "empirical_half_widths": [
+        0.0003630884384008279,
+        0.0003228602894047416,
+        0.00014953956599036286,
+        0.00020994661315262747,
+        0.00027418043036316753,
+        0.00017786293943762642
+      ],
+      "original_templates": 120,
+      "request_count": 5040,
+      "storage_bytes_with_reserve": 16788134400,
+      "templates_per_cell": 20,
+      "wall_seconds_with_reserve": 10970.04810228
+    },
+    {
+      "conservative_half_width": 0.21371006300090298,
+      "empirical_half_widths": [
+        0.0002579904414316716,
+        0.00022929750203886957,
+        0.00010684242020614576,
+        0.00015106015986709946,
+        0.00019712104415502683,
+        0.0001288957060712777
+      ],
+      "original_templates": 240,
+      "request_count": 10080,
+      "storage_bytes_with_reserve": 33576268800,
+      "templates_per_cell": 40,
+      "wall_seconds_with_reserve": 21940.09620456
+    },
+    {
+      "conservative_half_width": 0.1351621115961865,
+      "empirical_half_widths": [
+        0.00016263684803748064,
+        0.00014529221766076722,
+        6.746787692613385e-05,
+        9.582871885521317e-05,
+        0.00012438771995244168,
+        8.121761474556914e-05
+      ],
+      "original_templates": 600,
+      "request_count": 25200,
+      "storage_bytes_with_reserve": 83940672000,
+      "templates_per_cell": 100,
+      "wall_seconds_with_reserve": 54850.2405114
+    }
+  ],
+  "resources_basis": "maximum observed within each cell/method/fit/budget, paired repeats, then1.5 operational reserve; no statistical confidence bound",
+  "schema_version": 1,
+  "selected": {
+    "conservative_half_width": 0.6758105579809325,
+    "empirical_half_widths": [
+      0.0008041915436384864,
+      0.000681113986932912,
+      0.0003076685857189241,
+      0.0004280594093148311,
+      0.0005689323648723025,
+      0.0003608773754945638
+    ],
+    "original_templates": 24,
+    "request_count": 1008,
+    "storage_bytes_with_reserve": 3357626880,
+    "templates_per_cell": 4,
+    "wall_seconds_with_reserve": 2194.009620456
+  },
+  "selected_repetitions": 65536,
+  "source_generation1": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task15/preflight.json",
+    "sha256": "e30a78f4813042dff7396e928a677318bf98f7b4f342fb784b5cddf667e2d83c"
+  },
+  "source_preflight": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task15/generation2/preflight.json",
+    "sha256": "77d8c078f95ff1e07c128673d1539c488baade3b02545f43a50f2106046d44c7"
+  }
+}

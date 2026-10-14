@@ -1,0 +1,476 @@
+{
+  "config": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/confirmatory.json",
+    "sha256": "f614494cef0020d0d61308ce4176d9aa255cc06a29e738dbf01d69bbabdbe397"
+  },
+  "design": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/pilot/power_design.json",
+    "sha256": "873deaf6080c11c8677c1375b50e72292def508ccbea97efed2816a8618dd074"
+  },
+  "dry_report": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task15/finalization/dry-report.md",
+    "sha256": "8026e766567d04f41de0650b48daa2bbf237d6ef3d0f53728bc12110842bdcb0"
+  },
+  "fit_distribution_variability": "unidentifiable",
+  "freeze": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/protocol/freeze.sha256",
+    "sha256": "a6e09ae9148ac3e6e813eafeec6f7b7e9d52fad40acc15ced5330eff40270686"
+  },
+  "generations": [
+    {
+      "artifact_bytes": 646817604,
+      "batch_coordinator_cpu_ns": 61086421000,
+      "batch_coordinator_peak_rss_bytes": 1670774784,
+      "batch_wall_ns": 594346811126,
+      "censored": 0,
+      "counts": {
+        "complete": 345,
+        "deadline": 157,
+        "implementation_error": 2
+      },
+      "failures": [
+        {
+          "attempt": {
+            "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task15/pilot-repeat0/attempts/81533acfcbda8377c1eab9a5beef8e36e44af382ab50ac3df0df8ed09d7dbbf7/1b9d0eb14d754a919c1b696f126a3a23/attempt.json",
+            "sha256": "2c4d6f533c8fedfe0388a1f7abdda2ff9f7c3be8422caf12ebd2500bb8624b44"
+          },
+          "budget_ns": 8427315832,
+          "bytes": 18519637,
+          "method": "B3",
+          "peak_rss_bytes": 162398208,
+          "status": "implementation_error",
+          "template_id": "ab7a18f8c18bfaa6b289c99c37190c7831648bb01c860173c53f87cf9132f055",
+          "wall_ns": 7444727125
+        },
+        {
+          "attempt": {
+            "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task15/pilot-repeat1/attempts/81533acfcbda8377c1eab9a5beef8e36e44af382ab50ac3df0df8ed09d7dbbf7/8423029a06d54e43ac294a685a69199e/attempt.json",
+            "sha256": "b1d710210f80c0a6cacd40d6dca0df5405e636a65b44d22bdb5239ed1ae1612f"
+          },
+          "budget_ns": 8427315832,
+          "bytes": 18538310,
+          "method": "B3",
+          "peak_rss_bytes": 161087488,
+          "status": "implementation_error",
+          "template_id": "ab7a18f8c18bfaa6b289c99c37190c7831648bb01c860173c53f87cf9132f055",
+          "wall_ns": 7311380667
+        }
+      ],
+      "independent_templates": 12,
+      "max_B3_trace_decisions": 512,
+      "overshoot_ns": 11287841501,
+      "per_method": {
+        "A": {
+          "artifact_bytes": 67397048,
+          "max_rss_bytes": 228835328,
+          "overshoot_ns": 803685253,
+          "parent_cpu_ns_without_publication": 5698584000,
+          "publication_ns": 1039933168,
+          "release_confirmed_count": 72,
+          "requests": 72,
+          "wall_ns": 89848017836,
+          "worker_cpu_ns": 83755301000
+        },
+        "B0": {
+          "artifact_bytes": 8045914,
+          "max_rss_bytes": 223690752,
+          "overshoot_ns": 581691414,
+          "parent_cpu_ns_without_publication": 2850412000,
+          "publication_ns": 366225708,
+          "release_confirmed_count": 72,
+          "requests": 72,
+          "wall_ns": 73060751288,
+          "worker_cpu_ns": 70731429000
+        },
+        "B1": {
+          "artifact_bytes": 7809112,
+          "max_rss_bytes": 202850304,
+          "overshoot_ns": 699360752,
+          "parent_cpu_ns_without_publication": 2995053000,
+          "publication_ns": 357773333,
+          "release_confirmed_count": 72,
+          "requests": 72,
+          "wall_ns": 74181196169,
+          "worker_cpu_ns": 71756843000
+        },
+        "B2": {
+          "artifact_bytes": 296532657,
+          "max_rss_bytes": 263749632,
+          "overshoot_ns": 6964027460,
+          "parent_cpu_ns_without_publication": 9464353000,
+          "publication_ns": 6525690829,
+          "release_confirmed_count": 72,
+          "requests": 72,
+          "wall_ns": 85350331875,
+          "worker_cpu_ns": 69783486000
+        },
+        "B3": {
+          "artifact_bytes": 122504476,
+          "max_rss_bytes": 217071616,
+          "overshoot_ns": 720170040,
+          "parent_cpu_ns_without_publication": 8507682000,
+          "publication_ns": 1661469083,
+          "release_confirmed_count": 72,
+          "requests": 72,
+          "wall_ns": 91233406669,
+          "worker_cpu_ns": 81413514000
+        },
+        "B5": {
+          "artifact_bytes": 67545807,
+          "max_rss_bytes": 206340096,
+          "overshoot_ns": 708477208,
+          "parent_cpu_ns_without_publication": 5831061000,
+          "publication_ns": 1051113961,
+          "release_confirmed_count": 72,
+          "requests": 72,
+          "wall_ns": 80972422169,
+          "worker_cpu_ns": 74625256000
+        },
+        "B6": {
+          "artifact_bytes": 76982590,
+          "max_rss_bytes": 233684992,
+          "overshoot_ns": 810429374,
+          "parent_cpu_ns_without_publication": 6291427000,
+          "publication_ns": 1244771787,
+          "release_confirmed_count": 72,
+          "requests": 72,
+          "wall_ns": 91416037414,
+          "worker_cpu_ns": 84329383000
+        }
+      },
+      "preflight": {
+        "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task15/preflight.json",
+        "sha256": "e30a78f4813042dff7396e928a677318bf98f7b4f342fb784b5cddf667e2d83c"
+      },
+      "request_count": 504,
+      "request_wall_ns": 586062163420,
+      "root": "artifacts/task15",
+      "rows": {
+        "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task15/pilot-rows.json",
+        "sha256": "13ffac53645777bfce159ec75a8c40a3bef6fd63cf89582c5ea644cd67014573"
+      },
+      "source": {
+        "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+        "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+        "source_hash": "240139c93d6eff48de882d6eb71cca71459604a25c06a0b33f8cdcda7a04a252"
+      }
+    },
+    {
+      "artifact_bytes": 676882637,
+      "batch_coordinator_cpu_ns": 60596844000,
+      "batch_coordinator_peak_rss_bytes": 1667350528,
+      "batch_wall_ns": 585299232292,
+      "censored": 0,
+      "counts": {
+        "complete": 347,
+        "deadline": 157
+      },
+      "failures": [],
+      "independent_templates": 12,
+      "max_B3_trace_decisions": 841,
+      "overshoot_ns": 11256807254,
+      "per_method": {
+        "A": {
+          "artifact_bytes": 69127892,
+          "max_rss_bytes": 227262464,
+          "overshoot_ns": 760245502,
+          "parent_cpu_ns_without_publication": 5430503000,
+          "publication_ns": 1037674298,
+          "release_confirmed_count": 72,
+          "requests": 72,
+          "wall_ns": 87869745459,
+          "worker_cpu_ns": 81975654000
+        },
+        "B0": {
+          "artifact_bytes": 8112104,
+          "max_rss_bytes": 222724096,
+          "overshoot_ns": 549190916,
+          "parent_cpu_ns_without_publication": 2653522000,
+          "publication_ns": 351366922,
+          "release_confirmed_count": 72,
+          "requests": 72,
+          "wall_ns": 71772304165,
+          "worker_cpu_ns": 69550022000
+        },
+        "B1": {
+          "artifact_bytes": 7900959,
+          "max_rss_bytes": 203243520,
+          "overshoot_ns": 697933042,
+          "parent_cpu_ns_without_publication": 2675610000,
+          "publication_ns": 339345541,
+          "release_confirmed_count": 72,
+          "requests": 72,
+          "wall_ns": 72814248206,
+          "worker_cpu_ns": 70484288000
+        },
+        "B2": {
+          "artifact_bytes": 304417018,
+          "max_rss_bytes": 265863168,
+          "overshoot_ns": 7031058877,
+          "parent_cpu_ns_without_publication": 9362124000,
+          "publication_ns": 6406742664,
+          "release_confirmed_count": 72,
+          "requests": 72,
+          "wall_ns": 84287447957,
+          "worker_cpu_ns": 68805506000
+        },
+        "B3": {
+          "artifact_bytes": 135453454,
+          "max_rss_bytes": 214532096,
+          "overshoot_ns": 757922375,
+          "parent_cpu_ns_without_publication": 8726056000,
+          "publication_ns": 1901050461,
+          "release_confirmed_count": 72,
+          "requests": 72,
+          "wall_ns": 90296729830,
+          "worker_cpu_ns": 79909308000
+        },
+        "B5": {
+          "artifact_bytes": 70031179,
+          "max_rss_bytes": 205340672,
+          "overshoot_ns": 687841207,
+          "parent_cpu_ns_without_publication": 5622703000,
+          "publication_ns": 1052632046,
+          "release_confirmed_count": 72,
+          "requests": 72,
+          "wall_ns": 79745721047,
+          "worker_cpu_ns": 73424963000
+        },
+        "B6": {
+          "artifact_bytes": 81840031,
+          "max_rss_bytes": 230572032,
+          "overshoot_ns": 772615335,
+          "parent_cpu_ns_without_publication": 6138702000,
+          "publication_ns": 1273824334,
+          "release_confirmed_count": 72,
+          "requests": 72,
+          "wall_ns": 90186127749,
+          "worker_cpu_ns": 83156901000
+        }
+      },
+      "preflight": {
+        "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task15/generation2/preflight.json",
+        "sha256": "77d8c078f95ff1e07c128673d1539c488baade3b02545f43a50f2106046d44c7"
+      },
+      "request_count": 504,
+      "request_wall_ns": 576972324413,
+      "root": "artifacts/task15/generation2",
+      "rows": {
+        "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task15/generation2/pilot-rows.json",
+        "sha256": "260e34da661d5510b1f5472df27323c43d637a9a2cb9ce1e1b72a28758c33d2f"
+      },
+      "source": {
+        "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+        "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+        "source_hash": "f5f1651d6f86626ed31162df6ae04a6d8e42eb2f087271bd6c8dc0d19313a7dd"
+      }
+    }
+  ],
+  "genuine_frozen_fit_bundles": 1,
+  "manifest": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/protocol/freeze.manifest.json",
+    "sha256": "46b35701710a24057aa11bf95b95396599a07e3f092e6169aaab18a308fe1896"
+  },
+  "measured_analysis": {
+    "analysis_cpu_ns": 3418455000,
+    "analysis_peak_rss_bytes": 1186201600,
+    "analysis_wall_ns": 3419008875,
+    "capacity": {
+      "available_physical_memory_bytes": 38654705664,
+      "coordinator_reserve_bytes": 1073741824,
+      "disk": {
+        "free": 85107937280,
+        "total": 930662584320,
+        "used": 845554647040
+      },
+      "memory_safety_factor": 2.0,
+      "observed_worker_peak_bytes": 265863168,
+      "os_reserve_bytes": 4294967296,
+      "serial_workers": 1
+    },
+    "decision": "N24 is the smallest tested design meeting .001 empirical half-width on all contrasts. This is a limited conditional-on-assets study; largerN cannot identify training variation or unobserved pilot tails. The one-hour/20GiB numbers are operational assumptions, not user constraints.",
+    "limits": "two pilot originals percell and one genuine fit cannot establish reliable prospective population power; conservative bounded guarantee is impractical (~10.96 million originals).",
+    "monte_carlo": {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task15/generation2/planned-monte-carlo.json",
+      "sha256": "2614af7e829adf9edc77c30fa1d5780631436313d661c34460a2c4f1e3575051"
+    },
+    "options": [
+      {
+        "conservative_half_width": 0.9557404566915636,
+        "empirical_half_widths": [
+          0.0010392959973247646,
+          0.0008929000752704492,
+          0.00038023271775156997,
+          0.0005095131203544008,
+          0.0006864845917154416,
+          0.00039875479746267567
+        ],
+        "original_templates": 12,
+        "request_count": 504,
+        "storage_bytes_with_reserve": 1678813440,
+        "templates_per_cell": 2,
+        "wall_seconds_with_reserve": 1097.004810228
+      },
+      {
+        "conservative_half_width": 0.6758105579809325,
+        "empirical_half_widths": [
+          0.0008041915436384864,
+          0.000681113986932912,
+          0.0003076685857189241,
+          0.0004280594093148311,
+          0.0005689323648723025,
+          0.0003608773754945638
+        ],
+        "original_templates": 24,
+        "request_count": 1008,
+        "storage_bytes_with_reserve": 3357626880,
+        "templates_per_cell": 4,
+        "wall_seconds_with_reserve": 2194.009620456
+      },
+      {
+        "conservative_half_width": 0.42742012600180596,
+        "empirical_half_widths": [
+          0.0005102130642182583,
+          0.0004499404677756576,
+          0.00020971953034399173,
+          0.0002952849014548999,
+          0.00038720495005410417,
+          0.0002535402466285881
+        ],
+        "original_templates": 60,
+        "request_count": 2520,
+        "storage_bytes_with_reserve": 8394067200,
+        "templates_per_cell": 10,
+        "wall_seconds_with_reserve": 5485.02405114
+      },
+      {
+        "conservative_half_width": 0.30223166951148556,
+        "empirical_half_widths": [
+          0.0003630884384008279,
+          0.0003228602894047416,
+          0.00014953956599036286,
+          0.00020994661315262747,
+          0.00027418043036316753,
+          0.00017786293943762642
+        ],
+        "original_templates": 120,
+        "request_count": 5040,
+        "storage_bytes_with_reserve": 16788134400,
+        "templates_per_cell": 20,
+        "wall_seconds_with_reserve": 10970.04810228
+      },
+      {
+        "conservative_half_width": 0.21371006300090298,
+        "empirical_half_widths": [
+          0.0002579904414316716,
+          0.00022929750203886957,
+          0.00010684242020614576,
+          0.00015106015986709946,
+          0.00019712104415502683,
+          0.0001288957060712777
+        ],
+        "original_templates": 240,
+        "request_count": 10080,
+        "storage_bytes_with_reserve": 33576268800,
+        "templates_per_cell": 40,
+        "wall_seconds_with_reserve": 21940.09620456
+      },
+      {
+        "conservative_half_width": 0.1351621115961865,
+        "empirical_half_widths": [
+          0.00016263684803748064,
+          0.00014529221766076722,
+          6.746787692613385e-05,
+          9.582871885521317e-05,
+          0.00012438771995244168,
+          8.121761474556914e-05
+        ],
+        "original_templates": 600,
+        "request_count": 25200,
+        "storage_bytes_with_reserve": 83940672000,
+        "templates_per_cell": 100,
+        "wall_seconds_with_reserve": 54850.2405114
+      }
+    ],
+    "resources_basis": "maximum observed within each cell/method/fit/budget, paired repeats, then1.5 operational reserve; no statistical confidence bound",
+    "schema_version": 1,
+    "selected": {
+      "conservative_half_width": 0.6758105579809325,
+      "empirical_half_widths": [
+        0.0008041915436384864,
+        0.000681113986932912,
+        0.0003076685857189241,
+        0.0004280594093148311,
+        0.0005689323648723025,
+        0.0003608773754945638
+      ],
+      "original_templates": 24,
+      "request_count": 1008,
+      "storage_bytes_with_reserve": 3357626880,
+      "templates_per_cell": 4,
+      "wall_seconds_with_reserve": 2194.009620456
+    },
+    "selected_repetitions": 65536,
+    "source_generation1": {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task15/preflight.json",
+      "sha256": "e30a78f4813042dff7396e928a677318bf98f7b4f342fb784b5cddf667e2d83c"
+    },
+    "source_preflight": {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task15/generation2/preflight.json",
+      "sha256": "77d8c078f95ff1e07c128673d1539c488baade3b02545f43a50f2106046d44c7"
+    }
+  },
+  "new_training_fits": 0,
+  "planned_monte_carlo": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task15/generation2/planned-monte-carlo.json",
+    "sha256": "2614af7e829adf9edc77c30fa1d5780631436313d661c34460a2c4f1e3575051"
+  },
+  "protected_inputs": [
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/data/confirmatory/ra-wp06-e001/manifest.json",
+      "sha256": "3699eec079c8f5021d5615228fa327998264f0d4a900622312824fa62b984d05"
+    }
+  ],
+  "protected_outcomes_opened": false,
+  "queue": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task15/finalization/protected-queue.json",
+    "sha256": "f36952c3e512d3b30722b46550ded155e0e20b134199d6b89cc33e1928dec1ff"
+  },
+  "schema_version": 1,
+  "scope": "unopened protected design, conditional on frozen assets/training data; no confirmation outcome",
+  "selection": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task15/finalization/design-selection.json",
+    "sha256": "e494e8fb894734556377fdfc2e85c608bb63b9e61c12c1b01867c7149bfdad68"
+  },
+  "source_commits": [
+    "34aca3d",
+    "baa66ebb247c3b272033066f3f2708b19977a47e"
+  ],
+  "source_unchanged_after_generation2": true,
+  "status": "DONE_WITH_CONCERNS",
+  "total_physical_pilot_requests": 1008,
+  "total_unique_pilot_templates": 12,
+  "unknown_costs": [
+    "preparation/test command CPU and peak RSS",
+    "failed first hardware preparation CPU/RSS",
+    "summary reconstruction overhead outside measured simulations",
+    "final report generation/write tails",
+    "publication CPU tails",
+    "future thermal/background and storage/time extremes"
+  ],
+  "unresolved_scientific_limits": [
+    "two public originals percell",
+    "one frozen fit bundle; no across-fit precision",
+    "conditional resampling cannot identify unseen tails",
+    "five literature contenders blocked",
+    "future trace cap hits are method outcomes",
+    "future protected wiring requires numbered source/config amendment before first outcome"
+  ],
+  "verification": {
+    "digest": "9bf1e05c293ab936bc6cde4a9b585087e8c11ff24a33c87fa7609f30e9723aa6",
+    "experiment_id": "ra-wp06-e001",
+    "queue_count": 1008,
+    "source_commit": "baa66ebb247c3b272033066f3f2708b19977a47e",
+    "success": true
+  }
+}

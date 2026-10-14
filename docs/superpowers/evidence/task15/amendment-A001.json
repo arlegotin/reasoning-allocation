@@ -1,0 +1,58 @@
+{
+  "active_experiment": "ra-wp06-e002",
+  "amendment_number": 1,
+  "capacity": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task15/amendment-A001/design-selection.json",
+    "sha256": "5ce87fc564ec390be0334acebca15c69706edf498f8f7205d9daf848adee7ca6"
+  },
+  "config": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/confirmatory-A001.json",
+    "sha256": "e4879c4c4d13823b5802403c575b1d72f2c352773ba7d58204bbf7907856ce9c"
+  },
+  "digest_file": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/protocol/freeze-A001.sha256",
+    "sha256": "50c3eeb4d4e6bd7d4df50c673e722f1f21301fbd7a3ea2643e3f86c71b08ac9c"
+  },
+  "downstream": "Task16 source wiring requires A002/new experiment before first protected outcome; strict live verification retained. Task17 archival verification and separate analysis-code provenance.",
+  "manifest": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/protocol/freeze-A001.manifest.json",
+    "sha256": "6109b1f3ed9ba5b8feb9808dfb051d379f0039c55de5d06e077e76b42ea8836d"
+  },
+  "previous_generation_evidence": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/docs/superpowers/evidence/task15/task15.json",
+    "sha256": "662eadd4d6e6f432fb4b3ced01a4eefa8c59e84f911aaf59da7eaba4aabe85c2"
+  },
+  "protected_inputs": [
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/data/confirmatory/ra-wp06-e001/manifest.json",
+      "sha256": "3699eec079c8f5021d5615228fa327998264f0d4a900622312824fa62b984d05"
+    }
+  ],
+  "protected_outcomes_opened": false,
+  "protocol": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/protocol/confirmatory-A001.md",
+    "sha256": "cb7121a77b091465f8f90f1146261163d9c11236e8fbbb2f137bcb6c475db03d"
+  },
+  "queue": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task15/amendment-A001/protected-queue.json",
+    "sha256": "295eafd068dfc66db1abdca009e9193b1c0203604033f3e5a44fed3886e4ddd6"
+  },
+  "reason": "Reconcile coordinator peak measurement:1GiB provisional allowance was below observed1.667GB. Preserve prior freeze; reserve8GiB for possible4x one-batch scaling. No sample/method/source/statistical change.",
+  "schema_version": 1,
+  "verification": [
+    {
+      "digest": "9bf1e05c293ab936bc6cde4a9b585087e8c11ff24a33c87fa7609f30e9723aa6",
+      "experiment_id": "ra-wp06-e001",
+      "queue_count": 1008,
+      "source_commit": "baa66ebb247c3b272033066f3f2708b19977a47e",
+      "success": true
+    },
+    {
+      "digest": "9b8e9907f6b7d3fda31d05bfefe884dacb53b1cddc1c2278540cc541b627551f",
+      "experiment_id": "ra-wp06-e002",
+      "queue_count": 1008,
+      "source_commit": "baa66ebb247c3b272033066f3f2708b19977a47e",
+      "success": true
+    }
+  ]
+}
