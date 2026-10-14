@@ -87,8 +87,10 @@ def label_leases(leases: Sequence[LeaseOutcome], progress: Sequence[ProgressReco
     return labels
 
 
-def residual_administration(boundaries):
-    return sum(b.end_ns - b.entry_ns for b in boundaries if b.kind == 'residual' and b.end_ns is not None)
+def residual_administration(boundaries, *, dispatched_entries=None):
+    return sum(b.end_ns - b.entry_ns for b in boundaries if b.end_ns is not None and
+               (b.kind == 'residual' or b.kind == 'rebid' and dispatched_entries is not None
+                and b.entry_ns not in dispatched_entries))
 
 
 class TraceWriter:
@@ -311,7 +313,7 @@ def finalize_trace(out, progress, request, release_ns, aligned, boundaries, stat
                'residual_administration_ns': residual_administration([SelectionBoundary(**b) for b in boundaries]),
                'full_lease_ns': 0, 'admin_ns': 0, 'body_ns': 0, 'support_lengths_observed': [],
                'trace_bytes': 0, 'finalization_ns': 0}
-    observed = set()
+    observed, dispatched_entries = set(), set()
     if directory.exists():
         for path in sorted(directory.glob('decision-*.json')):
             item = strict_json(path.read_text())
@@ -345,6 +347,7 @@ def finalize_trace(out, progress, request, release_ns, aligned, boundaries, stat
             if allocation['selection_probability'] != expected:
                 raise ValueError('behavior propensity mismatch')
             summary['dispatched'] += 1
+            dispatched_entries.add(dispatch['entry_ns'])
             observed.add(allocation['node_limit'])
             outcome_path = directory / f'outcome-{index:06d}.json'
             if outcome_path.exists():
@@ -374,6 +377,8 @@ def finalize_trace(out, progress, request, release_ns, aligned, boundaries, stat
                     summary['full_lease_ns' if k == 'full_ns' else k] += label[k]
         summary['support_lengths_observed'] = sorted(observed)
         summary['trace_bytes'] = sum(p.stat().st_size for p in directory.iterdir() if p.is_file())
+    summary['residual_administration_ns'] = (None if censored and not boundaries else
+        residual_administration([SelectionBoundary(**b) for b in boundaries], dispatched_entries=dispatched_entries))
     summary['finalization_ns'] = time.perf_counter_ns() - started
     _atomic_json(Path(out) / 'collection.json', summary, immutable=True)
     return summary

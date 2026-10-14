@@ -113,3 +113,11 @@ def test_partial_recovery_counts_retained_trace_shards_without_fabricating_label
     assert not final and recovered['duration_censored']
     assert recovered['resources']['trace_bytes'] == len(b'incomplete array evidence')
     assert not list((tmp_path / 'trace').glob('label-*'))
+
+
+def test_expired_scoring_rebid_without_dispatched_lease_is_residual():
+    boundaries = [SelectionBoundary(0, 2, 5, 7, 'rebid', 'known', None),
+                  SelectionBoundary(20, 22, 29, 30, 'rebid', 'known', None)]
+    # Second callback returns a legal native node solely to unwind an expired
+    # scoring decision. It has no actual lease dispatch, so all10ns is residual.
+    assert residual_administration(boundaries, dispatched_entries={0}) == 10

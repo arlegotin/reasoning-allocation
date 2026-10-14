@@ -7,18 +7,19 @@ import time
 
 import numpy as np
 
-from ra.collect import digest, label_leases, selected_training_manifest
+from ra.collect import digest, label_leases, selected_training_manifest, residual_administration
 from ra.runner import _atomic_json, _read_attempt
-from ra.types import LeaseOutcome, NodeKey, ProgressRecord
+from ra.types import LeaseOutcome, NodeKey, ProgressRecord, SelectionBoundary
 from ra.worker import strict_json
 
 
-def main():
+def main(output=Path('artifacts/checks/task11')):
     started = time.perf_counter_ns()
     root = Path('data/traces/train')
-    output = Path('artifacts/checks/task11')
+    output = Path(output)
+    output.mkdir(parents=True, exist_ok=True)
     schedule = strict_json((root / 'runs/schedule.json').read_text())
-    sources = output / 'collection-source'
+    sources = Path('artifacts/checks/task11/collection-source')
     for name, expected in schedule['inventory']['sources'].items():
         assert hashlib.sha256((sources / name).read_bytes()).hexdigest() == expected, name
     counts, lengths, behaviors, sizes = Counter(), Counter(), Counter(), Counter()
@@ -38,7 +39,10 @@ def main():
         counts['decisions'] += len(decisions)
         counts['max_decisions_per_attempt'] = max(counts['max_decisions_per_attempt'], len(decisions))
         summary = payload['resources']['collection']
-        nanoseconds['residual_administration'] += summary['residual_administration_ns']
+        nanoseconds['historical_residual_administration'] += summary['residual_administration_ns']
+        dispatched_entries = {strict_json(p.read_text())['entry_ns'] for p in trace.glob('dispatch-*.json')}
+        nanoseconds['corrected_residual_administration'] += residual_administration(
+            [SelectionBoundary(**b) for b in payload['resources']['selection_boundaries']], dispatched_entries=dispatched_entries)
         for file in trace.glob('*.npy'):
             sizes[file.stem.split('-')[0] + '_file_bytes'] += file.stat().st_size
             array = np.load(file, allow_pickle=False)
@@ -111,4 +115,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    import sys
+    main(Path(sys.argv[1]) if len(sys.argv) > 1 else Path('artifacts/checks/task11'))
