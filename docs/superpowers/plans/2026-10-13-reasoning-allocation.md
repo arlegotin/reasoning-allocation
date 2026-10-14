@@ -431,9 +431,11 @@ def test_coupled_population_has_same_work_and_evidence(coupled_cases):
 
 **Files:** Create `src/ra/transfer.py`, `tests/test_transfer_objectives.py`, `tests/test_transfer_manifest.py`, `protocol/transfer.md`, `configs/transfer.json`; extend `types.py` with domain-tagged original instances; generate transfer manifests/licenses/hashes/results.
 
+**Closed disposition:** WP09 is skipped because the scientific entry gate is unmet. Step 1 was verified; Steps 2–6 and all transfer interfaces remain unexecuted, rather than pending. The disposition and evidence were committed separately.
+
 **Interfaces:** Produces `transfer.generate_independent_set(config: dict[str, object], seed: int) -> dict[str, object]`, `transfer.independent_set_utility(primal: int, dual: float, total_weight: int) -> float`, `transfer.validate_manifest(manifest: dict[str, object]) -> None`; CLI `transfer --config PATH --out PATH [--dry-run]`. Domain-tagged solver inputs preserve original exact feasibility checker and separate metric adapter; set-cover `CoverInstance` is not overloaded silently.
 
-- [ ] **Step 1: Verify the entry gate before coding.** Require either meaningful primary benefit with attribution or a specific evidence-supported locality/scale prediction, plus source/license/storage/resource feasibility. Otherwise mark WP09 skipped with reason and go to Task 20. No obligatory full MIPLIB download.
+- [x] **Step 1: Verify the entry gate before coding.** Require either meaningful primary benefit with attribution or a specific evidence-supported locality/scale prediction, plus source/license/storage/resource feasibility. Otherwise mark WP09 skipped with reason and go to Task 20. No obligatory full MIPLIB download.
 - [ ] **Step 2: Write failing domain/license tests.** Weighted independent set uses empty primal anchor 0, upper bound `sum(w)`, exact positive weights/edge constraints, and utility `1-(dual-primal)/sum(w)`; empty progress has utility 0 and proven optimum has utility 1. Reject incompatible MIPLIB metrics from pooling with primary normalized set cover. MIPLIB selection is based on frozen metadata criteria, never candidate performance. Unclear redistribution terms prevent bundling; known optima cannot enter runtime features. Frozen zero-shot and retrained tracks have separate model IDs/costs.
 
 ```python

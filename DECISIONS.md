@@ -230,3 +230,10 @@ Planning precision does not establish practical equivalence; B3/B5 wording was c
 14 October 2026 — Accepted Task18 through `a66d46a`. A prospective, finite public diagnostic added 0/4/10 ms delay to the same estimate/L1 selector. Six independent originals and two temporal repeats produced 36 retained requests without faults. Actual delayed time, including oversleep, was charged. Work and available utility decreased descriptively; the experiment establishes neither a corrected-A score nor causal decomposition of the protected A–B2 result.
 
 Generic administrative cost supplies no representation-specific population advantage, so population implementation remains unexecuted. Other grid, optimization and transfer branches were not run automatically. No input, candidate, primary inference or historical record changed. The serialization preflight stop occurred before workers and is retained with its cost bound. Proceed to Task19's evidence gate, then the achieved-scope report and clean reproduction.
+
+
+## D035 — Closed transfer entry gate without a domain experiment
+
+14 October 2026 — Accepted Task19 `17e3866`, with no review findings. The scientific predicate fails on the reviewed primary and attribution evidence. No unsupported scale hypothesis was introduced to reopen it. Weighted-independent-set and MIPLIB zero-shot/retrained tracks remain unexecuted, with null metrics and no transfer-success/failure claim. Feasibility and permission gates remain unassessed.
+
+The documentation-only disposition preserves all seven cited evidence identities and dependency history. Zero study execution does not imply zero preparation or review cost. Proceed to Task20's scope-correct report, required clean reproduction, archive and final whole-branch review.
