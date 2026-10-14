@@ -525,6 +525,8 @@ Channel.send=send
         assert result.status=='deadline',result.error
         assert result.timestamps['terminal_receipt_ns']>result.request.deadline_ns
         assert result.resources['native_released'] is True
+        assert result.resources['parent_stop_send']['errno']==errno.ENOTCONN
+        assert result.resources['parent_stop_send']['delivered'] is False
         assert result.error is None
     else:
         assert result.status=='implementation_error'

@@ -182,6 +182,11 @@ def _run_request(request: Request, out: Path) -> Attempt:
                         import errno
                         if exc.errno not in (errno.EPIPE, errno.ECONNRESET, errno.ENOTCONN):
                             raise
+                        resources['parent_stop_send'] = {'delivered': False, 'socket_send_returned': False, 'errno': exc.errno,
+                            'scope': 'advisory stop send failed after peer close; terminal drain continues'}
+                    else:
+                        resources['parent_stop_send'] = {'delivered': None, 'socket_send_returned': True, 'errno': None,
+                            'scope': 'socket send returned; worker processing is not acknowledged'}
                     stop_sent = True
                 if now >= request.deadline_ns + request.watchdog_grace_ns and process.poll() is None:
                     timestamps['watchdog_ns'] = now
