@@ -13,6 +13,7 @@ from ra.config import ConfigError, _object, _nonfinite
 
 STATUSES = {'reproduced', 'adapted', 'approximation', 'blocked', 'reference_only'}
 REQUIRED_CONTROLS = frozenset(f'B{i}' for i in range(7))
+NAMED_METHODS = frozenset(('labassi', 'mattick-mutschler', 'trgnn', 'deepbound', 'treecl'))
 GATES = frozenset(('cpu_inference', 'cpu_backward', 'serialization', 'operators', 'live_features',
                    'hybrid_handoff', 'tiny_optimum', 'original_reproduction', 'cpu_resources'))
 
@@ -182,6 +183,7 @@ def validate_register(register: dict[str, object], cards: Sequence[dict[str, obj
         refs = register.get('cards')
         _require(isinstance(refs, list) and bool(refs), 'locked literature cards required')
         locked = [read_card(ref) for ref in refs]
+        _require(NAMED_METHODS <= {c.get('id') for c in locked}, 'every required named method needs a disposition')
         _require(isinstance(cards, Sequence) and not isinstance(cards, (str, bytes))
                  and len(cards) == len(locked), 'locked literature cards cannot disappear')
         _require({c.get('id') for c in cards if isinstance(c, dict)} == {c.get('id') for c in locked},

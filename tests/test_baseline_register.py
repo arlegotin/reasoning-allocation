@@ -185,6 +185,14 @@ def test_full_register_cannot_drop_a_locked_literature_card():
         validate(register, cards[:-1])
 
 
+def test_full_register_cannot_remove_a_required_named_disposition():
+    from ra.baselines.register import load_register
+    register, cards = load_register(Path('configs/mandatory_baselines.json'))
+    register['baseline_register']['cards'].pop()
+    with pytest.raises(ValueError):
+        validate(register, cards[:-1])
+
+
 def test_full_register_cannot_promote_a_locked_card_without_evidence_update():
     from ra.baselines.register import load_register
     register, cards = load_register(Path('configs/mandatory_baselines.json'))
@@ -284,12 +292,19 @@ def test_malformed_enum_is_a_validation_error(record, location):
 
 def test_own_named_reproduction_does_not_dispatch_arbitrary_pinned_script(record, capsys):
     from ra.cli import main
+    blocked = deepcopy(record[1][0])
     register, cards = executable(record)
-    path = Path('card.md')
-    path.write_text('```json\n' + json.dumps(cards[0]) + '\n```\n')
+    for baseline in ['mattick-mutschler', 'trgnn', 'deepbound', 'treecl']:
+        other = deepcopy(blocked)
+        other['id'] = baseline
+        cards.append(other)
     pinned = {'schema_version': 1, 'selected': register['selected'], 'baseline_register': {
         key: value for key, value in register.items() if key != 'selected'}}
-    pinned['baseline_register']['cards'] = [{'path': str(path), 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()}]
+    pinned['baseline_register']['cards'] = []
+    for card in cards:
+        path = Path(card['id'] + '.md')
+        path.write_text('```json\n' + json.dumps(card) + '\n```\n')
+        pinned['baseline_register']['cards'].append({'path': str(path), 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()})
     Path('register.json').write_text(json.dumps(pinned))
     assert main(['reproduce', '--baseline', 'labassi', '--config', 'register.json', '--out', 'out']) == 1
     assert 'no permitted executable port installed' in capsys.readouterr().err
