@@ -1,0 +1,30 @@
+{
+  "scope": "interpretation and saved-curve point differences only; no raw reconstruction/bootstrap/model/threshold/population/deadline changes",
+  "original": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/confirmatory/inference.original.json",
+    "sha256": "1a453a88c5a1834aa5d760f12157e0a564fa32b81613ea3ff37579a6dd56e22f"
+  },
+  "corrected": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/confirmatory/inference.json",
+    "sha256": "c72b4940fd1bf646c9c2dc99ed38658035d90a8142f8b4442ac9e773765669b5"
+  },
+  "numeric_digest_before": "6339521bccab940fe0ec0546792a3c6012e65644fe7f63a5dde6418717b83d69",
+  "numeric_digest_after": "6339521bccab940fe0ec0546792a3c6012e65644fe7f63a5dde6418717b83d69",
+  "original_analysis_source": "42a0b88b08d6158629aa77d371d32cb6e433c4ad",
+  "presentation_source": "df9df35403883458af9eee103093e820a7f3de71",
+  "changed_claims": [
+    {
+      "baseline": "B3",
+      "original": "tight-null at the useful-precision scale (descriptive, not an equivalence test)",
+      "corrected": "direction inconclusive; narrow interval relative to planning precision; no equivalence margin registered"
+    },
+    {
+      "baseline": "B5",
+      "original": "tight-null at the useful-precision scale (descriptive, not an equivalence test)",
+      "corrected": "direction inconclusive; narrow interval relative to planning precision; no equivalence margin registered"
+    }
+  ],
+  "wall_ns": 16459792,
+  "cpu_ns": 12098000,
+  "cost_scope": "presentation operation after imports; final correction/index writes excluded; no scientific recomputation"
+}

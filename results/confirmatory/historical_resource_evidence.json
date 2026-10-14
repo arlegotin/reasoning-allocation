@@ -1,0 +1,631 @@
+[
+  {
+    "measures": {
+      "cold_child_wall_ns": 538122958,
+      "polled_peak_child_rss_bytes": 90685440,
+      "rss_poll_interval_seconds": 0.01
+    },
+    "path": "artifacts/checks/task4/resources.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "4ca51d45b009373d31a4543486669329cc5000f769aa466aa1f4ef8bdd4781e4"
+  },
+  {
+    "measures": {
+      "cold_child_wall_ns": 608329833,
+      "polled_peak_child_rss_bytes": 94683136,
+      "rss_poll_interval_seconds": 0.01
+    },
+    "path": "artifacts/checks/task4/fix1/resources.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "3e4a8db0bf3cf9db7c3db83e03964ef99dbf8f5e34728bb75b5114747a3e43ec"
+  },
+  {
+    "measures": {
+      "cpu_ns": 1452533000,
+      "wall_ns": 1460247125
+    },
+    "path": "artifacts/pilot/seal-cost.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "1ea97ada7c5f9e39e67e4478e5904c751545b39e4395ccd1db6c924c720e5fe6"
+  },
+  {
+    "measures": {
+      "elapsed_ns": 269793000
+    },
+    "path": "artifacts/pilot/validation-generation-cost.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "562c481b914ee77fba6637c0946a4193cba04812b6e33068a605f11ad452120e"
+  },
+  {
+    "measures": {
+      "cpu_ns": 1016330000,
+      "wall_ns": 1021783458
+    },
+    "path": "artifacts/pilot/closure-cost.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "953c0f47375e0669f35320d7bed7a50cd25cdc196a24d2b362e7bd499573ccb2"
+  },
+  {
+    "measures": {
+      "cpu_ns": 3509691000,
+      "wall_ns": 3510637583
+    },
+    "path": "artifacts/pilot/reconstruction-cost.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "f357129a8229d99fc133b13da921199797d1cd2442f0d1e919bc18e75bc80de3"
+  },
+  {
+    "measures": {
+      "coordinator_cpu_ns": 6843000,
+      "reaped_descendant_cpu_s": 120.998222,
+      "wall_ns": 118371788166
+    },
+    "path": "artifacts/pilot/pool-length/stage-cost.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "37a59538726d1adfa6f2f71deccc90668e517d57a36bf12fdc61b77a7b943ccd"
+  },
+  {
+    "measures": {
+      "coordinator_cpu_ns": 8163000,
+      "reaped_descendant_cpu_s": 24.90047,
+      "wall_ns": 24502784333
+    },
+    "path": "artifacts/pilot/tuning-repair/stage-cost.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "dd5726f4d11d89fa789fb1eaca75b32b8f660f43a7e308e37496d66d4ea4d8f5"
+  },
+  {
+    "measures": {
+      "coordinator_cpu_ns": 8375000,
+      "reaped_descendant_cpu_s": 144.16207200000002,
+      "wall_ns": 140559294750
+    },
+    "path": "artifacts/pilot/controls/stage-cost.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "10f88dee82d51616ed18da59f76bba0eefe0dc0af22fc303533976b9162935ee"
+  },
+  {
+    "measures": {
+      "attempts": 6,
+      "schedule_wall_ns": 17684908458
+    },
+    "path": "artifacts/pilot/profile/driver-cost.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "7249b519ba9fa93ae317b81050ad332120e7f647446bd3de9e2ce932b502cce3"
+  },
+  {
+    "measures": {
+      "coordinator_cpu_ns": 7049000,
+      "reaped_descendant_cpu_s": 192.95222800000002,
+      "wall_ns": 188288987917
+    },
+    "path": "artifacts/pilot/tuning-cached/stage-cost.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "fa8baf90e0b0b30d813470dee23d9d1532bf0e7afb20b04f4eb9bafa2c9a2728"
+  },
+  {
+    "measures": {
+      "coordinator_cpu_ns": 8028000,
+      "reaped_descendant_cpu_s": 183.151066,
+      "wall_ns": 179543531125
+    },
+    "path": "artifacts/pilot/tuning-expanded/stage-cost.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "c2c86fd46aa15c217658e5c3bb8ef7f0f0bc1dabcfeda4b25f6f6197e3f20158"
+  },
+  {
+    "measures": {
+      "cpu_ns": 36073629000,
+      "peak_rss_bytes": 390217728,
+      "wall_ns": 37530695958
+    },
+    "path": "artifacts/task13/capacity-fitting-resources.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "a90ebbe3bfe58cc81bb2bee4b66136b3bd0a8044024cd8cd0cf38d3d5820ff7c"
+  },
+  {
+    "measures": {
+      "cpu_ns": 111160033000,
+      "peak_rss_bytes": 544505856,
+      "wall_ns": 111645407000
+    },
+    "path": "artifacts/task13/capacity-expansion-resources.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "936ed47137082eddfddb69103e3c460c5f665740bb43b1e24cb736973f3bb5f1"
+  },
+  {
+    "measures": {
+      "cpu_ns": 26436748000,
+      "peak_rss_bytes": 458850304,
+      "wall_ns": 26875248333
+    },
+    "path": "artifacts/task13/fix1/fit-resources.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "cd3469b6edb6d4e3bd9d7b214ed490ad3215a1344a10238248b51fcda6dd204a"
+  },
+  {
+    "measures": {
+      "candidates.0.curves.0.fit_ns": 3532292,
+      "candidates.0.curves.1.fit_ns": 3518667,
+      "candidates.0.fit_cpu_ns": 17183000,
+      "candidates.0.fit_wall_ns": 17220458,
+      "candidates.0.model_bytes": 7492,
+      "candidates.1.curves.0.fit_ns": 3350292,
+      "candidates.1.curves.1.fit_ns": 3795167,
+      "candidates.1.fit_cpu_ns": 17046000,
+      "candidates.1.fit_wall_ns": 17049167,
+      "candidates.1.model_bytes": 7520,
+      "candidates.2.curves.0.fit_ns": 71828583,
+      "candidates.2.curves.1.fit_ns": 382028292,
+      "candidates.2.fit_cpu_ns": 999296000,
+      "candidates.2.fit_wall_ns": 999373083,
+      "candidates.2.model_bytes": 57715,
+      "cpu_ns": 1869598000,
+      "target_sensitivity.deadline_censored": 11,
+      "target_sensitivity.duration_lower_bounds": 0,
+      "wall_ns": 1899841666
+    },
+    "path": "artifacts/task13/fix1/models/L16/fit-card.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "57e94e00cf2c08efd0fdba88c36e0a95eedfeb17d8d5cc78bce4357be4478ced"
+  },
+  {
+    "measures": {
+      "candidates.0.curves.0.fit_ns": 11127000,
+      "candidates.0.curves.1.fit_ns": 16274834,
+      "candidates.0.fit_cpu_ns": 106043000,
+      "candidates.0.fit_wall_ns": 106061292,
+      "candidates.0.model_bytes": 7480,
+      "candidates.1.curves.0.fit_ns": 9612042,
+      "candidates.1.curves.1.fit_ns": 14850250,
+      "candidates.1.fit_cpu_ns": 102682000,
+      "candidates.1.fit_wall_ns": 102710084,
+      "candidates.1.model_bytes": 7549,
+      "cpu_ns": 8413297000,
+      "target_sensitivity.deadline_censored": 80,
+      "target_sensitivity.duration_lower_bounds": 0,
+      "wall_ns": 8545286750
+    },
+    "path": "artifacts/task13/fix1/models/B5/fit-card.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "54108f1d68ca0fb7b3c816627290b50430e1a115ab276e480a84bd3f6d5793c8"
+  },
+  {
+    "measures": {
+      "candidates.0.curves.0.fit_ns": 4089166,
+      "candidates.0.curves.1.fit_ns": 4488208,
+      "candidates.0.fit_cpu_ns": 22737000,
+      "candidates.0.fit_wall_ns": 22735791,
+      "candidates.0.model_bytes": 7417,
+      "candidates.1.curves.0.fit_ns": 3743375,
+      "candidates.1.curves.1.fit_ns": 4089291,
+      "candidates.1.fit_cpu_ns": 22337000,
+      "candidates.1.fit_wall_ns": 22363167,
+      "candidates.1.model_bytes": 7449,
+      "candidates.2.curves.0.fit_ns": 521715042,
+      "candidates.2.curves.1.fit_ns": 550513584,
+      "candidates.2.fit_cpu_ns": 1692424000,
+      "candidates.2.fit_wall_ns": 1692783292,
+      "candidates.2.model_bytes": 58022,
+      "cpu_ns": 2906321000,
+      "target_sensitivity.deadline_censored": 12,
+      "target_sensitivity.duration_lower_bounds": 0,
+      "wall_ns": 3043778333
+    },
+    "path": "artifacts/task13/fix1/models/L4/fit-card.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "af8b13d793c756080d63c8825c15bec28fb45b4ead89adba2ec78fa6aa4bcac5"
+  },
+  {
+    "measures": {
+      "candidates.0.curves.0.fit_ns": 4871125,
+      "candidates.0.curves.1.fit_ns": 5242083,
+      "candidates.0.fit_cpu_ns": 27965000,
+      "candidates.0.fit_wall_ns": 27965708,
+      "candidates.0.model_bytes": 7343,
+      "candidates.1.curves.0.fit_ns": 4196625,
+      "candidates.1.curves.1.fit_ns": 4929625,
+      "candidates.1.fit_cpu_ns": 26852000,
+      "candidates.1.fit_wall_ns": 26851125,
+      "candidates.1.model_bytes": 7395,
+      "candidates.2.curves.0.fit_ns": 542552292,
+      "candidates.2.curves.1.fit_ns": 779551542,
+      "candidates.2.fit_cpu_ns": 2190517000,
+      "candidates.2.fit_wall_ns": 2191073167,
+      "candidates.2.model_bytes": 58044,
+      "cpu_ns": 3685223000,
+      "target_sensitivity.deadline_censored": 9,
+      "target_sensitivity.duration_lower_bounds": 0,
+      "wall_ns": 3686829041
+    },
+    "path": "artifacts/task13/fix1/models/L2/fit-card.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "7a506d597918749424f307407ee28899fc2d41855be9afbdfd2780120c419f4d"
+  },
+  {
+    "measures": {
+      "candidates.0.curves.0.fit_ns": 3155708,
+      "candidates.0.curves.1.fit_ns": 3200167,
+      "candidates.0.fit_cpu_ns": 14127000,
+      "candidates.0.fit_wall_ns": 14128042,
+      "candidates.0.model_bytes": 7339,
+      "candidates.1.curves.0.fit_ns": 2695625,
+      "candidates.1.curves.1.fit_ns": 3176209,
+      "candidates.1.fit_cpu_ns": 13774000,
+      "candidates.1.fit_wall_ns": 13774125,
+      "candidates.1.model_bytes": 7351,
+      "candidates.2.curves.0.fit_ns": 65504500,
+      "candidates.2.curves.1.fit_ns": 78167666,
+      "candidates.2.fit_cpu_ns": 457847000,
+      "candidates.2.fit_wall_ns": 457903792,
+      "candidates.2.model_bytes": 57810,
+      "cpu_ns": 1216401000,
+      "target_sensitivity.deadline_censored": 10,
+      "target_sensitivity.duration_lower_bounds": 0,
+      "wall_ns": 1230509459
+    },
+    "path": "artifacts/task13/fix1/models/L32/fit-card.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "90ccb85af43902444c2e86b1e4742dde8fc9a789a66525645278b8d4e1f07574"
+  },
+  {
+    "measures": {
+      "candidates.0.curves.0.fit_ns": 3717416,
+      "candidates.0.curves.1.fit_ns": 3793417,
+      "candidates.0.fit_cpu_ns": 19149000,
+      "candidates.0.fit_wall_ns": 19147750,
+      "candidates.0.model_bytes": 7396,
+      "candidates.1.curves.0.fit_ns": 3228625,
+      "candidates.1.curves.1.fit_ns": 3795791,
+      "candidates.1.fit_cpu_ns": 18386000,
+      "candidates.1.fit_wall_ns": 18385583,
+      "candidates.1.model_bytes": 7444,
+      "candidates.2.curves.0.fit_ns": 78145167,
+      "candidates.2.curves.1.fit_ns": 525942250,
+      "candidates.2.fit_cpu_ns": 1189906000,
+      "candidates.2.fit_wall_ns": 1189997833,
+      "candidates.2.model_bytes": 58019,
+      "cpu_ns": 2223957000,
+      "target_sensitivity.deadline_censored": 11,
+      "target_sensitivity.duration_lower_bounds": 0,
+      "wall_ns": 2276086459
+    },
+    "path": "artifacts/task13/fix1/models/L8/fit-card.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "3505651ec255ea8ebb68c56f26b5f9999c11fd415f024bfdf3099eae2c12a504"
+  },
+  {
+    "measures": {
+      "candidates.0.curves.0.fit_ns": 609487666,
+      "candidates.0.curves.1.fit_ns": 6349500,
+      "candidates.0.fit_cpu_ns": 643253000,
+      "candidates.0.fit_wall_ns": 645058208,
+      "candidates.0.model_bytes": 7389,
+      "candidates.1.curves.0.fit_ns": 4795125,
+      "candidates.1.curves.1.fit_ns": 5925125,
+      "candidates.1.fit_cpu_ns": 35072000,
+      "candidates.1.fit_wall_ns": 35092333,
+      "candidates.1.model_bytes": 7447,
+      "candidates.2.curves.0.fit_ns": 735296083,
+      "candidates.2.curves.1.fit_ns": 825649209,
+      "candidates.2.fit_cpu_ns": 2535341000,
+      "candidates.2.fit_wall_ns": 2535795208,
+      "candidates.2.model_bytes": 58036,
+      "cpu_ns": 5133961000,
+      "target_sensitivity.deadline_censored": 12,
+      "target_sensitivity.duration_lower_bounds": 0,
+      "wall_ns": 5192842292
+    },
+    "path": "artifacts/task13/fix1/models/L1/fit-card.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "4e3fc67439416a477135afdf8e4cf4bd3f0f200f3aaf5043e94b367d08e84976"
+  },
+  {
+    "measures": {
+      "candidates.0.curves.0.fit_ns": 3110500,
+      "candidates.0.curves.1.fit_ns": 3113917,
+      "candidates.0.fit_cpu_ns": 13580000,
+      "candidates.0.fit_wall_ns": 13585584,
+      "candidates.0.model_bytes": 7401,
+      "candidates.1.curves.0.fit_ns": 2651000,
+      "candidates.1.curves.1.fit_ns": 3001500,
+      "candidates.1.fit_cpu_ns": 12713000,
+      "candidates.1.fit_wall_ns": 12711833,
+      "candidates.1.model_bytes": 7420,
+      "candidates.2.curves.0.fit_ns": 62669042,
+      "candidates.2.curves.1.fit_ns": 71977667,
+      "candidates.2.fit_cpu_ns": 224829000,
+      "candidates.2.fit_wall_ns": 224827500,
+      "candidates.2.model_bytes": 57688,
+      "cpu_ns": 925121000,
+      "target_sensitivity.deadline_censored": 10,
+      "target_sensitivity.duration_lower_bounds": 0,
+      "wall_ns": 934977166
+    },
+    "path": "artifacts/task13/fix1/models/L64/fit-card.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "e70aa5b5e790a80703271a5545240aa71d5ff8d53f203fd452ebfe2dbc61ca8d"
+  },
+  {
+    "measures": {
+      "candidates.0.curves.0.fit_ns": 4642500,
+      "candidates.0.curves.1.fit_ns": 5221041,
+      "candidates.0.fit_cpu_ns": 28222000,
+      "candidates.0.fit_wall_ns": 28397709,
+      "candidates.0.model_bytes": 7374,
+      "candidates.1.curves.0.fit_ns": 4224083,
+      "candidates.1.curves.1.fit_ns": 4921792,
+      "candidates.1.fit_cpu_ns": 27170000,
+      "candidates.1.fit_wall_ns": 27320375,
+      "candidates.1.model_bytes": 7374,
+      "cpu_ns": 1464057000,
+      "target_sensitivity.deadline_censored": 9,
+      "target_sensitivity.duration_lower_bounds": 0,
+      "wall_ns": 1465743708
+    },
+    "path": "artifacts/task13/models/B4-L2/fit-card.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "786dcc7b76ee7aff15dd10904d1767bdae8af42e28819f4bd6600f0498dfe044"
+  },
+  {
+    "measures": {
+      "candidates.0.curves.0.fit_ns": 4438792,
+      "candidates.0.curves.1.fit_ns": 4269500,
+      "candidates.0.fit_cpu_ns": 22831000,
+      "candidates.0.fit_wall_ns": 22829375,
+      "candidates.0.model_bytes": 7438,
+      "candidates.1.curves.0.fit_ns": 3608666,
+      "candidates.1.curves.1.fit_ns": 4089459,
+      "candidates.1.fit_cpu_ns": 21866000,
+      "candidates.1.fit_wall_ns": 21865500,
+      "candidates.1.model_bytes": 7438,
+      "cpu_ns": 1175473000,
+      "target_sensitivity.deadline_censored": 12,
+      "target_sensitivity.duration_lower_bounds": 0,
+      "wall_ns": 1178687041
+    },
+    "path": "artifacts/task13/models/B4-L4/fit-card.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "69f9a91fcf1696e376e9aa31a25f256944106151660f51bc98af1489946da281"
+  },
+  {
+    "measures": {
+      "candidates.0.curves.0.fit_ns": 11657125,
+      "candidates.0.curves.1.fit_ns": 16858875,
+      "candidates.0.fit_cpu_ns": 109795000,
+      "candidates.0.fit_wall_ns": 109858000,
+      "candidates.0.model_bytes": 7539,
+      "candidates.1.curves.0.fit_ns": 9906958,
+      "candidates.1.curves.1.fit_ns": 15426625,
+      "candidates.1.fit_cpu_ns": 101555000,
+      "candidates.1.fit_wall_ns": 101589833,
+      "candidates.1.model_bytes": 7539,
+      "cpu_ns": 8661245000,
+      "target_sensitivity.deadline_censored": 80,
+      "target_sensitivity.duration_lower_bounds": 0,
+      "wall_ns": 8968376458
+    },
+    "path": "artifacts/task13/models/B5/fit-card.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "2535b6846657d21cb0c9b8321458424e774dc17cf8694a56511c856caf0bd484"
+  },
+  {
+    "measures": {
+      "candidates.0.curves.0.fit_ns": 3960694875,
+      "candidates.0.curves.1.fit_ns": 4587715583,
+      "candidates.0.fit_cpu_ns": 15298036000,
+      "candidates.0.fit_wall_ns": 15302431250,
+      "candidates.0.model_bytes": 1300989,
+      "candidates.1.curves.0.fit_ns": 3332864000,
+      "candidates.1.curves.1.fit_ns": 4562038125,
+      "candidates.1.fit_cpu_ns": 14659145000,
+      "candidates.1.fit_wall_ns": 14665026416,
+      "candidates.1.model_bytes": 1300989,
+      "cpu_ns": 38975042000,
+      "target_sensitivity.deadline_censored": 80,
+      "target_sensitivity.duration_lower_bounds": 0,
+      "wall_ns": 38995572458
+    },
+    "path": "artifacts/task13/models/local-capacity-expanded/fit-card.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "923948924dd718f9292f42d24c331146fd44fc65a4766d8d564bbfae7dbc9e7f"
+  },
+  {
+    "measures": {
+      "candidates.0.curves.0.fit_ns": 581250458,
+      "candidates.0.curves.1.fit_ns": 6268125,
+      "candidates.0.fit_cpu_ns": 611445000,
+      "candidates.0.fit_wall_ns": 613467708,
+      "candidates.0.model_bytes": 7421,
+      "candidates.1.curves.0.fit_ns": 4741958,
+      "candidates.1.curves.1.fit_ns": 5964000,
+      "candidates.1.fit_cpu_ns": 34634000,
+      "candidates.1.fit_wall_ns": 34789000,
+      "candidates.1.model_bytes": 7421,
+      "cpu_ns": 2563757000,
+      "target_sensitivity.deadline_censored": 12,
+      "target_sensitivity.duration_lower_bounds": 0,
+      "wall_ns": 2574264125
+    },
+    "path": "artifacts/task13/models/B3/fit-card.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "ad4631c2ce6a1402d39096199c046680f37fd70db1c3f47437106508f7820e62"
+  },
+  {
+    "measures": {
+      "candidates.0.curves.0.fit_ns": 3415000,
+      "candidates.0.curves.1.fit_ns": 3872958,
+      "candidates.0.fit_cpu_ns": 17009000,
+      "candidates.0.fit_wall_ns": 17084166,
+      "candidates.0.model_bytes": 7341,
+      "candidates.1.curves.0.fit_ns": 3117625,
+      "candidates.1.curves.1.fit_ns": 3495208,
+      "candidates.1.fit_cpu_ns": 15256000,
+      "candidates.1.fit_wall_ns": 15260583,
+      "candidates.1.model_bytes": 7341,
+      "cpu_ns": 789783000,
+      "target_sensitivity.deadline_censored": 10,
+      "target_sensitivity.duration_lower_bounds": 0,
+      "wall_ns": 790252791
+    },
+    "path": "artifacts/task13/models/B4-L32/fit-card.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "d0b1ee9d2bbc1e642b59cb22f6d2cdf41389e19f537de52c386ec9c49d43ad30"
+  },
+  {
+    "measures": {
+      "candidates.0.curves.0.fit_ns": 3594791,
+      "candidates.0.curves.1.fit_ns": 3590000,
+      "candidates.0.fit_cpu_ns": 17137000,
+      "candidates.0.fit_wall_ns": 17137791,
+      "candidates.0.model_bytes": 7510,
+      "candidates.1.curves.0.fit_ns": 2950000,
+      "candidates.1.curves.1.fit_ns": 3470084,
+      "candidates.1.fit_cpu_ns": 16072000,
+      "candidates.1.fit_wall_ns": 16071208,
+      "candidates.1.model_bytes": 7510,
+      "cpu_ns": 888535000,
+      "target_sensitivity.deadline_censored": 11,
+      "target_sensitivity.duration_lower_bounds": 0,
+      "wall_ns": 890322333
+    },
+    "path": "artifacts/task13/models/B4-L16/fit-card.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "85dcc4402db413b1a7f7705bfd22fc1b594afcc6a86a018148e279b6ff6da337"
+  },
+  {
+    "measures": {
+      "candidates.0.curves.0.fit_ns": 2362297583,
+      "candidates.0.curves.1.fit_ns": 1698758750,
+      "candidates.0.fit_cpu_ns": 5850811000,
+      "candidates.0.fit_wall_ns": 6359664208,
+      "candidates.0.model_bytes": 57522,
+      "candidates.1.curves.0.fit_ns": 1172120625,
+      "candidates.1.curves.1.fit_ns": 1699376208,
+      "candidates.1.fit_cpu_ns": 5188258000,
+      "candidates.1.fit_wall_ns": 5189385958,
+      "candidates.1.model_bytes": 57522,
+      "candidates.2.curves.0.fit_ns": 1699036542,
+      "candidates.2.curves.1.fit_ns": 2497356500,
+      "candidates.2.fit_cpu_ns": 7967945000,
+      "candidates.2.fit_wall_ns": 7970579042,
+      "candidates.2.model_bytes": 314836,
+      "candidates.3.curves.0.fit_ns": 1822192708,
+      "candidates.3.curves.1.fit_ns": 2653772417,
+      "candidates.3.fit_cpu_ns": 8258332000,
+      "candidates.3.fit_wall_ns": 8261295417,
+      "candidates.3.model_bytes": 314836,
+      "cpu_ns": 36037407000,
+      "target_sensitivity.deadline_censored": 80,
+      "target_sensitivity.duration_lower_bounds": 0,
+      "wall_ns": 37494092125
+    },
+    "path": "artifacts/task13/models/local-capacity/fit-card.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "f384d1c9b5a5d4051450f9dbb7d42fb9db0d41bd503186b4c93e9a89f543c23e"
+  },
+  {
+    "measures": {
+      "candidates.0.curves.0.fit_ns": 3775250,
+      "candidates.0.curves.1.fit_ns": 3937125,
+      "candidates.0.fit_cpu_ns": 19398000,
+      "candidates.0.fit_wall_ns": 19398209,
+      "candidates.0.model_bytes": 7420,
+      "candidates.1.curves.0.fit_ns": 3263375,
+      "candidates.1.curves.1.fit_ns": 3890625,
+      "candidates.1.fit_cpu_ns": 18970000,
+      "candidates.1.fit_wall_ns": 18970083,
+      "candidates.1.model_bytes": 7420,
+      "cpu_ns": 1048887000,
+      "target_sensitivity.deadline_censored": 11,
+      "target_sensitivity.duration_lower_bounds": 0,
+      "wall_ns": 1049675458
+    },
+    "path": "artifacts/task13/models/B4-L8/fit-card.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "a85ed2176841343da1a7dd8aea42b009b9474f625ed45ba668054ebd7d4c670b"
+  },
+  {
+    "measures": {
+      "candidates.0.curves.0.fit_ns": 3070042,
+      "candidates.0.curves.1.fit_ns": 3198917,
+      "candidates.0.fit_cpu_ns": 13706000,
+      "candidates.0.fit_wall_ns": 13705250,
+      "candidates.0.model_bytes": 7414,
+      "candidates.1.curves.0.fit_ns": 2584250,
+      "candidates.1.curves.1.fit_ns": 3033750,
+      "candidates.1.fit_cpu_ns": 12688000,
+      "candidates.1.fit_wall_ns": 12687458,
+      "candidates.1.model_bytes": 7414,
+      "cpu_ns": 724376000,
+      "target_sensitivity.deadline_censored": 10,
+      "target_sensitivity.duration_lower_bounds": 0,
+      "wall_ns": 725022958
+    },
+    "path": "artifacts/task13/models/B4-L64/fit-card.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "2b83630c778ad013736c91083df2b6190051f5e6b4e024d661337183b357c614"
+  },
+  {
+    "measures": {
+      "candidates.0.curves.0.fit_ns": 14932917,
+      "candidates.0.curves.1.fit_ns": 23591500,
+      "candidates.0.fit_cpu_ns": 131345000,
+      "candidates.0.fit_wall_ns": 131344834,
+      "candidates.0.model_bytes": 15645,
+      "candidates.1.curves.0.fit_ns": 13326250,
+      "candidates.1.curves.1.fit_ns": 21379417,
+      "candidates.1.fit_cpu_ns": 123922000,
+      "candidates.1.fit_wall_ns": 123928500,
+      "candidates.1.model_bytes": 15645,
+      "candidates.2.curves.0.fit_ns": 3587150875,
+      "candidates.2.curves.1.fit_ns": 5391361292,
+      "candidates.2.fit_cpu_ns": 15705236000,
+      "candidates.2.fit_wall_ns": 15708195333,
+      "candidates.2.model_bytes": 61609,
+      "candidates.3.curves.0.fit_ns": 3605865125,
+      "candidates.3.curves.1.fit_ns": 5408781125,
+      "candidates.3.fit_cpu_ns": 16222788000,
+      "candidates.3.fit_wall_ns": 16228929208,
+      "candidates.3.model_bytes": 61609,
+      "candidates.4.curves.0.fit_ns": 4639715042,
+      "candidates.4.curves.1.fit_ns": 6704980792,
+      "candidates.4.fit_cpu_ns": 19955915000,
+      "candidates.4.fit_wall_ns": 19963020167,
+      "candidates.4.model_bytes": 319271,
+      "candidates.5.curves.0.fit_ns": 4435918125,
+      "candidates.5.curves.1.fit_ns": 6568331291,
+      "candidates.5.fit_cpu_ns": 19611336000,
+      "candidates.5.fit_wall_ns": 19615233208,
+      "candidates.5.model_bytes": 319271,
+      "cpu_ns": 82776382000,
+      "target_sensitivity.deadline_censored": 80,
+      "target_sensitivity.duration_lower_bounds": 0,
+      "wall_ns": 82874430625
+    },
+    "path": "artifacts/task13/models/B6/fit-card.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "ea6203b5eea2d9b757bff9dfccacf760d231859540a8dcbe41b885071412f3d7"
+  },
+  {
+    "measures": {
+      "candidates.0.curves.0.fit_ns": 6878121792,
+      "candidates.0.curves.1.fit_ns": 9874606667,
+      "candidates.0.fit_cpu_ns": 30095169000,
+      "candidates.0.fit_wall_ns": 30108039708,
+      "candidates.0.model_bytes": 1307468,
+      "candidates.1.curves.0.fit_ns": 6889307208,
+      "candidates.1.curves.1.fit_ns": 9837852458,
+      "candidates.1.fit_cpu_ns": 30136831000,
+      "candidates.1.fit_wall_ns": 30152634125,
+      "candidates.1.model_bytes": 1307468,
+      "cpu_ns": 72157743000,
+      "target_sensitivity.deadline_censored": 80,
+      "target_sensitivity.duration_lower_bounds": 0,
+      "wall_ns": 72622453375
+    },
+    "path": "artifacts/task13/models/B6-capacity-expanded/fit-card.json",
+    "scope": "original nested resource evidence; may overlap physical requests/other driver or fit cards; never additive without reconciliation",
+    "sha256": "ead224616a6fcc8854a69fb5e7d2f4cdc02838ad23b29ee2b0d45517fa180ab7"
+  }
+]

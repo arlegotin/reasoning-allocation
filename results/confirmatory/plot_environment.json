@@ -1,0 +1,20 @@
+{
+  "executable": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task17/plot-env/bin/python",
+  "lock_sha256": "be77c440b44a5a9ede0d3e4487a828c35f4ea42fd9a88fa282ecda47831945c1",
+  "packages": {
+    "contourpy": "1.4.0",
+    "cycler": "0.12.1",
+    "fonttools": "4.66.1",
+    "kiwisolver": "1.5.1",
+    "matplotlib": "3.10.7",
+    "numpy": "2.5.4",
+    "packaging": "26.3",
+    "pillow": "12.3.0",
+    "pyparsing": "3.3.3",
+    "python-dateutil": "2.9.0.post0",
+    "ra": "0.1.0",
+    "six": "1.17.0"
+  },
+  "platform": "macOS-26.7.1-arm64-arm-64bit",
+  "python": "3.12.9 (main, Feb  4 2025, 14:38:38) [Clang 16.0.0 (clang-1600.0.26.6)]"
+}

@@ -1,0 +1,4 @@
+Strict CURRENT A004 launch correctly rejects: current executable source/environment/build hash drift
+PASS: final artifact hashes; identical original/corrected primary numeric digest; all2520 endpoints/statuses/60originals; all18 global paired budget contrasts in utility/primal/dual/gap; exact protected resource reconciliation; solver env/build unchanged; selected indices12–71.
+Primary numeric SHA256: 6339521bccab940fe0ec0546792a3c6012e65644fe7f63a5dde6418717b83d69
+Final status: all checks passed; no raw reconstruction/bootstrap/solver rerun.

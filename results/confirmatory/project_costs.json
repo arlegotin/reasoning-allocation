@@ -1,0 +1,1309 @@
+{
+  "duplicate_copies_ignored": 7,
+  "limitations": [
+    "unrecorded early experiments/development/failed preparations/interactive time remain unknown",
+    "cumulative_prior_costs deliberately excluded; sampled/exact CPU use maximum, never sum",
+    "driver/training/tuning envelopes overlap nested request and fit costs; separate evidence, no sum",
+    "old partial checkpoints are cost lower bounds; missing termination/publication tails remain unknown"
+  ],
+  "scope": "retained artifacts/data physical-attempt inventory, all statuses and pre-fix work; artificial fixture scopes identifiable by paths; no exact project total",
+  "scopes": [
+    {
+      "cpu_tail_unmeasured": 2,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 0,
+      "partial": 0,
+      "peak_worker_rss_bytes": 70713344,
+      "physical_attempts": 2,
+      "request_wall_ns_lower_bound": 415453292,
+      "scope": "artifacts/checks/task11",
+      "status_counts": {
+        "implementation_error": 2
+      },
+      "trace_bytes": 151130,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 348426792
+    },
+    {
+      "cpu_tail_unmeasured": 2,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 0,
+      "partial": 0,
+      "peak_worker_rss_bytes": 70746112,
+      "physical_attempts": 2,
+      "request_wall_ns_lower_bound": 437228750,
+      "scope": "artifacts/checks/task11/fix1",
+      "status_counts": {
+        "implementation_error": 2
+      },
+      "trace_bytes": 148167,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 369692000
+    },
+    {
+      "cpu_tail_unmeasured": 4,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 361792396,
+      "partial": 0,
+      "peak_worker_rss_bytes": 228556800,
+      "physical_attempts": 4,
+      "request_wall_ns_lower_bound": 4249813750,
+      "scope": "artifacts/checks/task12/diagnostic",
+      "status_counts": {
+        "complete": 1,
+        "deadline": 1,
+        "startup_timeout": 2
+      },
+      "trace_bytes": 332024,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 4017272000
+    },
+    {
+      "cpu_tail_unmeasured": 4,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 68913469,
+      "partial": 0,
+      "peak_worker_rss_bytes": 175390720,
+      "physical_attempts": 4,
+      "request_wall_ns_lower_bound": 3133107000,
+      "scope": "artifacts/checks/task12/diagnostic-export",
+      "status_counts": {
+        "complete": 2,
+        "deadline": 2
+      },
+      "trace_bytes": 744674,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 2956195000
+    },
+    {
+      "cpu_tail_unmeasured": 1,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 27080667,
+      "partial": 0,
+      "peak_worker_rss_bytes": 173572096,
+      "physical_attempts": 1,
+      "request_wall_ns_lower_bound": 2184009666,
+      "scope": "artifacts/checks/task12/fix1/current-runtime/runs",
+      "status_counts": {
+        "deadline": 1
+      },
+      "trace_bytes": 663602,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 2106599000
+    },
+    {
+      "cpu_tail_unmeasured": 4,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 0,
+      "partial": 0,
+      "peak_worker_rss_bytes": 63389696,
+      "physical_attempts": 4,
+      "request_wall_ns_lower_bound": 639685502,
+      "scope": "artifacts/checks/task7/drill",
+      "status_counts": {
+        "complete": 2,
+        "external_interrupt": 2
+      },
+      "trace_bytes": 18249,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 533919170
+    },
+    {
+      "cpu_tail_unmeasured": 4,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 0,
+      "partial": 0,
+      "peak_worker_rss_bytes": 62996480,
+      "physical_attempts": 4,
+      "request_wall_ns_lower_bound": 621313500,
+      "scope": "artifacts/checks/task7/drill-final",
+      "status_counts": {
+        "complete": 2,
+        "external_interrupt": 2
+      },
+      "trace_bytes": 18245,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 525546000
+    },
+    {
+      "cpu_tail_unmeasured": 1,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 0,
+      "partial": 0,
+      "peak_worker_rss_bytes": 62406656,
+      "physical_attempts": 1,
+      "request_wall_ns_lower_bound": 227968667,
+      "scope": "artifacts/checks/task7/fix1/provenance-fixture",
+      "status_counts": {
+        "complete": 1
+      },
+      "trace_bytes": 5779,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 161885000
+    },
+    {
+      "cpu_tail_unmeasured": 2,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 1018112625,
+      "partial": 0,
+      "peak_worker_rss_bytes": 63324160,
+      "physical_attempts": 2,
+      "request_wall_ns_lower_bound": 1899905459,
+      "scope": "artifacts/checks/task8/controls",
+      "status_counts": {
+        "complete": 1,
+        "deadline": 1
+      },
+      "trace_bytes": 9200,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 278638332
+    },
+    {
+      "cpu_tail_unmeasured": 2,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 597779750,
+      "partial": 0,
+      "peak_worker_rss_bytes": 63488000,
+      "physical_attempts": 2,
+      "request_wall_ns_lower_bound": 1469885792,
+      "scope": "artifacts/checks/task8/controls-final",
+      "status_counts": {
+        "complete": 1,
+        "deadline": 1
+      },
+      "trace_bytes": 12332,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 280487000
+    },
+    {
+      "cpu_tail_unmeasured": 4,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 0,
+      "partial": 0,
+      "peak_worker_rss_bytes": 65126400,
+      "physical_attempts": 4,
+      "request_wall_ns_lower_bound": 699443333,
+      "scope": "artifacts/checks/task8/controls-final/requests",
+      "status_counts": {
+        "complete": 4
+      },
+      "trace_bytes": 73469,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 572138750
+    },
+    {
+      "cpu_tail_unmeasured": 4,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 0,
+      "partial": 0,
+      "peak_worker_rss_bytes": 65273856,
+      "physical_attempts": 4,
+      "request_wall_ns_lower_bound": 678751291,
+      "scope": "artifacts/checks/task8/controls/requests",
+      "status_counts": {
+        "complete": 4
+      },
+      "trace_bytes": 76541,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 569946208
+    },
+    {
+      "cpu_tail_unmeasured": 1,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 0,
+      "partial": 0,
+      "peak_worker_rss_bytes": 55427072,
+      "physical_attempts": 1,
+      "request_wall_ns_lower_bound": 182974875,
+      "scope": "artifacts/checks/task8/fix1/green-retained-cli-attempts",
+      "status_counts": {
+        "implementation_error": 1
+      },
+      "trace_bytes": 1791,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 129742670
+    },
+    {
+      "cpu_tail_unmeasured": 18,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 0,
+      "partial": 0,
+      "peak_worker_rss_bytes": 65781760,
+      "physical_attempts": 18,
+      "request_wall_ns_lower_bound": 4312191081,
+      "scope": "artifacts/checks/task8/fix1/protocol-observer/requests",
+      "status_counts": {
+        "complete": 18
+      },
+      "trace_bytes": 202477,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 3544541680
+    },
+    {
+      "cpu_tail_unmeasured": 1,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 0,
+      "partial": 0,
+      "peak_worker_rss_bytes": 57753600,
+      "physical_attempts": 1,
+      "request_wall_ns_lower_bound": 183387708,
+      "scope": "artifacts/checks/task8/fix1/red-retained-cli-attempts",
+      "status_counts": {
+        "implementation_error": 1
+      },
+      "trace_bytes": 1791,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 134850668
+    },
+    {
+      "cpu_tail_unmeasured": 1,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 0,
+      "partial": 0,
+      "peak_worker_rss_bytes": 63537152,
+      "physical_attempts": 1,
+      "request_wall_ns_lower_bound": 178311500,
+      "scope": "artifacts/checks/task8/fix2/green-attempts/test_cli_complete_resume_uses_0",
+      "status_counts": {
+        "complete": 1
+      },
+      "trace_bytes": 7193,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 140744000
+    },
+    {
+      "cpu_tail_unmeasured": 1,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 0,
+      "partial": 0,
+      "peak_worker_rss_bytes": 58556416,
+      "physical_attempts": 1,
+      "request_wall_ns_lower_bound": 145637375,
+      "scope": "artifacts/checks/task8/fix2/green-attempts/test_cli_resume_retains_failur0",
+      "status_counts": {
+        "implementation_error": 1
+      },
+      "trace_bytes": 1791,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 118021206
+    },
+    {
+      "cpu_tail_unmeasured": 2,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 0,
+      "partial": 0,
+      "peak_worker_rss_bytes": 63537152,
+      "physical_attempts": 2,
+      "request_wall_ns_lower_bound": 345202625,
+      "scope": "artifacts/checks/task8/fix2/green-attempts/test_identical_named_native_co0",
+      "status_counts": {
+        "complete": 2
+      },
+      "trace_bytes": 14389,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 280628000
+    },
+    {
+      "cpu_tail_unmeasured": 1,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 0,
+      "partial": 0,
+      "peak_worker_rss_bytes": 63422464,
+      "physical_attempts": 1,
+      "request_wall_ns_lower_bound": 158253709,
+      "scope": "artifacts/checks/task8/fix2/green-attempts/test_status_audit_holds_admiss0",
+      "status_counts": {
+        "complete": 1
+      },
+      "trace_bytes": 7193,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 138744000
+    },
+    {
+      "cpu_tail_unmeasured": 1,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 0,
+      "partial": 0,
+      "peak_worker_rss_bytes": 63766528,
+      "physical_attempts": 1,
+      "request_wall_ns_lower_bound": 179906791,
+      "scope": "artifacts/checks/task8/fix2/red-attempts/test_cli_complete_resume_uses_0",
+      "status_counts": {
+        "complete": 1
+      },
+      "trace_bytes": 7193,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 147191000
+    },
+    {
+      "cpu_tail_unmeasured": 1,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 0,
+      "partial": 0,
+      "peak_worker_rss_bytes": 63520768,
+      "physical_attempts": 1,
+      "request_wall_ns_lower_bound": 176697417,
+      "scope": "artifacts/checks/task8/fix2/red-attempts/test_status_audit_holds_admiss0",
+      "status_counts": {
+        "complete": 1
+      },
+      "trace_bytes": 7195,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 144186000
+    },
+    {
+      "cpu_tail_unmeasured": 132,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 1238156968,
+      "partial": 0,
+      "peak_worker_rss_bytes": 219086848,
+      "physical_attempts": 132,
+      "request_wall_ns_lower_bound": 160464126795,
+      "scope": "artifacts/models/expanded/validation",
+      "status_counts": {
+        "complete": 103,
+        "deadline": 29
+      },
+      "trace_bytes": 59480284,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 152188735872
+    },
+    {
+      "cpu_tail_unmeasured": 180,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 4220093063,
+      "partial": 0,
+      "peak_worker_rss_bytes": 259293184,
+      "physical_attempts": 180,
+      "request_wall_ns_lower_bound": 219675953748,
+      "scope": "artifacts/models/final/validation",
+      "status_counts": {
+        "complete": 123,
+        "deadline": 57
+      },
+      "trace_bytes": 211638112,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 195672546452
+    },
+    {
+      "cpu_tail_unmeasured": 43,
+      "missing_publication": 1,
+      "overshoot_ns_subset": 913875674,
+      "partial": 1,
+      "peak_worker_rss_bytes": 300269568,
+      "physical_attempts": 43,
+      "request_wall_ns_lower_bound": 74338064127,
+      "scope": "artifacts/models/first-corrected/validation",
+      "status_counts": {
+        "complete": 8,
+        "deadline": 2,
+        "external_interrupt": 1,
+        "implementation_error": 31,
+        "unknown": 1
+      },
+      "trace_bytes": 23307048,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 70968531296
+    },
+    {
+      "cpu_tail_unmeasured": 132,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 1533493095,
+      "partial": 0,
+      "peak_worker_rss_bytes": 223772672,
+      "physical_attempts": 132,
+      "request_wall_ns_lower_bound": 172920314836,
+      "scope": "artifacts/models/first-valid/validation",
+      "status_counts": {
+        "complete": 101,
+        "deadline": 31
+      },
+      "trace_bytes": 91564863,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 161873052028
+    },
+    {
+      "cpu_tail_unmeasured": 36,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 129930918,
+      "partial": 0,
+      "peak_worker_rss_bytes": 190300160,
+      "physical_attempts": 36,
+      "request_wall_ns_lower_bound": 37249430955,
+      "scope": "artifacts/models/validation",
+      "status_counts": {
+        "complete": 32,
+        "deadline": 4
+      },
+      "trace_bytes": 1441270,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 36170661340
+    },
+    {
+      "cpu_tail_unmeasured": 120,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 1572321434,
+      "partial": 0,
+      "peak_worker_rss_bytes": 190955520,
+      "physical_attempts": 120,
+      "request_wall_ns_lower_bound": 139308317837,
+      "scope": "artifacts/pilot/controls/runs",
+      "status_counts": {
+        "complete": 78,
+        "deadline": 42
+      },
+      "trace_bytes": 30878236,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 131975005212
+    },
+    {
+      "cpu_tail_unmeasured": 12,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 298364331,
+      "partial": 0,
+      "peak_worker_rss_bytes": 231981056,
+      "physical_attempts": 12,
+      "request_wall_ns_lower_bound": 41143844457,
+      "scope": "artifacts/pilot/extended/runs",
+      "status_counts": {
+        "complete": 4,
+        "deadline": 8
+      },
+      "trace_bytes": 980016,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 40726992492
+    },
+    {
+      "cpu_tail_unmeasured": 28,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 2281246416,
+      "partial": 0,
+      "peak_worker_rss_bytes": 239140864,
+      "physical_attempts": 28,
+      "request_wall_ns_lower_bound": 117654150127,
+      "scope": "artifacts/pilot/pool-length/runs",
+      "status_counts": {
+        "deadline": 28
+      },
+      "trace_bytes": 32060880,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 112240231432
+    },
+    {
+      "cpu_tail_unmeasured": 6,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 67619625,
+      "partial": 0,
+      "peak_worker_rss_bytes": 213139456,
+      "physical_attempts": 6,
+      "request_wall_ns_lower_bound": 17458451583,
+      "scope": "artifacts/pilot/profile/runs",
+      "status_counts": {
+        "complete": 4,
+        "deadline": 2
+      },
+      "trace_bytes": 467234,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 17247989000
+    },
+    {
+      "cpu_tail_unmeasured": 90,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 73482667,
+      "partial": 0,
+      "peak_worker_rss_bytes": 133136384,
+      "physical_attempts": 90,
+      "request_wall_ns_lower_bound": 30336088457,
+      "scope": "artifacts/pilot/scale-128/runs",
+      "status_counts": {
+        "complete": 87,
+        "deadline": 3
+      },
+      "trace_bytes": 3850495,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 27595731298
+    },
+    {
+      "cpu_tail_unmeasured": 90,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 757916582,
+      "partial": 0,
+      "peak_worker_rss_bytes": 175489024,
+      "physical_attempts": 90,
+      "request_wall_ns_lower_bound": 49367795661,
+      "scope": "artifacts/pilot/scale-256/runs",
+      "status_counts": {
+        "complete": 63,
+        "deadline": 27
+      },
+      "trace_bytes": 4119064,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 46476338600
+    },
+    {
+      "cpu_tail_unmeasured": 90,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 2154121413,
+      "partial": 0,
+      "peak_worker_rss_bytes": 238190592,
+      "physical_attempts": 90,
+      "request_wall_ns_lower_bound": 72519678166,
+      "scope": "artifacts/pilot/scale-512/runs",
+      "status_counts": {
+        "complete": 30,
+        "deadline": 60
+      },
+      "trace_bytes": 4799619,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 69564139788
+    },
+    {
+      "cpu_tail_unmeasured": 90,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 0,
+      "partial": 0,
+      "peak_worker_rss_bytes": 88506368,
+      "physical_attempts": 90,
+      "request_wall_ns_lower_bound": 17154205881,
+      "scope": "artifacts/pilot/scale-64/runs",
+      "status_counts": {
+        "complete": 90
+      },
+      "trace_bytes": 1949693,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 14607509452
+    },
+    {
+      "cpu_tail_unmeasured": 180,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 1539224190,
+      "partial": 0,
+      "peak_worker_rss_bytes": 223133696,
+      "physical_attempts": 180,
+      "request_wall_ns_lower_bound": 186615168552,
+      "scope": "artifacts/pilot/tuning-cached/runs",
+      "status_counts": {
+        "complete": 130,
+        "deadline": 50
+      },
+      "trace_bytes": 7205945,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 180733922280
+    },
+    {
+      "cpu_tail_unmeasured": 144,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 1516031343,
+      "partial": 0,
+      "peak_worker_rss_bytes": 222789632,
+      "physical_attempts": 144,
+      "request_wall_ns_lower_bound": 174509379123,
+      "scope": "artifacts/pilot/tuning-expanded/runs",
+      "status_counts": {
+        "complete": 96,
+        "deadline": 48
+      },
+      "trace_bytes": 6153280,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 169439235016
+    },
+    {
+      "cpu_tail_unmeasured": 198,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 1785341711,
+      "partial": 0,
+      "peak_worker_rss_bytes": 227753984,
+      "physical_attempts": 198,
+      "request_wall_ns_lower_bound": 219803109039,
+      "scope": "artifacts/pilot/tuning-initial/runs",
+      "status_counts": {
+        "complete": 141,
+        "deadline": 56,
+        "implementation_error": 1
+      },
+      "trace_bytes": 7626983,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 212889197448
+    },
+    {
+      "cpu_tail_unmeasured": 11,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 342845380,
+      "partial": 0,
+      "peak_worker_rss_bytes": 173572096,
+      "physical_attempts": 11,
+      "request_wall_ns_lower_bound": 23583077334,
+      "scope": "artifacts/pilot/tuning-repair/runs",
+      "status_counts": {
+        "deadline": 11
+      },
+      "trace_bytes": 553184,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 23169097616
+    },
+    {
+      "cpu_tail_unmeasured": 2520,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 50364064041,
+      "partial": 0,
+      "peak_worker_rss_bytes": 297369600,
+      "physical_attempts": 2520,
+      "request_wall_ns_lower_bound": 3689555684398,
+      "scope": "artifacts/runs/ra-wp07-e005",
+      "status_counts": {
+        "complete": 1640,
+        "deadline": 880
+      },
+      "trace_bytes": 2522350036,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 3347089174268
+    },
+    {
+      "cpu_tail_unmeasured": 60,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 789707049,
+      "partial": 0,
+      "peak_worker_rss_bytes": 194183168,
+      "physical_attempts": 60,
+      "request_wall_ns_lower_bound": 67598986624,
+      "scope": "artifacts/task13/capacity-2106828958",
+      "status_counts": {
+        "complete": 37,
+        "deadline": 23
+      },
+      "trace_bytes": 24624905,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 63849073732
+    },
+    {
+      "cpu_tail_unmeasured": 60,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 898978842,
+      "partial": 0,
+      "peak_worker_rss_bytes": 158941184,
+      "physical_attempts": 60,
+      "request_wall_ns_lower_bound": 23624249251,
+      "scope": "artifacts/task13/capacity-526707240",
+      "status_counts": {
+        "complete": 30,
+        "deadline": 30
+      },
+      "trace_bytes": 4219562,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 21407850428
+    },
+    {
+      "cpu_tail_unmeasured": 60,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 207790341,
+      "partial": 0,
+      "peak_worker_rss_bytes": 243040256,
+      "physical_attempts": 60,
+      "request_wall_ns_lower_bound": 142331368958,
+      "scope": "artifacts/task13/capacity-8427315832",
+      "status_counts": {
+        "complete": 54,
+        "deadline": 6
+      },
+      "trace_bytes": 113794732,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 131988068240
+    },
+    {
+      "cpu_tail_unmeasured": 36,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 379232564,
+      "partial": 0,
+      "peak_worker_rss_bytes": 224985088,
+      "physical_attempts": 36,
+      "request_wall_ns_lower_bound": 54631111128,
+      "scope": "artifacts/task13/collection-L1",
+      "status_counts": {
+        "complete": 22,
+        "deadline": 14
+      },
+      "trace_bytes": 109104714,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 49217911168
+    },
+    {
+      "cpu_tail_unmeasured": 36,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 363317189,
+      "partial": 0,
+      "peak_worker_rss_bytes": 221773824,
+      "physical_attempts": 36,
+      "request_wall_ns_lower_bound": 47845769834,
+      "scope": "artifacts/task13/collection-L16",
+      "status_counts": {
+        "complete": 25,
+        "deadline": 11
+      },
+      "trace_bytes": 30113111,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 45481920026
+    },
+    {
+      "cpu_tail_unmeasured": 36,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 331273190,
+      "partial": 0,
+      "peak_worker_rss_bytes": 218120192,
+      "physical_attempts": 36,
+      "request_wall_ns_lower_bound": 49929312837,
+      "scope": "artifacts/task13/collection-L2",
+      "status_counts": {
+        "complete": 23,
+        "deadline": 13
+      },
+      "trace_bytes": 75899186,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 45809111672
+    },
+    {
+      "cpu_tail_unmeasured": 36,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 327586980,
+      "partial": 0,
+      "peak_worker_rss_bytes": 223379456,
+      "physical_attempts": 36,
+      "request_wall_ns_lower_bound": 46620732878,
+      "scope": "artifacts/task13/collection-L32",
+      "status_counts": {
+        "complete": 26,
+        "deadline": 10
+      },
+      "trace_bytes": 20695140,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 44629563524
+    },
+    {
+      "cpu_tail_unmeasured": 36,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 395749812,
+      "partial": 0,
+      "peak_worker_rss_bytes": 223313920,
+      "physical_attempts": 36,
+      "request_wall_ns_lower_bound": 48041009208,
+      "scope": "artifacts/task13/collection-L4",
+      "status_counts": {
+        "complete": 24,
+        "deadline": 12
+      },
+      "trace_bytes": 53817047,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 44822788668
+    },
+    {
+      "cpu_tail_unmeasured": 36,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 324573896,
+      "partial": 0,
+      "peak_worker_rss_bytes": 218742784,
+      "physical_attempts": 36,
+      "request_wall_ns_lower_bound": 47413098583,
+      "scope": "artifacts/task13/collection-L64",
+      "status_counts": {
+        "complete": 25,
+        "deadline": 11
+      },
+      "trace_bytes": 16591150,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 45601328896
+    },
+    {
+      "cpu_tail_unmeasured": 36,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 394231813,
+      "partial": 0,
+      "peak_worker_rss_bytes": 228261888,
+      "physical_attempts": 36,
+      "request_wall_ns_lower_bound": 48459041124,
+      "scope": "artifacts/task13/collection-L8",
+      "status_counts": {
+        "complete": 24,
+        "deadline": 12
+      },
+      "trace_bytes": 42186725,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 45699129188
+    },
+    {
+      "cpu_tail_unmeasured": 90,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 1150974136,
+      "partial": 0,
+      "peak_worker_rss_bytes": 195313664,
+      "physical_attempts": 90,
+      "request_wall_ns_lower_bound": 92755119292,
+      "scope": "artifacts/task13/fix1/final-2106828958",
+      "status_counts": {
+        "complete": 58,
+        "deadline": 32
+      },
+      "trace_bytes": 40839684,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 87137743342
+    },
+    {
+      "cpu_tail_unmeasured": 90,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 1328536199,
+      "partial": 0,
+      "peak_worker_rss_bytes": 159842304,
+      "physical_attempts": 90,
+      "request_wall_ns_lower_bound": 34001165215,
+      "scope": "artifacts/task13/fix1/final-526707240",
+      "status_counts": {
+        "complete": 45,
+        "deadline": 45
+      },
+      "trace_bytes": 6626090,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 30870011866
+    },
+    {
+      "cpu_tail_unmeasured": 90,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 0,
+      "partial": 0,
+      "peak_worker_rss_bytes": 226443264,
+      "physical_attempts": 90,
+      "request_wall_ns_lower_bound": 143462463371,
+      "scope": "artifacts/task13/fix1/final-8427315832",
+      "status_counts": {
+        "complete": 90
+      },
+      "trace_bytes": 115881899,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 132169255244
+    },
+    {
+      "cpu_tail_unmeasured": 222,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 2752734150,
+      "partial": 0,
+      "peak_worker_rss_bytes": 195477504,
+      "physical_attempts": 222,
+      "request_wall_ns_lower_bound": 226529655613,
+      "scope": "artifacts/task13/fix1/screen-2106828958",
+      "status_counts": {
+        "complete": 143,
+        "deadline": 79
+      },
+      "trace_bytes": 79550439,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 214250043612
+    },
+    {
+      "cpu_tail_unmeasured": 78,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 1187433676,
+      "partial": 0,
+      "peak_worker_rss_bytes": 194953216,
+      "physical_attempts": 78,
+      "request_wall_ns_lower_bound": 88272522376,
+      "scope": "artifacts/task13/frontier-2106828958",
+      "status_counts": {
+        "complete": 45,
+        "deadline": 33
+      },
+      "trace_bytes": 48191750,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 82341732158
+    },
+    {
+      "cpu_tail_unmeasured": 78,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 0,
+      "partial": 0,
+      "peak_worker_rss_bytes": 221790208,
+      "physical_attempts": 78,
+      "request_wall_ns_lower_bound": 142823063548,
+      "scope": "artifacts/task13/frontier-8427315832",
+      "status_counts": {
+        "complete": 78
+      },
+      "trace_bytes": 137768310,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 129577668050
+    },
+    {
+      "cpu_tail_unmeasured": 30,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 432533756,
+      "partial": 0,
+      "peak_worker_rss_bytes": 193691648,
+      "physical_attempts": 30,
+      "request_wall_ns_lower_bound": 33203265250,
+      "scope": "artifacts/task13/integration",
+      "status_counts": {
+        "complete": 18,
+        "deadline": 12
+      },
+      "trace_bytes": 18882469,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 30929670040
+    },
+    {
+      "cpu_tail_unmeasured": 24,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 413678752,
+      "partial": 0,
+      "peak_worker_rss_bytes": 190922752,
+      "physical_attempts": 24,
+      "request_wall_ns_lower_bound": 29505898997,
+      "scope": "artifacts/task13/logging",
+      "status_counts": {
+        "complete": 12,
+        "deadline": 12
+      },
+      "trace_bytes": 22299333,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 27202706018
+    },
+    {
+      "cpu_tail_unmeasured": 18,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 138476751,
+      "partial": 0,
+      "peak_worker_rss_bytes": 192249856,
+      "physical_attempts": 18,
+      "request_wall_ns_lower_bound": 17620356291,
+      "scope": "artifacts/task13/native-timing-2106828958",
+      "status_counts": {
+        "complete": 14,
+        "deadline": 4
+      },
+      "trace_bytes": 683156,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 17019584684
+    },
+    {
+      "cpu_tail_unmeasured": 18,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 270753009,
+      "partial": 0,
+      "peak_worker_rss_bytes": 157106176,
+      "physical_attempts": 18,
+      "request_wall_ns_lower_bound": 6973594874,
+      "scope": "artifacts/task13/native-timing-526707240",
+      "status_counts": {
+        "complete": 9,
+        "deadline": 9
+      },
+      "trace_bytes": 562595,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 6426272760
+    },
+    {
+      "cpu_tail_unmeasured": 18,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 0,
+      "partial": 0,
+      "peak_worker_rss_bytes": 207208448,
+      "physical_attempts": 18,
+      "request_wall_ns_lower_bound": 24653347917,
+      "scope": "artifacts/task13/native-timing-8427315832",
+      "status_counts": {
+        "complete": 18
+      },
+      "trace_bytes": 846312,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 24042701460
+    },
+    {
+      "cpu_tail_unmeasured": 306,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 3502238739,
+      "partial": 0,
+      "peak_worker_rss_bytes": 202293248,
+      "physical_attempts": 306,
+      "request_wall_ns_lower_bound": 309223406791,
+      "scope": "artifacts/task13/validation-2106828958",
+      "status_counts": {
+        "complete": 203,
+        "deadline": 103
+      },
+      "trace_bytes": 79301111,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 293432908170
+    },
+    {
+      "cpu_tail_unmeasured": 306,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 4567163995,
+      "partial": 0,
+      "peak_worker_rss_bytes": 159744000,
+      "physical_attempts": 306,
+      "request_wall_ns_lower_bound": 115403609712,
+      "scope": "artifacts/task13/validation-526707240",
+      "status_counts": {
+        "complete": 153,
+        "deadline": 153
+      },
+      "trace_bytes": 17257403,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 104644892970
+    },
+    {
+      "cpu_tail_unmeasured": 306,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 3186265928,
+      "partial": 0,
+      "peak_worker_rss_bytes": 306905088,
+      "physical_attempts": 306,
+      "request_wall_ns_lower_bound": 553018269471,
+      "scope": "artifacts/task13/validation-8427315832",
+      "status_counts": {
+        "complete": 296,
+        "deadline": 10
+      },
+      "trace_bytes": 328199960,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 504221412700
+    },
+    {
+      "cpu_tail_unmeasured": 252,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 5648158984,
+      "partial": 0,
+      "peak_worker_rss_bytes": 300941312,
+      "physical_attempts": 252,
+      "request_wall_ns_lower_bound": 288941544500,
+      "scope": "artifacts/task15/generation2/pilot-repeat0",
+      "status_counts": {
+        "complete": 173,
+        "deadline": 79
+      },
+      "trace_bytes": 184925275,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 264550977966
+    },
+    {
+      "cpu_tail_unmeasured": 252,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 5608648270,
+      "partial": 0,
+      "peak_worker_rss_bytes": 299532288,
+      "physical_attempts": 252,
+      "request_wall_ns_lower_bound": 288030779913,
+      "scope": "artifacts/task15/generation2/pilot-repeat1",
+      "status_counts": {
+        "complete": 174,
+        "deadline": 78
+      },
+      "trace_bytes": 192704780,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 263087567478
+    },
+    {
+      "cpu_tail_unmeasured": 252,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 4413091232,
+      "partial": 0,
+      "peak_worker_rss_bytes": 304332800,
+      "physical_attempts": 252,
+      "request_wall_ns_lower_bound": 288222340082,
+      "scope": "artifacts/task15/generation3/pilot-repeat0",
+      "status_counts": {
+        "complete": 174,
+        "deadline": 77,
+        "implementation_error": 1
+      },
+      "trace_bytes": 159329918,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 266466602004
+    },
+    {
+      "cpu_tail_unmeasured": 252,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 4373520692,
+      "partial": 0,
+      "peak_worker_rss_bytes": 299876352,
+      "physical_attempts": 252,
+      "request_wall_ns_lower_bound": 287806581243,
+      "scope": "artifacts/task15/generation3/pilot-repeat1",
+      "status_counts": {
+        "complete": 173,
+        "deadline": 78,
+        "implementation_error": 1
+      },
+      "trace_bytes": 165132055,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 266117390086
+    },
+    {
+      "cpu_tail_unmeasured": 252,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 3802676026,
+      "partial": 0,
+      "peak_worker_rss_bytes": 284557312,
+      "physical_attempts": 252,
+      "request_wall_ns_lower_bound": 290855456873,
+      "scope": "artifacts/task15/generation4/pilot-repeat0",
+      "status_counts": {
+        "complete": 174,
+        "deadline": 78
+      },
+      "trace_bytes": 179310120,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 266954639276
+    },
+    {
+      "cpu_tail_unmeasured": 252,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 3920192984,
+      "partial": 0,
+      "peak_worker_rss_bytes": 294682624,
+      "physical_attempts": 252,
+      "request_wall_ns_lower_bound": 297923073920,
+      "scope": "artifacts/task15/generation4/pilot-repeat1",
+      "status_counts": {
+        "complete": 173,
+        "deadline": 79
+      },
+      "trace_bytes": 184412250,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 273035039104
+    },
+    {
+      "cpu_tail_unmeasured": 252,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 5680554520,
+      "partial": 0,
+      "peak_worker_rss_bytes": 298303488,
+      "physical_attempts": 252,
+      "request_wall_ns_lower_bound": 292531012504,
+      "scope": "artifacts/task15/pilot-repeat0",
+      "status_counts": {
+        "complete": 173,
+        "deadline": 78,
+        "implementation_error": 1
+      },
+      "trace_bytes": 177263372,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 267878026468
+    },
+    {
+      "cpu_tail_unmeasured": 252,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 5607286981,
+      "partial": 0,
+      "peak_worker_rss_bytes": 298008576,
+      "physical_attempts": 252,
+      "request_wall_ns_lower_bound": 293531150916,
+      "scope": "artifacts/task15/pilot-repeat1",
+      "status_counts": {
+        "complete": 172,
+        "deadline": 79,
+        "implementation_error": 1
+      },
+      "trace_bytes": 178717761,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 268930224688
+    },
+    {
+      "cpu_tail_unmeasured": 252,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 21815368903,
+      "partial": 0,
+      "peak_worker_rss_bytes": 49561600,
+      "physical_attempts": 252,
+      "request_wall_ns_lower_bound": 22938298704,
+      "scope": "artifacts/task16/fixture-collision-evidence/outcomes",
+      "status_counts": {
+        "startup_timeout": 252
+      },
+      "trace_bytes": 288440,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 18224220668
+    },
+    {
+      "cpu_tail_unmeasured": 252,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 4401771731,
+      "partial": 0,
+      "peak_worker_rss_bytes": 270286848,
+      "physical_attempts": 252,
+      "request_wall_ns_lower_bound": 302286364160,
+      "scope": "artifacts/task16/source-calibration-v2/pilot-repeat0",
+      "status_counts": {
+        "complete": 172,
+        "deadline": 80
+      },
+      "trace_bytes": 171278890,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 276181971048
+    },
+    {
+      "cpu_tail_unmeasured": 252,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 4594703986,
+      "partial": 0,
+      "peak_worker_rss_bytes": 290488320,
+      "physical_attempts": 252,
+      "request_wall_ns_lower_bound": 304358655547,
+      "scope": "artifacts/task16/source-calibration-v2/pilot-repeat1",
+      "status_counts": {
+        "complete": 172,
+        "deadline": 80
+      },
+      "trace_bytes": 173794504,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 277406378216
+    },
+    {
+      "cpu_tail_unmeasured": 36,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 973818854,
+      "partial": 0,
+      "peak_worker_rss_bytes": 239435776,
+      "physical_attempts": 36,
+      "request_wall_ns_lower_bound": 51875301996,
+      "scope": "data/traces/task12-learned/runs",
+      "status_counts": {
+        "complete": 24,
+        "deadline": 12
+      },
+      "trace_bytes": 48984781,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 47402847108
+    },
+    {
+      "cpu_tail_unmeasured": 18,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 243129255,
+      "partial": 0,
+      "peak_worker_rss_bytes": 232194048,
+      "physical_attempts": 18,
+      "request_wall_ns_lower_bound": 36268555214,
+      "scope": "data/traces/task12-odd/runs",
+      "status_counts": {
+        "complete": 12,
+        "deadline": 6
+      },
+      "trace_bytes": 28958864,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 34541846420
+    },
+    {
+      "cpu_tail_unmeasured": 18,
+      "missing_publication": 0,
+      "overshoot_ns_subset": 125185334,
+      "partial": 0,
+      "peak_worker_rss_bytes": 219201536,
+      "physical_attempts": 18,
+      "request_wall_ns_lower_bound": 28162428916,
+      "scope": "data/traces/train/runs",
+      "status_counts": {
+        "complete": 15,
+        "deadline": 3
+      },
+      "trace_bytes": 1010480,
+      "worker_cpu_missing": 0,
+      "worker_cpu_ns_lower_bound": 26842157496
+    }
+  ],
+  "unique_physical_attempts": 9113
+}

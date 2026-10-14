@@ -1,0 +1,13 @@
+{
+  "cpu_ns": 140672316000,
+  "peak_rss_bytes": 2767126528,
+  "plotting_child_cpu_seconds": 0.812156,
+  "reconstruction_wall_ns": 151905907292,
+  "scope": "analysis invocation through plot completion; final accounting/index writes and interactive/development/setup/test costs excluded; no solver execution",
+  "unknown_tails": [
+    "final accounting and artifact-index writes",
+    "development/interactive work",
+    "dependency preparation and failed network setup"
+  ],
+  "wall_ns": 169227504084
+}

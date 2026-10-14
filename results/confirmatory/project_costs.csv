@@ -1,0 +1,78 @@
+scope,physical_attempts,status_counts,request_wall_ns_lower_bound,worker_cpu_ns_lower_bound,worker_cpu_missing,peak_worker_rss_bytes,trace_bytes,overshoot_ns_subset,partial,cpu_tail_unmeasured,missing_publication
+artifacts/checks/task11,2,"{""implementation_error"": 2}",415453292,348426792,0,70713344,151130,0,0,2,0
+artifacts/checks/task11/fix1,2,"{""implementation_error"": 2}",437228750,369692000,0,70746112,148167,0,0,2,0
+artifacts/checks/task12/diagnostic,4,"{""complete"": 1, ""deadline"": 1, ""startup_timeout"": 2}",4249813750,4017272000,0,228556800,332024,361792396,0,4,0
+artifacts/checks/task12/diagnostic-export,4,"{""complete"": 2, ""deadline"": 2}",3133107000,2956195000,0,175390720,744674,68913469,0,4,0
+artifacts/checks/task12/fix1/current-runtime/runs,1,"{""deadline"": 1}",2184009666,2106599000,0,173572096,663602,27080667,0,1,0
+artifacts/checks/task7/drill,4,"{""complete"": 2, ""external_interrupt"": 2}",639685502,533919170,0,63389696,18249,0,0,4,0
+artifacts/checks/task7/drill-final,4,"{""complete"": 2, ""external_interrupt"": 2}",621313500,525546000,0,62996480,18245,0,0,4,0
+artifacts/checks/task7/fix1/provenance-fixture,1,"{""complete"": 1}",227968667,161885000,0,62406656,5779,0,0,1,0
+artifacts/checks/task8/controls,2,"{""complete"": 1, ""deadline"": 1}",1899905459,278638332,0,63324160,9200,1018112625,0,2,0
+artifacts/checks/task8/controls-final,2,"{""complete"": 1, ""deadline"": 1}",1469885792,280487000,0,63488000,12332,597779750,0,2,0
+artifacts/checks/task8/controls-final/requests,4,"{""complete"": 4}",699443333,572138750,0,65126400,73469,0,0,4,0
+artifacts/checks/task8/controls/requests,4,"{""complete"": 4}",678751291,569946208,0,65273856,76541,0,0,4,0
+artifacts/checks/task8/fix1/green-retained-cli-attempts,1,"{""implementation_error"": 1}",182974875,129742670,0,55427072,1791,0,0,1,0
+artifacts/checks/task8/fix1/protocol-observer/requests,18,"{""complete"": 18}",4312191081,3544541680,0,65781760,202477,0,0,18,0
+artifacts/checks/task8/fix1/red-retained-cli-attempts,1,"{""implementation_error"": 1}",183387708,134850668,0,57753600,1791,0,0,1,0
+artifacts/checks/task8/fix2/green-attempts/test_cli_complete_resume_uses_0,1,"{""complete"": 1}",178311500,140744000,0,63537152,7193,0,0,1,0
+artifacts/checks/task8/fix2/green-attempts/test_cli_resume_retains_failur0,1,"{""implementation_error"": 1}",145637375,118021206,0,58556416,1791,0,0,1,0
+artifacts/checks/task8/fix2/green-attempts/test_identical_named_native_co0,2,"{""complete"": 2}",345202625,280628000,0,63537152,14389,0,0,2,0
+artifacts/checks/task8/fix2/green-attempts/test_status_audit_holds_admiss0,1,"{""complete"": 1}",158253709,138744000,0,63422464,7193,0,0,1,0
+artifacts/checks/task8/fix2/red-attempts/test_cli_complete_resume_uses_0,1,"{""complete"": 1}",179906791,147191000,0,63766528,7193,0,0,1,0
+artifacts/checks/task8/fix2/red-attempts/test_status_audit_holds_admiss0,1,"{""complete"": 1}",176697417,144186000,0,63520768,7195,0,0,1,0
+artifacts/models/expanded/validation,132,"{""complete"": 103, ""deadline"": 29}",160464126795,152188735872,0,219086848,59480284,1238156968,0,132,0
+artifacts/models/final/validation,180,"{""complete"": 123, ""deadline"": 57}",219675953748,195672546452,0,259293184,211638112,4220093063,0,180,0
+artifacts/models/first-corrected/validation,43,"{""complete"": 8, ""deadline"": 2, ""external_interrupt"": 1, ""implementation_error"": 31, ""unknown"": 1}",74338064127,70968531296,0,300269568,23307048,913875674,1,43,1
+artifacts/models/first-valid/validation,132,"{""complete"": 101, ""deadline"": 31}",172920314836,161873052028,0,223772672,91564863,1533493095,0,132,0
+artifacts/models/validation,36,"{""complete"": 32, ""deadline"": 4}",37249430955,36170661340,0,190300160,1441270,129930918,0,36,0
+artifacts/pilot/controls/runs,120,"{""complete"": 78, ""deadline"": 42}",139308317837,131975005212,0,190955520,30878236,1572321434,0,120,0
+artifacts/pilot/extended/runs,12,"{""complete"": 4, ""deadline"": 8}",41143844457,40726992492,0,231981056,980016,298364331,0,12,0
+artifacts/pilot/pool-length/runs,28,"{""deadline"": 28}",117654150127,112240231432,0,239140864,32060880,2281246416,0,28,0
+artifacts/pilot/profile/runs,6,"{""complete"": 4, ""deadline"": 2}",17458451583,17247989000,0,213139456,467234,67619625,0,6,0
+artifacts/pilot/scale-128/runs,90,"{""complete"": 87, ""deadline"": 3}",30336088457,27595731298,0,133136384,3850495,73482667,0,90,0
+artifacts/pilot/scale-256/runs,90,"{""complete"": 63, ""deadline"": 27}",49367795661,46476338600,0,175489024,4119064,757916582,0,90,0
+artifacts/pilot/scale-512/runs,90,"{""complete"": 30, ""deadline"": 60}",72519678166,69564139788,0,238190592,4799619,2154121413,0,90,0
+artifacts/pilot/scale-64/runs,90,"{""complete"": 90}",17154205881,14607509452,0,88506368,1949693,0,0,90,0
+artifacts/pilot/tuning-cached/runs,180,"{""complete"": 130, ""deadline"": 50}",186615168552,180733922280,0,223133696,7205945,1539224190,0,180,0
+artifacts/pilot/tuning-expanded/runs,144,"{""complete"": 96, ""deadline"": 48}",174509379123,169439235016,0,222789632,6153280,1516031343,0,144,0
+artifacts/pilot/tuning-initial/runs,198,"{""complete"": 141, ""deadline"": 56, ""implementation_error"": 1}",219803109039,212889197448,0,227753984,7626983,1785341711,0,198,0
+artifacts/pilot/tuning-repair/runs,11,"{""deadline"": 11}",23583077334,23169097616,0,173572096,553184,342845380,0,11,0
+artifacts/runs/ra-wp07-e005,2520,"{""complete"": 1640, ""deadline"": 880}",3689555684398,3347089174268,0,297369600,2522350036,50364064041,0,2520,0
+artifacts/task13/capacity-2106828958,60,"{""complete"": 37, ""deadline"": 23}",67598986624,63849073732,0,194183168,24624905,789707049,0,60,0
+artifacts/task13/capacity-526707240,60,"{""complete"": 30, ""deadline"": 30}",23624249251,21407850428,0,158941184,4219562,898978842,0,60,0
+artifacts/task13/capacity-8427315832,60,"{""complete"": 54, ""deadline"": 6}",142331368958,131988068240,0,243040256,113794732,207790341,0,60,0
+artifacts/task13/collection-L1,36,"{""complete"": 22, ""deadline"": 14}",54631111128,49217911168,0,224985088,109104714,379232564,0,36,0
+artifacts/task13/collection-L16,36,"{""complete"": 25, ""deadline"": 11}",47845769834,45481920026,0,221773824,30113111,363317189,0,36,0
+artifacts/task13/collection-L2,36,"{""complete"": 23, ""deadline"": 13}",49929312837,45809111672,0,218120192,75899186,331273190,0,36,0
+artifacts/task13/collection-L32,36,"{""complete"": 26, ""deadline"": 10}",46620732878,44629563524,0,223379456,20695140,327586980,0,36,0
+artifacts/task13/collection-L4,36,"{""complete"": 24, ""deadline"": 12}",48041009208,44822788668,0,223313920,53817047,395749812,0,36,0
+artifacts/task13/collection-L64,36,"{""complete"": 25, ""deadline"": 11}",47413098583,45601328896,0,218742784,16591150,324573896,0,36,0
+artifacts/task13/collection-L8,36,"{""complete"": 24, ""deadline"": 12}",48459041124,45699129188,0,228261888,42186725,394231813,0,36,0
+artifacts/task13/fix1/final-2106828958,90,"{""complete"": 58, ""deadline"": 32}",92755119292,87137743342,0,195313664,40839684,1150974136,0,90,0
+artifacts/task13/fix1/final-526707240,90,"{""complete"": 45, ""deadline"": 45}",34001165215,30870011866,0,159842304,6626090,1328536199,0,90,0
+artifacts/task13/fix1/final-8427315832,90,"{""complete"": 90}",143462463371,132169255244,0,226443264,115881899,0,0,90,0
+artifacts/task13/fix1/screen-2106828958,222,"{""complete"": 143, ""deadline"": 79}",226529655613,214250043612,0,195477504,79550439,2752734150,0,222,0
+artifacts/task13/frontier-2106828958,78,"{""complete"": 45, ""deadline"": 33}",88272522376,82341732158,0,194953216,48191750,1187433676,0,78,0
+artifacts/task13/frontier-8427315832,78,"{""complete"": 78}",142823063548,129577668050,0,221790208,137768310,0,0,78,0
+artifacts/task13/integration,30,"{""complete"": 18, ""deadline"": 12}",33203265250,30929670040,0,193691648,18882469,432533756,0,30,0
+artifacts/task13/logging,24,"{""complete"": 12, ""deadline"": 12}",29505898997,27202706018,0,190922752,22299333,413678752,0,24,0
+artifacts/task13/native-timing-2106828958,18,"{""complete"": 14, ""deadline"": 4}",17620356291,17019584684,0,192249856,683156,138476751,0,18,0
+artifacts/task13/native-timing-526707240,18,"{""complete"": 9, ""deadline"": 9}",6973594874,6426272760,0,157106176,562595,270753009,0,18,0
+artifacts/task13/native-timing-8427315832,18,"{""complete"": 18}",24653347917,24042701460,0,207208448,846312,0,0,18,0
+artifacts/task13/validation-2106828958,306,"{""complete"": 203, ""deadline"": 103}",309223406791,293432908170,0,202293248,79301111,3502238739,0,306,0
+artifacts/task13/validation-526707240,306,"{""complete"": 153, ""deadline"": 153}",115403609712,104644892970,0,159744000,17257403,4567163995,0,306,0
+artifacts/task13/validation-8427315832,306,"{""complete"": 296, ""deadline"": 10}",553018269471,504221412700,0,306905088,328199960,3186265928,0,306,0
+artifacts/task15/generation2/pilot-repeat0,252,"{""complete"": 173, ""deadline"": 79}",288941544500,264550977966,0,300941312,184925275,5648158984,0,252,0
+artifacts/task15/generation2/pilot-repeat1,252,"{""complete"": 174, ""deadline"": 78}",288030779913,263087567478,0,299532288,192704780,5608648270,0,252,0
+artifacts/task15/generation3/pilot-repeat0,252,"{""complete"": 174, ""deadline"": 77, ""implementation_error"": 1}",288222340082,266466602004,0,304332800,159329918,4413091232,0,252,0
+artifacts/task15/generation3/pilot-repeat1,252,"{""complete"": 173, ""deadline"": 78, ""implementation_error"": 1}",287806581243,266117390086,0,299876352,165132055,4373520692,0,252,0
+artifacts/task15/generation4/pilot-repeat0,252,"{""complete"": 174, ""deadline"": 78}",290855456873,266954639276,0,284557312,179310120,3802676026,0,252,0
+artifacts/task15/generation4/pilot-repeat1,252,"{""complete"": 173, ""deadline"": 79}",297923073920,273035039104,0,294682624,184412250,3920192984,0,252,0
+artifacts/task15/pilot-repeat0,252,"{""complete"": 173, ""deadline"": 78, ""implementation_error"": 1}",292531012504,267878026468,0,298303488,177263372,5680554520,0,252,0
+artifacts/task15/pilot-repeat1,252,"{""complete"": 172, ""deadline"": 79, ""implementation_error"": 1}",293531150916,268930224688,0,298008576,178717761,5607286981,0,252,0
+artifacts/task16/fixture-collision-evidence/outcomes,252,"{""startup_timeout"": 252}",22938298704,18224220668,0,49561600,288440,21815368903,0,252,0
+artifacts/task16/source-calibration-v2/pilot-repeat0,252,"{""complete"": 172, ""deadline"": 80}",302286364160,276181971048,0,270286848,171278890,4401771731,0,252,0
+artifacts/task16/source-calibration-v2/pilot-repeat1,252,"{""complete"": 172, ""deadline"": 80}",304358655547,277406378216,0,290488320,173794504,4594703986,0,252,0
+data/traces/task12-learned/runs,36,"{""complete"": 24, ""deadline"": 12}",51875301996,47402847108,0,239435776,48984781,973818854,0,36,0
+data/traces/task12-odd/runs,18,"{""complete"": 12, ""deadline"": 6}",36268555214,34541846420,0,232194048,28958864,243129255,0,18,0
+data/traces/train/runs,18,"{""complete"": 15, ""deadline"": 3}",28162428916,26842157496,0,219201536,1010480,125185334,0,18,0

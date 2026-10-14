@@ -1,0 +1,96 @@
+{
+  "artifacts": [
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/confirmatory/analysis_resources.json",
+      "sha256": "b3086eca0d2994a832f3e394a3acd56701803310839bb2744bb2eb1e33546bb0"
+    },
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/confirmatory/artifacts.original.json",
+      "sha256": "9e9fa8abfe1b6e9e4704366d5cd0362be1ef0c1428963eb530a20cb63a51ec91"
+    },
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/confirmatory/calibration.csv",
+      "sha256": "d4c8532dd833e86605d63cb311cef9b96251f87b0d7d6dda6971a04b4f513f9c"
+    },
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/confirmatory/confirmatory_report.md",
+      "sha256": "447d575bdf71243c583ba8f2c8a3bdd25729cb3b381123c2dcbaec46b718e85f"
+    },
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/confirmatory/curves.csv",
+      "sha256": "92236660088ee9be2771dbb6cfca01a91f430e7381abd6366e866bc2c86de91f"
+    },
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/confirmatory/endpoint_curves.pdf",
+      "sha256": "8b4ee11a0280993fc64f421404d0a9ae1cf2339a92b022bdadac08a2a327bdf8"
+    },
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/confirmatory/endpoint_curves.png",
+      "sha256": "98bef91064bb4cb3ff3e83d9a85305fbd0198b2acd03d451d3cfca6844674fdd"
+    },
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/confirmatory/endpoints.csv",
+      "sha256": "f70419cf12bffea8b0eff4a2a86cf6f36786d84a440050a1cfbb397cb6c61817"
+    },
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/confirmatory/historical_resource_evidence.json",
+      "sha256": "cdd7a5b9db2e60e6585a4a9df10e2930ec43945ee2ae641a9aa038ee160f0221"
+    },
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/confirmatory/inference.json",
+      "sha256": "c72b4940fd1bf646c9c2dc99ed38658035d90a8142f8b4442ac9e773765669b5"
+    },
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/confirmatory/inference.original.json",
+      "sha256": "1a453a88c5a1834aa5d760f12157e0a564fa32b81613ea3ff37579a6dd56e22f"
+    },
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/confirmatory/interpretation_correction.json",
+      "sha256": "3adae872d3b80a6e3a4d6a266b7e716861d19cbc4438b5a3a4a57199d0c8676b"
+    },
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/confirmatory/plot_environment.json",
+      "sha256": "7a2886415a4aa20df03f568a8fabf312a39af81e5d43e9cb6653c14fde4443dd"
+    },
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/confirmatory/primary.csv",
+      "sha256": "a43b05d5e0b768ed341804e976ed335b644a2f99656dc7b1fd18e37782be7a71"
+    },
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/confirmatory/primary.original.csv",
+      "sha256": "10ba88825174daa23bd7148a2be47cc82a4e5e526b805e235058d2f67cf14b2c"
+    },
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/confirmatory/primary_intervals.pdf",
+      "sha256": "653681b5fc4157bd85ec77e80093393c45ad91f3c2196b2ed012722fea21fa93"
+    },
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/confirmatory/primary_intervals.png",
+      "sha256": "113b178e16d965d5b9ef92cce8330a4381a77e9a73251fb54f62580d192f978b"
+    },
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/confirmatory/project_cost_inventory.json",
+      "sha256": "19cc343bd77a6af9ee1ef5fd61bc4e1a7c6628c35e3871f850e70d000a6ccd05"
+    },
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/confirmatory/project_costs.csv",
+      "sha256": "3d6010b223b38ad1a003f0abfdfe7c6fc89067cc01f05fd526d2cd88920cafdb"
+    },
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/confirmatory/project_costs.json",
+      "sha256": "79d48ae45a2b231d2d8999406e0e852f69efbddb108de4d11e54f868c6d57dcb"
+    },
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/confirmatory/provenance.json",
+      "sha256": "8ff7650f0a96c7634940868c61d48c654477936a70e88283aebc6dd5a93a87de"
+    },
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/confirmatory/resource_summary.csv",
+      "sha256": "ef43c4a67e679bc1747a623f6807419583a7b79c743dc953fc1391ebebbb9c85"
+    },
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/confirmatory/secondary_effects.csv",
+      "sha256": "3555c880ebc04f6bcfb585debe5cda3e94a7219b77ceb266a7acdb57a036ed74"
+    }
+  ]
+}

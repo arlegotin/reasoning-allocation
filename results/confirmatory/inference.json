@@ -1,0 +1,154 @@
+{
+  "B": 6,
+  "aliases": {
+    "B4": "B3"
+  },
+  "alpha": 0.05,
+  "bootstrap_repetitions": 65536,
+  "contrasts": [
+    {
+      "across_fit_interval": null,
+      "baseline": "B0",
+      "claim": "wide-inconclusive frontier effect",
+      "correctness_quarantined": false,
+      "estimate": -0.0009064855530258782,
+      "method": "A",
+      "ordinary_interval": [
+        -0.0016931717218822316,
+        -0.00019266044850626052
+      ],
+      "quantile_batch_spread": [
+        3.677519287069138e-05,
+        3.015457196400287e-05
+      ],
+      "quantile_stable": true,
+      "simultaneous_interval": [
+        -0.0020026598875891523,
+        2.7574589489313432e-05
+      ]
+    },
+    {
+      "across_fit_interval": null,
+      "baseline": "B1",
+      "claim": "wide-inconclusive frontier effect",
+      "correctness_quarantined": false,
+      "estimate": 0.0006065083267117086,
+      "method": "A",
+      "ordinary_interval": [
+        -0.00023617837303295219,
+        0.0014960266937341846
+      ],
+      "quantile_batch_spread": [
+        3.5402425005461296e-05,
+        2.3038007285011968e-05
+      ],
+      "quantile_stable": true,
+      "simultaneous_interval": [
+        -0.0004928506394354197,
+        0.0018135692829494173
+      ]
+    },
+    {
+      "across_fit_interval": null,
+      "baseline": "B2",
+      "claim": "negative frontier effect",
+      "correctness_quarantined": false,
+      "estimate": -0.0016836683476519694,
+      "method": "A",
+      "ordinary_interval": [
+        -0.0024388915386012663,
+        -0.000940764187455205
+      ],
+      "quantile_batch_spread": [
+        3.456450055564636e-05,
+        2.472865766192623e-05
+      ],
+      "quantile_stable": true,
+      "simultaneous_interval": [
+        -0.0027070604003166673,
+        -0.0006838331156158566
+      ]
+    },
+    {
+      "across_fit_interval": null,
+      "baseline": "B3",
+      "claim": "direction inconclusive; narrow interval relative to planning precision; no equivalence margin registered",
+      "correctness_quarantined": false,
+      "estimate": -0.00010772491884119734,
+      "method": "A",
+      "ordinary_interval": [
+        -0.0006198090659887869,
+        0.00044996119145117644
+      ],
+      "quantile_batch_spread": [
+        2.0675161664199986e-05,
+        1.4908132166408352e-05
+      ],
+      "quantile_stable": true,
+      "simultaneous_interval": [
+        -0.0007718153164298796,
+        0.0006529927233088936
+      ]
+    },
+    {
+      "across_fit_interval": null,
+      "baseline": "B5",
+      "claim": "direction inconclusive; narrow interval relative to planning precision; no equivalence margin registered",
+      "correctness_quarantined": false,
+      "estimate": -0.00022859451050378786,
+      "method": "A",
+      "ordinary_interval": [
+        -0.000704258714477417,
+        0.00024606929984938953
+      ],
+      "quantile_batch_spread": [
+        1.8262423848167185e-05,
+        2.5848592633741913e-05
+      ],
+      "quantile_stable": true,
+      "simultaneous_interval": [
+        -0.0008677190507143456,
+        0.0004080793995589306
+      ]
+    },
+    {
+      "across_fit_interval": null,
+      "baseline": "B6",
+      "claim": "wide-inconclusive frontier effect; frozen Monte Carlo stability diagnostic failed",
+      "correctness_quarantined": false,
+      "estimate": 0.00038403890402997166,
+      "method": "A",
+      "ordinary_interval": [
+        -7.158984386069544e-05,
+        0.0009967797266221125
+      ],
+      "quantile_batch_spread": [
+        2.160754580785807e-05,
+        6.025664962491578e-05
+      ],
+      "quantile_stable": false,
+      "simultaneous_interval": [
+        -0.0001803361359106237,
+        0.0012546774633990564
+      ]
+    }
+  ],
+  "independent_fit_runs": 1,
+  "independent_templates": 60,
+  "per_contrast_alpha": 0.008333333333333333,
+  "quantile_method": "linear percentile",
+  "quantile_stability_tolerance": 5e-05,
+  "schema_version": 1,
+  "seed": 2026101502,
+  "status_counts": {
+    "complete": 1640,
+    "deadline": 880
+  },
+  "timing_repeats": 2,
+  "uncertainty": {
+    "across_fit_reliable": false,
+    "fit_scope": "conditional on frozen fitted assets and training data; across-fit uncertainty unavailable",
+    "limitation": "empirical resampling cannot identify unobserved tails; no training-procedure robustness claim",
+    "template_scope": "stratified original-template clusters; complete paired budgets, methods and repeats retained"
+  }
+}
