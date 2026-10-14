@@ -78,7 +78,7 @@
     },
     "coverage": {
       "path": "docs/superpowers/evidence/task20/coverage.md",
-      "sha256": "a10e50c366f66eda0299d532291ebfa352ee6b7b795d4017387a34b0201d0730"
+      "sha256": "433f1be23ba012820556db137619f3bac0719f2d69708fb96d11213676950cc7"
     },
     "qualified_plot": {
       "path": "results/handoff/derivation.json",
@@ -154,8 +154,8 @@
     },
     {
       "name": "WP10 final handoff",
-      "status": "implemented; review closure pending",
-      "reason": "Task20: report/claims/reproduction/archive; controller Task20 review, whole-branch review, possible single fix wave and scoped rereview remain pending."
+      "status": "complete; reviewed achieved scope",
+      "reason": "Task20 report/reuse/clean reproduction/archive; independent task and whole-branch reviews closed after one task fix and one consolidated final fix wave/scoped rereviews. Amended source4bd1fa4 passed804tests; original science preserved."
     }
   ],
   "limitations": [
@@ -166,6 +166,6 @@
     "Task2 backend and Task16 orchestration modularity consciously deferred: broad refactoring would create an unexecuted source generation without changing scientific evidence.",
     "Task9 label/duplicate/incomplete-cohort guards and Task17 renderer/standalone annotation are corrected in current code only; historical immutable artifacts remain.",
     "Task12 selected_deployment belongs to train-summary.json; model-card hook is selected.allocator and selected.learned.",
-    "Final Task20 and whole-branch independent review/archive closure are controller-owned and pending at this pre-final handoff."
+    "Final task and whole-branch reviews are complete; prospective correctness-quarantine/general-weight/dry-run fixes do not change original A004 scientific sources or numerical results."
   ]
 }

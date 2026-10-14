@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "status": "final reviews accepted; final archive verification separate sibling receipt",
+  "whole_branch_range": "562c574..6c083ca",
+  "single_fix_range": "6c083ca..2d4c619",
+  "source_test_commit": "4bd1fa4",
+  "review_findings": {
+    "I1": "addressed",
+    "M1": "addressed",
+    "M2": "addressed",
+    "open": 0
+  },
+  "current_suite": "804 passed149.62s; saved pristine transcript/source unchanged",
+  "report_references_verified": 22,
+  "reuse_table_unchanged": true,
+  "rulings_in_order": [
+    "Ruling: Work in the current main checkout as explicitly requested \u2014 no new branch/worktree \u2014 the cost if wrong is branch isolation would need later recovery, but this honors the user.",
+    "Task5: Ruling: Ordinary clone parents exclude base columns incident to rare rows \u2014 restores explicit supplied PoC wording omitted by condensed spec, before any pilot/fitting/freeze; preserve fixed clone count/order and with-replacement sampling. Cost if wrong: separately version unrestricted-parent recipe and rerun its native pilot. A001 in protocol/amendments/0001-ordinary-column-clones.md records correction, no-eligible failure/no silent reseed, historical evidence disposition. Original implementer receives updated spec and amendment; no user permission needed for authorized routine correction.",
+    "Task7: Ruling: Immutable manifest publication is timed by a separate receipt plus caller-side outer resource bracket, with explicit collection endpoint/unmeasured audit-write tail; do not mutate sealed bytes, invent zero tail, or recursively count a ledger writing itself \u2014 preserves full publish-call measurement for Task8 summaries without changing utility/deadline. Cost if wrong: revise publication record schema and regenerate recovery/evaluator evidence before pilot; stored original manifests remain immutable. Outer ledger serialization remains separately measured report-generation work.",
+    "Task8: Ruling: Define B2 round_robin_parent_groups by immediate-parent key (parentless=self), stable sorted group cycle and FIFO within group; removedgroups cannotservice, newgroups enter deterministically. Preserve distinctFIFO node control \u2014 spec leaves region identity unspecified, explicit naming avoids hidden semantics and no subtreewide fairness/nativeequivalence claim. Cost if wrong: add separately named individual-root variant and rerun its controls/pilot; retain oldpolicyidentity. No scientificamendment.",
+    "Task 9: Ruling: Pretraining lock covers finitepopulationcells/weights and deterministic split derivation namespace hashes, with pilot instance hashes labeled separately; final confirmation N/fits/repeats and finite protected manifest are WP06-chosen from train/validation variance/resources before opening protected outcomes \u2014 sample counts are inherently unavailable until that gate, and namespace separation remains immutable. Cost if wrong: pre-generate a finite protected seed reserve before fitting, and use a fresh reserved independent cohort for confirmation. No invented power; no changed inferential error/utility/selection rule.",
+    "Task11: Ruling: Store separately timed bounded pre-allocation pooled summaries alongside selected local rows, with mean/population-standard-deviation/min/max/missing fractions/frontier size and explicit valid/all-missing/infinity conventions over unique candidate node/ancestry fields; omit proposed-action fields and keep global storage/schema inaccessible to the local policy \u2014 enables the declared B6 control without storing every repeated action row or silently expanding local inputs. Cost if wrong: recollect training-only data with charged fuller candidate snapshots and retrain the affected contender; do not fabricate past context. This is trace preparation, not early B6 runtime/training or a scientific claim change.",
+    "Ruling: Freeze 60 independent protected templates (10 per cell), two timing repeats and one genuine frozen fit, rather than the initial 24-template option \u2014 the measured pilot forecasts improve simultaneous half-width from about0.000804 to0.000508 and provide more informative within-cell uncertainty, while about91.4 reserved minutes/8.39GB fit actual hardware/storage; the one-hour input was not a user limit, and training-procedure uncertainty remains unidentifiable \u2014 if wrong, this costs about54.8 extra reserved minutes and5.03GB versus N24; preserve all prior freezes and report the conditional/lack-of-tail-guarantee limitations rather than retune on protected outcomes.",
+    "Ruling: Increase the common learned telemetry allowance to 4096 decisions before protected execution \u2014 public B3 reached841 of1024, while measured trace density32\u201334kB/decision supports a bounded4.87\u00d7 decision margin on the discovered machine; all logging and finalization remain charged, and ordinary faults retain verified progress \u2014 if wrong, the conservative artifact envelope rises from about8.39GB to33.58GB and worker allowance from about0.266GB to1.063GB; the cap can still fail on unseen cases, so retain/report those outcomes rather than claim a guarantee.",
+    "Ruling: Execute the amended protocol through explicit configs/confirmatory-A004.json rather than rewriting the plan's original configs/confirmatory.json filename \u2014 the original is already a hash-bound A000 asset, and immutable successor identity takes precedence over that illustrative command path; no unsolicited routing pointer is needed \u2014 if wrong, add a separate unfrozen routing pointer/help entry later, while preserving all original configurations.",
+    "Ruling: Replace the12 protected originals whose identities overlap the inherited scientific test fixture, retain the other48 and append12 fresh stable-index originals with unchanged cell weights/sample size, while moving fixtures to an explicitly disjoint seed namespace \u2014252 actual probes were startup_timeout at1/4/16ns withzero progress, no instance-loaded/input/provenance fields andonlypong/terminal frames, so no solver exposure is demonstrated, but removing overlap avoids relying on that interpretation under fail-closed protection \u2014 if wrong, this costs regenerating12 inputs and extra provenance checks; no additional solver/training collection or performance-based exclusion is authorized.",
+    "Ruling: Perform one clean-environment numerical reproduction from immutable A004 artifacts with the same frozen endpoints, seed, draw count and contrasts \u2014 WP10 requires rebuilding the primary tables; the earlier no-bootstrap-rerun handoff restriction applies to ad hoc inference or presentation correction, while this fixed reproduction checks reproducibility and cannot select a result \u2014 if wrong, this costs approximately another169 seconds of analysis and rereading about2.57GB of raw artifacts plus the clean hashed installation; preserve the original inference and label all reproduction resources separately, with no new protected solver cohort."
+  ],
+  "ruling_count": 11,
+  "references": [
+    {
+      "path": "docs/superpowers/evidence/final-review/controller-boundaries.md",
+      "sha256": "8580780878cecfbf43323c961387b3979d9c86dfc24283c0a41ad124cd3cf36c",
+      "bytes": 2751
+    },
+    {
+      "path": "docs/superpowers/evidence/final-review/finishing-environment.json",
+      "sha256": "538007d595dad50133ba8ffff3321a4f241af54b3cf442999148bc6da4088761",
+      "bytes": 591
+    },
+    {
+      "path": "docs/superpowers/evidence/final-review/fix-report.md",
+      "sha256": "dedb267e5af8017e54574cfad09cdd97c36ac1f3c3d87146b9d4084e524fe7ee",
+      "bytes": 11885
+    },
+    {
+      "path": "docs/superpowers/evidence/final-review/scoped-rereview.md",
+      "sha256": "8d4a41b8f9b8421e0edcfe9d4d330dae6973fb44f46d8f1fcd8572e5f402f775",
+      "bytes": 6918
+    },
+    {
+      "path": "docs/superpowers/evidence/final-review/whole-branch.md",
+      "sha256": "46aa798fb62ca43ccae7f5a5f0d8b7d9069d2c1aeb7bbfc1e35e4da9cd00a1f0",
+      "bytes": 20836
+    }
+  ],
+  "elapsed_ns": 11664792,
+  "scope": "small saved metadata/hash/source parity checks only; no suite/inference/solver/reproduction rerun; final archive/manifest verification required next"
+}

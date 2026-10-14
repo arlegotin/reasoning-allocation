@@ -1,0 +1,17 @@
+{
+  "success": true,
+  "archive": "artifacts/audits/task20-final-closure",
+  "receipt": {
+    "path": "artifacts/audits/task20-final-closure-receipt.json",
+    "sha256": "87f0805cc5221a5f6db4d611a225bc74aa439cfab13717e7ec1ff354eab2e340",
+    "bytes": 33747
+  },
+  "files_verified": 164,
+  "source_files_verified": 161,
+  "bytes_verified": 24365380,
+  "rulings_exact_ordered": 11,
+  "required_final_reviews_ledger_controller_receipts_present": true,
+  "elapsed_ns": 32874875,
+  "self_hash_rule": "This verification and sibling receipt are outside the copied tree; never alter the archived ledger after hashing.",
+  "cleanup_scope": "Only exact plan SDD scratch; full repository, all large raw/wheels/models/failures and previous audit generations retained."
+}

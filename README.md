@@ -19,4 +19,4 @@ PYTHONPATH=src .venv/bin/python -m ra.cli report \
   --manifest protocol/freeze-A004.sha256 --out /tmp/ra-report.md
 ```
 
-Use the explicit A004 path. Historical frozen sources/configurations are immutable, and current-code live execution correctly rejects the historical freeze. See `REPRODUCE.md` for the separate numerical reconstruction command. The final controller reviews and archive closure remain pending at this handoff; no merge, push or deployment is implied.
+Use the explicit A004 path. Historical frozen sources/configurations are immutable, and current-code live execution correctly rejects the historical freeze. See `REPRODUCE.md` for the separate numerical reconstruction command. The task and whole-branch reviews are complete after the scoped fix reviews. The amended source passed804 tests; final archival receipts preserve the full evidence/decision chain. Work remains committed on `main`; no merge, push or deployment occurred.

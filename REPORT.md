@@ -110,7 +110,7 @@ These are the same saved population-weighted utilities at that deadline, repeate
 | WP07 confirmation/analysis | complete; negative/inconclusive | Tasks16–17: full A004 cohort; negative A–B2, no positive superiority; B6 Monte Carlo unstable. |
 | WP08 robustness | partial; wider studies unexecuted | Task18: public finite latency diagnostic only; population and broader robustness entry gates unmet; preflight failure preserved. |
 | WP09 transfer | skipped; feasibility unassessed | Task19: four tracks unexecuted; unmet scientific predicate, no code/data downloads or transfer study. |
-| WP10 final handoff | implemented; review closure pending | Task20: report/claims/reproduction/archive; controller Task20 review, whole-branch review, possible single fix wave and scoped rereview remain pending. |
+| WP10 final handoff | complete; reviewed achieved scope | Task20 report/reuse/clean reproduction/archive; independent task and whole-branch reviews closed after one task fix and one consolidated final fix wave/scoped rereviews. Amended source4bd1fa4 passed804tests; original science preserved. |
 
 ## Limits
 
@@ -121,7 +121,7 @@ These are the same saved population-weighted utilities at that deadline, repeate
 - Task2 backend and Task16 orchestration modularity consciously deferred: broad refactoring would create an unexecuted source generation without changing scientific evidence.
 - Task9 label/duplicate/incomplete-cohort guards and Task17 renderer/standalone annotation are corrected in current code only; historical immutable artifacts remain.
 - Task12 selected_deployment belongs to train-summary.json; model-card hook is selected.allocator and selected.learned.
-- Final Task20 and whole-branch independent review/archive closure are controller-owned and pending at this pre-final handoff.
+- Final task and whole-branch reviews are complete; prospective correctness-quarantine/general-weight/dry-run fixes do not change original A004 scientific sources or numerical results.
 
 ## Authenticated sources
 
@@ -141,7 +141,7 @@ These are the same saved population-weighted utilities at that deadline, repeate
 - requirements: [requirements.lock](requirements.lock), SHA256 `3938eacd4e8c91bb083bcb77a7211e5d9da8bc2f9b8827d777d63f1f643ff0b0`
 - reproduction: [docs/superpowers/evidence/task20/reproduction.json](docs/superpowers/evidence/task20/reproduction.json), SHA256 `0d2870d4c2277d0d0556ccd978ad2586f2f127728063135fd20cbb164ff52e8a`
 - native_work: [docs/superpowers/evidence/task20/native-work.json](docs/superpowers/evidence/task20/native-work.json), SHA256 `08d7a481ce119d471b8d4a2b1c4f9a798e2fafe4e318d4b9390b721a84bdecb7`
-- coverage: [docs/superpowers/evidence/task20/coverage.md](docs/superpowers/evidence/task20/coverage.md), SHA256 `a10e50c366f66eda0299d532291ebfa352ee6b7b795d4017387a34b0201d0730`
+- coverage: [docs/superpowers/evidence/task20/coverage.md](docs/superpowers/evidence/task20/coverage.md), SHA256 `433f1be23ba012820556db137619f3bac0719f2d69708fb96d11213676950cc7`
 - qualified_plot: [results/handoff/derivation.json](results/handoff/derivation.json), SHA256 `7397ceb583cf211ddaf754ba1fc51f53e0607164c21140376028e494109e767e`
 - resources_wp10: [docs/superpowers/evidence/task20/resources.md](docs/superpowers/evidence/task20/resources.md), SHA256 `2b34b09f75243196a3289cf268ec058457282163ec4841af5325f3a5f5410dfd`
 - native_work_table: [docs/superpowers/evidence/task20/native-work.md](docs/superpowers/evidence/task20/native-work.md), SHA256 `543423d05f1d27642bb1c20668ac998e65af760ba6ac66ef92c17861092986ca`

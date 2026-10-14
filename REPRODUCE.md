@@ -59,7 +59,7 @@ Keep the entire ignored `artifacts/` and `data/` trees, especially all failures/
 
 Historical absolute paths are part of frozen bytes. Restore the repository/artifact tree at `/Users/artemlegotin/Documents/git_alter/reasoning-allocation`, or provide that exact absolute path as a filesystem alias to the restored tree; never edit frozen JSON to relocate it. Restore archived SDD bytes to the original `.superpowers/sdd/2026-10-13-reasoning-allocation` location if historical links are needed. No direct frozen path/SHA reference into SDD was found; all 3,250 directly embedded assets passed the pre-final audit. Durable audit snapshots also retain all required reviews/source audits/hand-offs/controller receipts and the complete 11-ruling ledger.
 
-The pre-final archive explicitly has **review closure pending**. Controller refresh after Task20 review, final broad review, any single fix wave and scoped rereview:
+The retained pre-final archives record their historical pending status. Final task/whole-branch reviews and the single fix wave/scoped rereview are closed in [final review receipts](docs/superpowers/evidence/final-review/) and [final archive receipt](docs/superpowers/evidence/task20/archive-final.json). The closed SDD snapshot is `artifacts/audits/task20-final-closure/sdd`. After restoring scratch, a future audit refresh uses a fresh destination:
 
 ```sh
 .venv/bin/python checks/task20_archive.py --phase final --out artifacts/audits/task20-final-closure
@@ -76,7 +76,7 @@ PYTHONPATH="$PWD/src" OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 LOKY_MAX_CPU_COUN
 
 One Task20 full-suite invocation omitted that path and produced 91 subprocess/import failures (697 passed,106.24s). Its complete transcript and failing test names remain in `docs/superpowers/evidence/task20/full-suite-final-clean.txt`; the corrected invocation is recorded separately. This verification mistake does not alter the successful numerical reproduction, whose driver sets the absolute source path itself. Test-suite fixtures are isolated from the scientific raw trees; verification/development costs remain separate.
 
-The corrected final clean suite passed **788 tests in161.05s**. The historical `analyze` path also owns historical inventory outputs; the WP10 driver instead uses authenticated reconstruction with separate outputs. Use the supplied driver for a future numerical reproduction.
+The corrected Task20 baseline clean suite passed **788 tests in161.05s**. The historical `analyze` path also owns historical inventory outputs; the WP10 driver instead uses authenticated reconstruction with separate outputs. Use the supplied driver for a future numerical reproduction.
 
 After the controller updates the final archive pointer, refresh the tracked-file checksum manifest (excluding itself), then verify it:
 
@@ -93,7 +93,7 @@ PY
 shasum -a 256 -c MANIFEST.sha256
 ```
 
-Stage any newly created compact receipts first so `git ls-files` includes them. The ignored raw/audit trees are covered by their retained inventory and sibling receipt hashes, not copied into Git. The current pre-final receipt includes the completed implementer report and publication commit; later controller reviews still require the documented final refresh.
+Stage any newly created compact receipts first so `git ls-files` includes them. The ignored raw/audit trees are covered by their retained inventory and sibling receipt hashes, not copied into Git. Historical pre-final receipts remain intact. The final receipt includes the task/final reviews, single fix wave, controller boundary dispositions and closed ledger; its sibling receipt excludes itself to avoid a hash cycle.
 
 Task20 review fix I1 adds separate reuse tables against B0 over N=1/10/100/1000. Only the authenticated selected-fit component is allocated as wall/N; complete extra preparation cost remains unavailable. Cold-request measurements, utilities and primary uncertainty stay fixed. [Reuse definition](docs/superpowers/evidence/task20/reuse-definition.json) binds inputs/formulas; [reuse table](docs/superpowers/evidence/task20/reuse-table.json) preserves exact values. This saved-asset presentation requires no new study or warm-service assumptions.
 

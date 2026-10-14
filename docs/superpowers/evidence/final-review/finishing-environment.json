@@ -1,0 +1,9 @@
+{
+  "branch": "main",
+  "workspace": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation",
+  "git_dir": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/.git",
+  "git_common_dir": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/.git",
+  "linked_worktree": false,
+  "integration_choice": "User explicitly requested currentbranch and meaningful commits; keep currentmain. No new integration/menu/push/merge is required.",
+  "cleanup_scope": "Only this plan SDD scratch after final archive verification; preserve repository and all scientific artifacts."
+}
