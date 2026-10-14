@@ -1,0 +1,199 @@
+{
+  "source": {
+    "path": "results/confirmatory/endpoints.csv",
+    "sha256": "f70419cf12bffea8b0eff4a2a86cf6f36786d84a440050a1cfbb397cb6c61817",
+    "bytes": 2822821
+  },
+  "counter_contract": "worker.py uses getNTotalNodes (total processed nodes across runs) and getNLPs (LP solves); never LP iterations; observed sums with explicit missing counts",
+  "rows": [
+    {
+      "method": "A",
+      "budget_ns": 526707240,
+      "requests": 120,
+      "resource_native_nodes_sum_observed": 122,
+      "resource_native_nodes_missing": 0,
+      "resource_native_lps_sum_observed": 3860,
+      "resource_native_lps_missing": 0
+    },
+    {
+      "method": "A",
+      "budget_ns": 2106828958,
+      "requests": 120,
+      "resource_native_nodes_sum_observed": 2198,
+      "resource_native_nodes_missing": 0,
+      "resource_native_lps_sum_observed": 9785,
+      "resource_native_lps_missing": 0
+    },
+    {
+      "method": "A",
+      "budget_ns": 8427315832,
+      "requests": 120,
+      "resource_native_nodes_sum_observed": 19123,
+      "resource_native_nodes_missing": 0,
+      "resource_native_lps_sum_observed": 42808,
+      "resource_native_lps_missing": 0
+    },
+    {
+      "method": "B0",
+      "budget_ns": 526707240,
+      "requests": 120,
+      "resource_native_nodes_sum_observed": 122,
+      "resource_native_nodes_missing": 0,
+      "resource_native_lps_sum_observed": 4113,
+      "resource_native_lps_missing": 0
+    },
+    {
+      "method": "B0",
+      "budget_ns": 2106828958,
+      "requests": 120,
+      "resource_native_nodes_sum_observed": 2901,
+      "resource_native_nodes_missing": 0,
+      "resource_native_lps_sum_observed": 10949,
+      "resource_native_lps_missing": 0
+    },
+    {
+      "method": "B0",
+      "budget_ns": 8427315832,
+      "requests": 120,
+      "resource_native_nodes_sum_observed": 25455,
+      "resource_native_nodes_missing": 0,
+      "resource_native_lps_sum_observed": 49772,
+      "resource_native_lps_missing": 0
+    },
+    {
+      "method": "B1",
+      "budget_ns": 526707240,
+      "requests": 120,
+      "resource_native_nodes_sum_observed": 120,
+      "resource_native_nodes_missing": 0,
+      "resource_native_lps_sum_observed": 3312,
+      "resource_native_lps_missing": 0
+    },
+    {
+      "method": "B1",
+      "budget_ns": 2106828958,
+      "requests": 120,
+      "resource_native_nodes_sum_observed": 2555,
+      "resource_native_nodes_missing": 0,
+      "resource_native_lps_sum_observed": 13638,
+      "resource_native_lps_missing": 0
+    },
+    {
+      "method": "B1",
+      "budget_ns": 8427315832,
+      "requests": 120,
+      "resource_native_nodes_sum_observed": 20657,
+      "resource_native_nodes_missing": 0,
+      "resource_native_lps_sum_observed": 59246,
+      "resource_native_lps_missing": 0
+    },
+    {
+      "method": "B2",
+      "budget_ns": 526707240,
+      "requests": 120,
+      "resource_native_nodes_sum_observed": 122,
+      "resource_native_nodes_missing": 0,
+      "resource_native_lps_sum_observed": 4167,
+      "resource_native_lps_missing": 0
+    },
+    {
+      "method": "B2",
+      "budget_ns": 2106828958,
+      "requests": 120,
+      "resource_native_nodes_sum_observed": 3033,
+      "resource_native_nodes_missing": 0,
+      "resource_native_lps_sum_observed": 12947,
+      "resource_native_lps_missing": 0
+    },
+    {
+      "method": "B2",
+      "budget_ns": 8427315832,
+      "requests": 120,
+      "resource_native_nodes_sum_observed": 19638,
+      "resource_native_nodes_missing": 0,
+      "resource_native_lps_sum_observed": 49042,
+      "resource_native_lps_missing": 0
+    },
+    {
+      "method": "B3",
+      "budget_ns": 526707240,
+      "requests": 120,
+      "resource_native_nodes_sum_observed": 122,
+      "resource_native_nodes_missing": 0,
+      "resource_native_lps_sum_observed": 3942,
+      "resource_native_lps_missing": 0
+    },
+    {
+      "method": "B3",
+      "budget_ns": 2106828958,
+      "requests": 120,
+      "resource_native_nodes_sum_observed": 2277,
+      "resource_native_nodes_missing": 0,
+      "resource_native_lps_sum_observed": 10626,
+      "resource_native_lps_missing": 0
+    },
+    {
+      "method": "B3",
+      "budget_ns": 8427315832,
+      "requests": 120,
+      "resource_native_nodes_sum_observed": 16466,
+      "resource_native_nodes_missing": 0,
+      "resource_native_lps_sum_observed": 40728,
+      "resource_native_lps_missing": 0
+    },
+    {
+      "method": "B5",
+      "budget_ns": 526707240,
+      "requests": 120,
+      "resource_native_nodes_sum_observed": 122,
+      "resource_native_nodes_missing": 0,
+      "resource_native_lps_sum_observed": 3792,
+      "resource_native_lps_missing": 0
+    },
+    {
+      "method": "B5",
+      "budget_ns": 2106828958,
+      "requests": 120,
+      "resource_native_nodes_sum_observed": 1857,
+      "resource_native_nodes_missing": 0,
+      "resource_native_lps_sum_observed": 10305,
+      "resource_native_lps_missing": 0
+    },
+    {
+      "method": "B5",
+      "budget_ns": 8427315832,
+      "requests": 120,
+      "resource_native_nodes_sum_observed": 12765,
+      "resource_native_nodes_missing": 0,
+      "resource_native_lps_sum_observed": 35436,
+      "resource_native_lps_missing": 0
+    },
+    {
+      "method": "B6",
+      "budget_ns": 526707240,
+      "requests": 120,
+      "resource_native_nodes_sum_observed": 121,
+      "resource_native_nodes_missing": 0,
+      "resource_native_lps_sum_observed": 3849,
+      "resource_native_lps_missing": 0
+    },
+    {
+      "method": "B6",
+      "budget_ns": 2106828958,
+      "requests": 120,
+      "resource_native_nodes_sum_observed": 1862,
+      "resource_native_nodes_missing": 0,
+      "resource_native_lps_sum_observed": 9079,
+      "resource_native_lps_missing": 0
+    },
+    {
+      "method": "B6",
+      "budget_ns": 8427315832,
+      "requests": 120,
+      "resource_native_nodes_sum_observed": 16162,
+      "resource_native_nodes_missing": 0,
+      "resource_native_lps_sum_observed": 37918,
+      "resource_native_lps_missing": 0
+    }
+  ]
+}

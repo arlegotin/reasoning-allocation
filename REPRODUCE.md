@@ -66,3 +66,14 @@ The pre-final archive explicitly has **review closure pending**. Controller refr
 ```
 
 Use a fresh generation name on later refreshes. Each receipt is a sibling of the copied tree, so it never hashes itself. Before scratch cleanup, copy the new sibling receipt pointer/hash into the final archival receipt, verify its full inventory and ordered rulings, update `PROGRESS.md` closure status and refresh `MANIFEST.sha256` for changed compact deliverables. Archive the final controller ledger and reviews before deleting scratch. Large originals remain retained rather than selectively deleted.
+
+The final full suite also runs in the clean environment without installing the project. For this command, subprocesses need an **absolute** source path:
+
+```sh
+PYTHONPATH="$PWD/src" OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 LOKY_MAX_CPU_COUNT=1 \
+  artifacts/task20/clean-reproduction/env/bin/python -m pytest -q
+```
+
+One Task20 full-suite invocation omitted that path and produced 91 subprocess/import failures (697 passed,106.24s). Its complete transcript and failing test names remain in `docs/superpowers/evidence/task20/full-suite-final-clean.txt`; the corrected invocation is recorded separately. This verification mistake does not alter the successful numerical reproduction, whose driver sets the absolute source path itself. Test-suite fixtures are isolated from the scientific raw trees; verification/development costs remain separate.
+
+The corrected final clean suite passed **788 tests in161.05s**. The historical `analyze` path also owns historical inventory outputs; the WP10 driver instead uses authenticated reconstruction with separate outputs. Use the supplied driver for a future numerical reproduction.

@@ -126,7 +126,7 @@ def test_ranking_missing_worker_identity_uses_validated_original_without_new_uni
             a['available']['utility']=value
             a['template_id']=None if budget==200 else identity
             records.append(a)
-    result=summarize_records(records)['methods']['B0']
+    result=summarize_records(records,expected_budgets=[100,200,400])['methods']['B0']
     assert result['templates']==2 and result['attempts']==6
     assert result['mean_F']==pytest.approx(.95)
 
@@ -140,8 +140,19 @@ def test_tuning_helper_preserves_discovery_scope_and_rejects_bad_budget_cohorts(
             a=asdict(attempt(phase='discovery'))
             a['request'].update(instance_hash=identity,budget_ns=budget)
             records.append(a)
-    assert 'public discovery' in summarize_records(records)['scope']
-    with pytest.raises(ValueError,match='duplicate'): summarize_records(records+[records[0]])
-    with pytest.raises(ValueError,match='incomplete'): summarize_records(records[:-1])
+    assert 'public discovery' in summarize_records(records,expected_budgets=[100,200,400])['scope']
+    with pytest.raises(ValueError,match='duplicate'): summarize_records(records+[records[0]],expected_budgets=[100,200,400])
+    with pytest.raises(ValueError,match='incomplete'): summarize_records(records[:-1],expected_budgets=[100,200,400])
     records[-1]['request']['phase']='validation'
-    with pytest.raises(ValueError,match='phase'): summarize_records(records)
+    with pytest.raises(ValueError,match='phase'): summarize_records(records,expected_budgets=[100,200,400])
+
+
+def test_tuning_helper_requires_declared_grid_when_all_cohorts_omit_same_deadline():
+    from checks.pilot_tuning_summary import summarize_records
+    from dataclasses import asdict
+    rows=[]
+    for budget in [100,400]:
+        row=asdict(attempt(phase='discovery'));row['request']['budget_ns']=budget;rows.append(row)
+    with pytest.raises(ValueError,match='declared'):summarize_records(rows)
+    with pytest.raises(ValueError,match='incomplete'):summarize_records(rows,expected_budgets=[100,200,400])
+    assert summarize_records(rows,expected_budgets=[100,400])['budgets_ns']==[100,400]

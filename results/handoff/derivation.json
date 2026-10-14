@@ -1,0 +1,52 @@
+{
+  "scope": "saved-inference presentation only; no reconstruction/bootstrap/solver/seed change",
+  "source_commit": "59690b751bbecbe135560aa57e8c7ffe6d4a9912",
+  "source_inputs": [
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/confirmatory/inference.json",
+      "sha256": "c72b4940fd1bf646c9c2dc99ed38658035d90a8142f8b4442ac9e773765669b5"
+    },
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/confirmatory/curves.csv",
+      "sha256": "92236660088ee9be2771dbb6cfca01a91f430e7381abd6366e866bc2c86de91f"
+    },
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/confirmatory/artifacts.json",
+      "sha256": "f5e76918906d55a39351ec86b78fff83d8ef1dc2825d48a0206d2593bfbc2df2"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/handoff/curves.csv",
+      "sha256": "92236660088ee9be2771dbb6cfca01a91f430e7381abd6366e866bc2c86de91f"
+    },
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/handoff/endpoint_curves.pdf",
+      "sha256": "1a47ef3006c5168abd5509b654ef6634c5bd444eead369e009324aaf95e5a27f"
+    },
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/handoff/endpoint_curves.png",
+      "sha256": "98bef91064bb4cb3ff3e83d9a85305fbd0198b2acd03d451d3cfca6844674fdd"
+    },
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/handoff/inference.json",
+      "sha256": "c72b4940fd1bf646c9c2dc99ed38658035d90a8142f8b4442ac9e773765669b5"
+    },
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/handoff/plot_environment.json",
+      "sha256": "7a2886415a4aa20df03f568a8fabf312a39af81e5d43e9cb6653c14fde4443dd"
+    },
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/handoff/primary_intervals.pdf",
+      "sha256": "7dc4357979f5d8a8b5a558c750162b248fa108fe3274563f68cb9e025ac029fc"
+    },
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/results/handoff/primary_intervals.png",
+      "sha256": "3553c2453cfba4e49276e89db9821b8497de2634192add6c1d2b87332e96435c"
+    }
+  ],
+  "wall_ns": 971094750,
+  "cpu_ns": 752419000,
+  "cost_scope": "copy and plot after imports; final receipt write excluded",
+  "standalone_annotation": "B6 UNSTABLE: frozen Monte Carlo endpoint diagnostic failed; no additional draws"
+}

@@ -1,0 +1,15 @@
+{
+  "success": true,
+  "original_artifact_index_entries_verified": 23,
+  "original_numeric_and_corrected_digest": "6339521bccab940fe0ec0546792a3c6012e65644fe7f63a5dde6418717b83d69",
+  "clean_reproduction_numeric_and_five_csv_exact": true,
+  "original_venv_environment_hash_unchanged": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+  "original_venv_native_build_hash_unchanged": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+  "saved_report_rebuild_byte_equal": true,
+  "headline_comparisons": 6,
+  "ruling_count": 11,
+  "last_full_suite": "788 passed161.05s; pristine; absolute PYTHONPATH and OPENBLAS/OMP/LOKY caps",
+  "live_guard": "current A004 source/environment/build drift correctly rejected; no bypass",
+  "scope": "saved artifact/hash checks only; no numerical inference or solver run",
+  "retained_failed_verification": "full-suite-final-clean.txt:91failed697passed106.24s, omitted PYTHONPATH; corrected invocation recorded separately"
+}

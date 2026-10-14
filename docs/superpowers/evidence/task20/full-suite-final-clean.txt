@@ -1,0 +1,3006 @@
+........................................................................ [  9%]
+......................................FF................................ [ 18%]
+..........F......F............................................F......... [ 27%]
+.........................................................F.............. [ 36%]
+........................................................................ [ 45%]
+.........FFFFFF..F.....FFFF................FF........................... [ 54%]
+........................................................................ [ 63%]
+................................................F..............FFFFFFFFF [ 73%]
+.F...F...F...............................F...FFFFFFFFFF..............F.. [ 82%]
+........................................................................ [ 91%]
+.............FF......FFFFFFFFFFFF.F.FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF     [100%]
+=================================== FAILURES ===================================
+__________ test_real_collection_guard_is_contained_and_costed[False] ___________
+
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_real_collection_guard_is_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10ea7a780>
+corrupt_array = False
+
+    @pytest.mark.parametrize('corrupt_array', [False, True])
+    def test_real_collection_guard_is_contained_and_costed(tmp_path, monkeypatch, corrupt_array):
+        from ra.collect import _collection_plan
+        from ra.data import GeneratorCell, generate_cover
+        from ra.provenance import derive_seed
+        from ra.exact import canonical_cover
+        from ra.runner import run_request
+        from ra.types import Request
+        import hashlib
+        forecast, protocol, generation, run = _collection_plan(Path('configs/exploratory.json'))
+        cover = generate_cover(GeneratorCell(**generation['cells'][1]), derive_seed(generation['master_seed'], 'train', 2))
+        path = tmp_path / 'original.json'
+        path.write_text(json.dumps({**canonical_cover(cover), 'instance_id': cover.instance_id,
+            'template_id': cover.template_id, 'cell_id': cover.cell_id, 'lineage': cover.lineage}))
+        method = run['methods'][0]
+        method['collection']['max_decisions'] = 1
+        request = Request('guard', str(path), hashlib.sha256(path.read_bytes()).hexdigest(), cover.instance_id,
+            'a'*64, 'b'*64, 'c'*64, method['name'], 'train', 17, 4_213_657_916, 2_000_000_000,
+            sum(cover.costs), method_config={**method, 'lease_lengths': run['lease_lengths']})
+        if corrupt_array:
+            import ra.collect as collection
+            original_finalize = collection.finalize_trace
+            def corrupt_then_finalize(out, *args, **kwargs):
+                next((out / 'trace').glob('selected-*.npy')).write_bytes(b'retained corrupt array')
+                return original_finalize(out, *args, **kwargs)
+            monkeypatch.setattr(collection, 'finalize_trace', corrupt_then_finalize)
+        result = run_request(request, tmp_path / 'attempt')
+        assert result.status == 'implementation_error', result.error
+>       assert ('selected feature hash mismatch' if corrupt_array else 'trace resource limit') in result.error
+E       AssertionError: assert 'trace resource limit' in 'worker exited without terminal record'
+E        +  where 'worker exited without terminal record' = Attempt(request_id='guard', status=<AttemptStatus.IMPLEMENTATION_ERROR: 'implementation_error'>, available=AvailablePr...e_prior_costs={}, quarantined=False, template_id=None, cell_id=None, lineage=None, instance_provenance_available=False).error
+
+tests/test_collection.py:162: AssertionError
+___________ test_real_collection_guard_is_contained_and_costed[True] ___________
+
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_real_collection_guard_is_1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1133b5100>
+corrupt_array = True
+
+    @pytest.mark.parametrize('corrupt_array', [False, True])
+    def test_real_collection_guard_is_contained_and_costed(tmp_path, monkeypatch, corrupt_array):
+        from ra.collect import _collection_plan
+        from ra.data import GeneratorCell, generate_cover
+        from ra.provenance import derive_seed
+        from ra.exact import canonical_cover
+        from ra.runner import run_request
+        from ra.types import Request
+        import hashlib
+        forecast, protocol, generation, run = _collection_plan(Path('configs/exploratory.json'))
+        cover = generate_cover(GeneratorCell(**generation['cells'][1]), derive_seed(generation['master_seed'], 'train', 2))
+        path = tmp_path / 'original.json'
+        path.write_text(json.dumps({**canonical_cover(cover), 'instance_id': cover.instance_id,
+            'template_id': cover.template_id, 'cell_id': cover.cell_id, 'lineage': cover.lineage}))
+        method = run['methods'][0]
+        method['collection']['max_decisions'] = 1
+        request = Request('guard', str(path), hashlib.sha256(path.read_bytes()).hexdigest(), cover.instance_id,
+            'a'*64, 'b'*64, 'c'*64, method['name'], 'train', 17, 4_213_657_916, 2_000_000_000,
+            sum(cover.costs), method_config={**method, 'lease_lengths': run['lease_lengths']})
+        if corrupt_array:
+            import ra.collect as collection
+            original_finalize = collection.finalize_trace
+            def corrupt_then_finalize(out, *args, **kwargs):
+                next((out / 'trace').glob('selected-*.npy')).write_bytes(b'retained corrupt array')
+                return original_finalize(out, *args, **kwargs)
+            monkeypatch.setattr(collection, 'finalize_trace', corrupt_then_finalize)
+>       result = run_request(request, tmp_path / 'attempt')
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_collection.py:160: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/ra/runner.py:63: in run_request
+    return _run_request(request, out)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/ra/runner.py:365: in _run_request
+    resources['collection'] = finalize_trace(out, records, request, timestamps['parent_release_ns'], aligned,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+out = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_real_collection_guard_is_1/attempt')
+args = ([], Request(request_id='guard', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-art...8149268904208, deadline_ns=248153482562124, schema_version=1), 248149292694875, False, [], 'implementation_error', ...)
+kwargs = {'timing_valid': True}
+
+    def corrupt_then_finalize(out, *args, **kwargs):
+>       next((out / 'trace').glob('selected-*.npy')).write_bytes(b'retained corrupt array')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       StopIteration
+
+tests/test_collection.py:157: StopIteration
+_____________ test_real_cold_artificial_queue_exhausts_and_resumes _____________
+
+frozen = (PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_real_cold...ders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_real_cold_artificial_queu0/outcomes'))
+
+    def test_real_cold_artificial_queue_exhausts_and_resumes(frozen):
+        _,c,digest,out=frozen
+        results=execute(digest,out)
+>       assert len(results)==252
+E       AssertionError: assert 1 == 252
+E        +  where 1 = len([Attempt(request_id='930fc88499c7d0255ed3b21d1d9e68f08f31f79dc721be1c1dddf9bf90a00ce9', status=<AttemptStatus.IMPLEMEN...bserved_ns': 0}, quarantined=False, template_id=None, cell_id=None, lineage=None, instance_provenance_available=False)])
+
+tests/test_confirmatory_execution.py:152: AssertionError
+__________ test_real_native_frozen_request_matches_enumerated_optimum __________
+
+scientific = (PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_real_nati...q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_real_native_frozen_reques0/freeze.sha256'))
+artificial_worker = ([Request(request_id='de6cf6c715498ffeebe5dcad88e6c50d73fc6e7019748ed3f9b2664c3ba85e9c', instance_path='/private/var/f...'pool_size': 128, 'lease_lengths': [1, 2, 4, 8, 16, 32, 64]}, launch_ns=None, deadline_ns=None, schema_version=1)], {})
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10ea78f80>
+
+    def test_real_native_frozen_request_matches_enumerated_optimum(scientific,artificial_worker,monkeypatch):
+        """One actual solver in an artificial frozen queue; independent finite optimum."""
+        import itertools
+        import copy
+        from ra.data import generate_workload
+        from ra.stats import calibrate_design
+        from ra.metrics import progress_at
+        from ra.types import ProgressRecord
+        path,c,digest=scientific
+        population=copy.deepcopy(c['population'])
+        for index,cell in enumerate(population['cells']):
+            cell.update(columns=4 if index%2==0 else 8,rows=2 if index%2==0 else 4,degree=2)
+        population['templates_per_cell']=2
+        manifest=generate_workload(population,'confirmatory',path.parent/'tiny')
+        cells=sorted({i['cell_id'] for i in manifest['instances']})
+        oldcells=sorted(c['planning']['cells']);budgets={1:500_000_000,4:2_000_000_000,16:8_000_000_000}
+        c['population']=population;c['planning']['cells']={k:1/6 for k in cells}
+        c['deadlines_ns']=list(budgets.values());c['planning']['deadlines']=c['deadlines_ns']
+        c['execution']['budgets_ns']=c['deadlines_ns']
+        c['execution']['input_manifests']=[str(path.parent/'tiny/manifest.json')]
+        c['protected_manifests']=[freeze.reference(path.parent/'tiny/manifest.json')]
+        pre=json.loads(Path(c['preflight']['path']).read_text())
+        rows=json.loads(Path(pre['rows']['path']).read_text())
+        for row in rows:
+            row['cell_id']=cells[oldcells.index(row['cell_id'])]
+            row['budget_ns']=budgets[row['budget_ns']]
+        pre['rows']=write(Path(pre['rows']['path']),rows)
+        c['preflight']=write(Path(c['preflight']['path']),pre)
+        c['resources']=write(Path(c['resources']['path']),calibrate_design(rows,c['planning']))
+        c['queue']=write(Path(c['queue']['path']),freeze.make_queue(c,manifest['instances']))
+        c['exclusions'].update(external_interrupt=INTERRUPTION,execution_resource=RESOURCE)
+        c['capacity'].update(worker_peak_envelope_bytes=2**40,coordinator_reserve_bytes=2**40,
+            storage_envelope_bytes=2**40,physical_memory_bytes=2**44,free_storage_bytes=2**44)
+        write(path,c);freeze.freeze_protocol(path,digest)
+        fake=runner.run_request;actual=[]
+        def one_native(request,directory):
+            if request.method=='B0' and not actual:
+                result=real_run_request(request,directory);actual.append((result,directory));return result
+            return fake(request,directory)
+        monkeypatch.setattr(runner,'run_request',one_native)
+        results=execute(digest,Path(c['outcome_directory']))
+>       assert len(results)==252 and len(actual)==1
+E       AssertionError: assert (7 == 252)
+E        +  where 7 = len([Attempt(request_id='de6cf6c715498ffeebe5dcad88e6c50d73fc6e7019748ed3f9b2664c3ba85e9c', status=<AttemptStatus.COMPLETE...r_costs={}, quarantined=False, template_id=None, cell_id=None, lineage=None, instance_provenance_available=False), ...])
+
+tests/test_confirmatory_execution.py:275: AssertionError
+_____ test_optimized_python_cannot_claim_unexecuted_assertion_checks[cli] ______
+
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_optimized_python_cannot_c1')
+entry = 'cli'
+
+    @pytest.mark.parametrize("entry", ["reference", "cli"])
+    def test_optimized_python_cannot_claim_unexecuted_assertion_checks(tmp_path, entry):
+        out = tmp_path / "optimized"
+        script = Path(__file__).resolve().parents[1] / "checks" / "validate_design.py"
+        arguments = ([str(script), "--out", str(out / "reference.json")] if entry == "reference"
+                     else ["-m", "ra.cli", "check", "--suite", "analytical", "--out", str(out)])
+        completed = subprocess.run([sys.executable, "-O", *arguments], capture_output=True, text=True)
+        assert completed.returncode != 0
+>       assert "assertions" in completed.stderr
+E       assert 'assertions' in "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproduction/env/bin/python: Error while finding module specification for 'ra.cli' (ModuleNotFoundError: No module named 'ra')\n"
+E        +  where "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproduction/env/bin/python: Error while finding module specification for 'ra.cli' (ModuleNotFoundError: No module named 'ra')\n" = CompletedProcess(args=['/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproducti...n/env/bin/python: Error while finding module specification for 'ra.cli' (ModuleNotFoundError: No module named 'ra')\n").stderr
+
+tests/test_design_checks.py:95: AssertionError
+_________________ test_primitive_types_remain_numerically_cold _________________
+
+    def test_primitive_types_remain_numerically_cold():
+        result = subprocess.run([sys.executable, '-c', 'import sys; import ra.types; assert not ({"numpy", "scipy", "pyscipopt"} & sys.modules.keys())'], capture_output=True, text=True)
+>       assert result.returncode == 0, result.stderr
+E       AssertionError: Traceback (most recent call last):
+E           File "<string>", line 1, in <module>
+E         ModuleNotFoundError: No module named 'ra'
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproducti...eback (most recent call last):\n  File "<string>", line 1, in <module>\nModuleNotFoundError: No module named \'ra\'\n').returncode
+
+tests/test_features.py:158: AssertionError
+____________ test_cli_dry_run_writes_nothing_then_persists_manifest ____________
+
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_cli_dry_run_writes_nothin0')
+
+    def test_cli_dry_run_writes_nothing_then_persists_manifest(tmp_path):
+        config = {'schema_version': 1, 'purpose': 'workload', 'master_seed': 'test', 'templates_per_cell': 1,
+                  'cells': [{'family': 'uniform', 'columns': 6, 'rows': 3, 'degree': 2}]}
+        path = tmp_path / 'config.json'
+        path.write_text(json.dumps(config))
+        out = tmp_path / 'data' / 'train'
+        command = [sys.executable, '-m', 'ra.cli', 'generate', '--config', str(path), '--split', 'train', '--out', str(out)]
+        dry = subprocess.run(command + ['--dry-run'], capture_output=True, text=True)
+>       assert dry.returncode == 0, dry.stderr
+E       AssertionError: /Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproduction/env/bin/python: Error while finding module specification for 'ra.cli' (ModuleNotFoundError: No module named 'ra')
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproducti...n/env/bin/python: Error while finding module specification for 'ra.cli' (ModuleNotFoundError: No module named 'ra')\n").returncode
+
+tests/test_generators.py:142: AssertionError
+_______ test_lightweight_cli_and_types_do_not_import_numerical_libraries _______
+
+    def test_lightweight_cli_and_types_do_not_import_numerical_libraries():
+        run = subprocess.run([sys.executable, '-c',
+            "import sys; import ra.cli, ra.types; assert not {'numpy','scipy','pyscipopt'} & sys.modules.keys()"],
+            capture_output=True, text=True)
+>       assert run.returncode == 0, run.stderr
+E       AssertionError: Traceback (most recent call last):
+E           File "<string>", line 1, in <module>
+E         ModuleNotFoundError: No module named 'ra'
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproducti...eback (most recent call last):\n  File "<string>", line 1, in <module>\nModuleNotFoundError: No module named \'ra\'\n').returncode
+
+tests/test_generators.py:157: AssertionError
+_____ test_cli_malformed_config_is_explicit_failure_without_traceback[[]] ______
+
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_cli_malformed_config_is_e0')
+raw = '[]'
+
+    @pytest.mark.parametrize('raw', ['[]', 'null', '{', '{"purpose":"future"}'])
+    def test_cli_malformed_config_is_explicit_failure_without_traceback(tmp_path, raw):
+        path = tmp_path / 'malformed.json'
+        path.write_text(raw)
+        run = subprocess.run([sys.executable, '-m', 'ra.cli', 'generate', '--config', str(path), '--split', 'train', '--dry-run'], capture_output=True, text=True)
+        assert run.returncode == 1
+>       assert 'generate failed' in run.stderr
+E       assert 'generate failed' in "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproduction/env/bin/python: Error while finding module specification for 'ra.cli' (ModuleNotFoundError: No module named 'ra')\n"
+E        +  where "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproduction/env/bin/python: Error while finding module specification for 'ra.cli' (ModuleNotFoundError: No module named 'ra')\n" = CompletedProcess(args=['/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproducti...n/env/bin/python: Error while finding module specification for 'ra.cli' (ModuleNotFoundError: No module named 'ra')\n").stderr
+
+tests/test_generators.py:166: AssertionError
+____ test_cli_malformed_config_is_explicit_failure_without_traceback[null] _____
+
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_cli_malformed_config_is_e1')
+raw = 'null'
+
+    @pytest.mark.parametrize('raw', ['[]', 'null', '{', '{"purpose":"future"}'])
+    def test_cli_malformed_config_is_explicit_failure_without_traceback(tmp_path, raw):
+        path = tmp_path / 'malformed.json'
+        path.write_text(raw)
+        run = subprocess.run([sys.executable, '-m', 'ra.cli', 'generate', '--config', str(path), '--split', 'train', '--dry-run'], capture_output=True, text=True)
+        assert run.returncode == 1
+>       assert 'generate failed' in run.stderr
+E       assert 'generate failed' in "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproduction/env/bin/python: Error while finding module specification for 'ra.cli' (ModuleNotFoundError: No module named 'ra')\n"
+E        +  where "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproduction/env/bin/python: Error while finding module specification for 'ra.cli' (ModuleNotFoundError: No module named 'ra')\n" = CompletedProcess(args=['/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproducti...n/env/bin/python: Error while finding module specification for 'ra.cli' (ModuleNotFoundError: No module named 'ra')\n").stderr
+
+tests/test_generators.py:166: AssertionError
+______ test_cli_malformed_config_is_explicit_failure_without_traceback[{] ______
+
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_cli_malformed_config_is_e2')
+raw = '{'
+
+    @pytest.mark.parametrize('raw', ['[]', 'null', '{', '{"purpose":"future"}'])
+    def test_cli_malformed_config_is_explicit_failure_without_traceback(tmp_path, raw):
+        path = tmp_path / 'malformed.json'
+        path.write_text(raw)
+        run = subprocess.run([sys.executable, '-m', 'ra.cli', 'generate', '--config', str(path), '--split', 'train', '--dry-run'], capture_output=True, text=True)
+        assert run.returncode == 1
+>       assert 'generate failed' in run.stderr
+E       assert 'generate failed' in "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproduction/env/bin/python: Error while finding module specification for 'ra.cli' (ModuleNotFoundError: No module named 'ra')\n"
+E        +  where "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproduction/env/bin/python: Error while finding module specification for 'ra.cli' (ModuleNotFoundError: No module named 'ra')\n" = CompletedProcess(args=['/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproducti...n/env/bin/python: Error while finding module specification for 'ra.cli' (ModuleNotFoundError: No module named 'ra')\n").stderr
+
+tests/test_generators.py:166: AssertionError
+_ test_cli_malformed_config_is_explicit_failure_without_traceback[{"purpose":"future"}] _
+
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_cli_malformed_config_is_e3')
+raw = '{"purpose":"future"}'
+
+    @pytest.mark.parametrize('raw', ['[]', 'null', '{', '{"purpose":"future"}'])
+    def test_cli_malformed_config_is_explicit_failure_without_traceback(tmp_path, raw):
+        path = tmp_path / 'malformed.json'
+        path.write_text(raw)
+        run = subprocess.run([sys.executable, '-m', 'ra.cli', 'generate', '--config', str(path), '--split', 'train', '--dry-run'], capture_output=True, text=True)
+        assert run.returncode == 1
+>       assert 'generate failed' in run.stderr
+E       assert 'generate failed' in "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproduction/env/bin/python: Error while finding module specification for 'ra.cli' (ModuleNotFoundError: No module named 'ra')\n"
+E        +  where "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproduction/env/bin/python: Error while finding module specification for 'ra.cli' (ModuleNotFoundError: No module named 'ra')\n" = CompletedProcess(args=['/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproducti...n/env/bin/python: Error while finding module specification for 'ra.cli' (ModuleNotFoundError: No module named 'ra')\n").stderr
+
+tests/test_generators.py:166: AssertionError
+_ test_identical_named_native_controls_couple_logical_output_and_reap_serially _
+
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_identical_named_native_co0')
+
+    def test_identical_named_native_controls_couple_logical_output_and_reap_serially(tmp_path):
+        attempts = runner.run_schedule(configuration(tmp_path), 'discovery', tmp_path/'runs')
+        assert len(attempts)==2
+>       assert [(a.status,a.available.utility,a.available.primal_original,a.available.dual_original,a.resources['native_nodes'],a.resources['native_lps']) for a in attempts] == [('complete',1.,2,2.,0,0)]*2
+                                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'native_nodes'
+
+tests/test_harness_controls.py:39: KeyError
+__________ test_native_override_changes_do_not_leak_into_next_worker ___________
+
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_native_override_changes_d0')
+
+    def test_native_override_changes_do_not_leak_into_next_worker(tmp_path):
+        methods=[{'name':'B1','kind':'native','overrides':{'nodeselection/dfs/stdpriority':300000}}, {'name':'B0','kind':'native','overrides':{}}]
+        attempts=runner.run_schedule(configuration(tmp_path,methods),'discovery',tmp_path/'runs')
+        by_name={a.request.method:a for a in attempts}
+>       assert by_name['B1'].resources['native_settings']['nodeselection/dfs/stdpriority']==300000
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'native_settings'
+
+tests/test_harness_controls.py:74: KeyError
+_________ test_delayed_publication_worsens_real_parent_deadline_score __________
+
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_delayed_publication_worse0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113727920>
+
+    def test_delayed_publication_worsens_real_parent_deadline_score(tmp_path, monkeypatch):
+        from test_worker import driver
+        path=configuration(tmp_path); requests,_=runner.prepare_schedule(path,'discovery')
+        baseline=runner.run_request(requests[0],tmp_path/'normal')
+        driver(monkeypatch,tmp_path, '''
+    from ra.worker import Channel, execute_request
+    import time
+    original=Channel.send
+    def send(self, packet):
+        if packet['kind']=='progress': time.sleep(1.1)
+        original(self,packet)
+    Channel.send=send
+    ''')
+        delayed=runner.run_request(replace(requests[0],budget_ns=700_000_000),tmp_path/'delayed')
+>       assert baseline.available.utility==1
+E       AssertionError: assert 0.0 == 1
+E        +  where 0.0 = AvailableProgress(assignment_available=False, utility=0.0, primal_original=None, dual_original=0.0, incumbent_hash=None, sequence=None).utility
+E        +    where AvailableProgress(assignment_available=False, utility=0.0, primal_original=None, dual_original=0.0, incumbent_hash=None, sequence=None) = Attempt(request_id='4241c6d6808a39f8caf8226daf571c3a7f51b15bc9b166560c3897fa88d7a2b0', status=<AttemptStatus.IMPLEMENT...e_prior_costs={}, quarantined=False, template_id=None, cell_id=None, lineage=None, instance_provenance_available=False).available
+
+tests/test_harness_controls.py:93: AssertionError
+_____________ test_shared_alias_uses_same_logical_lease_trajectory _____________
+
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_shared_alias_uses_same_lo0')
+
+    def test_shared_alias_uses_same_logical_lease_trajectory(tmp_path):
+        from ra.data import GeneratorCell, generate_cover
+        from ra.exact import canonical_cover
+        from ra.provenance import SplitOwnership
+        path=configuration(tmp_path,[{'name':n,'kind':'shared','allocator':{'policy':'estimate','length':2},'pool_size':None} for n in ['estimate','alias']])
+        cover=generate_cover(GeneratorCell('uniform',64,64,8),17)
+        # Generation is original public data; retain declared discovery ownership.
+        cover=replace(cover,lineage={**cover.lineage,'split':'discovery'},instance_id='')
+        cover=replace(cover,instance_id=instance_hash(cover))
+        input_path=tmp_path/'input.json'
+        input_path.write_text(json.dumps({**canonical_cover(cover),'instance_id':cover.instance_id,'template_id':cover.template_id,'cell_id':cover.cell_id,'lineage':cover.lineage}))
+        owners=SplitOwnership();owners.register(cover,'discovery');owners.save(tmp_path/'ownership.json')
+        manifest=tmp_path/'manifest.json'; m=json.loads(manifest.read_text());m['instances'][0].update(instance_id=cover.instance_id,sha256=hashlib.sha256(input_path.read_bytes()).hexdigest());manifest.write_text(json.dumps(m))
+        attempts=runner.run_schedule(path,'discovery',tmp_path/'runs')
+>       assert all(a.status=='complete' for a in attempts),[a.error for a in attempts]
+E       AssertionError: ['worker exited without terminal record', 'worker exited without terminal record']
+E       assert False
+E        +  where False = all(<generator object test_shared_alias_uses_same_logical_lease_trajectory.<locals>.<genexpr> at 0x1138cbd30>)
+
+tests/test_harness_controls.py:112: AssertionError
+________ test_named_depth_native_alias_does_not_install_custom_selector ________
+
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_named_depth_native_alias_0')
+
+    def test_named_depth_native_alias_does_not_install_custom_selector(tmp_path):
+        methods=[{'name':'depth','kind':'native','overrides':{}}]
+        attempts=runner.run_schedule(configuration(tmp_path,methods),'discovery',tmp_path/'runs')
+>       assert attempts[0].resources['selector_installed'] is False
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'selector_installed'
+
+tests/test_harness_controls.py:123: KeyError
+__________ test_status_audit_holds_admission_and_precedes_accounting ___________
+
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_status_audit_holds_admiss0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1139bd460>
+capsys = <_pytest.capture.CaptureFixture object at 0x113bd8fe0>
+
+    def test_status_audit_holds_admission_and_precedes_accounting(tmp_path,monkeypatch,capsys):
+        import fcntl,tempfile,time
+        path=configuration(tmp_path,[{'name':'B0','kind':'native','overrides':{}}])
+        out=tmp_path/'runs';audits=[];original=runner._read_attempt
+        def read(directory):
+            with (Path(tempfile.gettempdir())/'ra-primary-timed.lock').open('a+b') as lock:
+                try:fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+                except BlockingIOError:pass
+                else:raise AssertionError('status audit ran outside primary admission')
+            assert not list(out.glob('batch-*/accounting.json'))
+            time.sleep(.003)  # Ensure the accounting check detects an excluded audit.
+            result=original(directory);audits.append(time.perf_counter_ns());return result
+        monkeypatch.setattr(runner,'_read_attempt',read)
+>       assert main(['run','--config',str(path),'--phase','discovery','--out',str(out)])==0
+E       AssertionError: assert 1 == 0
+E        +  where 1 = main(['run', '--config', '/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_status_audit_holds_admiss0/run.json', '--phase', 'discovery', '--out', ...])
+
+tests/test_harness_controls.py:237: AssertionError
+----------------------------- Captured stdout call -----------------------------
+{
+  "attempt_ids": [
+    "e4ceb30b6534456f919b58381b428a7f"
+  ],
+  "dry_run": false,
+  "out": "/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_status_audit_holds_admiss0/runs",
+  "phase": "discovery",
+  "success": false
+}
+___ test_cli_complete_resume_uses_published_status_without_post_return_audit ___
+
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_cli_complete_resume_uses_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113bd90d0>
+capsys = <_pytest.capture.CaptureFixture object at 0x113ad0ce0>
+
+    def test_cli_complete_resume_uses_published_status_without_post_return_audit(tmp_path,monkeypatch,capsys):
+        path=configuration(tmp_path,[{'name':'B0','kind':'native','overrides':{}}])
+        out=tmp_path/'runs';args=['run','--config',str(path),'--phase','discovery','--out',str(out)]
+>       assert main(args)==0
+E       AssertionError: assert 1 == 0
+E        +  where 1 = main(['run', '--config', '/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_cli_complete_resume_uses_0/run.json', '--phase', 'discovery', '--out', ...])
+
+tests/test_harness_controls.py:252: AssertionError
+----------------------------- Captured stdout call -----------------------------
+{
+  "attempt_ids": [
+    "014a5b271488492c82b3ff72aa22f4dc"
+  ],
+  "dry_run": false,
+  "out": "/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_cli_complete_resume_uses_0/runs",
+  "phase": "discovery",
+  "success": false
+}
+_ test_installed_support_is_harvested_once_per_cold_process_with_defensive_copies _
+
+    def test_installed_support_is_harvested_once_per_cold_process_with_defensive_copies():
+        """Repeat validation must not pay for three identical native dump harvests."""
+        import subprocess,sys
+        code='''
+    import os
+    os.environ['OPENBLAS_NUM_THREADS']='1'
+    import pyscipopt
+    original=pyscipopt.Model
+    calls=[]
+    def model(*args,**kwargs):
+        calls.append(1)
+        return original(*args,**kwargs)
+    pyscipopt.Model=model
+    from ra.config import native_parameter_support
+    first=native_parameter_support()
+    first['nodeselection/estimate/maxplungequot']['maximum']=17
+    second=native_parameter_support()
+    assert second['nodeselection/estimate/maxplungequot']['maximum'] is None
+    assert len(calls)==1, f'harvested installed support {len(calls)} times'
+    '''
+        p=subprocess.run([sys.executable,'-c',code],capture_output=True,text=True)
+>       assert p.returncode==0,p.stderr
+E       AssertionError: Traceback (most recent call last):
+E           File "<string>", line 11, in <module>
+E         ModuleNotFoundError: No module named 'ra'
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproducti...back (most recent call last):\n  File "<string>", line 11, in <module>\nModuleNotFoundError: No module named \'ra\'\n').returncode
+
+tests/test_pilot_gates.py:115: AssertionError
+________ test_interrupted_publication_preserves_partial_and_prior_costs ________
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_interrupted_publication_p0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113c8b3b0>
+
+    def test_interrupted_publication_preserves_partial_and_prior_costs(cold_request, tmp_path, monkeypatch):
+        publish = runner.publish_attempt
+        def interrupted(*args):
+            raise KeyboardInterrupt('during atomic finalization')
+        monkeypatch.setattr(runner, 'publish_attempt', interrupted)
+        with pytest.raises(KeyboardInterrupt):
+            run_request(cold_request, tmp_path / 'one')
+        partial = json.loads((tmp_path / 'one' / 'partial.json').read_text())
+>       assert partial['available']['utility'] == 1
+E       assert 0.0 == 1
+
+tests/test_recovery.py:41: AssertionError
+_______ test_interruption_at_charged_boundaries_preserves_outcomes[load] _______
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_interruption_at_charged_b0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1138cdf10>
+boundary = 'load'
+
+    @pytest.mark.parametrize('boundary', ['load', 'progress', 'lease', 'finalization'])
+    def test_interruption_at_charged_boundaries_preserves_outcomes(cold_request, tmp_path, monkeypatch, boundary):
+        source = '''
+    from ra.worker import THREAD_SETTINGS, execute_request
+    import os
+    os.environ.update(THREAD_SETTINGS)
+    '''
+        source += {
+            'load': '''
+    import ra.worker as worker
+    original = worker.load_instance
+    def load(request):
+        original(request)
+        raise KeyboardInterrupt('after original model loading')
+    worker.load_instance = load
+    ''',
+            'progress': '''
+    from ra.worker import Channel
+    original = Channel.send
+    def send(self, packet):
+        original(self, packet)
+        if packet['kind'] == 'ready': raise KeyboardInterrupt('after published progress')
+    Channel.send = send
+    ''',
+            'lease': LEASE_INTERRUPT_DRIVER,
+            'finalization': '''
+    from ra.worker import Channel
+    original = Channel.send
+    def send(self, packet):
+        if packet['kind'] == 'terminal':
+            import signal
+            os.kill(os.getpid(), signal.SIGTERM)
+        original(self, packet)
+    Channel.send = send
+    ''',
+        }[boundary]
+        if boundary == 'lease':
+            cold_request = branching_request(cold_request, tmp_path)
+        driver(monkeypatch, tmp_path, source)
+        result = run_request(cold_request, tmp_path / 'one')
+>       assert result.status == 'external_interrupt'
+E       AssertionError: assert <AttemptStatu...tation_error'> == 'external_interrupt'
+E         
+E         - external_interrupt
+E         + implementation_error
+
+tests/test_recovery.py:94: AssertionError
+_____ test_interruption_at_charged_boundaries_preserves_outcomes[progress] _____
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_interruption_at_charged_b1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1138785c0>
+boundary = 'progress'
+
+    @pytest.mark.parametrize('boundary', ['load', 'progress', 'lease', 'finalization'])
+    def test_interruption_at_charged_boundaries_preserves_outcomes(cold_request, tmp_path, monkeypatch, boundary):
+        source = '''
+    from ra.worker import THREAD_SETTINGS, execute_request
+    import os
+    os.environ.update(THREAD_SETTINGS)
+    '''
+        source += {
+            'load': '''
+    import ra.worker as worker
+    original = worker.load_instance
+    def load(request):
+        original(request)
+        raise KeyboardInterrupt('after original model loading')
+    worker.load_instance = load
+    ''',
+            'progress': '''
+    from ra.worker import Channel
+    original = Channel.send
+    def send(self, packet):
+        original(self, packet)
+        if packet['kind'] == 'ready': raise KeyboardInterrupt('after published progress')
+    Channel.send = send
+    ''',
+            'lease': LEASE_INTERRUPT_DRIVER,
+            'finalization': '''
+    from ra.worker import Channel
+    original = Channel.send
+    def send(self, packet):
+        if packet['kind'] == 'terminal':
+            import signal
+            os.kill(os.getpid(), signal.SIGTERM)
+        original(self, packet)
+    Channel.send = send
+    ''',
+        }[boundary]
+        if boundary == 'lease':
+            cold_request = branching_request(cold_request, tmp_path)
+        driver(monkeypatch, tmp_path, source)
+        result = run_request(cold_request, tmp_path / 'one')
+>       assert result.status == 'external_interrupt'
+E       AssertionError: assert <AttemptStatu...tation_error'> == 'external_interrupt'
+E         
+E         - external_interrupt
+E         + implementation_error
+
+tests/test_recovery.py:94: AssertionError
+______ test_interruption_at_charged_boundaries_preserves_outcomes[lease] _______
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_interruption_at_charged_b2')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1139305c0>
+boundary = 'lease'
+
+    @pytest.mark.parametrize('boundary', ['load', 'progress', 'lease', 'finalization'])
+    def test_interruption_at_charged_boundaries_preserves_outcomes(cold_request, tmp_path, monkeypatch, boundary):
+        source = '''
+    from ra.worker import THREAD_SETTINGS, execute_request
+    import os
+    os.environ.update(THREAD_SETTINGS)
+    '''
+        source += {
+            'load': '''
+    import ra.worker as worker
+    original = worker.load_instance
+    def load(request):
+        original(request)
+        raise KeyboardInterrupt('after original model loading')
+    worker.load_instance = load
+    ''',
+            'progress': '''
+    from ra.worker import Channel
+    original = Channel.send
+    def send(self, packet):
+        original(self, packet)
+        if packet['kind'] == 'ready': raise KeyboardInterrupt('after published progress')
+    Channel.send = send
+    ''',
+            'lease': LEASE_INTERRUPT_DRIVER,
+            'finalization': '''
+    from ra.worker import Channel
+    original = Channel.send
+    def send(self, packet):
+        if packet['kind'] == 'terminal':
+            import signal
+            os.kill(os.getpid(), signal.SIGTERM)
+        original(self, packet)
+    Channel.send = send
+    ''',
+        }[boundary]
+        if boundary == 'lease':
+            cold_request = branching_request(cold_request, tmp_path)
+        driver(monkeypatch, tmp_path, source)
+        result = run_request(cold_request, tmp_path / 'one')
+>       assert result.status == 'external_interrupt'
+E       AssertionError: assert <AttemptStatu...tation_error'> == 'external_interrupt'
+E         
+E         - external_interrupt
+E         + implementation_error
+
+tests/test_recovery.py:94: AssertionError
+___ test_interruption_at_charged_boundaries_preserves_outcomes[finalization] ___
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_interruption_at_charged_b3')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1139327b0>
+boundary = 'finalization'
+
+    @pytest.mark.parametrize('boundary', ['load', 'progress', 'lease', 'finalization'])
+    def test_interruption_at_charged_boundaries_preserves_outcomes(cold_request, tmp_path, monkeypatch, boundary):
+        source = '''
+    from ra.worker import THREAD_SETTINGS, execute_request
+    import os
+    os.environ.update(THREAD_SETTINGS)
+    '''
+        source += {
+            'load': '''
+    import ra.worker as worker
+    original = worker.load_instance
+    def load(request):
+        original(request)
+        raise KeyboardInterrupt('after original model loading')
+    worker.load_instance = load
+    ''',
+            'progress': '''
+    from ra.worker import Channel
+    original = Channel.send
+    def send(self, packet):
+        original(self, packet)
+        if packet['kind'] == 'ready': raise KeyboardInterrupt('after published progress')
+    Channel.send = send
+    ''',
+            'lease': LEASE_INTERRUPT_DRIVER,
+            'finalization': '''
+    from ra.worker import Channel
+    original = Channel.send
+    def send(self, packet):
+        if packet['kind'] == 'terminal':
+            import signal
+            os.kill(os.getpid(), signal.SIGTERM)
+        original(self, packet)
+    Channel.send = send
+    ''',
+        }[boundary]
+        if boundary == 'lease':
+            cold_request = branching_request(cold_request, tmp_path)
+        driver(monkeypatch, tmp_path, source)
+        result = run_request(cold_request, tmp_path / 'one')
+>       assert result.status == 'external_interrupt'
+E       AssertionError: assert <AttemptStatu...tation_error'> == 'external_interrupt'
+E         
+E         - external_interrupt
+E         + implementation_error
+
+tests/test_recovery.py:94: AssertionError
+_ test_fault_is_costed_outcome_and_correctness_alarm_quarantines[MemoryError-oom] _
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_fault_is_costed_outcome_a0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1138cd850>
+fault = 'MemoryError', status = 'oom'
+
+    @pytest.mark.parametrize('fault,status', [('MemoryError', 'oom'), ('RuntimeError', 'implementation_error'), ('NumericalAlarm', 'numerical_alarm')])
+    def test_fault_is_costed_outcome_and_correctness_alarm_quarantines(cold_request, tmp_path, monkeypatch, fault, status):
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import THREAD_SETTINGS, execute_request
+    import os
+    os.environ.update(THREAD_SETTINGS)
+    from ra.observer import Observer, NumericalAlarm
+    def fail(*args): raise FAULT('injected failure')
+    Observer.poll = fail
+    '''.replace('FAULT', fault))
+        result = run_request(cold_request, tmp_path / 'one')
+>       assert result.status == status
+E       AssertionError: assert <AttemptStatu...tation_error'> == 'oom'
+E         
+E         - oom
+E         + implementation_error
+
+tests/test_recovery.py:119: AssertionError
+_ test_fault_is_costed_outcome_and_correctness_alarm_quarantines[RuntimeError-implementation_error] _
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_fault_is_costed_outcome_a1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1138ce7b0>
+fault = 'RuntimeError', status = 'implementation_error'
+
+    @pytest.mark.parametrize('fault,status', [('MemoryError', 'oom'), ('RuntimeError', 'implementation_error'), ('NumericalAlarm', 'numerical_alarm')])
+    def test_fault_is_costed_outcome_and_correctness_alarm_quarantines(cold_request, tmp_path, monkeypatch, fault, status):
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import THREAD_SETTINGS, execute_request
+    import os
+    os.environ.update(THREAD_SETTINGS)
+    from ra.observer import Observer, NumericalAlarm
+    def fail(*args): raise FAULT('injected failure')
+    Observer.poll = fail
+    '''.replace('FAULT', fault))
+        result = run_request(cold_request, tmp_path / 'one')
+        assert result.status == status
+>       assert result.available.primal_original == 4
+E       AssertionError: assert None == 4
+E        +  where None = AvailableProgress(assignment_available=False, utility=0.0, primal_original=None, dual_original=0.0, incumbent_hash=None, sequence=None).primal_original
+E        +    where AvailableProgress(assignment_available=False, utility=0.0, primal_original=None, dual_original=0.0, incumbent_hash=None, sequence=None) = Attempt(request_id='tiny', status=<AttemptStatus.IMPLEMENTATION_ERROR: 'implementation_error'>, available=AvailablePro...e_prior_costs={}, quarantined=False, template_id=None, cell_id=None, lineage=None, instance_provenance_available=False).available
+
+tests/test_recovery.py:120: AssertionError
+_ test_fault_is_costed_outcome_and_correctness_alarm_quarantines[NumericalAlarm-numerical_alarm] _
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_fault_is_costed_outcome_a2')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1138ce570>
+fault = 'NumericalAlarm', status = 'numerical_alarm'
+
+    @pytest.mark.parametrize('fault,status', [('MemoryError', 'oom'), ('RuntimeError', 'implementation_error'), ('NumericalAlarm', 'numerical_alarm')])
+    def test_fault_is_costed_outcome_and_correctness_alarm_quarantines(cold_request, tmp_path, monkeypatch, fault, status):
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import THREAD_SETTINGS, execute_request
+    import os
+    os.environ.update(THREAD_SETTINGS)
+    from ra.observer import Observer, NumericalAlarm
+    def fail(*args): raise FAULT('injected failure')
+    Observer.poll = fail
+    '''.replace('FAULT', fault))
+        result = run_request(cold_request, tmp_path / 'one')
+>       assert result.status == status
+E       AssertionError: assert <AttemptStatu...tation_error'> == 'numerical_alarm'
+E         
+E         - numerical_alarm
+E         + implementation_error
+
+tests/test_recovery.py:119: AssertionError
+_______________ test_watchdog_retains_lower_bounds_and_overshoot _______________
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_watchdog_retains_lower_bo0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x11387a420>
+
+    def test_watchdog_retains_lower_bounds_and_overshoot(cold_request, tmp_path, monkeypatch):
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import Channel, execute_request
+    import time
+    original = Channel.send
+    def send(self, packet):
+        original(self, packet)
+        if packet['kind'] == 'ready': time.sleep(60)
+    Channel.send = send
+    ''')
+        result = run_request(replace(cold_request, budget_ns=500_000_000, watchdog_grace_ns=100_000_000), tmp_path / 'one')
+>       assert result.duration_censored
+E       AssertionError: assert False
+E        +  where False = Attempt(request_id='tiny', status=<AttemptStatus.IMPLEMENTATION_ERROR: 'implementation_error'>, available=AvailablePro...e_prior_costs={}, quarantined=False, template_id=None, cell_id=None, lineage=None, instance_provenance_available=False).duration_censored
+
+tests/test_recovery.py:141: AssertionError
+_______ test_partial_reconstructs_durable_progress_newer_than_checkpoint _______
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_partial_reconstructs_dura0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113931040>
+
+    def test_partial_reconstructs_durable_progress_newer_than_checkpoint(cold_request, tmp_path, monkeypatch):
+        original = runner._atomic_json
+        def fail_after_progress(path, payload, **kwargs):
+            if path.name == 'partial.json' and payload['available']['assignment_available']:
+                raise KeyboardInterrupt('checkpoint interruption')
+            original(path, payload, **kwargs)
+        monkeypatch.setattr(runner, '_atomic_json', fail_after_progress)
+>       with pytest.raises(KeyboardInterrupt):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE KeyboardInterrupt
+
+tests/test_recovery.py:173: Failed
+____________ test_partial_solution_content_must_match_original_hash ____________
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_partial_solution_content_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1138ceea0>
+
+    def test_partial_solution_content_must_match_original_hash(cold_request, tmp_path, monkeypatch):
+        monkeypatch.setattr(runner, 'publish_attempt', lambda *args: (_ for _ in ()).throw(KeyboardInterrupt()))
+        with pytest.raises(KeyboardInterrupt):
+            run_request(cold_request, tmp_path / 'one')
+        for path in (tmp_path / 'one' / 'solutions').glob('*.json'):
+            value = json.loads(path.read_text())
+            value['binary'] = [0, 0, 0]
+            path.write_text(json.dumps(value))
+>       with pytest.raises(ValueError, match='assignment'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_recovery.py:280: Failed
+___________ test_manifest_stores_validated_instance_provenance[True] ___________
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_manifest_stores_validated0')
+loaded = True
+
+    @pytest.mark.parametrize('loaded', [True, False])
+    def test_manifest_stores_validated_instance_provenance(cold_request, tmp_path, loaded):
+        request = cold_request if loaded else replace(cold_request, budget_ns=1)
+        attempt = run_request(request, tmp_path / 'one')
+        manifest = json.loads((tmp_path / 'one' / 'attempt.json').read_text())
+>       assert manifest['template_id'] == ('public-tiny' if loaded else None)
+E       AssertionError: assert None == 'public-tiny'
+
+tests/test_recovery.py:330: AssertionError
+_________ test_cold_resources_reconcile_without_adding_parent_overlap __________
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_cold_resources_reconcile_0')
+
+    def test_cold_resources_reconcile_without_adding_parent_overlap(cold_request, tmp_path):
+        result = run_request(cold_request, tmp_path / 'attempt')
+        r, t = result.resources, result.timestamps
+>       assert r['timing_partition_complete']
+E       assert False
+
+tests/test_resource_ledger.py:43: AssertionError
+________ test_native_callback_timer_oom_returns_safely[nodeinit-enter] _________
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_native_callback_timer_oom0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1139df590>
+operation = 'enter', callback = 'nodeinit'
+
+    @pytest.mark.parametrize('operation', ['enter', 'leave'])
+    @pytest.mark.parametrize('callback', ['nodeinit', 'nodecomp', 'nodeselect', 'eventexec'])
+    def test_native_callback_timer_oom_returns_safely(cold_request, tmp_path, monkeypatch, operation, callback):
+        from test_recovery import branching_request
+        from test_worker import driver
+        request = branching_request(cold_request, tmp_path)
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import execute_request, THREAD_SETTINGS
+    import os, sys
+    os.environ.update(THREAD_SETTINGS)
+    from ra.ledger import TimeLedger
+    from ra.scip_backend import ScipBackend
+    from pyscipopt import SCIP_PARAMSETTING as P
+    original_init = ScipBackend.__init__
+    def init(self, model, **kwargs):
+        original_init(self, model, **kwargs)
+        model.setPresolve(P.OFF)
+        model.setHeuristics(P.OFF)
+        model.setSeparating(P.OFF)
+    ScipBackend.__init__ = init
+    original = getattr(TimeLedger, OPERATION)
+    fired = False
+    def timer(self, *args):
+        global fired
+        context = sys._getframe(1).f_locals
+        method = context.get('method')
+        owner = context.get('owner')
+        if not fired and method is not None and method.__name__ == CALLBACK and hasattr(owner, 'backend'):
+            fired = True
+            raise MemoryError('injected native callback timer ' + OPERATION)
+        return original(self, *args)
+    setattr(TimeLedger, OPERATION, timer)
+    '''.replace('OPERATION', repr(operation)).replace('CALLBACK', repr(callback)))
+        attempt = run_request(request, tmp_path / 'one')
+>       assert attempt.status == 'oom', attempt.error
+E       AssertionError: worker exited without terminal record
+E       assert <AttemptStatu...tation_error'> == 'oom'
+E         
+E         - oom
+E         + implementation_error
+
+tests/test_resource_ledger.py:134: AssertionError
+________ test_native_callback_timer_oom_returns_safely[nodeinit-leave] _________
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_native_callback_timer_oom1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113ad0b60>
+operation = 'leave', callback = 'nodeinit'
+
+    @pytest.mark.parametrize('operation', ['enter', 'leave'])
+    @pytest.mark.parametrize('callback', ['nodeinit', 'nodecomp', 'nodeselect', 'eventexec'])
+    def test_native_callback_timer_oom_returns_safely(cold_request, tmp_path, monkeypatch, operation, callback):
+        from test_recovery import branching_request
+        from test_worker import driver
+        request = branching_request(cold_request, tmp_path)
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import execute_request, THREAD_SETTINGS
+    import os, sys
+    os.environ.update(THREAD_SETTINGS)
+    from ra.ledger import TimeLedger
+    from ra.scip_backend import ScipBackend
+    from pyscipopt import SCIP_PARAMSETTING as P
+    original_init = ScipBackend.__init__
+    def init(self, model, **kwargs):
+        original_init(self, model, **kwargs)
+        model.setPresolve(P.OFF)
+        model.setHeuristics(P.OFF)
+        model.setSeparating(P.OFF)
+    ScipBackend.__init__ = init
+    original = getattr(TimeLedger, OPERATION)
+    fired = False
+    def timer(self, *args):
+        global fired
+        context = sys._getframe(1).f_locals
+        method = context.get('method')
+        owner = context.get('owner')
+        if not fired and method is not None and method.__name__ == CALLBACK and hasattr(owner, 'backend'):
+            fired = True
+            raise MemoryError('injected native callback timer ' + OPERATION)
+        return original(self, *args)
+    setattr(TimeLedger, OPERATION, timer)
+    '''.replace('OPERATION', repr(operation)).replace('CALLBACK', repr(callback)))
+        attempt = run_request(request, tmp_path / 'one')
+>       assert attempt.status == 'oom', attempt.error
+E       AssertionError: worker exited without terminal record
+E       assert <AttemptStatu...tation_error'> == 'oom'
+E         
+E         - oom
+E         + implementation_error
+
+tests/test_resource_ledger.py:134: AssertionError
+________ test_native_callback_timer_oom_returns_safely[nodecomp-enter] _________
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_native_callback_timer_oom2')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113966ff0>
+operation = 'enter', callback = 'nodecomp'
+
+    @pytest.mark.parametrize('operation', ['enter', 'leave'])
+    @pytest.mark.parametrize('callback', ['nodeinit', 'nodecomp', 'nodeselect', 'eventexec'])
+    def test_native_callback_timer_oom_returns_safely(cold_request, tmp_path, monkeypatch, operation, callback):
+        from test_recovery import branching_request
+        from test_worker import driver
+        request = branching_request(cold_request, tmp_path)
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import execute_request, THREAD_SETTINGS
+    import os, sys
+    os.environ.update(THREAD_SETTINGS)
+    from ra.ledger import TimeLedger
+    from ra.scip_backend import ScipBackend
+    from pyscipopt import SCIP_PARAMSETTING as P
+    original_init = ScipBackend.__init__
+    def init(self, model, **kwargs):
+        original_init(self, model, **kwargs)
+        model.setPresolve(P.OFF)
+        model.setHeuristics(P.OFF)
+        model.setSeparating(P.OFF)
+    ScipBackend.__init__ = init
+    original = getattr(TimeLedger, OPERATION)
+    fired = False
+    def timer(self, *args):
+        global fired
+        context = sys._getframe(1).f_locals
+        method = context.get('method')
+        owner = context.get('owner')
+        if not fired and method is not None and method.__name__ == CALLBACK and hasattr(owner, 'backend'):
+            fired = True
+            raise MemoryError('injected native callback timer ' + OPERATION)
+        return original(self, *args)
+    setattr(TimeLedger, OPERATION, timer)
+    '''.replace('OPERATION', repr(operation)).replace('CALLBACK', repr(callback)))
+        attempt = run_request(request, tmp_path / 'one')
+>       assert attempt.status == 'oom', attempt.error
+E       AssertionError: worker exited without terminal record
+E       assert <AttemptStatu...tation_error'> == 'oom'
+E         
+E         - oom
+E         + implementation_error
+
+tests/test_resource_ledger.py:134: AssertionError
+________ test_native_callback_timer_oom_returns_safely[nodecomp-leave] _________
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_native_callback_timer_oom3')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113964ec0>
+operation = 'leave', callback = 'nodecomp'
+
+    @pytest.mark.parametrize('operation', ['enter', 'leave'])
+    @pytest.mark.parametrize('callback', ['nodeinit', 'nodecomp', 'nodeselect', 'eventexec'])
+    def test_native_callback_timer_oom_returns_safely(cold_request, tmp_path, monkeypatch, operation, callback):
+        from test_recovery import branching_request
+        from test_worker import driver
+        request = branching_request(cold_request, tmp_path)
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import execute_request, THREAD_SETTINGS
+    import os, sys
+    os.environ.update(THREAD_SETTINGS)
+    from ra.ledger import TimeLedger
+    from ra.scip_backend import ScipBackend
+    from pyscipopt import SCIP_PARAMSETTING as P
+    original_init = ScipBackend.__init__
+    def init(self, model, **kwargs):
+        original_init(self, model, **kwargs)
+        model.setPresolve(P.OFF)
+        model.setHeuristics(P.OFF)
+        model.setSeparating(P.OFF)
+    ScipBackend.__init__ = init
+    original = getattr(TimeLedger, OPERATION)
+    fired = False
+    def timer(self, *args):
+        global fired
+        context = sys._getframe(1).f_locals
+        method = context.get('method')
+        owner = context.get('owner')
+        if not fired and method is not None and method.__name__ == CALLBACK and hasattr(owner, 'backend'):
+            fired = True
+            raise MemoryError('injected native callback timer ' + OPERATION)
+        return original(self, *args)
+    setattr(TimeLedger, OPERATION, timer)
+    '''.replace('OPERATION', repr(operation)).replace('CALLBACK', repr(callback)))
+        attempt = run_request(request, tmp_path / 'one')
+>       assert attempt.status == 'oom', attempt.error
+E       AssertionError: worker exited without terminal record
+E       assert <AttemptStatu...tation_error'> == 'oom'
+E         
+E         - oom
+E         + implementation_error
+
+tests/test_resource_ledger.py:134: AssertionError
+_______ test_native_callback_timer_oom_returns_safely[nodeselect-enter] ________
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_native_callback_timer_oom4')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113c54dd0>
+operation = 'enter', callback = 'nodeselect'
+
+    @pytest.mark.parametrize('operation', ['enter', 'leave'])
+    @pytest.mark.parametrize('callback', ['nodeinit', 'nodecomp', 'nodeselect', 'eventexec'])
+    def test_native_callback_timer_oom_returns_safely(cold_request, tmp_path, monkeypatch, operation, callback):
+        from test_recovery import branching_request
+        from test_worker import driver
+        request = branching_request(cold_request, tmp_path)
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import execute_request, THREAD_SETTINGS
+    import os, sys
+    os.environ.update(THREAD_SETTINGS)
+    from ra.ledger import TimeLedger
+    from ra.scip_backend import ScipBackend
+    from pyscipopt import SCIP_PARAMSETTING as P
+    original_init = ScipBackend.__init__
+    def init(self, model, **kwargs):
+        original_init(self, model, **kwargs)
+        model.setPresolve(P.OFF)
+        model.setHeuristics(P.OFF)
+        model.setSeparating(P.OFF)
+    ScipBackend.__init__ = init
+    original = getattr(TimeLedger, OPERATION)
+    fired = False
+    def timer(self, *args):
+        global fired
+        context = sys._getframe(1).f_locals
+        method = context.get('method')
+        owner = context.get('owner')
+        if not fired and method is not None and method.__name__ == CALLBACK and hasattr(owner, 'backend'):
+            fired = True
+            raise MemoryError('injected native callback timer ' + OPERATION)
+        return original(self, *args)
+    setattr(TimeLedger, OPERATION, timer)
+    '''.replace('OPERATION', repr(operation)).replace('CALLBACK', repr(callback)))
+        attempt = run_request(request, tmp_path / 'one')
+>       assert attempt.status == 'oom', attempt.error
+E       AssertionError: worker exited without terminal record
+E       assert <AttemptStatu...tation_error'> == 'oom'
+E         
+E         - oom
+E         + implementation_error
+
+tests/test_resource_ledger.py:134: AssertionError
+_______ test_native_callback_timer_oom_returns_safely[nodeselect-leave] ________
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_native_callback_timer_oom5')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1138cf7d0>
+operation = 'leave', callback = 'nodeselect'
+
+    @pytest.mark.parametrize('operation', ['enter', 'leave'])
+    @pytest.mark.parametrize('callback', ['nodeinit', 'nodecomp', 'nodeselect', 'eventexec'])
+    def test_native_callback_timer_oom_returns_safely(cold_request, tmp_path, monkeypatch, operation, callback):
+        from test_recovery import branching_request
+        from test_worker import driver
+        request = branching_request(cold_request, tmp_path)
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import execute_request, THREAD_SETTINGS
+    import os, sys
+    os.environ.update(THREAD_SETTINGS)
+    from ra.ledger import TimeLedger
+    from ra.scip_backend import ScipBackend
+    from pyscipopt import SCIP_PARAMSETTING as P
+    original_init = ScipBackend.__init__
+    def init(self, model, **kwargs):
+        original_init(self, model, **kwargs)
+        model.setPresolve(P.OFF)
+        model.setHeuristics(P.OFF)
+        model.setSeparating(P.OFF)
+    ScipBackend.__init__ = init
+    original = getattr(TimeLedger, OPERATION)
+    fired = False
+    def timer(self, *args):
+        global fired
+        context = sys._getframe(1).f_locals
+        method = context.get('method')
+        owner = context.get('owner')
+        if not fired and method is not None and method.__name__ == CALLBACK and hasattr(owner, 'backend'):
+            fired = True
+            raise MemoryError('injected native callback timer ' + OPERATION)
+        return original(self, *args)
+    setattr(TimeLedger, OPERATION, timer)
+    '''.replace('OPERATION', repr(operation)).replace('CALLBACK', repr(callback)))
+        attempt = run_request(request, tmp_path / 'one')
+>       assert attempt.status == 'oom', attempt.error
+E       AssertionError: worker exited without terminal record
+E       assert <AttemptStatu...tation_error'> == 'oom'
+E         
+E         - oom
+E         + implementation_error
+
+tests/test_resource_ledger.py:134: AssertionError
+________ test_native_callback_timer_oom_returns_safely[eventexec-enter] ________
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_native_callback_timer_oom6')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1139df6e0>
+operation = 'enter', callback = 'eventexec'
+
+    @pytest.mark.parametrize('operation', ['enter', 'leave'])
+    @pytest.mark.parametrize('callback', ['nodeinit', 'nodecomp', 'nodeselect', 'eventexec'])
+    def test_native_callback_timer_oom_returns_safely(cold_request, tmp_path, monkeypatch, operation, callback):
+        from test_recovery import branching_request
+        from test_worker import driver
+        request = branching_request(cold_request, tmp_path)
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import execute_request, THREAD_SETTINGS
+    import os, sys
+    os.environ.update(THREAD_SETTINGS)
+    from ra.ledger import TimeLedger
+    from ra.scip_backend import ScipBackend
+    from pyscipopt import SCIP_PARAMSETTING as P
+    original_init = ScipBackend.__init__
+    def init(self, model, **kwargs):
+        original_init(self, model, **kwargs)
+        model.setPresolve(P.OFF)
+        model.setHeuristics(P.OFF)
+        model.setSeparating(P.OFF)
+    ScipBackend.__init__ = init
+    original = getattr(TimeLedger, OPERATION)
+    fired = False
+    def timer(self, *args):
+        global fired
+        context = sys._getframe(1).f_locals
+        method = context.get('method')
+        owner = context.get('owner')
+        if not fired and method is not None and method.__name__ == CALLBACK and hasattr(owner, 'backend'):
+            fired = True
+            raise MemoryError('injected native callback timer ' + OPERATION)
+        return original(self, *args)
+    setattr(TimeLedger, OPERATION, timer)
+    '''.replace('OPERATION', repr(operation)).replace('CALLBACK', repr(callback)))
+        attempt = run_request(request, tmp_path / 'one')
+>       assert attempt.status == 'oom', attempt.error
+E       AssertionError: worker exited without terminal record
+E       assert <AttemptStatu...tation_error'> == 'oom'
+E         
+E         - oom
+E         + implementation_error
+
+tests/test_resource_ledger.py:134: AssertionError
+________ test_native_callback_timer_oom_returns_safely[eventexec-leave] ________
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_native_callback_timer_oom7')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x11387a6f0>
+operation = 'leave', callback = 'eventexec'
+
+    @pytest.mark.parametrize('operation', ['enter', 'leave'])
+    @pytest.mark.parametrize('callback', ['nodeinit', 'nodecomp', 'nodeselect', 'eventexec'])
+    def test_native_callback_timer_oom_returns_safely(cold_request, tmp_path, monkeypatch, operation, callback):
+        from test_recovery import branching_request
+        from test_worker import driver
+        request = branching_request(cold_request, tmp_path)
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import execute_request, THREAD_SETTINGS
+    import os, sys
+    os.environ.update(THREAD_SETTINGS)
+    from ra.ledger import TimeLedger
+    from ra.scip_backend import ScipBackend
+    from pyscipopt import SCIP_PARAMSETTING as P
+    original_init = ScipBackend.__init__
+    def init(self, model, **kwargs):
+        original_init(self, model, **kwargs)
+        model.setPresolve(P.OFF)
+        model.setHeuristics(P.OFF)
+        model.setSeparating(P.OFF)
+    ScipBackend.__init__ = init
+    original = getattr(TimeLedger, OPERATION)
+    fired = False
+    def timer(self, *args):
+        global fired
+        context = sys._getframe(1).f_locals
+        method = context.get('method')
+        owner = context.get('owner')
+        if not fired and method is not None and method.__name__ == CALLBACK and hasattr(owner, 'backend'):
+            fired = True
+            raise MemoryError('injected native callback timer ' + OPERATION)
+        return original(self, *args)
+    setattr(TimeLedger, OPERATION, timer)
+    '''.replace('OPERATION', repr(operation)).replace('CALLBACK', repr(callback)))
+        attempt = run_request(request, tmp_path / 'one')
+>       assert attempt.status == 'oom', attempt.error
+E       AssertionError: worker exited without terminal record
+E       assert <AttemptStatu...tation_error'> == 'oom'
+E         
+E         - oom
+E         + implementation_error
+
+tests/test_resource_ledger.py:134: AssertionError
+_______ test_real_delay_is_inside_charged_administration_and_legal_lease _______
+
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_real_delay_is_inside_char0')
+
+    def test_real_delay_is_inside_charged_administration_and_legal_lease(tmp_path):
+        path=public_branching(tmp_path,3_000_000)
+        a=runner.run_schedule(path,'discovery',tmp_path/'out')[0]
+>       assert a.status=='complete', a.error
+E       AssertionError: worker exited without terminal record
+E       assert <AttemptStatu...tation_error'> == 'complete'
+E         
+E         - complete
+E         + implementation_error
+
+tests/test_robustness.py:42: AssertionError
+___ test_delay_crossing_deadline_returns_legal_node_without_dispatch_credit ____
+
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_delay_crossing_deadline_r0')
+
+    def test_delay_crossing_deadline_returns_legal_node_without_dispatch_credit(tmp_path):
+        path=public_branching(tmp_path,700_000_000,budget=500_000_000)
+        a=runner.run_schedule(path,'discovery',tmp_path/'out')[0]
+>       assert a.status=='deadline', a.error
+E       AssertionError: worker exited without terminal record
+E       assert <AttemptStatu...tation_error'> == 'deadline'
+E         
+E         - deadline
+E         + implementation_error
+
+tests/test_robustness.py:55: AssertionError
+_____ test_prospective_json_roundtrip_executes_and_rejects_changed_request _____
+
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_prospective_json_roundtri0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113baf440>
+
+    def test_prospective_json_roundtrip_executes_and_rejects_changed_request(tmp_path,monkeypatch):
+        from dataclasses import asdict
+        import importlib.util
+        from ra.data import generate_workload
+        spec=importlib.util.spec_from_file_location('task18_roundtrip',Path('checks/task18_latency.py'))
+        module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+        generated=tmp_path/'inputs'
+        generate_workload({'schema_version':1,'purpose':'workload','master_seed':'latency-roundtrip',
+            'templates_per_cell':1,'cells':[{'family':'uniform','columns':8,'rows':8,'degree':4}]},'validation',generated)
+        config=json.loads(configuration(tmp_path).read_text())
+        config.update(input_manifests=[str(generated/'manifest.json')],methods=[delayed_method(0)])
+        (tmp_path/'configs').mkdir();path=tmp_path/'configs/robustness.json';path.write_text(json.dumps(config))
+        requests,metadata=runner.prepare_schedule(path,'validation')
+        protocol={'files_sha256':{},'schedule':metadata,'requests':[asdict(r) for r in requests],
+                  'stop':{'overshoot_fraction':.2,'elapsed_ns':180_000_000_000}}
+        pin=tmp_path/'protocol.json';pin.write_text(json.dumps(protocol))
+        monkeypatch.setattr(module,'ROOT',tmp_path);monkeypatch.setattr(module,'PROTOCOL',pin);monkeypatch.setattr(module,'OUT',tmp_path/'out')
+        status=module.execute()
+>       assert status['completed_finite_protocol'] and status['completed']==1
+E       assert (False)
+
+tests/test_robustness.py:138: AssertionError
+----------------------------- Captured stdout call -----------------------------
+1 B2-delay implementation_error 0.0
+__ test_normal_tiny_cold_request_includes_imports_loading_anchor_and_release ___
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_normal_tiny_cold_request_0')
+
+    def test_normal_tiny_cold_request_includes_imports_loading_anchor_and_release(cold_request, tmp_path):
+        result = run_request(cold_request, tmp_path / 'attempt')
+>       assert result.status == 'complete', result.error
+E       AssertionError: worker exited without terminal record
+E       assert <AttemptStatu...tation_error'> == 'complete'
+E         
+E         - complete
+E         + implementation_error
+
+tests/test_worker.py:34: AssertionError
+____________ test_startup_outlasting_deadline_returns_no_assignment ____________
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_startup_outlasting_deadli0')
+
+    def test_startup_outlasting_deadline_returns_no_assignment(cold_request, tmp_path):
+        result = run_request(replace(cold_request, budget_ns=1), tmp_path / 'timeout')
+>       assert result.status == 'startup_timeout'
+E       AssertionError: assert <AttemptStatu...tation_error'> == 'startup_timeout'
+E         
+E         - startup_timeout
+E         + implementation_error
+
+tests/test_worker.py:57: AssertionError
+____________ test_fault_retains_terminal_error_and_releases_worker _____________
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_fault_retains_terminal_er0')
+
+    def test_fault_retains_terminal_error_and_releases_worker(cold_request, tmp_path):
+        result = run_request(replace(cold_request, instance_sha256='f' * 64), tmp_path / 'bad-input')
+        assert result.status == 'implementation_error'
+>       assert 'hash' in result.error
+E       AssertionError: assert 'hash' in 'worker exited without terminal record'
+E        +  where 'worker exited without terminal record' = Attempt(request_id='tiny', status=<AttemptStatus.IMPLEMENTATION_ERROR: 'implementation_error'>, available=AvailablePro...e_prior_costs={}, quarantined=False, template_id=None, cell_id=None, lineage=None, instance_provenance_available=False).error
+
+tests/test_worker.py:85: AssertionError
+________________ test_worker_module_import_is_numerically_cold _________________
+
+    def test_worker_module_import_is_numerically_cold():
+        import subprocess
+        proc = subprocess.run([sys.executable, '-c', "import sys; import ra.worker; assert not any(m in sys.modules for m in ('numpy', 'scipy', 'pyscipopt', 'sklearn'))"], capture_output=True, text=True)
+>       assert proc.returncode == 0, proc.stderr
+E       AssertionError: Traceback (most recent call last):
+E           File "<string>", line 1, in <module>
+E         ModuleNotFoundError: No module named 'ra'
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproducti...eback (most recent call last):\n  File "<string>", line 1, in <module>\nModuleNotFoundError: No module named \'ra\'\n').returncode
+
+tests/test_worker.py:93: AssertionError
+_____ test_delayed_transmission_changes_availability_with_identical_search _____
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_delayed_transmission_chan0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113f1a2d0>
+
+    def test_delayed_transmission_changes_availability_with_identical_search(cold_request, tmp_path, monkeypatch):
+        baseline = run_request(replace(cold_request, budget_ns=1_000_000_000), tmp_path / 'immediate')
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import Channel, execute_request
+    import time
+    original_send, original_receive = Channel.send, Channel.receive
+    pending = []
+    deadline = None
+    def receive(self):
+        global deadline
+        packet = original_receive(self)
+        if packet['kind'] == 'launch': deadline = packet['deadline_ns']
+        return packet
+    def send(self, packet):
+        if packet['kind'] == 'progress':
+            pending.append(packet)
+            return
+        if packet['kind'] == 'terminal':
+            time.sleep(max(0, (deadline - time.perf_counter_ns()) / 1e9) + .03)
+            for record in pending: original_send(self, record)
+        original_send(self, packet)
+    Channel.receive, Channel.send = receive, send
+    ''')
+        delayed = run_request(replace(cold_request, budget_ns=1_000_000_000), tmp_path / 'delayed')
+>       assert baseline.available.utility == 1
+E       AssertionError: assert 0.0 == 1
+E        +  where 0.0 = AvailableProgress(assignment_available=False, utility=0.0, primal_original=None, dual_original=0.0, incumbent_hash=None, sequence=None).utility
+E        +    where AvailableProgress(assignment_available=False, utility=0.0, primal_original=None, dual_original=0.0, incumbent_hash=None, sequence=None) = Attempt(request_id='tiny', status=<AttemptStatus.IMPLEMENTATION_ERROR: 'implementation_error'>, available=AvailablePro...e_prior_costs={}, quarantined=False, template_id=None, cell_id=None, lineage=None, instance_provenance_available=False).available
+
+tests/test_worker.py:128: AssertionError
+____________ test_actual_bad_clock_handshake_blocks_reconstruction _____________
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_actual_bad_clock_handshak0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113f1a960>
+
+    def test_actual_bad_clock_handshake_blocks_reconstruction(cold_request, tmp_path, monkeypatch):
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import Channel, execute_request
+    original = Channel.send
+    def send(self, packet):
+        if packet['kind'] == 'pong': packet['child_ns'] += 10**15
+        original(self, packet)
+    Channel.send = send
+    ''')
+        result = run_request(cold_request, tmp_path / 'bad-clock')
+        assert not result.clock_aligned
+        assert result.status == 'implementation_error'
+>       assert 'clock' in result.error
+E       AssertionError: assert 'clock' in 'worker exited without terminal record'
+E        +  where 'worker exited without terminal record' = Attempt(request_id='tiny', status=<AttemptStatus.IMPLEMENTATION_ERROR: 'implementation_error'>, available=AvailablePro...e_prior_costs={}, quarantined=False, template_id=None, cell_id=None, lineage=None, instance_provenance_available=False).error
+
+tests/test_worker.py:150: AssertionError
+____ test_callback_failure_retains_parent_anchor_and_correct_status[False] _____
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_callback_failure_retains_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113f19fa0>
+alarm = False
+
+    @pytest.mark.parametrize('alarm', [False, True])
+    def test_callback_failure_retains_parent_anchor_and_correct_status(cold_request, tmp_path, monkeypatch, alarm):
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import THREAD_SETTINGS, execute_request
+    import os
+    os.environ.update(THREAD_SETTINGS)
+    from ra.observer import Observer, NumericalAlarm
+    def fail(self, *args):
+        raise ERROR('injected observation failure')
+    Observer.poll = fail
+    '''.replace('raise ERROR', 'raise NumericalAlarm' if alarm else 'raise RuntimeError'))
+        result = run_request(cold_request, tmp_path / f'fault-{alarm}')
+        assert result.status == ('numerical_alarm' if alarm else 'implementation_error')
+>       assert result.available.assignment_available
+E       AssertionError: assert False
+E        +  where False = AvailableProgress(assignment_available=False, utility=0.0, primal_original=None, dual_original=0.0, incumbent_hash=None, sequence=None).assignment_available
+E        +    where AvailableProgress(assignment_available=False, utility=0.0, primal_original=None, dual_original=0.0, incumbent_hash=None, sequence=None) = Attempt(request_id='tiny', status=<AttemptStatus.IMPLEMENTATION_ERROR: 'implementation_error'>, available=AvailablePro...e_prior_costs={}, quarantined=False, template_id=None, cell_id=None, lineage=None, instance_provenance_available=False).available
+
+tests/test_worker.py:167: AssertionError
+_____ test_callback_failure_retains_parent_anchor_and_correct_status[True] _____
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_callback_failure_retains_1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113f1abd0>
+alarm = True
+
+    @pytest.mark.parametrize('alarm', [False, True])
+    def test_callback_failure_retains_parent_anchor_and_correct_status(cold_request, tmp_path, monkeypatch, alarm):
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import THREAD_SETTINGS, execute_request
+    import os
+    os.environ.update(THREAD_SETTINGS)
+    from ra.observer import Observer, NumericalAlarm
+    def fail(self, *args):
+        raise ERROR('injected observation failure')
+    Observer.poll = fail
+    '''.replace('raise ERROR', 'raise NumericalAlarm' if alarm else 'raise RuntimeError'))
+        result = run_request(cold_request, tmp_path / f'fault-{alarm}')
+>       assert result.status == ('numerical_alarm' if alarm else 'implementation_error')
+E       AssertionError: assert <AttemptStatu...tation_error'> == 'numerical_alarm'
+E         
+E         - numerical_alarm
+E         + implementation_error
+
+tests/test_worker.py:166: AssertionError
+____________ test_watchdog_kills_stalled_worker_and_charges_release ____________
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_watchdog_kills_stalled_wo0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113f19bb0>
+
+    def test_watchdog_kills_stalled_worker_and_charges_release(cold_request, tmp_path, monkeypatch):
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import Channel, execute_request
+    import time
+    original = Channel.send
+    def send(self, packet):
+        if packet['kind'] == 'ready':
+            original(self, packet)
+            time.sleep(60)
+        else: original(self, packet)
+    Channel.send = send
+    ''')
+        result = run_request(replace(cold_request, budget_ns=500_000_000, watchdog_grace_ns=100_000_000), tmp_path / 'watchdog')
+>       assert result.duration_censored
+E       AssertionError: assert False
+E        +  where False = Attempt(request_id='tiny', status=<AttemptStatus.IMPLEMENTATION_ERROR: 'implementation_error'>, available=AvailablePro...e_prior_costs={}, quarantined=False, template_id=None, cell_id=None, lineage=None, instance_provenance_available=False).duration_censored
+
+tests/test_worker.py:189: AssertionError
+__________________ test_nonzero_child_exit_cannot_be_complete __________________
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_nonzero_child_exit_cannot0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113f1a840>
+
+    def test_nonzero_child_exit_cannot_be_complete(cold_request, tmp_path, monkeypatch):
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import execute_request as real_execute
+    def execute_request(path):
+        real_execute(path)
+        return 7
+    ''')
+        result = run_request(cold_request, tmp_path / 'bad-exit')
+        assert result.status == 'implementation_error'
+>       assert result.available.utility == 1
+E       AssertionError: assert 0.0 == 1
+E        +  where 0.0 = AvailableProgress(assignment_available=False, utility=0.0, primal_original=None, dual_original=0.0, incumbent_hash=None, sequence=None).utility
+E        +    where AvailableProgress(assignment_available=False, utility=0.0, primal_original=None, dual_original=0.0, incumbent_hash=None, sequence=None) = Attempt(request_id='tiny', status=<AttemptStatus.IMPLEMENTATION_ERROR: 'implementation_error'>, available=AvailablePro...e_prior_costs={}, quarantined=False, template_id=None, cell_id=None, lineage=None, instance_provenance_available=False).available
+
+tests/test_worker.py:209: AssertionError
+___________ test_watchdog_covers_process_cleanup_after_channel_close ___________
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_watchdog_covers_process_c0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1138cdac0>
+
+    def test_watchdog_covers_process_cleanup_after_channel_close(cold_request, tmp_path, monkeypatch):
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import execute_request as real_execute
+    import time
+    def execute_request(path):
+        result = real_execute(path)
+        time.sleep(.8)
+        return result
+    ''')
+        result = run_request(replace(cold_request, budget_ns=500_000_000, watchdog_grace_ns=100_000_000), tmp_path / 'cleanup-stall')
+>       assert result.duration_censored
+E       AssertionError: assert False
+E        +  where False = Attempt(request_id='tiny', status=<AttemptStatus.IMPLEMENTATION_ERROR: 'implementation_error'>, available=AvailablePro...e_prior_costs={}, quarantined=False, template_id=None, cell_id=None, lineage=None, instance_provenance_available=False).duration_censored
+
+tests/test_worker.py:223: AssertionError
+___________ test_thread_environment_is_fixed_independently_of_caller ___________
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_thread_environment_is_fix0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113baca10>
+
+    def test_thread_environment_is_fixed_independently_of_caller(cold_request, tmp_path, monkeypatch):
+        from ra.worker import THREAD_SETTINGS
+        for key in THREAD_SETTINGS:
+            monkeypatch.setenv(key, '7')
+        result = run_request(cold_request, tmp_path / 'thread-isolation')
+>       assert result.status == 'complete'
+E       AssertionError: assert <AttemptStatu...tation_error'> == 'complete'
+E         
+E         - complete
+E         + implementation_error
+
+tests/test_worker.py:235: AssertionError
+________ test_duplicate_worker_progress_is_rejected_after_valid_anchor _________
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_duplicate_worker_progress0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113f18ec0>
+
+    def test_duplicate_worker_progress_is_rejected_after_valid_anchor(cold_request, tmp_path, monkeypatch):
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import Channel, execute_request
+    original = Channel.send
+    sent = False
+    def send(self, packet):
+        global sent
+        original(self, packet)
+        if packet['kind'] == 'progress' and not sent:
+            sent = True
+            original(self, packet)
+    Channel.send = send
+    ''')
+        result = run_request(cold_request, tmp_path / 'duplicate')
+        assert result.status == 'implementation_error'
+>       assert 'duplicate' in result.error
+E       AssertionError: assert 'duplicate' in 'worker exited without terminal record'
+E        +  where 'worker exited without terminal record' = Attempt(request_id='tiny', status=<AttemptStatus.IMPLEMENTATION_ERROR: 'implementation_error'>, available=AvailablePro...e_prior_costs={}, quarantined=False, template_id=None, cell_id=None, lineage=None, instance_provenance_available=False).error
+
+tests/test_worker.py:257: AssertionError
+_______ test_resource_markers_include_anchor_observation_and_process_cpu _______
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_resource_markers_include_0')
+
+    def test_resource_markers_include_anchor_observation_and_process_cpu(cold_request, tmp_path):
+        result = run_request(cold_request, tmp_path / 'markers')
+        t = result.timestamps
+>       assert t['anchor_validation_start_ns'] <= t['anchor_validation_end_ns'] <= t['anchor_submission_end_ns'] <= t['anchor_emission_start_ns'] <= t['anchor_emission_end_ns'] <= t['solve_start_ns']
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'anchor_validation_start_ns'
+
+tests/test_worker.py:264: KeyError
+_ test_native_time_limit_is_deadline_even_if_safe_return_precedes_parent_deadline _
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_native_time_limit_is_dead0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113f19340>
+
+    def test_native_time_limit_is_deadline_even_if_safe_return_precedes_parent_deadline(cold_request, tmp_path, monkeypatch):
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import THREAD_SETTINGS, execute_request
+    import os
+    os.environ.update(THREAD_SETTINGS)
+    from ra.scip_backend import ScipBackend
+    original = ScipBackend.optimize
+    def optimize(self):
+        self.model.setRealParam('limits/time', 0.)
+        original(self)
+    ScipBackend.optimize = optimize
+    ''')
+        result = run_request(cold_request, tmp_path / 'native-time-limit')
+>       assert result.resources['native_status'] == 'timelimit'
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'native_status'
+
+tests/test_worker.py:300: KeyError
+____________ test_parent_interrupt_is_distinct_and_reaps_the_child _____________
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_parent_interrupt_is_disti0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113a21400>
+
+    def test_parent_interrupt_is_distinct_and_reaps_the_child(cold_request, tmp_path, monkeypatch):
+        from ra import runner
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import Channel, execute_request
+    import time
+    original = Channel.send
+    def send(self, packet):
+        original(self, packet)
+        if packet['kind'] == 'ready': time.sleep(1)
+    Channel.send = send
+    ''')
+        accepted = False
+        original_accept = runner.ProgressStream.accept
+        original_select = runner.select.select
+        def accept(self, record):
+            nonlocal accepted
+            result = original_accept(self, record)
+            accepted = True
+            return result
+        def interrupted(*args):
+            if accepted:
+                raise KeyboardInterrupt('injected parent interrupt after anchor')
+            return original_select(*args)
+        monkeypatch.setattr(runner.ProgressStream, 'accept', accept)
+        monkeypatch.setattr(runner.select, 'select', interrupted)
+        result = run_request(cold_request, tmp_path / 'parent-interrupt')
+>       assert result.available.assignment_available
+E       AssertionError: assert False
+E        +  where False = AvailableProgress(assignment_available=False, utility=0.0, primal_original=None, dual_original=0.0, incumbent_hash=None, sequence=None).assignment_available
+E        +    where AvailableProgress(assignment_available=False, utility=0.0, primal_original=None, dual_original=0.0, incumbent_hash=None, sequence=None) = Attempt(request_id='tiny', status=<AttemptStatus.IMPLEMENTATION_ERROR: 'implementation_error'>, available=AvailablePro...e_prior_costs={}, quarantined=False, template_id=None, cell_id=None, lineage=None, instance_provenance_available=False).available
+
+tests/test_worker.py:348: AssertionError
+_ test_callback_oom_retains_category_provenance_and_received_assignment[observer] _
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_callback_oom_retains_cate0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113a22900>
+fault_site = 'observer'
+
+    @pytest.mark.parametrize('fault_site', ['observer', 'cleanup', 'structured_memory_subclass'])
+    def test_callback_oom_retains_category_provenance_and_received_assignment(cold_request, tmp_path, monkeypatch, fault_site):
+        source = '''
+    from ra.worker import THREAD_SETTINGS, execute_request
+    import os
+    os.environ.update(THREAD_SETTINGS)
+    from ra.observer import Observer
+    from ra.scip_backend import _ProgressEvents, _contain_callback
+    '''
+        if fault_site == 'cleanup':
+            source += '''
+    original = _ProgressEvents.eventexit
+    @_contain_callback
+    def eventexit(self):
+        original(self)
+        raise MemoryError('injected cleanup allocation failure')
+    _ProgressEvents.eventexit = eventexit
+    '''
+        else:
+            source += '''
+    class AllocationFailure(MemoryError):
+        def __init__(self, amount, detail):
+            super().__init__(f'{amount}: {detail}')
+    def fail(self, *args):
+        raise ERROR
+    Observer.poll = fail
+    '''.replace('raise ERROR', "raise AllocationFailure(17, 'injected allocation failure')" if fault_site == 'structured_memory_subclass'
+                else "raise MemoryError('injected allocation failure')")
+        driver(monkeypatch, tmp_path, source)
+        result = run_request(cold_request, tmp_path / f'oom-{fault_site}')
+>       assert result.status == 'oom'
+E       AssertionError: assert <AttemptStatu...tation_error'> == 'oom'
+E         
+E         - oom
+E         + implementation_error
+
+tests/test_worker.py:388: AssertionError
+_ test_callback_oom_retains_category_provenance_and_received_assignment[cleanup] _
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_callback_oom_retains_cate1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113a22420>
+fault_site = 'cleanup'
+
+    @pytest.mark.parametrize('fault_site', ['observer', 'cleanup', 'structured_memory_subclass'])
+    def test_callback_oom_retains_category_provenance_and_received_assignment(cold_request, tmp_path, monkeypatch, fault_site):
+        source = '''
+    from ra.worker import THREAD_SETTINGS, execute_request
+    import os
+    os.environ.update(THREAD_SETTINGS)
+    from ra.observer import Observer
+    from ra.scip_backend import _ProgressEvents, _contain_callback
+    '''
+        if fault_site == 'cleanup':
+            source += '''
+    original = _ProgressEvents.eventexit
+    @_contain_callback
+    def eventexit(self):
+        original(self)
+        raise MemoryError('injected cleanup allocation failure')
+    _ProgressEvents.eventexit = eventexit
+    '''
+        else:
+            source += '''
+    class AllocationFailure(MemoryError):
+        def __init__(self, amount, detail):
+            super().__init__(f'{amount}: {detail}')
+    def fail(self, *args):
+        raise ERROR
+    Observer.poll = fail
+    '''.replace('raise ERROR', "raise AllocationFailure(17, 'injected allocation failure')" if fault_site == 'structured_memory_subclass'
+                else "raise MemoryError('injected allocation failure')")
+        driver(monkeypatch, tmp_path, source)
+        result = run_request(cold_request, tmp_path / f'oom-{fault_site}')
+>       assert result.status == 'oom'
+E       AssertionError: assert <AttemptStatu...tation_error'> == 'oom'
+E         
+E         - oom
+E         + implementation_error
+
+tests/test_worker.py:388: AssertionError
+_ test_callback_oom_retains_category_provenance_and_received_assignment[structured_memory_subclass] _
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_callback_oom_retains_cate2')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113a22ba0>
+fault_site = 'structured_memory_subclass'
+
+    @pytest.mark.parametrize('fault_site', ['observer', 'cleanup', 'structured_memory_subclass'])
+    def test_callback_oom_retains_category_provenance_and_received_assignment(cold_request, tmp_path, monkeypatch, fault_site):
+        source = '''
+    from ra.worker import THREAD_SETTINGS, execute_request
+    import os
+    os.environ.update(THREAD_SETTINGS)
+    from ra.observer import Observer
+    from ra.scip_backend import _ProgressEvents, _contain_callback
+    '''
+        if fault_site == 'cleanup':
+            source += '''
+    original = _ProgressEvents.eventexit
+    @_contain_callback
+    def eventexit(self):
+        original(self)
+        raise MemoryError('injected cleanup allocation failure')
+    _ProgressEvents.eventexit = eventexit
+    '''
+        else:
+            source += '''
+    class AllocationFailure(MemoryError):
+        def __init__(self, amount, detail):
+            super().__init__(f'{amount}: {detail}')
+    def fail(self, *args):
+        raise ERROR
+    Observer.poll = fail
+    '''.replace('raise ERROR', "raise AllocationFailure(17, 'injected allocation failure')" if fault_site == 'structured_memory_subclass'
+                else "raise MemoryError('injected allocation failure')")
+        driver(monkeypatch, tmp_path, source)
+        result = run_request(cold_request, tmp_path / f'oom-{fault_site}')
+>       assert result.status == 'oom'
+E       AssertionError: assert <AttemptStatu...tation_error'> == 'oom'
+E         
+E         - oom
+E         + implementation_error
+
+tests/test_worker.py:388: AssertionError
+_ test_child_signal_exit_keeps_provenance_and_eligible_prefix[ready-SIGTERM-external_interrupt-termination_signal] _
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_child_signal_exit_keeps_p0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113a206b0>
+signal_name = 'SIGTERM', expected_status = 'external_interrupt'
+kind = 'termination_signal', boundary = 'ready'
+
+    @pytest.mark.parametrize('signal_name,expected_status,kind', [
+        ('SIGTERM', 'external_interrupt', 'termination_signal'),
+        ('SIGINT', 'external_interrupt', 'termination_signal'),
+        ('SIGHUP', 'external_interrupt', 'termination_signal'),
+        ('SIGQUIT', 'external_interrupt', 'termination_signal'),
+        ('SIGKILL', 'implementation_error', 'ambiguous_signal'),
+        ('SIGABRT', 'implementation_error', 'crash_signal'),
+    ])
+    @pytest.mark.parametrize('boundary', ['ready', 'terminal'])
+    def test_child_signal_exit_keeps_provenance_and_eligible_prefix(cold_request, tmp_path, monkeypatch, signal_name, expected_status, kind, boundary):
+        import signal
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import Channel, execute_request
+    import os, resource, signal
+    resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
+    termination_signal = getattr(signal, SIGNAL_NAME)
+    if termination_signal != signal.SIGKILL:
+        signal.signal(termination_signal, signal.SIG_DFL)
+    original = Channel.send
+    def send(self, packet):
+        original(self, packet)
+        if packet['kind'] == BOUNDARY:
+            os.kill(os.getpid(), termination_signal)
+    Channel.send = send
+    '''.replace('SIGNAL_NAME', repr(signal_name)).replace('BOUNDARY', repr(boundary)))
+        result = run_request(cold_request, tmp_path / f'signal-{signal_name}-{boundary}')
+>       assert result.status == expected_status
+E       AssertionError: assert <AttemptStatu...tation_error'> == 'external_interrupt'
+E         
+E         - external_interrupt
+E         + implementation_error
+
+tests/test_worker.py:427: AssertionError
+_ test_child_signal_exit_keeps_provenance_and_eligible_prefix[ready-SIGINT-external_interrupt-termination_signal] _
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_child_signal_exit_keeps_p1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1138cf230>
+signal_name = 'SIGINT', expected_status = 'external_interrupt'
+kind = 'termination_signal', boundary = 'ready'
+
+    @pytest.mark.parametrize('signal_name,expected_status,kind', [
+        ('SIGTERM', 'external_interrupt', 'termination_signal'),
+        ('SIGINT', 'external_interrupt', 'termination_signal'),
+        ('SIGHUP', 'external_interrupt', 'termination_signal'),
+        ('SIGQUIT', 'external_interrupt', 'termination_signal'),
+        ('SIGKILL', 'implementation_error', 'ambiguous_signal'),
+        ('SIGABRT', 'implementation_error', 'crash_signal'),
+    ])
+    @pytest.mark.parametrize('boundary', ['ready', 'terminal'])
+    def test_child_signal_exit_keeps_provenance_and_eligible_prefix(cold_request, tmp_path, monkeypatch, signal_name, expected_status, kind, boundary):
+        import signal
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import Channel, execute_request
+    import os, resource, signal
+    resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
+    termination_signal = getattr(signal, SIGNAL_NAME)
+    if termination_signal != signal.SIGKILL:
+        signal.signal(termination_signal, signal.SIG_DFL)
+    original = Channel.send
+    def send(self, packet):
+        original(self, packet)
+        if packet['kind'] == BOUNDARY:
+            os.kill(os.getpid(), termination_signal)
+    Channel.send = send
+    '''.replace('SIGNAL_NAME', repr(signal_name)).replace('BOUNDARY', repr(boundary)))
+        result = run_request(cold_request, tmp_path / f'signal-{signal_name}-{boundary}')
+>       assert result.status == expected_status
+E       AssertionError: assert <AttemptStatu...tation_error'> == 'external_interrupt'
+E         
+E         - external_interrupt
+E         + implementation_error
+
+tests/test_worker.py:427: AssertionError
+_ test_child_signal_exit_keeps_provenance_and_eligible_prefix[ready-SIGHUP-external_interrupt-termination_signal] _
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_child_signal_exit_keeps_p2')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113f1b290>
+signal_name = 'SIGHUP', expected_status = 'external_interrupt'
+kind = 'termination_signal', boundary = 'ready'
+
+    @pytest.mark.parametrize('signal_name,expected_status,kind', [
+        ('SIGTERM', 'external_interrupt', 'termination_signal'),
+        ('SIGINT', 'external_interrupt', 'termination_signal'),
+        ('SIGHUP', 'external_interrupt', 'termination_signal'),
+        ('SIGQUIT', 'external_interrupt', 'termination_signal'),
+        ('SIGKILL', 'implementation_error', 'ambiguous_signal'),
+        ('SIGABRT', 'implementation_error', 'crash_signal'),
+    ])
+    @pytest.mark.parametrize('boundary', ['ready', 'terminal'])
+    def test_child_signal_exit_keeps_provenance_and_eligible_prefix(cold_request, tmp_path, monkeypatch, signal_name, expected_status, kind, boundary):
+        import signal
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import Channel, execute_request
+    import os, resource, signal
+    resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
+    termination_signal = getattr(signal, SIGNAL_NAME)
+    if termination_signal != signal.SIGKILL:
+        signal.signal(termination_signal, signal.SIG_DFL)
+    original = Channel.send
+    def send(self, packet):
+        original(self, packet)
+        if packet['kind'] == BOUNDARY:
+            os.kill(os.getpid(), termination_signal)
+    Channel.send = send
+    '''.replace('SIGNAL_NAME', repr(signal_name)).replace('BOUNDARY', repr(boundary)))
+        result = run_request(cold_request, tmp_path / f'signal-{signal_name}-{boundary}')
+>       assert result.status == expected_status
+E       AssertionError: assert <AttemptStatu...tation_error'> == 'external_interrupt'
+E         
+E         - external_interrupt
+E         + implementation_error
+
+tests/test_worker.py:427: AssertionError
+_ test_child_signal_exit_keeps_provenance_and_eligible_prefix[ready-SIGQUIT-external_interrupt-termination_signal] _
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_child_signal_exit_keeps_p3')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1139ded80>
+signal_name = 'SIGQUIT', expected_status = 'external_interrupt'
+kind = 'termination_signal', boundary = 'ready'
+
+    @pytest.mark.parametrize('signal_name,expected_status,kind', [
+        ('SIGTERM', 'external_interrupt', 'termination_signal'),
+        ('SIGINT', 'external_interrupt', 'termination_signal'),
+        ('SIGHUP', 'external_interrupt', 'termination_signal'),
+        ('SIGQUIT', 'external_interrupt', 'termination_signal'),
+        ('SIGKILL', 'implementation_error', 'ambiguous_signal'),
+        ('SIGABRT', 'implementation_error', 'crash_signal'),
+    ])
+    @pytest.mark.parametrize('boundary', ['ready', 'terminal'])
+    def test_child_signal_exit_keeps_provenance_and_eligible_prefix(cold_request, tmp_path, monkeypatch, signal_name, expected_status, kind, boundary):
+        import signal
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import Channel, execute_request
+    import os, resource, signal
+    resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
+    termination_signal = getattr(signal, SIGNAL_NAME)
+    if termination_signal != signal.SIGKILL:
+        signal.signal(termination_signal, signal.SIG_DFL)
+    original = Channel.send
+    def send(self, packet):
+        original(self, packet)
+        if packet['kind'] == BOUNDARY:
+            os.kill(os.getpid(), termination_signal)
+    Channel.send = send
+    '''.replace('SIGNAL_NAME', repr(signal_name)).replace('BOUNDARY', repr(boundary)))
+        result = run_request(cold_request, tmp_path / f'signal-{signal_name}-{boundary}')
+>       assert result.status == expected_status
+E       AssertionError: assert <AttemptStatu...tation_error'> == 'external_interrupt'
+E         
+E         - external_interrupt
+E         + implementation_error
+
+tests/test_worker.py:427: AssertionError
+_ test_child_signal_exit_keeps_provenance_and_eligible_prefix[ready-SIGKILL-implementation_error-ambiguous_signal] _
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_child_signal_exit_keeps_p4')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113f1a5d0>
+signal_name = 'SIGKILL', expected_status = 'implementation_error'
+kind = 'ambiguous_signal', boundary = 'ready'
+
+    @pytest.mark.parametrize('signal_name,expected_status,kind', [
+        ('SIGTERM', 'external_interrupt', 'termination_signal'),
+        ('SIGINT', 'external_interrupt', 'termination_signal'),
+        ('SIGHUP', 'external_interrupt', 'termination_signal'),
+        ('SIGQUIT', 'external_interrupt', 'termination_signal'),
+        ('SIGKILL', 'implementation_error', 'ambiguous_signal'),
+        ('SIGABRT', 'implementation_error', 'crash_signal'),
+    ])
+    @pytest.mark.parametrize('boundary', ['ready', 'terminal'])
+    def test_child_signal_exit_keeps_provenance_and_eligible_prefix(cold_request, tmp_path, monkeypatch, signal_name, expected_status, kind, boundary):
+        import signal
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import Channel, execute_request
+    import os, resource, signal
+    resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
+    termination_signal = getattr(signal, SIGNAL_NAME)
+    if termination_signal != signal.SIGKILL:
+        signal.signal(termination_signal, signal.SIG_DFL)
+    original = Channel.send
+    def send(self, packet):
+        original(self, packet)
+        if packet['kind'] == BOUNDARY:
+            os.kill(os.getpid(), termination_signal)
+    Channel.send = send
+    '''.replace('SIGNAL_NAME', repr(signal_name)).replace('BOUNDARY', repr(boundary)))
+        result = run_request(cold_request, tmp_path / f'signal-{signal_name}-{boundary}')
+        assert result.status == expected_status
+        assert result.status != 'oom'
+>       assert result.available.assignment_available
+E       AssertionError: assert False
+E        +  where False = AvailableProgress(assignment_available=False, utility=0.0, primal_original=None, dual_original=0.0, incumbent_hash=None, sequence=None).assignment_available
+E        +    where AvailableProgress(assignment_available=False, utility=0.0, primal_original=None, dual_original=0.0, incumbent_hash=None, sequence=None) = Attempt(request_id='tiny', status=<AttemptStatus.IMPLEMENTATION_ERROR: 'implementation_error'>, available=AvailablePro...e_prior_costs={}, quarantined=False, template_id=None, cell_id=None, lineage=None, instance_provenance_available=False).available
+
+tests/test_worker.py:429: AssertionError
+_ test_child_signal_exit_keeps_provenance_and_eligible_prefix[ready-SIGABRT-implementation_error-crash_signal] _
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_child_signal_exit_keeps_p5')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113a22f60>
+signal_name = 'SIGABRT', expected_status = 'implementation_error'
+kind = 'crash_signal', boundary = 'ready'
+
+    @pytest.mark.parametrize('signal_name,expected_status,kind', [
+        ('SIGTERM', 'external_interrupt', 'termination_signal'),
+        ('SIGINT', 'external_interrupt', 'termination_signal'),
+        ('SIGHUP', 'external_interrupt', 'termination_signal'),
+        ('SIGQUIT', 'external_interrupt', 'termination_signal'),
+        ('SIGKILL', 'implementation_error', 'ambiguous_signal'),
+        ('SIGABRT', 'implementation_error', 'crash_signal'),
+    ])
+    @pytest.mark.parametrize('boundary', ['ready', 'terminal'])
+    def test_child_signal_exit_keeps_provenance_and_eligible_prefix(cold_request, tmp_path, monkeypatch, signal_name, expected_status, kind, boundary):
+        import signal
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import Channel, execute_request
+    import os, resource, signal
+    resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
+    termination_signal = getattr(signal, SIGNAL_NAME)
+    if termination_signal != signal.SIGKILL:
+        signal.signal(termination_signal, signal.SIG_DFL)
+    original = Channel.send
+    def send(self, packet):
+        original(self, packet)
+        if packet['kind'] == BOUNDARY:
+            os.kill(os.getpid(), termination_signal)
+    Channel.send = send
+    '''.replace('SIGNAL_NAME', repr(signal_name)).replace('BOUNDARY', repr(boundary)))
+        result = run_request(cold_request, tmp_path / f'signal-{signal_name}-{boundary}')
+        assert result.status == expected_status
+        assert result.status != 'oom'
+>       assert result.available.assignment_available
+E       AssertionError: assert False
+E        +  where False = AvailableProgress(assignment_available=False, utility=0.0, primal_original=None, dual_original=0.0, incumbent_hash=None, sequence=None).assignment_available
+E        +    where AvailableProgress(assignment_available=False, utility=0.0, primal_original=None, dual_original=0.0, incumbent_hash=None, sequence=None) = Attempt(request_id='tiny', status=<AttemptStatus.IMPLEMENTATION_ERROR: 'implementation_error'>, available=AvailablePro...e_prior_costs={}, quarantined=False, template_id=None, cell_id=None, lineage=None, instance_provenance_available=False).available
+
+tests/test_worker.py:429: AssertionError
+_ test_child_signal_exit_keeps_provenance_and_eligible_prefix[terminal-SIGTERM-external_interrupt-termination_signal] _
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_child_signal_exit_keeps_p6')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113a20470>
+signal_name = 'SIGTERM', expected_status = 'external_interrupt'
+kind = 'termination_signal', boundary = 'terminal'
+
+    @pytest.mark.parametrize('signal_name,expected_status,kind', [
+        ('SIGTERM', 'external_interrupt', 'termination_signal'),
+        ('SIGINT', 'external_interrupt', 'termination_signal'),
+        ('SIGHUP', 'external_interrupt', 'termination_signal'),
+        ('SIGQUIT', 'external_interrupt', 'termination_signal'),
+        ('SIGKILL', 'implementation_error', 'ambiguous_signal'),
+        ('SIGABRT', 'implementation_error', 'crash_signal'),
+    ])
+    @pytest.mark.parametrize('boundary', ['ready', 'terminal'])
+    def test_child_signal_exit_keeps_provenance_and_eligible_prefix(cold_request, tmp_path, monkeypatch, signal_name, expected_status, kind, boundary):
+        import signal
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import Channel, execute_request
+    import os, resource, signal
+    resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
+    termination_signal = getattr(signal, SIGNAL_NAME)
+    if termination_signal != signal.SIGKILL:
+        signal.signal(termination_signal, signal.SIG_DFL)
+    original = Channel.send
+    def send(self, packet):
+        original(self, packet)
+        if packet['kind'] == BOUNDARY:
+            os.kill(os.getpid(), termination_signal)
+    Channel.send = send
+    '''.replace('SIGNAL_NAME', repr(signal_name)).replace('BOUNDARY', repr(boundary)))
+        result = run_request(cold_request, tmp_path / f'signal-{signal_name}-{boundary}')
+>       assert result.status == expected_status
+E       AssertionError: assert <AttemptStatu...tation_error'> == 'external_interrupt'
+E         
+E         - external_interrupt
+E         + implementation_error
+
+tests/test_worker.py:427: AssertionError
+_ test_child_signal_exit_keeps_provenance_and_eligible_prefix[terminal-SIGINT-external_interrupt-termination_signal] _
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_child_signal_exit_keeps_p7')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113a23680>
+signal_name = 'SIGINT', expected_status = 'external_interrupt'
+kind = 'termination_signal', boundary = 'terminal'
+
+    @pytest.mark.parametrize('signal_name,expected_status,kind', [
+        ('SIGTERM', 'external_interrupt', 'termination_signal'),
+        ('SIGINT', 'external_interrupt', 'termination_signal'),
+        ('SIGHUP', 'external_interrupt', 'termination_signal'),
+        ('SIGQUIT', 'external_interrupt', 'termination_signal'),
+        ('SIGKILL', 'implementation_error', 'ambiguous_signal'),
+        ('SIGABRT', 'implementation_error', 'crash_signal'),
+    ])
+    @pytest.mark.parametrize('boundary', ['ready', 'terminal'])
+    def test_child_signal_exit_keeps_provenance_and_eligible_prefix(cold_request, tmp_path, monkeypatch, signal_name, expected_status, kind, boundary):
+        import signal
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import Channel, execute_request
+    import os, resource, signal
+    resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
+    termination_signal = getattr(signal, SIGNAL_NAME)
+    if termination_signal != signal.SIGKILL:
+        signal.signal(termination_signal, signal.SIG_DFL)
+    original = Channel.send
+    def send(self, packet):
+        original(self, packet)
+        if packet['kind'] == BOUNDARY:
+            os.kill(os.getpid(), termination_signal)
+    Channel.send = send
+    '''.replace('SIGNAL_NAME', repr(signal_name)).replace('BOUNDARY', repr(boundary)))
+        result = run_request(cold_request, tmp_path / f'signal-{signal_name}-{boundary}')
+>       assert result.status == expected_status
+E       AssertionError: assert <AttemptStatu...tation_error'> == 'external_interrupt'
+E         
+E         - external_interrupt
+E         + implementation_error
+
+tests/test_worker.py:427: AssertionError
+_ test_child_signal_exit_keeps_provenance_and_eligible_prefix[terminal-SIGHUP-external_interrupt-termination_signal] _
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_child_signal_exit_keeps_p8')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113d20830>
+signal_name = 'SIGHUP', expected_status = 'external_interrupt'
+kind = 'termination_signal', boundary = 'terminal'
+
+    @pytest.mark.parametrize('signal_name,expected_status,kind', [
+        ('SIGTERM', 'external_interrupt', 'termination_signal'),
+        ('SIGINT', 'external_interrupt', 'termination_signal'),
+        ('SIGHUP', 'external_interrupt', 'termination_signal'),
+        ('SIGQUIT', 'external_interrupt', 'termination_signal'),
+        ('SIGKILL', 'implementation_error', 'ambiguous_signal'),
+        ('SIGABRT', 'implementation_error', 'crash_signal'),
+    ])
+    @pytest.mark.parametrize('boundary', ['ready', 'terminal'])
+    def test_child_signal_exit_keeps_provenance_and_eligible_prefix(cold_request, tmp_path, monkeypatch, signal_name, expected_status, kind, boundary):
+        import signal
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import Channel, execute_request
+    import os, resource, signal
+    resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
+    termination_signal = getattr(signal, SIGNAL_NAME)
+    if termination_signal != signal.SIGKILL:
+        signal.signal(termination_signal, signal.SIG_DFL)
+    original = Channel.send
+    def send(self, packet):
+        original(self, packet)
+        if packet['kind'] == BOUNDARY:
+            os.kill(os.getpid(), termination_signal)
+    Channel.send = send
+    '''.replace('SIGNAL_NAME', repr(signal_name)).replace('BOUNDARY', repr(boundary)))
+        result = run_request(cold_request, tmp_path / f'signal-{signal_name}-{boundary}')
+>       assert result.status == expected_status
+E       AssertionError: assert <AttemptStatu...tation_error'> == 'external_interrupt'
+E         
+E         - external_interrupt
+E         + implementation_error
+
+tests/test_worker.py:427: AssertionError
+_ test_child_signal_exit_keeps_provenance_and_eligible_prefix[terminal-SIGQUIT-external_interrupt-termination_signal] _
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_child_signal_exit_keeps_p9')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113d22720>
+signal_name = 'SIGQUIT', expected_status = 'external_interrupt'
+kind = 'termination_signal', boundary = 'terminal'
+
+    @pytest.mark.parametrize('signal_name,expected_status,kind', [
+        ('SIGTERM', 'external_interrupt', 'termination_signal'),
+        ('SIGINT', 'external_interrupt', 'termination_signal'),
+        ('SIGHUP', 'external_interrupt', 'termination_signal'),
+        ('SIGQUIT', 'external_interrupt', 'termination_signal'),
+        ('SIGKILL', 'implementation_error', 'ambiguous_signal'),
+        ('SIGABRT', 'implementation_error', 'crash_signal'),
+    ])
+    @pytest.mark.parametrize('boundary', ['ready', 'terminal'])
+    def test_child_signal_exit_keeps_provenance_and_eligible_prefix(cold_request, tmp_path, monkeypatch, signal_name, expected_status, kind, boundary):
+        import signal
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import Channel, execute_request
+    import os, resource, signal
+    resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
+    termination_signal = getattr(signal, SIGNAL_NAME)
+    if termination_signal != signal.SIGKILL:
+        signal.signal(termination_signal, signal.SIG_DFL)
+    original = Channel.send
+    def send(self, packet):
+        original(self, packet)
+        if packet['kind'] == BOUNDARY:
+            os.kill(os.getpid(), termination_signal)
+    Channel.send = send
+    '''.replace('SIGNAL_NAME', repr(signal_name)).replace('BOUNDARY', repr(boundary)))
+        result = run_request(cold_request, tmp_path / f'signal-{signal_name}-{boundary}')
+>       assert result.status == expected_status
+E       AssertionError: assert <AttemptStatu...tation_error'> == 'external_interrupt'
+E         
+E         - external_interrupt
+E         + implementation_error
+
+tests/test_worker.py:427: AssertionError
+_ test_child_signal_exit_keeps_provenance_and_eligible_prefix[terminal-SIGKILL-implementation_error-ambiguous_signal] _
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_child_signal_exit_keeps_p10')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113d21dc0>
+signal_name = 'SIGKILL', expected_status = 'implementation_error'
+kind = 'ambiguous_signal', boundary = 'terminal'
+
+    @pytest.mark.parametrize('signal_name,expected_status,kind', [
+        ('SIGTERM', 'external_interrupt', 'termination_signal'),
+        ('SIGINT', 'external_interrupt', 'termination_signal'),
+        ('SIGHUP', 'external_interrupt', 'termination_signal'),
+        ('SIGQUIT', 'external_interrupt', 'termination_signal'),
+        ('SIGKILL', 'implementation_error', 'ambiguous_signal'),
+        ('SIGABRT', 'implementation_error', 'crash_signal'),
+    ])
+    @pytest.mark.parametrize('boundary', ['ready', 'terminal'])
+    def test_child_signal_exit_keeps_provenance_and_eligible_prefix(cold_request, tmp_path, monkeypatch, signal_name, expected_status, kind, boundary):
+        import signal
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import Channel, execute_request
+    import os, resource, signal
+    resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
+    termination_signal = getattr(signal, SIGNAL_NAME)
+    if termination_signal != signal.SIGKILL:
+        signal.signal(termination_signal, signal.SIG_DFL)
+    original = Channel.send
+    def send(self, packet):
+        original(self, packet)
+        if packet['kind'] == BOUNDARY:
+            os.kill(os.getpid(), termination_signal)
+    Channel.send = send
+    '''.replace('SIGNAL_NAME', repr(signal_name)).replace('BOUNDARY', repr(boundary)))
+        result = run_request(cold_request, tmp_path / f'signal-{signal_name}-{boundary}')
+        assert result.status == expected_status
+        assert result.status != 'oom'
+>       assert result.available.assignment_available
+E       AssertionError: assert False
+E        +  where False = AvailableProgress(assignment_available=False, utility=0.0, primal_original=None, dual_original=0.0, incumbent_hash=None, sequence=None).assignment_available
+E        +    where AvailableProgress(assignment_available=False, utility=0.0, primal_original=None, dual_original=0.0, incumbent_hash=None, sequence=None) = Attempt(request_id='tiny', status=<AttemptStatus.IMPLEMENTATION_ERROR: 'implementation_error'>, available=AvailablePro...e_prior_costs={}, quarantined=False, template_id=None, cell_id=None, lineage=None, instance_provenance_available=False).available
+
+tests/test_worker.py:429: AssertionError
+_ test_child_signal_exit_keeps_provenance_and_eligible_prefix[terminal-SIGABRT-implementation_error-crash_signal] _
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_child_signal_exit_keeps_p11')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113d21d00>
+signal_name = 'SIGABRT', expected_status = 'implementation_error'
+kind = 'crash_signal', boundary = 'terminal'
+
+    @pytest.mark.parametrize('signal_name,expected_status,kind', [
+        ('SIGTERM', 'external_interrupt', 'termination_signal'),
+        ('SIGINT', 'external_interrupt', 'termination_signal'),
+        ('SIGHUP', 'external_interrupt', 'termination_signal'),
+        ('SIGQUIT', 'external_interrupt', 'termination_signal'),
+        ('SIGKILL', 'implementation_error', 'ambiguous_signal'),
+        ('SIGABRT', 'implementation_error', 'crash_signal'),
+    ])
+    @pytest.mark.parametrize('boundary', ['ready', 'terminal'])
+    def test_child_signal_exit_keeps_provenance_and_eligible_prefix(cold_request, tmp_path, monkeypatch, signal_name, expected_status, kind, boundary):
+        import signal
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import Channel, execute_request
+    import os, resource, signal
+    resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
+    termination_signal = getattr(signal, SIGNAL_NAME)
+    if termination_signal != signal.SIGKILL:
+        signal.signal(termination_signal, signal.SIG_DFL)
+    original = Channel.send
+    def send(self, packet):
+        original(self, packet)
+        if packet['kind'] == BOUNDARY:
+            os.kill(os.getpid(), termination_signal)
+    Channel.send = send
+    '''.replace('SIGNAL_NAME', repr(signal_name)).replace('BOUNDARY', repr(boundary)))
+        result = run_request(cold_request, tmp_path / f'signal-{signal_name}-{boundary}')
+        assert result.status == expected_status
+        assert result.status != 'oom'
+>       assert result.available.assignment_available
+E       AssertionError: assert False
+E        +  where False = AvailableProgress(assignment_available=False, utility=0.0, primal_original=None, dual_original=0.0, incumbent_hash=None, sequence=None).assignment_available
+E        +    where AvailableProgress(assignment_available=False, utility=0.0, primal_original=None, dual_original=0.0, incumbent_hash=None, sequence=None) = Attempt(request_id='tiny', status=<AttemptStatus.IMPLEMENTATION_ERROR: 'implementation_error'>, available=AvailablePro...e_prior_costs={}, quarantined=False, template_id=None, cell_id=None, lineage=None, instance_provenance_available=False).available
+
+tests/test_worker.py:429: AssertionError
+_ test_parent_failure_precedes_already_dead_child_signal[SIGTERM-termination_signal-duplicate] _
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_parent_failure_precedes_a0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113f18bc0>
+parent_fault = 'duplicate', signal_name = 'SIGTERM', kind = 'termination_signal'
+
+    @pytest.mark.parametrize('parent_fault', ['duplicate', 'interrupt'])
+    @pytest.mark.parametrize('signal_name,kind', [('SIGTERM', 'termination_signal'),
+                                               ('SIGABRT', 'crash_signal'),
+                                               ('SIGKILL', 'ambiguous_signal')])
+    def test_parent_failure_precedes_already_dead_child_signal(cold_request, tmp_path, monkeypatch, parent_fault, signal_name, kind):
+        """Force the valid scheduling order: child exit precedes parent rejection."""
+        import signal
+        from ra import runner
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import Channel, execute_request
+    import os, resource, signal
+    resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
+    original = Channel.send
+    anchor = None
+    def send(self, packet):
+        global anchor
+        original(self, packet)
+        if packet['kind'] == 'progress' and anchor is None:
+            anchor = packet
+        if packet['kind'] == 'ready':
+            original(self, anchor)
+            os.kill(os.getpid(), getattr(signal, SIGNAL_NAME))
+    Channel.send = send
+    '''.replace('SIGNAL_NAME', repr(signal_name)))
+        launched = None
+        original_launch = runner.subprocess.Popen
+        original_accept = runner.ProgressStream.accept
+        def launch(*args, **kwargs):
+            nonlocal launched
+            launched = original_launch(*args, **kwargs)
+            return launched
+        def accept(self, record):
+            if self.previous is not None:
+                # Reap the real child before rejection, so no parent kill is needed.
+                launched.wait(timeout=5)
+                if parent_fault == 'interrupt':
+                    raise KeyboardInterrupt('injected parent interrupt after child exit')
+            return original_accept(self, record)
+        monkeypatch.setattr(runner.subprocess, 'Popen', launch)
+        monkeypatch.setattr(runner.ProgressStream, 'accept', accept)
+        result = run_request(cold_request, tmp_path / f'{parent_fault}-{signal_name}')
+        assert result.status == ('implementation_error' if parent_fault == 'duplicate' else 'external_interrupt')
+>       assert 'duplicate' in result.error if parent_fault == 'duplicate' else 'KeyboardInterrupt' in result.error
+E       assert False
+
+tests/test_worker.py:489: AssertionError
+_ test_parent_failure_precedes_already_dead_child_signal[SIGTERM-termination_signal-interrupt] _
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_parent_failure_precedes_a1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113725310>
+parent_fault = 'interrupt', signal_name = 'SIGTERM', kind = 'termination_signal'
+
+    @pytest.mark.parametrize('parent_fault', ['duplicate', 'interrupt'])
+    @pytest.mark.parametrize('signal_name,kind', [('SIGTERM', 'termination_signal'),
+                                               ('SIGABRT', 'crash_signal'),
+                                               ('SIGKILL', 'ambiguous_signal')])
+    def test_parent_failure_precedes_already_dead_child_signal(cold_request, tmp_path, monkeypatch, parent_fault, signal_name, kind):
+        """Force the valid scheduling order: child exit precedes parent rejection."""
+        import signal
+        from ra import runner
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import Channel, execute_request
+    import os, resource, signal
+    resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
+    original = Channel.send
+    anchor = None
+    def send(self, packet):
+        global anchor
+        original(self, packet)
+        if packet['kind'] == 'progress' and anchor is None:
+            anchor = packet
+        if packet['kind'] == 'ready':
+            original(self, anchor)
+            os.kill(os.getpid(), getattr(signal, SIGNAL_NAME))
+    Channel.send = send
+    '''.replace('SIGNAL_NAME', repr(signal_name)))
+        launched = None
+        original_launch = runner.subprocess.Popen
+        original_accept = runner.ProgressStream.accept
+        def launch(*args, **kwargs):
+            nonlocal launched
+            launched = original_launch(*args, **kwargs)
+            return launched
+        def accept(self, record):
+            if self.previous is not None:
+                # Reap the real child before rejection, so no parent kill is needed.
+                launched.wait(timeout=5)
+                if parent_fault == 'interrupt':
+                    raise KeyboardInterrupt('injected parent interrupt after child exit')
+            return original_accept(self, record)
+        monkeypatch.setattr(runner.subprocess, 'Popen', launch)
+        monkeypatch.setattr(runner.ProgressStream, 'accept', accept)
+        result = run_request(cold_request, tmp_path / f'{parent_fault}-{signal_name}')
+>       assert result.status == ('implementation_error' if parent_fault == 'duplicate' else 'external_interrupt')
+E       AssertionError: assert <AttemptStatu...tation_error'> == 'external_interrupt'
+E         
+E         - external_interrupt
+E         + implementation_error
+
+tests/test_worker.py:488: AssertionError
+_ test_parent_failure_precedes_already_dead_child_signal[SIGABRT-crash_signal-duplicate] _
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_parent_failure_precedes_a2')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113bacdd0>
+parent_fault = 'duplicate', signal_name = 'SIGABRT', kind = 'crash_signal'
+
+    @pytest.mark.parametrize('parent_fault', ['duplicate', 'interrupt'])
+    @pytest.mark.parametrize('signal_name,kind', [('SIGTERM', 'termination_signal'),
+                                               ('SIGABRT', 'crash_signal'),
+                                               ('SIGKILL', 'ambiguous_signal')])
+    def test_parent_failure_precedes_already_dead_child_signal(cold_request, tmp_path, monkeypatch, parent_fault, signal_name, kind):
+        """Force the valid scheduling order: child exit precedes parent rejection."""
+        import signal
+        from ra import runner
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import Channel, execute_request
+    import os, resource, signal
+    resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
+    original = Channel.send
+    anchor = None
+    def send(self, packet):
+        global anchor
+        original(self, packet)
+        if packet['kind'] == 'progress' and anchor is None:
+            anchor = packet
+        if packet['kind'] == 'ready':
+            original(self, anchor)
+            os.kill(os.getpid(), getattr(signal, SIGNAL_NAME))
+    Channel.send = send
+    '''.replace('SIGNAL_NAME', repr(signal_name)))
+        launched = None
+        original_launch = runner.subprocess.Popen
+        original_accept = runner.ProgressStream.accept
+        def launch(*args, **kwargs):
+            nonlocal launched
+            launched = original_launch(*args, **kwargs)
+            return launched
+        def accept(self, record):
+            if self.previous is not None:
+                # Reap the real child before rejection, so no parent kill is needed.
+                launched.wait(timeout=5)
+                if parent_fault == 'interrupt':
+                    raise KeyboardInterrupt('injected parent interrupt after child exit')
+            return original_accept(self, record)
+        monkeypatch.setattr(runner.subprocess, 'Popen', launch)
+        monkeypatch.setattr(runner.ProgressStream, 'accept', accept)
+        result = run_request(cold_request, tmp_path / f'{parent_fault}-{signal_name}')
+        assert result.status == ('implementation_error' if parent_fault == 'duplicate' else 'external_interrupt')
+>       assert 'duplicate' in result.error if parent_fault == 'duplicate' else 'KeyboardInterrupt' in result.error
+E       assert False
+
+tests/test_worker.py:489: AssertionError
+_ test_parent_failure_precedes_already_dead_child_signal[SIGABRT-crash_signal-interrupt] _
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_parent_failure_precedes_a3')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113964ad0>
+parent_fault = 'interrupt', signal_name = 'SIGABRT', kind = 'crash_signal'
+
+    @pytest.mark.parametrize('parent_fault', ['duplicate', 'interrupt'])
+    @pytest.mark.parametrize('signal_name,kind', [('SIGTERM', 'termination_signal'),
+                                               ('SIGABRT', 'crash_signal'),
+                                               ('SIGKILL', 'ambiguous_signal')])
+    def test_parent_failure_precedes_already_dead_child_signal(cold_request, tmp_path, monkeypatch, parent_fault, signal_name, kind):
+        """Force the valid scheduling order: child exit precedes parent rejection."""
+        import signal
+        from ra import runner
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import Channel, execute_request
+    import os, resource, signal
+    resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
+    original = Channel.send
+    anchor = None
+    def send(self, packet):
+        global anchor
+        original(self, packet)
+        if packet['kind'] == 'progress' and anchor is None:
+            anchor = packet
+        if packet['kind'] == 'ready':
+            original(self, anchor)
+            os.kill(os.getpid(), getattr(signal, SIGNAL_NAME))
+    Channel.send = send
+    '''.replace('SIGNAL_NAME', repr(signal_name)))
+        launched = None
+        original_launch = runner.subprocess.Popen
+        original_accept = runner.ProgressStream.accept
+        def launch(*args, **kwargs):
+            nonlocal launched
+            launched = original_launch(*args, **kwargs)
+            return launched
+        def accept(self, record):
+            if self.previous is not None:
+                # Reap the real child before rejection, so no parent kill is needed.
+                launched.wait(timeout=5)
+                if parent_fault == 'interrupt':
+                    raise KeyboardInterrupt('injected parent interrupt after child exit')
+            return original_accept(self, record)
+        monkeypatch.setattr(runner.subprocess, 'Popen', launch)
+        monkeypatch.setattr(runner.ProgressStream, 'accept', accept)
+        result = run_request(cold_request, tmp_path / f'{parent_fault}-{signal_name}')
+>       assert result.status == ('implementation_error' if parent_fault == 'duplicate' else 'external_interrupt')
+E       AssertionError: assert <AttemptStatu...tation_error'> == 'external_interrupt'
+E         
+E         - external_interrupt
+E         + implementation_error
+
+tests/test_worker.py:488: AssertionError
+_ test_parent_failure_precedes_already_dead_child_signal[SIGKILL-ambiguous_signal-duplicate] _
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_parent_failure_precedes_a4')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1137240e0>
+parent_fault = 'duplicate', signal_name = 'SIGKILL', kind = 'ambiguous_signal'
+
+    @pytest.mark.parametrize('parent_fault', ['duplicate', 'interrupt'])
+    @pytest.mark.parametrize('signal_name,kind', [('SIGTERM', 'termination_signal'),
+                                               ('SIGABRT', 'crash_signal'),
+                                               ('SIGKILL', 'ambiguous_signal')])
+    def test_parent_failure_precedes_already_dead_child_signal(cold_request, tmp_path, monkeypatch, parent_fault, signal_name, kind):
+        """Force the valid scheduling order: child exit precedes parent rejection."""
+        import signal
+        from ra import runner
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import Channel, execute_request
+    import os, resource, signal
+    resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
+    original = Channel.send
+    anchor = None
+    def send(self, packet):
+        global anchor
+        original(self, packet)
+        if packet['kind'] == 'progress' and anchor is None:
+            anchor = packet
+        if packet['kind'] == 'ready':
+            original(self, anchor)
+            os.kill(os.getpid(), getattr(signal, SIGNAL_NAME))
+    Channel.send = send
+    '''.replace('SIGNAL_NAME', repr(signal_name)))
+        launched = None
+        original_launch = runner.subprocess.Popen
+        original_accept = runner.ProgressStream.accept
+        def launch(*args, **kwargs):
+            nonlocal launched
+            launched = original_launch(*args, **kwargs)
+            return launched
+        def accept(self, record):
+            if self.previous is not None:
+                # Reap the real child before rejection, so no parent kill is needed.
+                launched.wait(timeout=5)
+                if parent_fault == 'interrupt':
+                    raise KeyboardInterrupt('injected parent interrupt after child exit')
+            return original_accept(self, record)
+        monkeypatch.setattr(runner.subprocess, 'Popen', launch)
+        monkeypatch.setattr(runner.ProgressStream, 'accept', accept)
+        result = run_request(cold_request, tmp_path / f'{parent_fault}-{signal_name}')
+        assert result.status == ('implementation_error' if parent_fault == 'duplicate' else 'external_interrupt')
+>       assert 'duplicate' in result.error if parent_fault == 'duplicate' else 'KeyboardInterrupt' in result.error
+E       assert False
+
+tests/test_worker.py:489: AssertionError
+_ test_parent_failure_precedes_already_dead_child_signal[SIGKILL-ambiguous_signal-interrupt] _
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_parent_failure_precedes_a5')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113bdbbc0>
+parent_fault = 'interrupt', signal_name = 'SIGKILL', kind = 'ambiguous_signal'
+
+    @pytest.mark.parametrize('parent_fault', ['duplicate', 'interrupt'])
+    @pytest.mark.parametrize('signal_name,kind', [('SIGTERM', 'termination_signal'),
+                                               ('SIGABRT', 'crash_signal'),
+                                               ('SIGKILL', 'ambiguous_signal')])
+    def test_parent_failure_precedes_already_dead_child_signal(cold_request, tmp_path, monkeypatch, parent_fault, signal_name, kind):
+        """Force the valid scheduling order: child exit precedes parent rejection."""
+        import signal
+        from ra import runner
+        driver(monkeypatch, tmp_path, '''
+    from ra.worker import Channel, execute_request
+    import os, resource, signal
+    resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
+    original = Channel.send
+    anchor = None
+    def send(self, packet):
+        global anchor
+        original(self, packet)
+        if packet['kind'] == 'progress' and anchor is None:
+            anchor = packet
+        if packet['kind'] == 'ready':
+            original(self, anchor)
+            os.kill(os.getpid(), getattr(signal, SIGNAL_NAME))
+    Channel.send = send
+    '''.replace('SIGNAL_NAME', repr(signal_name)))
+        launched = None
+        original_launch = runner.subprocess.Popen
+        original_accept = runner.ProgressStream.accept
+        def launch(*args, **kwargs):
+            nonlocal launched
+            launched = original_launch(*args, **kwargs)
+            return launched
+        def accept(self, record):
+            if self.previous is not None:
+                # Reap the real child before rejection, so no parent kill is needed.
+                launched.wait(timeout=5)
+                if parent_fault == 'interrupt':
+                    raise KeyboardInterrupt('injected parent interrupt after child exit')
+            return original_accept(self, record)
+        monkeypatch.setattr(runner.subprocess, 'Popen', launch)
+        monkeypatch.setattr(runner.ProgressStream, 'accept', accept)
+        result = run_request(cold_request, tmp_path / f'{parent_fault}-{signal_name}')
+>       assert result.status == ('implementation_error' if parent_fault == 'duplicate' else 'external_interrupt')
+E       AssertionError: assert <AttemptStatu...tation_error'> == 'external_interrupt'
+E         
+E         - external_interrupt
+E         + implementation_error
+
+tests/test_worker.py:488: AssertionError
+_ test_stop_send_closed_socket_drains_terminal_but_other_oserror_is_fault[57] __
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_stop_send_closed_socket_d0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113724d70>
+send_errno = 57
+
+    @pytest.mark.parametrize('send_errno', [errno.ENOTCONN, errno.EIO])
+    def test_stop_send_closed_socket_drains_terminal_but_other_oserror_is_fault(cold_request,tmp_path,monkeypatch,send_errno):
+        """macOS ENOTCONN close race is equivalent to EPIPE, not an early kill."""
+        import errno
+        from ra.worker import Channel
+        driver(monkeypatch,tmp_path,'''
+    from ra.worker import Channel,execute_request
+    import time
+    original=Channel.send
+    def send(self,packet):
+        if packet['kind']=='terminal':time.sleep(.4)
+        original(self,packet)
+    Channel.send=send
+    ''')
+        original=Channel.send
+        seen=[]
+        def send(self,packet):
+            if packet['kind']=='stop':
+                seen.append(packet)
+                raise OSError(send_errno,'injected stop-send OS error')
+            return original(self,packet)
+        monkeypatch.setattr(Channel,'send',send)
+        result=run_request(replace(cold_request,budget_ns=300_000_000),tmp_path/'stop-close')
+>       assert seen
+E       assert []
+
+tests/test_worker.py:523: AssertionError
+__ test_stop_send_closed_socket_drains_terminal_but_other_oserror_is_fault[5] __
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_stop_send_closed_socket_d1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1139dd460>
+send_errno = 5
+
+    @pytest.mark.parametrize('send_errno', [errno.ENOTCONN, errno.EIO])
+    def test_stop_send_closed_socket_drains_terminal_but_other_oserror_is_fault(cold_request,tmp_path,monkeypatch,send_errno):
+        """macOS ENOTCONN close race is equivalent to EPIPE, not an early kill."""
+        import errno
+        from ra.worker import Channel
+        driver(monkeypatch,tmp_path,'''
+    from ra.worker import Channel,execute_request
+    import time
+    original=Channel.send
+    def send(self,packet):
+        if packet['kind']=='terminal':time.sleep(.4)
+        original(self,packet)
+    Channel.send=send
+    ''')
+        original=Channel.send
+        seen=[]
+        def send(self,packet):
+            if packet['kind']=='stop':
+                seen.append(packet)
+                raise OSError(send_errno,'injected stop-send OS error')
+            return original(self,packet)
+        monkeypatch.setattr(Channel,'send',send)
+        result=run_request(replace(cold_request,budget_ns=300_000_000),tmp_path/'stop-close')
+>       assert seen
+E       assert []
+
+tests/test_worker.py:523: AssertionError
+_ test_failure_after_nonzero_valid_progress_keeps_available_score_and_fault[False] _
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_failure_after_nonzero_val0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113879580>
+alarm = False
+
+    @pytest.mark.parametrize('alarm',[False,True])
+    def test_failure_after_nonzero_valid_progress_keeps_available_score_and_fault(cold_request,tmp_path,monkeypatch,alarm):
+        driver(monkeypatch,tmp_path, '''
+    from ra.worker import Channel, execute_request
+    from ra.observer import NumericalAlarm
+    original=Channel.send
+    failed=False
+    def send(self,packet):
+        global failed
+        original(self,packet)
+        if packet['kind']=='progress' and packet['record']['primal_original'] < 4 and not failed:
+            failed=True
+            raise ERROR('fault after valid progress')
+    Channel.send=send
+    '''.replace('raise ERROR','raise NumericalAlarm' if alarm else 'raise RuntimeError'))
+        result=run_request(cold_request,tmp_path/'fault-after-progress')
+        assert result.status==('numerical_alarm' if alarm else 'implementation_error'),result.error
+>       assert result.available.utility>0
+E       AssertionError: assert 0.0 > 0
+E        +  where 0.0 = AvailableProgress(assignment_available=False, utility=0.0, primal_original=None, dual_original=0.0, incumbent_hash=None, sequence=None).utility
+E        +    where AvailableProgress(assignment_available=False, utility=0.0, primal_original=None, dual_original=0.0, incumbent_hash=None, sequence=None) = Attempt(request_id='tiny', status=<AttemptStatus.IMPLEMENTATION_ERROR: 'implementation_error'>, available=AvailablePro...e_prior_costs={}, quarantined=False, template_id=None, cell_id=None, lineage=None, instance_provenance_available=False).available
+
+tests/test_worker.py:553: AssertionError
+_ test_failure_after_nonzero_valid_progress_keeps_available_score_and_fault[True] _
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_failure_after_nonzero_val1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1139664b0>
+alarm = True
+
+    @pytest.mark.parametrize('alarm',[False,True])
+    def test_failure_after_nonzero_valid_progress_keeps_available_score_and_fault(cold_request,tmp_path,monkeypatch,alarm):
+        driver(monkeypatch,tmp_path, '''
+    from ra.worker import Channel, execute_request
+    from ra.observer import NumericalAlarm
+    original=Channel.send
+    failed=False
+    def send(self,packet):
+        global failed
+        original(self,packet)
+        if packet['kind']=='progress' and packet['record']['primal_original'] < 4 and not failed:
+            failed=True
+            raise ERROR('fault after valid progress')
+    Channel.send=send
+    '''.replace('raise ERROR','raise NumericalAlarm' if alarm else 'raise RuntimeError'))
+        result=run_request(cold_request,tmp_path/'fault-after-progress')
+>       assert result.status==('numerical_alarm' if alarm else 'implementation_error'),result.error
+E       AssertionError: worker exited without terminal record
+E       assert <AttemptStatu...tation_error'> == 'numerical_alarm'
+E         
+E         - numerical_alarm
+E         + implementation_error
+
+tests/test_worker.py:552: AssertionError
+_______ test_large_terminal_frame_drains_within_existing_watchdog_grace ________
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_large_terminal_frame_drai0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1139de900>
+
+    def test_large_terminal_frame_drains_within_existing_watchdog_grace(cold_request,tmp_path,monkeypatch):
+        """Large native action inventories must not trigger quadratic receive overhead."""
+        driver(monkeypatch,tmp_path, '''
+    from ra.worker import Channel, execute_request
+    original=Channel.send
+    def send(self,packet):
+        if packet['kind']=='terminal':packet['resources']['large_inventory']='x'*(32*1024*1024)
+        original(self,packet)
+    Channel.send=send
+    ''')
+        result=run_request(replace(cold_request,budget_ns=1_000_000_000),tmp_path/'large-terminal')
+>       assert result.status in ('complete','deadline'),result.error
+E       AssertionError: worker exited without terminal record
+E       assert <AttemptStatus.IMPLEMENTATION_ERROR: 'implementation_error'> in ('complete', 'deadline')
+E        +  where <AttemptStatus.IMPLEMENTATION_ERROR: 'implementation_error'> = Attempt(request_id='tiny', status=<AttemptStatus.IMPLEMENTATION_ERROR: 'implementation_error'>, available=AvailablePro...e_prior_costs={}, quarantined=False, template_id=None, cell_id=None, lineage=None, instance_provenance_available=False).status
+
+tests/test_worker.py:569: AssertionError
+_ test_incomplete_or_malformed_terminal_never_replaces_valid_progress[malformed] _
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_incomplete_or_malformed_t0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113964980>
+wire = 'malformed'
+
+    @pytest.mark.parametrize('wire',['malformed','invalid_utf8','truncated'])
+    def test_incomplete_or_malformed_terminal_never_replaces_valid_progress(cold_request,tmp_path,monkeypatch,wire):
+        payload={'malformed':b'{not-json}\n','invalid_utf8':b'\xff\n','truncated':b'{"kind":"terminal"'}[wire]
+        driver(monkeypatch,tmp_path, '''
+    from ra.worker import Channel, execute_request
+    original=Channel.send
+    def send(self,packet):
+        if packet['kind']=='terminal':self.connection.sendall(PAYLOAD)
+        else:original(self,packet)
+    Channel.send=send
+    '''.replace('PAYLOAD',repr(payload)))
+        result=run_request(cold_request,tmp_path/'bad-terminal')
+        assert result.status=='implementation_error'
+        assert result.error
+>       assert result.available.utility==1
+E       AssertionError: assert 0.0 == 1
+E        +  where 0.0 = AvailableProgress(assignment_available=False, utility=0.0, primal_original=None, dual_original=0.0, incumbent_hash=None, sequence=None).utility
+E        +    where AvailableProgress(assignment_available=False, utility=0.0, primal_original=None, dual_original=0.0, incumbent_hash=None, sequence=None) = Attempt(request_id='tiny', status=<AttemptStatus.IMPLEMENTATION_ERROR: 'implementation_error'>, available=AvailablePro...e_prior_costs={}, quarantined=False, template_id=None, cell_id=None, lineage=None, instance_provenance_available=False).available
+
+tests/test_worker.py:589: AssertionError
+_ test_incomplete_or_malformed_terminal_never_replaces_valid_progress[invalid_utf8] _
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_incomplete_or_malformed_t1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113ad0d10>
+wire = 'invalid_utf8'
+
+    @pytest.mark.parametrize('wire',['malformed','invalid_utf8','truncated'])
+    def test_incomplete_or_malformed_terminal_never_replaces_valid_progress(cold_request,tmp_path,monkeypatch,wire):
+        payload={'malformed':b'{not-json}\n','invalid_utf8':b'\xff\n','truncated':b'{"kind":"terminal"'}[wire]
+        driver(monkeypatch,tmp_path, '''
+    from ra.worker import Channel, execute_request
+    original=Channel.send
+    def send(self,packet):
+        if packet['kind']=='terminal':self.connection.sendall(PAYLOAD)
+        else:original(self,packet)
+    Channel.send=send
+    '''.replace('PAYLOAD',repr(payload)))
+        result=run_request(cold_request,tmp_path/'bad-terminal')
+        assert result.status=='implementation_error'
+        assert result.error
+>       assert result.available.utility==1
+E       AssertionError: assert 0.0 == 1
+E        +  where 0.0 = AvailableProgress(assignment_available=False, utility=0.0, primal_original=None, dual_original=0.0, incumbent_hash=None, sequence=None).utility
+E        +    where AvailableProgress(assignment_available=False, utility=0.0, primal_original=None, dual_original=0.0, incumbent_hash=None, sequence=None) = Attempt(request_id='tiny', status=<AttemptStatus.IMPLEMENTATION_ERROR: 'implementation_error'>, available=AvailablePro...e_prior_costs={}, quarantined=False, template_id=None, cell_id=None, lineage=None, instance_provenance_available=False).available
+
+tests/test_worker.py:589: AssertionError
+_ test_incomplete_or_malformed_terminal_never_replaces_valid_progress[truncated] _
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_incomplete_or_malformed_t2')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1139dc470>
+wire = 'truncated'
+
+    @pytest.mark.parametrize('wire',['malformed','invalid_utf8','truncated'])
+    def test_incomplete_or_malformed_terminal_never_replaces_valid_progress(cold_request,tmp_path,monkeypatch,wire):
+        payload={'malformed':b'{not-json}\n','invalid_utf8':b'\xff\n','truncated':b'{"kind":"terminal"'}[wire]
+        driver(monkeypatch,tmp_path, '''
+    from ra.worker import Channel, execute_request
+    original=Channel.send
+    def send(self,packet):
+        if packet['kind']=='terminal':self.connection.sendall(PAYLOAD)
+        else:original(self,packet)
+    Channel.send=send
+    '''.replace('PAYLOAD',repr(payload)))
+        result=run_request(cold_request,tmp_path/'bad-terminal')
+        assert result.status=='implementation_error'
+        assert result.error
+>       assert result.available.utility==1
+E       AssertionError: assert 0.0 == 1
+E        +  where 0.0 = AvailableProgress(assignment_available=False, utility=0.0, primal_original=None, dual_original=0.0, incumbent_hash=None, sequence=None).utility
+E        +    where AvailableProgress(assignment_available=False, utility=0.0, primal_original=None, dual_original=0.0, incumbent_hash=None, sequence=None) = Attempt(request_id='tiny', status=<AttemptStatus.IMPLEMENTATION_ERROR: 'implementation_error'>, available=AvailablePro...e_prior_costs={}, quarantined=False, template_id=None, cell_id=None, lineage=None, instance_provenance_available=False).available
+
+tests/test_worker.py:589: AssertionError
+_________ test_multiple_frames_and_split_utf8_preserve_exact_terminal __________
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_multiple_frames_and_split0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113bad5b0>
+
+    def test_multiple_frames_and_split_utf8_preserve_exact_terminal(cold_request,tmp_path,monkeypatch):
+        driver(monkeypatch,tmp_path, '''
+    from ra.worker import Channel, execute_request
+    import json
+    original=Channel.send
+    pending=b''
+    def send(self,packet):
+        global pending
+        if packet['kind']=='progress':
+            pending+=(json.dumps(packet)+'\\n').encode()
+        elif packet['kind']=='terminal':
+            packet['resources']['unicode_inventory']='λ漢'
+            raw=pending+(json.dumps(packet,ensure_ascii=False)+'\\n').encode()
+            for i in range(0,len(raw),127):self.connection.sendall(raw[i:i+127])
+        else:original(self,packet)
+    Channel.send=send
+    ''')
+        result=run_request(cold_request,tmp_path/'joined-split')
+>       assert result.status=='complete',result.error
+E       AssertionError: worker exited without terminal record
+E       assert <AttemptStatu...tation_error'> == 'complete'
+E         
+E         - complete
+E         + implementation_error
+
+tests/test_worker.py:610: AssertionError
+__________ test_oversized_worker_frame_fails_closed_with_valid_prefix __________
+
+cold_request = Request(request_id='tiny', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlego..._hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=None, deadline_ns=None, schema_version=1)
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1869/test_oversized_worker_frame_fa0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x11387a300>
+
+    def test_oversized_worker_frame_fails_closed_with_valid_prefix(cold_request,tmp_path,monkeypatch):
+        from ra import runner
+        monkeypatch.setattr(runner,'MAX_WORKER_FRAME_BYTES',4096,raising=False)
+        driver(monkeypatch,tmp_path, '''
+    from ra.worker import Channel, execute_request
+    original=Channel.send
+    def send(self,packet):
+        if packet['kind']=='terminal':packet['resources']['inventory']='x'*65536
+        original(self,packet)
+    Channel.send=send
+    ''')
+        result=run_request(cold_request,tmp_path/'oversized')
+        assert result.status=='implementation_error'
+>       assert 'frame limit' in result.error
+E       AssertionError: assert 'frame limit' in 'worker exited without terminal record'
+E        +  where 'worker exited without terminal record' = Attempt(request_id='tiny', status=<AttemptStatus.IMPLEMENTATION_ERROR: 'implementation_error'>, available=AvailablePro...e_prior_costs={}, quarantined=False, template_id=None, cell_id=None, lineage=None, instance_provenance_available=False).error
+
+tests/test_worker.py:628: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_collection.py::test_real_collection_guard_is_contained_and_costed[False]
+FAILED tests/test_collection.py::test_real_collection_guard_is_contained_and_costed[True]
+FAILED tests/test_confirmatory_execution.py::test_real_cold_artificial_queue_exhausts_and_resumes
+FAILED tests/test_confirmatory_execution.py::test_real_native_frozen_request_matches_enumerated_optimum
+FAILED tests/test_design_checks.py::test_optimized_python_cannot_claim_unexecuted_assertion_checks[cli]
+FAILED tests/test_features.py::test_primitive_types_remain_numerically_cold
+FAILED tests/test_generators.py::test_cli_dry_run_writes_nothing_then_persists_manifest
+FAILED tests/test_generators.py::test_lightweight_cli_and_types_do_not_import_numerical_libraries
+FAILED tests/test_generators.py::test_cli_malformed_config_is_explicit_failure_without_traceback[[]]
+FAILED tests/test_generators.py::test_cli_malformed_config_is_explicit_failure_without_traceback[null]
+FAILED tests/test_generators.py::test_cli_malformed_config_is_explicit_failure_without_traceback[{]
+FAILED tests/test_generators.py::test_cli_malformed_config_is_explicit_failure_without_traceback[{"purpose":"future"}]
+FAILED tests/test_harness_controls.py::test_identical_named_native_controls_couple_logical_output_and_reap_serially
+FAILED tests/test_harness_controls.py::test_native_override_changes_do_not_leak_into_next_worker
+FAILED tests/test_harness_controls.py::test_delayed_publication_worsens_real_parent_deadline_score
+FAILED tests/test_harness_controls.py::test_shared_alias_uses_same_logical_lease_trajectory
+FAILED tests/test_harness_controls.py::test_named_depth_native_alias_does_not_install_custom_selector
+FAILED tests/test_harness_controls.py::test_status_audit_holds_admission_and_precedes_accounting
+FAILED tests/test_harness_controls.py::test_cli_complete_resume_uses_published_status_without_post_return_audit
+FAILED tests/test_pilot_gates.py::test_installed_support_is_harvested_once_per_cold_process_with_defensive_copies
+FAILED tests/test_recovery.py::test_interrupted_publication_preserves_partial_and_prior_costs
+FAILED tests/test_recovery.py::test_interruption_at_charged_boundaries_preserves_outcomes[load]
+FAILED tests/test_recovery.py::test_interruption_at_charged_boundaries_preserves_outcomes[progress]
+FAILED tests/test_recovery.py::test_interruption_at_charged_boundaries_preserves_outcomes[lease]
+FAILED tests/test_recovery.py::test_interruption_at_charged_boundaries_preserves_outcomes[finalization]
+FAILED tests/test_recovery.py::test_fault_is_costed_outcome_and_correctness_alarm_quarantines[MemoryError-oom]
+FAILED tests/test_recovery.py::test_fault_is_costed_outcome_and_correctness_alarm_quarantines[RuntimeError-implementation_error]
+FAILED tests/test_recovery.py::test_fault_is_costed_outcome_and_correctness_alarm_quarantines[NumericalAlarm-numerical_alarm]
+FAILED tests/test_recovery.py::test_watchdog_retains_lower_bounds_and_overshoot
+FAILED tests/test_recovery.py::test_partial_reconstructs_durable_progress_newer_than_checkpoint
+FAILED tests/test_recovery.py::test_partial_solution_content_must_match_original_hash
+FAILED tests/test_recovery.py::test_manifest_stores_validated_instance_provenance[True]
+FAILED tests/test_resource_ledger.py::test_cold_resources_reconcile_without_adding_parent_overlap
+FAILED tests/test_resource_ledger.py::test_native_callback_timer_oom_returns_safely[nodeinit-enter]
+FAILED tests/test_resource_ledger.py::test_native_callback_timer_oom_returns_safely[nodeinit-leave]
+FAILED tests/test_resource_ledger.py::test_native_callback_timer_oom_returns_safely[nodecomp-enter]
+FAILED tests/test_resource_ledger.py::test_native_callback_timer_oom_returns_safely[nodecomp-leave]
+FAILED tests/test_resource_ledger.py::test_native_callback_timer_oom_returns_safely[nodeselect-enter]
+FAILED tests/test_resource_ledger.py::test_native_callback_timer_oom_returns_safely[nodeselect-leave]
+FAILED tests/test_resource_ledger.py::test_native_callback_timer_oom_returns_safely[eventexec-enter]
+FAILED tests/test_resource_ledger.py::test_native_callback_timer_oom_returns_safely[eventexec-leave]
+FAILED tests/test_robustness.py::test_real_delay_is_inside_charged_administration_and_legal_lease
+FAILED tests/test_robustness.py::test_delay_crossing_deadline_returns_legal_node_without_dispatch_credit
+FAILED tests/test_robustness.py::test_prospective_json_roundtrip_executes_and_rejects_changed_request
+FAILED tests/test_worker.py::test_normal_tiny_cold_request_includes_imports_loading_anchor_and_release
+FAILED tests/test_worker.py::test_startup_outlasting_deadline_returns_no_assignment
+FAILED tests/test_worker.py::test_fault_retains_terminal_error_and_releases_worker
+FAILED tests/test_worker.py::test_worker_module_import_is_numerically_cold - ...
+FAILED tests/test_worker.py::test_delayed_transmission_changes_availability_with_identical_search
+FAILED tests/test_worker.py::test_actual_bad_clock_handshake_blocks_reconstruction
+FAILED tests/test_worker.py::test_callback_failure_retains_parent_anchor_and_correct_status[False]
+FAILED tests/test_worker.py::test_callback_failure_retains_parent_anchor_and_correct_status[True]
+FAILED tests/test_worker.py::test_watchdog_kills_stalled_worker_and_charges_release
+FAILED tests/test_worker.py::test_nonzero_child_exit_cannot_be_complete - Ass...
+FAILED tests/test_worker.py::test_watchdog_covers_process_cleanup_after_channel_close
+FAILED tests/test_worker.py::test_thread_environment_is_fixed_independently_of_caller
+FAILED tests/test_worker.py::test_duplicate_worker_progress_is_rejected_after_valid_anchor
+FAILED tests/test_worker.py::test_resource_markers_include_anchor_observation_and_process_cpu
+FAILED tests/test_worker.py::test_native_time_limit_is_deadline_even_if_safe_return_precedes_parent_deadline
+FAILED tests/test_worker.py::test_parent_interrupt_is_distinct_and_reaps_the_child
+FAILED tests/test_worker.py::test_callback_oom_retains_category_provenance_and_received_assignment[observer]
+FAILED tests/test_worker.py::test_callback_oom_retains_category_provenance_and_received_assignment[cleanup]
+FAILED tests/test_worker.py::test_callback_oom_retains_category_provenance_and_received_assignment[structured_memory_subclass]
+FAILED tests/test_worker.py::test_child_signal_exit_keeps_provenance_and_eligible_prefix[ready-SIGTERM-external_interrupt-termination_signal]
+FAILED tests/test_worker.py::test_child_signal_exit_keeps_provenance_and_eligible_prefix[ready-SIGINT-external_interrupt-termination_signal]
+FAILED tests/test_worker.py::test_child_signal_exit_keeps_provenance_and_eligible_prefix[ready-SIGHUP-external_interrupt-termination_signal]
+FAILED tests/test_worker.py::test_child_signal_exit_keeps_provenance_and_eligible_prefix[ready-SIGQUIT-external_interrupt-termination_signal]
+FAILED tests/test_worker.py::test_child_signal_exit_keeps_provenance_and_eligible_prefix[ready-SIGKILL-implementation_error-ambiguous_signal]
+FAILED tests/test_worker.py::test_child_signal_exit_keeps_provenance_and_eligible_prefix[ready-SIGABRT-implementation_error-crash_signal]
+FAILED tests/test_worker.py::test_child_signal_exit_keeps_provenance_and_eligible_prefix[terminal-SIGTERM-external_interrupt-termination_signal]
+FAILED tests/test_worker.py::test_child_signal_exit_keeps_provenance_and_eligible_prefix[terminal-SIGINT-external_interrupt-termination_signal]
+FAILED tests/test_worker.py::test_child_signal_exit_keeps_provenance_and_eligible_prefix[terminal-SIGHUP-external_interrupt-termination_signal]
+FAILED tests/test_worker.py::test_child_signal_exit_keeps_provenance_and_eligible_prefix[terminal-SIGQUIT-external_interrupt-termination_signal]
+FAILED tests/test_worker.py::test_child_signal_exit_keeps_provenance_and_eligible_prefix[terminal-SIGKILL-implementation_error-ambiguous_signal]
+FAILED tests/test_worker.py::test_child_signal_exit_keeps_provenance_and_eligible_prefix[terminal-SIGABRT-implementation_error-crash_signal]
+FAILED tests/test_worker.py::test_parent_failure_precedes_already_dead_child_signal[SIGTERM-termination_signal-duplicate]
+FAILED tests/test_worker.py::test_parent_failure_precedes_already_dead_child_signal[SIGTERM-termination_signal-interrupt]
+FAILED tests/test_worker.py::test_parent_failure_precedes_already_dead_child_signal[SIGABRT-crash_signal-duplicate]
+FAILED tests/test_worker.py::test_parent_failure_precedes_already_dead_child_signal[SIGABRT-crash_signal-interrupt]
+FAILED tests/test_worker.py::test_parent_failure_precedes_already_dead_child_signal[SIGKILL-ambiguous_signal-duplicate]
+FAILED tests/test_worker.py::test_parent_failure_precedes_already_dead_child_signal[SIGKILL-ambiguous_signal-interrupt]
+FAILED tests/test_worker.py::test_stop_send_closed_socket_drains_terminal_but_other_oserror_is_fault[57]
+FAILED tests/test_worker.py::test_stop_send_closed_socket_drains_terminal_but_other_oserror_is_fault[5]
+FAILED tests/test_worker.py::test_failure_after_nonzero_valid_progress_keeps_available_score_and_fault[False]
+FAILED tests/test_worker.py::test_failure_after_nonzero_valid_progress_keeps_available_score_and_fault[True]
+FAILED tests/test_worker.py::test_large_terminal_frame_drains_within_existing_watchdog_grace
+FAILED tests/test_worker.py::test_incomplete_or_malformed_terminal_never_replaces_valid_progress[malformed]
+FAILED tests/test_worker.py::test_incomplete_or_malformed_terminal_never_replaces_valid_progress[invalid_utf8]
+FAILED tests/test_worker.py::test_incomplete_or_malformed_terminal_never_replaces_valid_progress[truncated]
+FAILED tests/test_worker.py::test_multiple_frames_and_split_utf8_preserve_exact_terminal
+FAILED tests/test_worker.py::test_oversized_worker_frame_fails_closed_with_valid_prefix
+91 failed, 697 passed in 106.24s (0:01:46)

@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "phase": "pre-final; controller review/archive closure pending",
+  "keep_complete_trees": [
+    {
+      "path": "artifacts",
+      "children": [
+        "audits",
+        "checks",
+        "environment",
+        "models",
+        "pilot",
+        "runs",
+        "status-history",
+        "task13",
+        "task15",
+        "task15-prepare-failed-sysctl",
+        "task16",
+        "task17",
+        "task18",
+        "task20"
+      ],
+      "policy": "retain complete tree including failed/partial/pre-fix/source/model/wheel generations; not a selective success backup"
+    },
+    {
+      "path": "data",
+      "children": [
+        "confirmatory",
+        "pilot",
+        "traces"
+      ],
+      "policy": "retain complete tree including failed/partial/pre-fix/source/model/wheel generations; not a selective success backup"
+    }
+  ],
+  "immutable_inventory_pointers": [
+    {
+      "path": "artifacts/environment/wheel-manifest.json",
+      "sha256": "d1f44579b51520b89d3bce8fd6b03330cb5acbc48090dcc47ca2cfaa135e1de9",
+      "bytes": 56954
+    },
+    {
+      "path": "artifacts/pilot/artifact-inventory.json",
+      "sha256": "117cf82245242498ddf4145cf5597ad06784e494931d5c739d240c5eec0eda85",
+      "bytes": 6870142
+    },
+    {
+      "path": "artifacts/task17/project-attempt-inventory.json",
+      "sha256": "9fb1ffcbc54211ed23d55d982af0ddfe49ec7dcb264d8a39c782d002c21d058b",
+      "bytes": 3281244
+    },
+    {
+      "path": "results/confirmatory/artifacts.json",
+      "sha256": "f5e76918906d55a39351ec86b78fff83d8ef1dc2825d48a0206d2593bfbc2df2",
+      "bytes": 4988
+    },
+    {
+      "path": "docs/superpowers/evidence/task16/operational-artifacts.json",
+      "sha256": "7203c157ae40791fd8f21a656c167a9f08979e2d13eedb23495a5b138a348b02",
+      "bytes": 881050
+    },
+    {
+      "path": "docs/superpowers/evidence/task16/execution-audit.json",
+      "sha256": "83cf330827f68bc9b736ad0e8e240189193e0a927fe4bc6c99ab99435c116809",
+      "bytes": 8415
+    },
+    {
+      "path": "results/ablations/task18-latency/artifact-index.json",
+      "sha256": "6f29109b358a85cf5f39ddcb6b91c82dba84bbb46e0c35fd37045a551b785bb2",
+      "bytes": 698
+    },
+    {
+      "path": "artifacts/task20/frozen-reference-inventory.json",
+      "sha256": "ae9686ca827b0dbd89cbc67a5d0eaafec474220cfb14e10a7d7edeb3fe633f7c",
+      "bytes": 1116115
+    },
+    {
+      "path": "artifacts/audits/task20-pre-final-01-receipt.json",
+      "sha256": "472624941cbfb65a5d6ce96b7a0ba62c2d3a00d91deb9725323b0aaeb20c9f35",
+      "bytes": 31309
+    },
+    {
+      "path": "docs/superpowers/evidence/task20/reproduction.json",
+      "sha256": "0d2870d4c2277d0d0556ccd978ad2586f2f127728063135fd20cbb164ff52e8a",
+      "bytes": 32768
+    },
+    {
+      "path": "results/handoff/derivation.json",
+      "sha256": "7397ceb583cf211ddaf754ba1fc51f53e0607164c21140376028e494109e767e",
+      "bytes": 2528
+    },
+    {
+      "path": "artifacts/task20/preparation-source/frozen-reference-derivation.py",
+      "sha256": "ff9b3703d1755162d870d652aa92ba2a82fea28b122895c64db0a57402a0b232",
+      "bytes": 1397
+    },
+    {
+      "path": "artifacts/task20/preparation-source/receipt-derivation.py",
+      "sha256": "3216eb9545d2b4d740d7a374bfd9f6ffca5e3826f3343694ed8d3bcbc47b33bf",
+      "bytes": 4161
+    },
+    {
+      "path": "artifacts/task20/preparation-source/initial-report-manifest.py",
+      "sha256": "0fd24827cc511b03526fdffae7cbd3c906afc4baf0f045713b11b940a7cdf773",
+      "bytes": 4870
+    }
+  ],
+  "archive_generations": [
+    {
+      "path": "artifacts/audits/task20-pre-final-01",
+      "purpose": "all149 SDD/history files; old PROGRESS/README/DECISIONS before compaction;11 rulings in order",
+      "receipt": {
+        "path": "artifacts/audits/task20-pre-final-01-receipt.json",
+        "sha256": "472624941cbfb65a5d6ce96b7a0ba62c2d3a00d91deb9725323b0aaeb20c9f35",
+        "bytes": 31309
+      }
+    }
+  ],
+  "restore_root": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation",
+  "restore_rule": "historical absolute paths and hashes are immutable; restore at original path or exact-path filesystem alias, never rewrite frozen JSON",
+  "sdd_restore_mapping": {
+    "archive": "artifacts/audits/task20-pre-final-01/sdd",
+    "original": ".superpowers/sdd/2026-10-13-reasoning-allocation"
+  },
+  "frozen_sdd_reference_check": {
+    "path": "docs/superpowers/evidence/task20/frozen-reference-audit.json",
+    "sha256": "687d9e3664ca3c7991a95aa46c4df4d44e7fdb0e6577bdf77a28c572efd6c948",
+    "bytes": 543
+  },
+  "large_asset_scope": "Git carries compact evidence only; all large ignored original bytes remain on disk. Retain Git history/committed source objects and all pointer targets together. Protected descendants authenticated by request seals and337955-file historical inventory; full Task20 numerical reconstruction checked raw receipts/assignments.",
+  "privacy": "Raw hardware diagnostics remain ignored/private. No serial identifiers are copied into committed receipts.",
+  "closure_refresh": "checks/task20_archive.py --phase final --out artifacts/audits/task20-final-closure; use new destination, then update this pointer and MANIFEST.sha256 after controller ledger/reviews close; sibling receipts avoid self-hash loops"
+}

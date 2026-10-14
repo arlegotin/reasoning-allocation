@@ -1,0 +1,17 @@
+Looking in links: /Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/environment/wheels
+Processing ./artifacts/environment/wheels/pyscipopt-6.3.0-cp312-cp312-macosx_11_0_arm64.whl (from -r /Users/artemlegotin/Documents/git_alter/reasoning-allocation/requirements.lock (line 4))
+Processing ./artifacts/environment/wheels/numpy-2.5.4-cp312-cp312-macosx_14_0_arm64.whl (from -r /Users/artemlegotin/Documents/git_alter/reasoning-allocation/requirements.lock (line 6))
+Processing ./artifacts/environment/wheels/scipy-1.18.1-cp312-cp312-macosx_14_0_arm64.whl (from -r /Users/artemlegotin/Documents/git_alter/reasoning-allocation/requirements.lock (line 8))
+Processing ./artifacts/environment/wheels/scikit_learn-1.9.1-cp312-cp312-macosx_12_0_arm64.whl (from -r /Users/artemlegotin/Documents/git_alter/reasoning-allocation/requirements.lock (line 10))
+Processing ./artifacts/environment/wheels/psutil-7.2.2-cp36-abi3-macosx_11_0_arm64.whl (from -r /Users/artemlegotin/Documents/git_alter/reasoning-allocation/requirements.lock (line 12))
+Processing ./artifacts/environment/wheels/pytest-9.1.1-py3-none-any.whl (from -r /Users/artemlegotin/Documents/git_alter/reasoning-allocation/requirements.lock (line 14))
+Processing ./artifacts/environment/wheels/pluggy-1.6.0-py3-none-any.whl (from -r /Users/artemlegotin/Documents/git_alter/reasoning-allocation/requirements.lock (line 16))
+Processing ./artifacts/environment/wheels/iniconfig-2.3.1-py3-none-any.whl (from -r /Users/artemlegotin/Documents/git_alter/reasoning-allocation/requirements.lock (line 18))
+Processing ./artifacts/environment/wheels/joblib-1.6.0-py3-none-any.whl (from -r /Users/artemlegotin/Documents/git_alter/reasoning-allocation/requirements.lock (line 20))
+Processing ./artifacts/environment/wheels/cloudpickle-3.1.2-py3-none-any.whl (from -r /Users/artemlegotin/Documents/git_alter/reasoning-allocation/requirements.lock (line 22))
+Processing ./artifacts/environment/wheels/narwhals-2.27.1-py3-none-any.whl (from -r /Users/artemlegotin/Documents/git_alter/reasoning-allocation/requirements.lock (line 24))
+Processing ./artifacts/environment/wheels/packaging-26.3-py3-none-any.whl (from -r /Users/artemlegotin/Documents/git_alter/reasoning-allocation/requirements.lock (line 26))
+Processing ./artifacts/environment/wheels/pygments-2.21.0-py3-none-any.whl (from -r /Users/artemlegotin/Documents/git_alter/reasoning-allocation/requirements.lock (line 28))
+Processing ./artifacts/environment/wheels/threadpoolctl-3.7.0-py3-none-any.whl (from -r /Users/artemlegotin/Documents/git_alter/reasoning-allocation/requirements.lock (line 30))
+Installing collected packages: threadpoolctl, Pygments, psutil, pluggy, packaging, numpy, narwhals, iniconfig, cloudpickle, scipy, pytest, PySCIPOpt, joblib, scikit-learn
+Successfully installed PySCIPOpt-6.3.0 Pygments-2.21.0 cloudpickle-3.1.2 iniconfig-2.3.1 joblib-1.6.0 narwhals-2.27.1 numpy-2.5.4 packaging-26.3 pluggy-1.6.0 psutil-7.2.2 pytest-9.1.1 scikit-learn-1.9.1 scipy-1.18.1 threadpoolctl-3.7.0

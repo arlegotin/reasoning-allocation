@@ -1,0 +1,18 @@
+.............F                                                           [100%]
+=================================== FAILURES ===================================
+_ test_tuning_helper_requires_declared_grid_when_all_cohorts_omit_same_deadline _
+
+    def test_tuning_helper_requires_declared_grid_when_all_cohorts_omit_same_deadline():
+        from checks.pilot_tuning_summary import summarize_records
+        from dataclasses import asdict
+        rows=[]
+        for budget in [100,400]:
+            row=asdict(attempt(phase='discovery'));row['request']['budget_ns']=budget;rows.append(row)
+>       with pytest.raises(ValueError,match='declared'):summarize_records(rows)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_pilot_gates.py:156: Failed
+=========================== short test summary info ============================
+FAILED tests/test_pilot_gates.py::test_tuning_helper_requires_declared_grid_when_all_cohorts_omit_same_deadline
+1 failed, 13 passed in 0.37s

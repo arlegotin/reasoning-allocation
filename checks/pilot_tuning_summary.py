@@ -11,14 +11,18 @@ from collections import defaultdict
 from ra.runner import _read_attempt
 
 
-def summarize_records(rows):
+def summarize_records(rows, *, expected_budgets=None):
     if not rows:
         raise ValueError('nonempty retained native validation records required')
     phases={r['request']['phase'] for r in rows}
     if len(phases)!=1 or not phases <= {'discovery','pilot','validation'}:
         raise ValueError('one public phase required')
     phase=next(iter(phases))
-    budgets=sorted({r['request']['budget_ns'] for r in rows})
+    if (not isinstance(expected_budgets,(list,tuple)) or not expected_budgets
+            or any(type(b) is not int or b<=0 for b in expected_budgets)
+            or len(set(expected_budgets))!=len(expected_budgets)):
+        raise ValueError('explicit unique positive declared budget grid required')
+    budgets=sorted(expected_budgets)
     cohorts=defaultdict(list)
     for row in rows:
         request=row['request']
@@ -51,17 +55,22 @@ def summarize_records(rows):
         'budgets_ns':budgets,'weights':weights,'ranking':sorted(result,key=lambda m:result[m]['mean_F'],reverse=True),'methods':result}
 
 
-def main(root):
+def main(root, expected_budgets):
     root=Path(root)
     rows=[]
     for p in sorted(root.rglob('attempt.json')):
         a,complete=_read_attempt(p.parent)
         assert complete
         rows.append(a)
-    output=summarize_records(rows)
+    output=summarize_records(rows,expected_budgets=expected_budgets)
     (root/'tuning-summary.json').write_text(json.dumps(output,indent=2,allow_nan=False)+'\n')
     print(json.dumps({m:{k:v for k,v in output['methods'][m].items() if k!='original_F'} for m in output['ranking']},indent=2))
 
 
 if __name__=='__main__':
-    main(sys.argv[1])
+    import argparse
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('root')
+    parser.add_argument('--budgets-ns',type=int,nargs='+',required=True)
+    args=parser.parse_args()
+    main(args.root,args.budgets_ns)

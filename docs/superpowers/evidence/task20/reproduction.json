@@ -1,0 +1,908 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "source_commit": "59690b751bbecbe135560aa57e8c7ffe6d4a9912",
+  "scope": "one required clean fixed numerical reproduction plus one public-original native default rerun; no protected solver repeat or new claim",
+  "frozen_config": {
+    "path": "configs/confirmatory-A004.json",
+    "sha256": "e13f31a7b098f372e12d653e46513d9f2d52fd587cb5841aff36ffbd8f36bffe",
+    "bytes": 27260
+  },
+  "freeze": {
+    "path": "protocol/freeze-A004.sha256",
+    "sha256": "c46380a6349f1b77c725d429610a0554eb0335babe66ed78b7ad3f4bf65eaa5b",
+    "bytes": 92
+  },
+  "locked_requirements": {
+    "path": "requirements.lock",
+    "sha256": "3938eacd4e8c91bb083bcb77a7211e5d9da8bc2f9b8827d777d63f1f643ff0b0",
+    "bytes": 2189
+  },
+  "wheel_inventory": {
+    "path": "artifacts/environment/wheel-manifest.json",
+    "sha256": "d1f44579b51520b89d3bce8fd6b03330cb5acbc48090dcc47ca2cfaa135e1de9",
+    "bytes": 56954
+  },
+  "numerical": {
+    "actual_numeric_digest": "6339521bccab940fe0ec0546792a3c6012e65644fe7f63a5dde6418717b83d69",
+    "exact_csv_matches": {
+      "calibration.csv": true,
+      "curves.csv": true,
+      "endpoints.csv": true,
+      "resource_summary.csv": true,
+      "secondary_effects.csv": true
+    },
+    "exact_numeric_match": true,
+    "expected_numeric_digest": "6339521bccab940fe0ec0546792a3c6012e65644fe7f63a5dde6418717b83d69",
+    "freeze_digest": "72aba9929daa98bb48c64237ebba47e2c6d66e75d65165bf78a0355a53455457",
+    "reproduction_source": "59690b751bbecbe135560aa57e8c7ffe6d4a9912",
+    "request_count": 2520,
+    "scope": "one fixed numerical reproduction; no claim/seed/model/fit/contrast/cohort selection; current code distinct from original analysis",
+    "solver_source": "5acc206a8482710578f21ee90bb80ecd8a092828",
+    "tolerance": 0
+  },
+  "native_binary_equal": true,
+  "full_native_parameters_equal": true,
+  "bootstrap_and_environment_limit": {
+    "locked_dependencies_hash_installed": true,
+    "bootstrap_hash_installed": false,
+    "old_executable": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/.venv/bin/python",
+    "clean_executable": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproduction/env/bin/python",
+    "package_differences": {
+      "pip": {
+        "historical": "26.2.1",
+        "clean": "25.0"
+      }
+    },
+    "scope": "base interpreter, OS, venv/ensurepip/pip not locked by requirements.lock; source loaded through recorded PYTHONPATH; original .venv not modified"
+  },
+  "commands": [
+    {
+      "child_cpu_seconds": 1.29226,
+      "command": [
+        "/opt/homebrew/Cellar/python@3.12/3.12.9/Frameworks/Python.framework/Versions/3.12/bin/python3.12",
+        "-m",
+        "venv",
+        "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproduction/env"
+      ],
+      "returncode": 0,
+      "stage": "bootstrap",
+      "wall_ns": 1461492958
+    },
+    {
+      "child_cpu_seconds": 5.818059,
+      "command": [
+        "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproduction/env/bin/python",
+        "-m",
+        "pip",
+        "install",
+        "--no-index",
+        "--find-links",
+        "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/environment/wheels",
+        "--only-binary=:all:",
+        "--require-hashes",
+        "-r",
+        "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/requirements.lock"
+      ],
+      "returncode": 0,
+      "stage": "install",
+      "wall_ns": 6004650875
+    },
+    {
+      "child_cpu_seconds": 0.159748,
+      "command": [
+        "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproduction/env/bin/python",
+        "-m",
+        "pip",
+        "check"
+      ],
+      "returncode": 0,
+      "stage": "pip-check",
+      "wall_ns": 166937041
+    },
+    {
+      "child_cpu_seconds": 0.23424699999999987,
+      "command": [
+        "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproduction/env/bin/python",
+        "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/checks/task20_reproduce.py",
+        "--out",
+        "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproduction",
+        "--stage",
+        "parity"
+      ],
+      "returncode": 0,
+      "stage": "parity",
+      "wall_ns": 1896167417
+    },
+    {
+      "child_cpu_seconds": 0.4732889999999996,
+      "command": [
+        "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproduction/env/bin/python",
+        "-m",
+        "ra.cli",
+        "check",
+        "--suite",
+        "analytical",
+        "--out",
+        "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproduction/analytical"
+      ],
+      "returncode": 0,
+      "stage": "analytical",
+      "wall_ns": 478227375
+    },
+    {
+      "child_cpu_seconds": 0.9457279999999999,
+      "command": [
+        "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproduction/env/bin/python",
+        "-m",
+        "pytest",
+        "tests/test_scip_smoke.py",
+        "tests/test_scip_lifecycle.py",
+        "tests/test_enumeration.py",
+        "tests/test_equivalence.py",
+        "-q"
+      ],
+      "returncode": 0,
+      "stage": "native-tests",
+      "wall_ns": 2678247000
+    },
+    {
+      "child_cpu_seconds": 130.94312899999997,
+      "command": [
+        "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproduction/env/bin/python",
+        "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/checks/task20_reproduce.py",
+        "--out",
+        "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproduction",
+        "--stage",
+        "numerical"
+      ],
+      "returncode": 0,
+      "stage": "numerical",
+      "wall_ns": 154621724541
+    },
+    {
+      "child_cpu_seconds": 0.46112099999999856,
+      "command": [
+        "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproduction/env/bin/python",
+        "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/checks/task20_reproduce.py",
+        "--out",
+        "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproduction",
+        "--stage",
+        "native"
+      ],
+      "returncode": 0,
+      "stage": "native",
+      "wall_ns": 646826709
+    },
+    {
+      "child_cpu_seconds": 0.29996900000000437,
+      "command": [
+        "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproduction/env/bin/python",
+        "-m",
+        "ra.cli",
+        "report",
+        "--manifest",
+        "protocol/freeze-A004.sha256",
+        "--out",
+        "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproduction/REPORT.md"
+      ],
+      "returncode": 0,
+      "stage": "report",
+      "wall_ns": 550173292
+    }
+  ],
+  "numerical_resources": {
+    "child_cpu_seconds": 0.154362,
+    "peak_rss_native_units": 2530426880,
+    "process_cpu_ns": 130735586000,
+    "scope": "stage after imports through receipt preparation; final receipt and interpreter startup/exit excluded; wrapper envelopes overlap",
+    "success": true,
+    "unknown_tails": [
+      "final receipt write",
+      "interactive/development/monitoring"
+    ],
+    "wall_ns": 154560619875
+  },
+  "native": {
+    "status": "complete",
+    "available": {
+      "assignment_available": true,
+      "utility": 1.0,
+      "primal_original": 158,
+      "dual_original": 158.0,
+      "incumbent_hash": "109549c03f4e30ab6972f05b1f3d20b77067dde7ca06798871aee411eff17065",
+      "sequence": 11
+    },
+    "overshoot_ns": 0,
+    "request": {
+      "request_id": "bf0a604996c18dc34e9b3a5292bde36ad0abb1ab3dbeb9785cbb562bc1eb9ea7",
+      "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproduction/native-inputs/6f5aafc7ab79e7c3d5bb2e3d61738b84a33c66f1a057fd57c443900280418a90.json",
+      "instance_sha256": "efae133f051aac1712813f53354f8d8485d22362dd3ec3403ddccf4e9c5a1654",
+      "instance_hash": "6f5aafc7ab79e7c3d5bb2e3d61738b84a33c66f1a057fd57c443900280418a90",
+      "config_hash": "362a94310ded52991ee67f039bf4c0a7a10b4ddf48f3d923c192514961384c3d",
+      "code_hash": "b00009c7109fbe4ba50c51a093ccf8e3d5ad4aa4f2bc58578304d6376f5eec82",
+      "environment_hash": "284e7865c7057886afc291b8bdff6fabf3fbd33f2b00383dd734f04b604cd6c1",
+      "method": "WP10-public-native-check",
+      "phase": "validation",
+      "solver_seed": 17,
+      "budget_ns": 2106828958,
+      "watchdog_grace_ns": 2000000000,
+      "p0": 3456,
+      "threads": 1,
+      "integrality_tolerance": 1e-06,
+      "bound_tolerance": 1e-06,
+      "model_path": null,
+      "model_hash": null,
+      "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+      "prior_attempt_ids": [],
+      "prior_costs": {},
+      "method_config": {
+        "kind": "native",
+        "lease_lengths": [
+          1
+        ],
+        "name": "WP10-public-native-check",
+        "overrides": {}
+      },
+      "launch_ns": 248036908397833,
+      "deadline_ns": 248039015226791,
+      "schema_version": 1
+    },
+    "resources": {
+      "allocation_decisions": [],
+      "argv": [
+        "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproduction/env/bin/python",
+        "-m",
+        "ra.worker",
+        "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task20/clean-reproduction/native-attempts/bf0a604996c18dc34e9b3a5292bde36ad0abb1ab3dbeb9785cbb562bc1eb9ea7/request.json"
+      ],
+      "clock_max_bracket_ns": 77699375,
+      "clock_samples": [
+        [
+          248036911384791,
+          248036989007541,
+          248036989084166
+        ],
+        [
+          248036989137000,
+          248036989163041,
+          248036989195750
+        ],
+        [
+          248036989215791,
+          248036989247208,
+          248036989288583
+        ]
+      ],
+      "collection_trace": null,
+      "completion_count": 0,
+      "cpu_tail_unmeasured": true,
+      "duration_lower_bound_ns": 239682375,
+      "elapsed_partition_ns": {
+        "parent_finalization": 931250,
+        "parent_launch": 44792458,
+        "release_residual": 26198083,
+        "worker_accounted": 168691834
+      },
+      "elapsed_scope": "launch through flushed traces and pre-manifest finalization; publication receipt adds its measured cost",
+      "end_to_end_ns": 240613625,
+      "fallback_count": 0,
+      "initialization_cpu_ns": 930000,
+      "initialization_ns": 1674000,
+      "input_bytes": 5350,
+      "instance": {
+        "cell_id": "800a449d63f9410e7e56973a909c255ecec8d5e3b59ff27872b6e0dc090201fb",
+        "instance_id": "6f5aafc7ab79e7c3d5bb2e3d61738b84a33c66f1a057fd57c443900280418a90",
+        "lineage": {
+          "ancestor_template_ids": [],
+          "base_count": 64,
+          "bridge_columns": [],
+          "cell": {
+            "blocks": null,
+            "bridge_multiplier": 1,
+            "clone_fraction": 0,
+            "columns": 64,
+            "cost_distribution": "uniform",
+            "degree": 8,
+            "family": "uniform",
+            "low_cost_probability": null,
+            "rare_row_proportion": 0.02,
+            "rows": 32
+          },
+          "clone_count": 0,
+          "clone_eligible_columns": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63
+          ],
+          "clone_parent_rule": "ordinary-base-no-rare-incidence-v1",
+          "clone_sources": [],
+          "cost_order": [
+            "bridge_base",
+            "clone",
+            "perturb_floor_one"
+          ],
+          "generator_version": "weighted-cover-v2-ordinary-clones",
+          "inside_reductions": 0,
+          "rare_rows": [],
+          "recipe_amendment": "A001",
+          "root_template_id": "39607ac0b4c1e59064306c2ad071c872af2aac4b1634cde15c89079991c44d76",
+          "row_blocks": [],
+          "template_seed": 59405826233017098946298934610174510555015042724497344551233774416895750919094
+        },
+        "template_id": "39607ac0b4c1e59064306c2ad071c872af2aac4b1634cde15c89079991c44d76"
+      },
+      "last_native_dual": 158.0,
+      "lease_outcomes": [],
+      "lp_threads": 1,
+      "method_config": {
+        "kind": "native",
+        "lease_lengths": [
+          1
+        ],
+        "name": "WP10-public-native-check",
+        "overrides": {}
+      },
+      "model_bytes": 0,
+      "native_events": {},
+      "native_lps": 1,
+      "native_nodes": 1,
+      "native_overrides": {},
+      "native_overshoot_ns": 0,
+      "native_released": true,
+      "native_settings": {
+        "nodeselection/bfs/maxplungedepth": -1,
+        "nodeselection/bfs/maxplungequot": 0.25,
+        "nodeselection/bfs/memsavepriority": 0,
+        "nodeselection/bfs/minplungedepth": -1,
+        "nodeselection/bfs/stdpriority": 100000,
+        "nodeselection/breadthfirst/memsavepriority": -1000000,
+        "nodeselection/breadthfirst/stdpriority": -10000,
+        "nodeselection/childsel": "h",
+        "nodeselection/dfs/memsavepriority": 100000,
+        "nodeselection/dfs/stdpriority": 0,
+        "nodeselection/estimate/bestnodefreq": 10,
+        "nodeselection/estimate/breadthfirstdepth": -1,
+        "nodeselection/estimate/maxplungedepth": -1,
+        "nodeselection/estimate/maxplungequot": 0.25,
+        "nodeselection/estimate/memsavepriority": 100,
+        "nodeselection/estimate/minplungedepth": -1,
+        "nodeselection/estimate/plungeoffset": 0,
+        "nodeselection/estimate/stdpriority": 200000,
+        "nodeselection/hybridestim/bestnodefreq": 1000,
+        "nodeselection/hybridestim/estimweight": 0.1,
+        "nodeselection/hybridestim/maxplungedepth": -1,
+        "nodeselection/hybridestim/maxplungequot": 0.25,
+        "nodeselection/hybridestim/memsavepriority": 50,
+        "nodeselection/hybridestim/minplungedepth": -1,
+        "nodeselection/hybridestim/stdpriority": 50000,
+        "nodeselection/restartdfs/countonlyleaves": true,
+        "nodeselection/restartdfs/memsavepriority": 50000,
+        "nodeselection/restartdfs/selectbestfreq": 100,
+        "nodeselection/restartdfs/stdpriority": 10000,
+        "nodeselection/uct/memsavepriority": 0,
+        "nodeselection/uct/nodelimit": 31,
+        "nodeselection/uct/stdpriority": 10,
+        "nodeselection/uct/useestimate": false,
+        "nodeselection/uct/weight": 0.1
+      },
+      "native_status": "optimal",
+      "observation_intervals": [
+        [
+          248037117326416,
+          248037117609166,
+          "observation"
+        ],
+        [
+          248037117816958,
+          248037117819458,
+          "observation"
+        ],
+        [
+          248037117906708,
+          248037117908250,
+          "observation"
+        ],
+        [
+          248037117915333,
+          248037117915916,
+          "observation"
+        ],
+        [
+          248037117922833,
+          248037117923541,
+          "observation"
+        ],
+        [
+          248037117984833,
+          248037117985458,
+          "observation"
+        ],
+        [
+          248037118003416,
+          248037118003833,
+          "observation"
+        ],
+        [
+          248037118132833,
+          248037118133291,
+          "observation"
+        ],
+        [
+          248037118139208,
+          248037118139541,
+          "observation"
+        ],
+        [
+          248037118145291,
+          248037118145625,
+          "observation"
+        ],
+        [
+          248037118162458,
+          248037118162875,
+          "observation"
+        ],
+        [
+          248037118993375,
+          248037118994041,
+          "observation"
+        ],
+        [
+          248037119000166,
+          248037119000541,
+          "observation"
+        ],
+        [
+          248037119006375,
+          248037119006791,
+          "observation"
+        ],
+        [
+          248037119012333,
+          248037119012708,
+          "observation"
+        ],
+        [
+          248037119243625,
+          248037119244333,
+          "observation"
+        ],
+        [
+          248037119311291,
+          248037119550541,
+          "observation"
+        ],
+        [
+          248037119858291,
+          248037120084916,
+          "observation"
+        ],
+        [
+          248037120220583,
+          248037120240041,
+          "observation"
+        ],
+        [
+          248037120266375,
+          248037120524166,
+          "observation"
+        ],
+        [
+          248037120571958,
+          248037120818666,
+          "observation"
+        ],
+        [
+          248037120884625,
+          248037121114333,
+          "observation"
+        ],
+        [
+          248037121138125,
+          248037121358333,
+          "observation"
+        ],
+        [
+          248037121395416,
+          248037121611000,
+          "observation"
+        ],
+        [
+          248037121624416,
+          248037121638416,
+          "observation"
+        ],
+        [
+          248037121648166,
+          248037121648875,
+          "observation"
+        ],
+        [
+          248037121694500,
+          248037121695375,
+          "observation"
+        ]
+      ],
+      "parent_cpu_ns": 23700000,
+      "parent_observation_ns_overlapping_worker": 12766250,
+      "parent_sampling_ns": 173459,
+      "progress_events": {
+        "16777216": 3,
+        "2097152": 1,
+        "262144": 14,
+        "268435456": 8
+      },
+      "resource_release_confirmed": true,
+      "resource_scope": "one worker; overlapping parent cost separate",
+      "returncode": 0,
+      "selection_boundaries": [],
+      "selection_count": 0,
+      "selector_installed": false,
+      "solver_threads": 1,
+      "subscriptions_after_free": 0,
+      "thread_environment": {
+        "BLIS_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "NUMEXPR_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "VECLIB_MAXIMUM_THREADS": "1"
+      },
+      "threadpools": [],
+      "timer_resolution_ns": 42,
+      "timing_instrumentation_failed": false,
+      "timing_partition_complete": true,
+      "trace_bytes": 18101,
+      "worker_cpu_ns": 169908000,
+      "worker_cpu_scope": "process start through pre-terminal cleanup; parent wait covers later release",
+      "worker_cpu_since_entry_ns": 130558000,
+      "worker_create_time": 1791979873.001682,
+      "worker_exclusive_ns": {
+        "administration": 6334,
+        "finalization": 174834,
+        "native": 3099003,
+        "observation": 2463913,
+        "residual": 0,
+        "startup": 162947750
+      },
+      "worker_frame_limit_bytes": 134217728,
+      "worker_last_sample_ns": 248037099932375,
+      "worker_peak_rss_bytes": 65191936,
+      "worker_pid": 21222,
+      "worker_sampled_cpu_ns_lower_bound": 155736332,
+      "worker_sampled_peak_rss_bytes": 60981248,
+      "worker_terminal_status": "complete",
+      "worker_timing_scope": "worker entry through pre-terminal cleanup; interpreter tail is parent residual",
+      "publication_ns": 5165250,
+      "analysis_calibration": []
+    },
+    "outer_stage": {
+      "child_cpu_seconds": 0.189916,
+      "peak_rss_native_units": 87080960,
+      "process_cpu_ns": 220640000,
+      "scope": "stage after imports through receipt preparation; final receipt and interpreter startup/exit excluded; wrapper envelopes overlap",
+      "success": true,
+      "unknown_tails": [
+        "final receipt write",
+        "interactive/development/monitoring"
+      ],
+      "wall_ns": 583316208
+    },
+    "scope": "single public original, independently verified assignment; tiny reproducibility check only, not a gain or fit result"
+  },
+  "accounting": "Command windows are serial, but inner wall/CPU/native publication envelopes overlap. Do not sum inner and outer values or add to frozen historical totals. Final receipt/development/test/monitoring tails remain unknown.",
+  "retained_files": [
+    {
+      "path": "artifacts/task20/clean-reproduction/REPORT.md",
+      "sha256": "f3d051b5ea14914764df6e9cc4989e7ddca715e6bc1250cce7ab2a2eb4134079",
+      "bytes": 19342
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/analytical/design.json",
+      "sha256": "5da9d8fa75e36f4e75cf7ab0b6a5355085534a7ba0d4db59cf07c2ea78228e36",
+      "bytes": 5268
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/analytical.log",
+      "sha256": "5da9d8fa75e36f4e75cf7ab0b6a5355085534a7ba0d4db59cf07c2ea78228e36",
+      "bytes": 5268
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/bootstrap.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/commands.json",
+      "sha256": "c8226177058f510882d5cb09baa2ab4d52c2f314f10c7c56f628464c6b395449",
+      "bytes": 4839
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/install.log",
+      "sha256": "72373eb5f13b64f84c804e65d89ed5b686bd43bdd09e0589fae48b792a93dfc4",
+      "bytes": 3020
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/native-attempts/bf0a604996c18dc34e9b3a5292bde36ad0abb1ab3dbeb9785cbb562bc1eb9ea7/accounting.json",
+      "sha256": "b321e4653c7a0f191314cc278ce4d58a9e51ce21a0e4740a22b349a30ea767e2",
+      "bytes": 511
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/native-attempts/bf0a604996c18dc34e9b3a5292bde36ad0abb1ab3dbeb9785cbb562bc1eb9ea7/active.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/native-attempts/bf0a604996c18dc34e9b3a5292bde36ad0abb1ab3dbeb9785cbb562bc1eb9ea7/attempt.json",
+      "sha256": "e6feb2ba942ac512bb035757d2c75f0bd2634a671f972687aa03fa1974b50925",
+      "bytes": 16917
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/native-attempts/bf0a604996c18dc34e9b3a5292bde36ad0abb1ab3dbeb9785cbb562bc1eb9ea7/attempt.sha256",
+      "sha256": "7be533bc1fd3d4ffcd6e9ebb0a9bd74d3f87e04146dab00fe920ab564513da2a",
+      "bytes": 83
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/native-attempts/bf0a604996c18dc34e9b3a5292bde36ad0abb1ab3dbeb9785cbb562bc1eb9ea7/bootstrap.json",
+      "sha256": "d7281042140ddfe96f4ef31926721479dcf3bb86b059bf1a0a3718d0859d79b8",
+      "bytes": 2204
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/native-attempts/bf0a604996c18dc34e9b3a5292bde36ad0abb1ab3dbeb9785cbb562bc1eb9ea7/partial.json",
+      "sha256": "8aade7bf6fc4170459a72c35521d00e612f4438503038cea27f6390f5b80349c",
+      "bytes": 14972
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/native-attempts/bf0a604996c18dc34e9b3a5292bde36ad0abb1ab3dbeb9785cbb562bc1eb9ea7/progress.jsonl",
+      "sha256": "d35b7e0fd1e7260b8e4eb65ed4372e1dba495ab24bfe22ecbe13b82056ce9e26",
+      "bytes": 3770
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/native-attempts/bf0a604996c18dc34e9b3a5292bde36ad0abb1ab3dbeb9785cbb562bc1eb9ea7/publication.json",
+      "sha256": "f44e4683dcc552da698a2a559fe1d35a7d20d614634b55fab28594d54a585f46",
+      "bytes": 307
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/native-attempts/bf0a604996c18dc34e9b3a5292bde36ad0abb1ab3dbeb9785cbb562bc1eb9ea7/request.json",
+      "sha256": "4a006bc1032c165dcb588027410e49e271e07a888aeb8197cfe2eeaeabeaafcc",
+      "bytes": 1353
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/native-attempts/bf0a604996c18dc34e9b3a5292bde36ad0abb1ab3dbeb9785cbb562bc1eb9ea7/solutions/058ebdcabfd6997665bb62399290c13d871056015fdc51497eac4795cc5b7b46.json",
+      "sha256": "f136f2eada7e3bc572088f078c9669c739b76738cf46dfc2db12c48f2088c516",
+      "bytes": 576
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/native-attempts/bf0a604996c18dc34e9b3a5292bde36ad0abb1ab3dbeb9785cbb562bc1eb9ea7/solutions/0f5608a13e084fddab06d1a9372438789b8098bb9c345175fdb5ebbf81ae1403.json",
+      "sha256": "9b4ed035a0b7325eded1c9f6a851891e7b617c5b776c53e02f4b4a22714fde00",
+      "bytes": 576
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/native-attempts/bf0a604996c18dc34e9b3a5292bde36ad0abb1ab3dbeb9785cbb562bc1eb9ea7/solutions/109549c03f4e30ab6972f05b1f3d20b77067dde7ca06798871aee411eff17065.json",
+      "sha256": "5d40687065d50374b9abab0e46798602c22cbb845023acf2fb950320553cfed4",
+      "bytes": 575
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/native-attempts/bf0a604996c18dc34e9b3a5292bde36ad0abb1ab3dbeb9785cbb562bc1eb9ea7/solutions/55c8611967e9942b0c6a9213b74db4f0dabe78237f685eccb5dd3e21364236ad.json",
+      "sha256": "1ea875d343443e89f5dba2ce5703a39476a7a3e8f0e94511363978bc0ae13fb3",
+      "bytes": 575
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/native-attempts/bf0a604996c18dc34e9b3a5292bde36ad0abb1ab3dbeb9785cbb562bc1eb9ea7/solutions/7da585ec9e6266f6275a062d58282abbffd77f475115fa4b705edd544cb1ae97.json",
+      "sha256": "26cd68a4a645f766199e497e3ea5ed93cfeb6dc4e43179442f337925ea1a015b",
+      "bytes": 575
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/native-attempts/bf0a604996c18dc34e9b3a5292bde36ad0abb1ab3dbeb9785cbb562bc1eb9ea7/solutions/97b4c94641148e3bea1f10a0970f56fb8611557f0fc8e597d8f8d8ba0cbdb0fe.json",
+      "sha256": "cdca277d1964ad2dcb596570b93c1d7be3e0137957ef8de3b2839b035a887f12",
+      "bytes": 576
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/native-attempts/bf0a604996c18dc34e9b3a5292bde36ad0abb1ab3dbeb9785cbb562bc1eb9ea7/solutions/9e9786d2d7b0d85048a61cbb0d3476e65b3b174a5ebb93013d94b8efde5b1597.json",
+      "sha256": "317834ae543f500be1eef7fd440b6b22b26f9f10f9b28a31cbedfa8df0f83952",
+      "bytes": 575
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/native-attempts/bf0a604996c18dc34e9b3a5292bde36ad0abb1ab3dbeb9785cbb562bc1eb9ea7/solutions/9f3b80e70022d28f95b8d5b230aa485a3d62607f0f15a4b0a4dd7aac667b9164.json",
+      "sha256": "3abb8d22cbdf8cf457568713341c4d0ed4e34da9d983c61954e07a5d91a34fe9",
+      "bytes": 575
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/native-attempts/bf0a604996c18dc34e9b3a5292bde36ad0abb1ab3dbeb9785cbb562bc1eb9ea7/solutions/dcc0bb2fe9e13d3d935869310ef77d20929feca50d8d9d5183c8c862a2714591.json",
+      "sha256": "c191703a307c9bfdc24fc694368338b05fd24e7f537312cf740518b12b1579e1",
+      "bytes": 575
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/native-attempts/bf0a604996c18dc34e9b3a5292bde36ad0abb1ab3dbeb9785cbb562bc1eb9ea7/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/native-attempts/bf0a604996c18dc34e9b3a5292bde36ad0abb1ab3dbeb9785cbb562bc1eb9ea7/stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/native-attempts/bf0a604996c18dc34e9b3a5292bde36ad0abb1ab3dbeb9785cbb562bc1eb9ea7/wire.jsonl",
+      "sha256": "d0c0c9aefca0d052f24fb602516c9b43623c09ea70fadbabf046bd970c004d25",
+      "bytes": 14331
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/native-config.json",
+      "sha256": "362a94310ded52991ee67f039bf4c0a7a10b4ddf48f3d923c192514961384c3d",
+      "bytes": 580
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/native-inputs/6f5aafc7ab79e7c3d5bb2e3d61738b84a33c66f1a057fd57c443900280418a90.json",
+      "sha256": "efae133f051aac1712813f53354f8d8485d22362dd3ec3403ddccf4e9c5a1654",
+      "bytes": 5350
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/native-inputs/manifest.json",
+      "sha256": "012cd24ffa42d71689c1e034c9c8c8fef9cf62bca07499f5b9752f3e571a1842",
+      "bytes": 5048
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/native-prospective.json",
+      "sha256": "a19965bdd8cfb3c4ab6fa39f6b3d657509ba7ee4251ba4e1b8a653fd019753e2",
+      "bytes": 7402
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/native-resources.json",
+      "sha256": "18b4300efdd2097a74bf93b4437b4cbfc72ec9b28b77d9e69b45a2f86c4d234b",
+      "bytes": 383
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/native-result.json",
+      "sha256": "670e97ca0e3da55ce0dd89d3c12a632127272b98b98abd0d1fd25c4e6a1ab94b",
+      "bytes": 16264
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/native-tests.log",
+      "sha256": "deed17dbf7a3b932928b4f88ce4c2a6b88c5d8ef4b43c2d790b5e7ddb4373516",
+      "bytes": 179
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/native.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/numerical/calibration.csv",
+      "sha256": "d4c8532dd833e86605d63cb311cef9b96251f87b0d7d6dda6971a04b4f513f9c",
+      "bytes": 713
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/numerical/curves.csv",
+      "sha256": "92236660088ee9be2771dbb6cfca01a91f430e7381abd6366e866bc2c86de91f",
+      "bytes": 51870
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/numerical/endpoints.csv",
+      "sha256": "f70419cf12bffea8b0eff4a2a86cf6f36786d84a440050a1cfbb397cb6c61817",
+      "bytes": 2822821
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/numerical/inference.json",
+      "sha256": "85bc0acc9912229bf034bc22b84e778b397848d4619ad5b517ba6734e46920d7",
+      "bytes": 3931
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/numerical/primary.csv",
+      "sha256": "a7e1bb6519d7a4f7d715ad0ede2ddc95a2bfd18bdc6f68fbf9338de37a60bdf1",
+      "bytes": 1302
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/numerical/resource_summary.csv",
+      "sha256": "ef43c4a67e679bc1747a623f6807419583a7b79c743dc953fc1391ebebbb9c85",
+      "bytes": 6479
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/numerical/secondary_effects.csv",
+      "sha256": "3555c880ebc04f6bcfb585debe5cda3e94a7219b77ceb266a7acdb57a036ed74",
+      "bytes": 41316
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/numerical-resources.json",
+      "sha256": "584eed01de029c631487558cf6f62f44db9b09cdc2ebfe6d4598f3af3d675458",
+      "bytes": 391
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/numerical-verification.json",
+      "sha256": "724e8c97180ad93c1de0f3bd58a77407bfa8dfd61ebb0465a5bbb7001ab9ec0d",
+      "bytes": 4930
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/numerical.log",
+      "sha256": "ad01f3fe86803d8f78f969581e7a0416e9249254d110c83d9c286cbe992fd4c9",
+      "bytes": 680
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/parity-resources.json",
+      "sha256": "702ed17eb688d8bae3966a34ea07e0d0fde35c484818da31f92847a5c93c0f31",
+      "bytes": 384
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/parity.json",
+      "sha256": "921605ef2a24bf93292d7223d4d747720fe116df137601201c1c16fd87961812",
+      "bytes": 149712
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/parity.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/pip-check.log",
+      "sha256": "9261363b733079a641c2e4cc9bc46ffa1d8336945a87f807b6cf68847dbc9b09",
+      "bytes": 30
+    },
+    {
+      "path": "artifacts/task20/clean-reproduction/report.log",
+      "sha256": "5fb95294e7dc5fe7d196245eb9d64272fdd4e1ed744fa5c5dce3457c79b545c0",
+      "bytes": 57566
+    }
+  ]
+}
