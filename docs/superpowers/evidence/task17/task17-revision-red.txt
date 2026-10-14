@@ -1,0 +1,61 @@
+...............F                                                         [100%]
+=================================== FAILURES ===================================
+___ test_calibration_uses_final_dispatched_revision_not_initial_preparation ____
+
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1803/test_calibration_uses_final_di0')
+
+    def test_calibration_uses_final_dispatched_revision_not_initial_preparation(tmp_path):
+        import json,hashlib
+        from ra.report import reconstruct_calibration
+        from ra.types import ProgressRecord
+        directory,a=raw_fixture(tmp_path);trace=directory/'trace';trace.mkdir()
+        root={'epoch':0,'number':1}
+        initial={'index':0,'allocation':{'root':root,'node_limit':1},'pool_ids':[root],'support_lengths':[1,4],
+            'support_hash':'s','selected_features':'first.npy'}
+        prepared={**initial,'allocation':{'root':root,'node_limit':4},'selected_features':'final.npy'}
+        path=trace/'revision.json';path.write_text(json.dumps(prepared))
+        dispatch={'allocation':prepared['allocation'],'selected_features':'final.npy',
+            'final_decision':{'prepared':{'path':'revision.json','sha256':hashlib.sha256(path.read_bytes()).hexdigest()},'heuristic':None}}
+        label={'trace_index':0,'root':root,'node_limit':4,'entry_ns':105,'end_ns':111,'endpoint_gain':.25,
+            'parent_utility_entry':0.,'parent_utility_end':.25,'support_hash':'s'}
+        for name,value in [('decision-000000.json',initial),('dispatch-000000.json',dispatch),('label-000000.json',label)]:
+            (trace/name).write_text(json.dumps(value))
+        progress=[ProgressRecord(**json.loads(line)) for line in (directory/'progress.jsonl').read_text().splitlines()]
+>       assert reconstruct_calibration(directory,progress,a.request)[0]['node_limit']==4
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_report.py:179: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+directory = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1803/test_calibration_uses_final_di0/raw')
+records = [ProgressRecord(request_id='r', sequence=1, child_ns=105, receipt_ns=110, primal_original=4, dual_original=1, incumben..._hash='2c1f496fc7dc6c00125d350d90acfde45f7b11e8b5349bd84824465dbd40c1b7', assignment_available=True, schema_version=1)]
+request = Request(request_id='r', instance_path='/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin...ld_hash=None, prior_attempt_ids=(), prior_costs={}, method_config={}, launch_ns=100, deadline_ns=110, schema_version=1)
+
+    def reconstruct_calibration(directory,records,request):
+        """Validate observed action support and reconstruct lease gains from receipts."""
+        from bisect import bisect_right
+        from ra.freeze import read
+        from ra.metrics import ProgressStream
+        import math
+        stream=ProgressStream(request.deadline_ns,request.p0,bound_tolerance=request.bound_tolerance)
+        receipts=[];utilities=[]
+        for record in records:
+            stream.accept(record)
+            receipts.append(record.receipt_ns);utilities.append(stream.available.utility)
+        def value_at(time):
+            i=bisect_right(receipts,min(time,request.deadline_ns))-1
+            return utilities[i] if i>=0 else 0.
+        labels=[]
+        for path in sorted((directory/'trace').glob('label-*.json')):
+            label=read(path);decision=read(path.with_name(f"decision-{label['trace_index']:06d}.json"))
+            action=decision['allocation']
+            if (label['root']!=action['root'] or label['node_limit']!=action['node_limit']
+                    or action['root'] not in decision['pool_ids'] or action['node_limit'] not in decision['support_lengths']
+>                   or label['support_hash']!=decision['support_hash']): raise ValueError('calibration action outside observed support')
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E                   ValueError: calibration action outside observed support
+
+src/ra/report.py:481: ValueError
+=========================== short test summary info ============================
+FAILED tests/test_report.py::test_calibration_uses_final_dispatched_revision_not_initial_preparation
+1 failed, 15 passed in 0.22s

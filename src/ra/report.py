@@ -461,6 +461,7 @@ def plot_report(out):
 def reconstruct_calibration(directory,records,request):
     """Validate observed action support and reconstruct lease gains from receipts."""
     from bisect import bisect_right
+    from ra.collect import read_decision
     from ra.freeze import read
     from ra.metrics import ProgressStream
     import math
@@ -474,7 +475,7 @@ def reconstruct_calibration(directory,records,request):
         return utilities[i] if i>=0 else 0.
     labels=[]
     for path in sorted((directory/'trace').glob('label-*.json')):
-        label=read(path);decision=read(path.with_name(f"decision-{label['trace_index']:06d}.json"))
+        label=read(path);decision=read_decision(path.with_name(f"decision-{label['trace_index']:06d}.json"))
         action=decision['allocation']
         if (label['root']!=action['root'] or label['node_limit']!=action['node_limit']
                 or action['root'] not in decision['pool_ids'] or action['node_limit'] not in decision['support_lengths']

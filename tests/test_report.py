@@ -138,7 +138,7 @@ def test_receipt_calibration_rebuilds_gain_and_checks_observed_support(tmp_path)
     directory,a=raw_fixture(tmp_path); trace=directory/'trace';trace.mkdir()
     label={'trace_index':0,'root':{'epoch':0,'number':1},'node_limit':4,'entry_ns':105,'end_ns':111,
         'endpoint_gain':.25,'parent_utility_entry':0.,'parent_utility_end':.25,'support_hash':'support'}
-    decision={'allocation':{'root':label['root'],'node_limit':4},'pool_ids':[label['root']],'support_lengths':[1,4],
+    decision={'index':0,'allocation':{'root':label['root'],'node_limit':4},'pool_ids':[label['root']],'support_lengths':[1,4],
         'support_hash':'support'}
     (trace/'label-000000.json').write_text(json.dumps(label));(trace/'decision-000000.json').write_text(json.dumps(decision))
     progress=[ProgressRecord(**json.loads(line)) for line in (directory/'progress.jsonl').read_text().splitlines()]
@@ -157,3 +157,23 @@ def test_q90_targets_body_duration_and_deadline_censoring_is_retained():
     r=calibration_summary([a],{a.request_id:{'method':'A'}})[0]
     assert r['q90_coverage_observed_complete']==1.
     assert r['completed']==1 and r['censored']==1
+
+
+def test_calibration_uses_final_dispatched_revision_not_initial_preparation(tmp_path):
+    import json,hashlib
+    from ra.report import reconstruct_calibration
+    from ra.types import ProgressRecord
+    directory,a=raw_fixture(tmp_path);trace=directory/'trace';trace.mkdir()
+    root={'epoch':0,'number':1}
+    initial={'index':0,'allocation':{'root':root,'node_limit':1},'pool_ids':[root],'support_lengths':[1,4],
+        'support_hash':'s','selected_features':'first.npy'}
+    prepared={**initial,'allocation':{'root':root,'node_limit':4},'selected_features':'final.npy'}
+    path=trace/'revision.json';path.write_text(json.dumps(prepared))
+    dispatch={'allocation':prepared['allocation'],'selected_features':'final.npy',
+        'final_decision':{'prepared':{'path':'revision.json','sha256':hashlib.sha256(path.read_bytes()).hexdigest()},'heuristic':None}}
+    label={'trace_index':0,'root':root,'node_limit':4,'entry_ns':105,'end_ns':111,'endpoint_gain':.25,
+        'parent_utility_entry':0.,'parent_utility_end':.25,'support_hash':'s'}
+    for name,value in [('decision-000000.json',initial),('dispatch-000000.json',dispatch),('label-000000.json',label)]:
+        (trace/name).write_text(json.dumps(value))
+    progress=[ProgressRecord(**json.loads(line)) for line in (directory/'progress.jsonl').read_text().splitlines()]
+    assert reconstruct_calibration(directory,progress,a.request)[0]['node_limit']==4
