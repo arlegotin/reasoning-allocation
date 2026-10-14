@@ -1,0 +1,2 @@
+# Isolated plotting environment only; the frozen solver .venv is untouched.
+matplotlib==3.10.7

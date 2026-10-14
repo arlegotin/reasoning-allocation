@@ -5,7 +5,7 @@ import math
 from typing import Sequence
 
 from ra.exact import normalized_utility
-from ra.types import AvailableProgress, ProgressRecord
+from ra.types import Attempt, AvailableProgress, ProgressRecord
 
 
 def utility(p: float, d: float, p0: int, d0: float = 0.0) -> float:
@@ -95,3 +95,62 @@ def log_budget_weights(deadlines: Sequence[float]) -> list[float]:
     span = points[-1] - points[0]
     widths = [b-a for a,b in zip(points, points[1:])]
     return [widths[0]/(2*span), *[(a+b)/(2*span) for a,b in zip(widths,widths[1:])], widths[-1]/(2*span)]
+
+
+def summarize_attempts(attempts: Sequence['Attempt'], protocol: dict[str, object]) -> list[dict[str, object]]:
+    """One receipt-reconstructed cold endpoint per row; frontier repeats on its budgets.
+
+    Callers authenticate/reconstruct Attempts first. Queue labels identify repeats
+    and genuine fits; solver seeds and leases never become independent units.
+    """
+    from collections import defaultdict
+    from ra.freeze import read
+    from pathlib import Path
+    deadlines, weights = protocol['deadlines_ns'], protocol['weights']
+    if len(weights) != len(deadlines) or not math.isclose(sum(weights), 1.):
+        raise ValueError('invalid frontier weights')
+    queue = read(Path(protocol['queue']['path'])) if 'queue' in protocol else []
+    metadata = {r['request_id']:r for r in queue}
+    names = {v['name']:k for k,v in protocol['physical_methods'].items()}
+    groups, rows, seen = defaultdict(list), [], set()
+    native = protocol['planning']['native_methods']
+    for a in attempts:
+        r, available = a.request, a.available
+        q = metadata.get(a.request_id)
+        if queue and q is None: raise ValueError('attempt absent from frozen queue')
+        method = q['method'] if q else names[r.method]
+        fit = q['fit_id'] if q else ('shared' if method in native else protocol['fit_ids'][0])
+        repeat = q['repeat'] if q else r.solver_seed
+        key = (a.template_id, method, fit, repeat)
+        identity = (*key, r.budget_ns)
+        if identity in seen: raise ValueError('duplicate endpoint')
+        if r.budget_ns not in deadlines: raise ValueError('unregistered budget')
+        seen.add(identity)
+        primal, dual = available.primal_original, available.dual_original
+        gap = primal-dual if primal is not None else None
+        alarm = a.quarantined or a.status == 'numerical_alarm'
+        if available.assignment_available:
+            rebuilt = normalized_utility(primal,dual,r.p0,tolerance=r.bound_tolerance,anchor_dual=0)
+            if not math.isclose(rebuilt,available.utility,abs_tol=1e-12):
+                raise ValueError('available utility mismatch')
+        elif available.utility != 0 or primal is not None:
+            raise ValueError('unavailable assignment has utility')
+        row = dict(template_id=a.template_id,cell_id=a.cell_id,method=method,fit_id=fit,repeat=repeat,
+            request_id=a.request_id,attempt_id=a.attempt_id,budget_ns=r.budget_ns,deadline_ns=r.deadline_ns,
+            population_cell_weight=protocol['planning']['cells'][a.cell_id],
+            family=(a.lineage or {}).get('cell',a.lineage or {}).get('family'),status=str(a.status),utility=available.utility,
+            assignment_available=available.assignment_available,primal=primal,dual=dual,raw_gap=gap,
+            plot_gap=max(0.,gap) if gap is not None else None,
+            relative_gap=gap/max(1.,abs(primal)) if gap is not None else None,
+            normalized_primal=primal/r.p0 if primal is not None else None,normalized_dual=dual/r.p0,
+            solved=gap is not None and abs(gap)<=r.bound_tolerance,correctness_alarm=alarm,
+            fault=a.status not in ('complete','deadline'),duration_censored=a.duration_censored,
+            overshoot_ns=a.overshoot_ns,initial_primal=r.p0)
+        row.update({'resource_'+k:v for k,v in a.resources.items() if isinstance(v,(int,float,bool)) or v is None})
+        row.update({'timestamp_'+k:v for k,v in a.timestamps.items()})
+        groups[key].append(row); rows.append(row)
+    for group in groups.values():
+        if sorted(r['budget_ns'] for r in group)!=deadlines: raise ValueError('incomplete frontier budgets')
+        frontier = sum(w*next(r['utility'] for r in group if r['budget_ns']==b) for b,w in zip(deadlines,weights))
+        for row in group: row['frontier']=frontier
+    return rows

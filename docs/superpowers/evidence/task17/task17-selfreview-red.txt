@@ -1,0 +1,32 @@
+....F.............F                                                      [100%]
+=================================== FAILURES ===================================
+________________ test_actual_generator_lineage_preserves_family ________________
+
+    def test_actual_generator_lineage_preserves_family():
+        from ra.metrics import summarize_attempts
+        ats=[replace(attempt(b,.2),lineage={'cell':{'family':'block'}}) for b in [1,4,16]]
+>       assert {r['family'] for r in summarize_attempts(ats,protocol())}=={'block'}
+E       AssertionError: assert {None} == {'block'}
+E         
+E         Extra items in the left set:
+E         None
+E         Extra items in the right set:
+E         'block'
+E         Use -v to get more diff
+
+tests/test_metrics.py:65: AssertionError
+______ test_receipt_calibration_rebuilds_gain_and_checks_observed_support ______
+
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1797/test_receipt_calibration_rebui0')
+
+    def test_receipt_calibration_rebuilds_gain_and_checks_observed_support(tmp_path):
+        import json
+        from dataclasses import replace
+>       from ra.report import reconstruct_calibration
+E       ImportError: cannot import name 'reconstruct_calibration' from 'ra.report' (/Users/artemlegotin/Documents/git_alter/reasoning-allocation/src/ra/report.py)
+
+tests/test_report.py:136: ImportError
+=========================== short test summary info ============================
+FAILED tests/test_metrics.py::test_actual_generator_lineage_preserves_family
+FAILED tests/test_report.py::test_receipt_calibration_rebuilds_gain_and_checks_observed_support
+2 failed, 17 passed in 0.19s

@@ -1,0 +1,15 @@
+............F                                                            [100%]
+=================================== FAILURES ===================================
+__ test_project_costs_count_physical_attempt_once_and_ignore_cumulative_prior __
+
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1795/test_project_costs_count_physi0')
+
+    def test_project_costs_count_physical_attempt_once_and_ignore_cumulative_prior(tmp_path):
+        import json
+>       from ra.report import project_cost_inventory
+E       ImportError: cannot import name 'project_cost_inventory' from 'ra.report' (/Users/artemlegotin/Documents/git_alter/reasoning-allocation/src/ra/report.py)
+
+tests/test_report.py:119: ImportError
+=========================== short test summary info ============================
+FAILED tests/test_report.py::test_project_costs_count_physical_attempt_once_and_ignore_cumulative_prior
+1 failed, 12 passed in 0.17s

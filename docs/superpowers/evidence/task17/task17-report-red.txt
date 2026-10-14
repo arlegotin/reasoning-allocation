@@ -1,0 +1,133 @@
+.........FFF                                                             [100%]
+=================================== FAILURES ===================================
+____ test_resource_scopes_keep_peak_and_missing_cpu_without_double_counting ____
+
+    def test_resource_scopes_keep_peak_and_missing_cpu_without_double_counting():
+>       from ra.report import resource_summary
+E       ImportError: cannot import name 'resource_summary' from 'ra.report' (/Users/artemlegotin/Documents/git_alter/reasoning-allocation/src/ra/report.py)
+
+tests/test_report.py:85: ImportError
+________ test_calibration_only_observed_supported_actions_and_censoring ________
+
+    def test_calibration_only_observed_supported_actions_and_censoring():
+>       from ra.report import calibration_summary
+E       ImportError: cannot import name 'calibration_summary' from 'ra.report' (/Users/artemlegotin/Documents/git_alter/reasoning-allocation/src/ra/report.py)
+
+tests/test_report.py:98: ImportError
+_______________ test_cli_analyze_routes_dry_run_without_writing ________________
+
+self = ArgumentParser(prog='ra', usage=None, description='Local reasoning allocation diagnostics', formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='error', add_help=True)
+args = ['analyze', '--config', 'configs/confirmatory-A004.json', '--out', '/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1792/test_cli_analyze_routes_dry_ru0/out', '--dry-run']
+namespace = Namespace(command=None), intermixed = False
+
+    def _parse_known_args2(self, args, namespace, intermixed):
+        if args is None:
+            # args default to the system args
+            args = _sys.argv[1:]
+        else:
+            # make sure that args are mutable
+            args = list(args)
+    
+        # default Namespace built from parser defaults
+        if namespace is None:
+            namespace = Namespace()
+    
+        # add any action defaults that aren't present
+        for action in self._actions:
+            if action.dest is not SUPPRESS:
+                if not hasattr(namespace, action.dest):
+                    if action.default is not SUPPRESS:
+                        setattr(namespace, action.dest, action.default)
+    
+        # add any parser defaults that aren't present
+        for dest in self._defaults:
+            if not hasattr(namespace, dest):
+                setattr(namespace, dest, self._defaults[dest])
+    
+        # parse the arguments and exit if there are any errors
+        if self.exit_on_error:
+            try:
+>               namespace, args = self._parse_known_args(args, namespace, intermixed)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/opt/homebrew/Cellar/python@3.12/3.12.9/Frameworks/Python.framework/Versions/3.12/lib/python3.12/argparse.py:1943: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/opt/homebrew/Cellar/python@3.12/3.12.9/Frameworks/Python.framework/Versions/3.12/lib/python3.12/argparse.py:2165: in _parse_known_args
+    positionals_end_index = consume_positionals(start_index)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/homebrew/Cellar/python@3.12/3.12.9/Frameworks/Python.framework/Versions/3.12/lib/python3.12/argparse.py:2141: in consume_positionals
+    take_action(action, args)
+/opt/homebrew/Cellar/python@3.12/3.12.9/Frameworks/Python.framework/Versions/3.12/lib/python3.12/argparse.py:2003: in take_action
+    argument_values = self._get_values(action, argument_strings)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/homebrew/Cellar/python@3.12/3.12.9/Frameworks/Python.framework/Versions/3.12/lib/python3.12/argparse.py:2523: in _get_values
+    self._check_value(action, value[0])
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = ArgumentParser(prog='ra', usage=None, description='Local reasoning allocation diagnostics', formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='error', add_help=True)
+action = _SubParsersAction(option_strings=[], dest='command', nargs='A...', const=None, default=None, type=None, choices={'doct...ss=<class 'argparse.HelpFormatter'>, conflict_handler='error', add_help=True)}, required=True, help=None, metavar=None)
+value = 'analyze'
+
+    def _check_value(self, action, value):
+        # converted value must be one of the choices (if specified)
+        choices = action.choices
+        if choices is not None:
+            if isinstance(choices, str):
+                choices = iter(choices)
+            if value not in choices:
+                args = {'value': str(value),
+                        'choices': ', '.join(map(str, action.choices))}
+                msg = _('invalid choice: %(value)r (choose from %(choices)s)')
+>               raise ArgumentError(action, msg % args)
+E               argparse.ArgumentError: argument command: invalid choice: 'analyze' (choose from doctor, check, generate, run, collect, train, reproduce, freeze, verify-freeze, report)
+
+/opt/homebrew/Cellar/python@3.12/3.12.9/Frameworks/Python.framework/Versions/3.12/lib/python3.12/argparse.py:2573: ArgumentError
+
+During handling of the above exception, another exception occurred:
+
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1792/test_cli_analyze_routes_dry_ru0')
+capsys = <_pytest.capture.CaptureFixture object at 0x10a077020>
+
+    def test_cli_analyze_routes_dry_run_without_writing(tmp_path,capsys):
+        from ra.cli import main
+>       assert main(['analyze','--config','configs/confirmatory-A004.json','--out',str(tmp_path/'out'),'--dry-run'])==0
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_report.py:113: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/ra/cli.py:58: in main
+    args = parser.parse_args(argv)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+/opt/homebrew/Cellar/python@3.12/3.12.9/Frameworks/Python.framework/Versions/3.12/lib/python3.12/argparse.py:1904: in parse_args
+    args, argv = self.parse_known_args(args, namespace)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/homebrew/Cellar/python@3.12/3.12.9/Frameworks/Python.framework/Versions/3.12/lib/python3.12/argparse.py:1914: in parse_known_args
+    return self._parse_known_args2(args, namespace, intermixed=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/homebrew/Cellar/python@3.12/3.12.9/Frameworks/Python.framework/Versions/3.12/lib/python3.12/argparse.py:1945: in _parse_known_args2
+    self.error(str(err))
+/opt/homebrew/Cellar/python@3.12/3.12.9/Frameworks/Python.framework/Versions/3.12/lib/python3.12/argparse.py:2650: in error
+    self.exit(2, _('%(prog)s: error: %(message)s\n') % args)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = ArgumentParser(prog='ra', usage=None, description='Local reasoning allocation diagnostics', formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='error', add_help=True)
+status = 2
+message = "ra: error: argument command: invalid choice: 'analyze' (choose from doctor, check, generate, run, collect, train, reproduce, freeze, verify-freeze, report)\n"
+
+    def exit(self, status=0, message=None):
+        if message:
+            self._print_message(message, _sys.stderr)
+>       _sys.exit(status)
+E       SystemExit: 2
+
+/opt/homebrew/Cellar/python@3.12/3.12.9/Frameworks/Python.framework/Versions/3.12/lib/python3.12/argparse.py:2637: SystemExit
+----------------------------- Captured stderr call -----------------------------
+usage: ra [-h]
+          {doctor,check,generate,run,collect,train,reproduce,freeze,verify-freeze,report}
+          ...
+ra: error: argument command: invalid choice: 'analyze' (choose from doctor, check, generate, run, collect, train, reproduce, freeze, verify-freeze, report)
+=========================== short test summary info ============================
+FAILED tests/test_report.py::test_resource_scopes_keep_peak_and_missing_cpu_without_double_counting
+FAILED tests/test_report.py::test_calibration_only_observed_supported_actions_and_censoring
+FAILED tests/test_report.py::test_cli_analyze_routes_dry_run_without_writing
+3 failed, 9 passed in 0.37s

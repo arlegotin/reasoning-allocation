@@ -1,0 +1,492 @@
+FF.FFFFFFFFFFFFFFFF                                                      [100%]
+=================================== FAILURES ===================================
+__________ test_frontier_uses_all_deadlines_and_retains_fault_output ___________
+
+    def test_frontier_uses_all_deadlines_and_retains_fault_output():
+>       from ra.metrics import summarize_attempts
+E       ImportError: cannot import name 'summarize_attempts' from 'ra.metrics' (/Users/artemlegotin/Documents/git_alter/reasoning-allocation/src/ra/metrics.py)
+
+tests/test_metrics.py:28: ImportError
+_________ test_summary_rejects_duplicate_and_incomplete_budget_groups __________
+
+    def test_summary_rejects_duplicate_and_incomplete_budget_groups():
+>       from ra.metrics import summarize_attempts
+E       ImportError: cannot import name 'summarize_attempts' from 'ra.metrics' (/Users/artemlegotin/Documents/git_alter/reasoning-allocation/src/ra/metrics.py)
+
+tests/test_metrics.py:39: ImportError
+__________________ test_raw_gap_is_not_tolerance_plot_clipped __________________
+
+    def test_raw_gap_is_not_tolerance_plot_clipped():
+>       from ra.metrics import summarize_attempts
+E       ImportError: cannot import name 'summarize_attempts' from 'ra.metrics' (/Users/artemlegotin/Documents/git_alter/reasoning-allocation/src/ra/metrics.py)
+
+tests/test_metrics.py:55: ImportError
+___________ test_constant_paired_advantage_has_exact_endpoints[0.0] ____________
+
+gain = 0.0
+
+    @pytest.mark.parametrize('gain',[0.,.02,-.02])
+    def test_constant_paired_advantage_has_exact_endpoints(gain):
+>       from ra.stats import paired_frontier_intervals
+E       ImportError: cannot import name 'paired_frontier_intervals' from 'ra.stats' (/Users/artemlegotin/Documents/git_alter/reasoning-allocation/src/ra/stats.py)
+
+tests/test_stats.py:21: ImportError
+___________ test_constant_paired_advantage_has_exact_endpoints[0.02] ___________
+
+gain = 0.02
+
+    @pytest.mark.parametrize('gain',[0.,.02,-.02])
+    def test_constant_paired_advantage_has_exact_endpoints(gain):
+>       from ra.stats import paired_frontier_intervals
+E       ImportError: cannot import name 'paired_frontier_intervals' from 'ra.stats' (/Users/artemlegotin/Documents/git_alter/reasoning-allocation/src/ra/stats.py)
+
+tests/test_stats.py:21: ImportError
+__________ test_constant_paired_advantage_has_exact_endpoints[-0.02] ___________
+
+gain = -0.02
+
+    @pytest.mark.parametrize('gain',[0.,.02,-.02])
+    def test_constant_paired_advantage_has_exact_endpoints(gain):
+>       from ra.stats import paired_frontier_intervals
+E       ImportError: cannot import name 'paired_frontier_intervals' from 'ra.stats' (/Users/artemlegotin/Documents/git_alter/reasoning-allocation/src/ra/stats.py)
+
+tests/test_stats.py:21: ImportError
+____________ test_strata_weights_not_empirical_population_frequency ____________
+
+    def test_strata_weights_not_empirical_population_frequency():
+>       from ra.stats import paired_frontier_intervals
+E       ImportError: cannot import name 'paired_frontier_intervals' from 'ra.stats' (/Users/artemlegotin/Documents/git_alter/reasoning-allocation/src/ra/stats.py)
+
+tests/test_stats.py:33: ImportError
+______ test_native_is_shared_across_fit_draws_and_complete_pairs_required ______
+
+    def test_native_is_shared_across_fit_draws_and_complete_pairs_required():
+>       from ra.stats import paired_frontier_intervals
+E       ImportError: cannot import name 'paired_frontier_intervals' from 'ra.stats' (/Users/artemlegotin/Documents/git_alter/reasoning-allocation/src/ra/stats.py)
+
+tests/test_stats.py:41: ImportError
+__________________ test_bonferroni_and_all_contrasts_retained __________________
+
+    def test_bonferroni_and_all_contrasts_retained():
+>       from ra.stats import paired_frontier_intervals
+E       ImportError: cannot import name 'paired_frontier_intervals' from 'ra.stats' (/Users/artemlegotin/Documents/git_alter/reasoning-allocation/src/ra/stats.py)
+
+tests/test_stats.py:54: ImportError
+_______________ test_planning_rejects_too_few_bootstrap_draws[1] _______________
+
+n = 1
+
+    @pytest.mark.parametrize('n',[1,2,3])
+    def test_planning_rejects_too_few_bootstrap_draws(n):
+        from ra.stats import calibrate_design
+        p=protocol()['planning'];p['bootstrap_repetitions']=n
+>       with pytest.raises(ValueError,match='bootstrap|dimensions'): calibrate_design([{**r,'phase':'pilot'} for r in rows()],p)
+                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_stats.py:67: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/ra/stats.py:79: in calibrate_design
+    batches=[np.quantile(block[:,k],[q,1-q]) for block in np.array_split(crossed,4)]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4509: in quantile
+    return _quantile_unchecked(
+.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4523: in _quantile_unchecked
+    return _ureduce(a,
+.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:3893: in _ureduce
+    r = func(a, **kwargs)
+        ^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4682: in _quantile_ureduce_func
+    result = _quantile(arr,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+arr = array([], dtype=float64), quantiles = array([0.025, 0.975]), axis = 0
+method = 'linear', out = None, weights = None, weak_q = False
+
+    def _quantile(
+        arr: "np.typing.ArrayLike",
+        quantiles: np.ndarray,
+        axis: int = -1,
+        method: str = "linear",
+        out: np.ndarray | None = None,
+        weights: "np.typing.ArrayLike | None" = None,
+        weak_q: bool = False,
+    ) -> np.ndarray:
+        """
+        Private function that doesn't support extended axis or keepdims.
+        These methods are extended to this function using _ureduce.
+        See nanpercentile for parameter usage.
+        It computes the quantiles of the array for the given axis.
+        A linear interpolation is performed based on the `method`.
+    
+        By default, the method is "linear" where alpha == beta == 1 which
+        performs the 7th method of Hyndman&Fan.
+        With "median_unbiased" we get alpha == beta == 1/3
+        thus the 8th method of Hyndman&Fan.
+        """
+        # --- Setup
+        arr = np.asanyarray(arr)
+        values_count = arr.shape[axis]
+        # The dimensions of `q` are prepended to the output shape, so we need the
+        # axis being sampled from `arr` to be last.
+        if axis != 0:  # But moveaxis is slow, so only call it if necessary.
+            arr = np.moveaxis(arr, axis, destination=0)
+        supports_nans = (
+            np.issubdtype(arr.dtype, np.inexact) or arr.dtype.kind in 'Mm'
+        )
+    
+        if weights is None:
+            # --- Computation of indexes
+            # Index where to find the value in the sorted array.
+            # Virtual because it is a floating point value, not a valid index.
+            # The nearest neighbours are used for interpolation
+            try:
+                method_props = _QuantileMethods[method]
+            except KeyError:
+                raise ValueError(
+                    f"{method!r} is not a valid method. Use one of: "
+                    f"{_QuantileMethods.keys()}") from None
+            virtual_indexes = method_props["get_virtual_index"](values_count,
+                                                                quantiles)
+            virtual_indexes = np.asanyarray(virtual_indexes)
+    
+            if method_props["fix_gamma"] is None:
+                supports_integers = True
+            else:
+                int_virtual_indices = np.issubdtype(virtual_indexes.dtype,
+                                                    np.integer)
+                supports_integers = method == 'linear' and int_virtual_indices
+    
+            if supports_integers:
+                # No interpolation needed, take the points along axis
+                if supports_nans:
+                    # may contain nan, which would sort to the end
+                    arr.partition(
+                        concatenate((virtual_indexes.ravel(), [-1])), axis=0,
+                    )
+                    slices_having_nans = np.isnan(arr[-1, ...])
+                else:
+                    # cannot contain nan
+                    arr.partition(virtual_indexes.ravel(), axis=0)
+                    slices_having_nans = np.array(False, dtype=bool)
+                result = take(arr, virtual_indexes, axis=0, out=out)
+            else:
+                previous_indexes, next_indexes = _get_indexes(arr,
+                                                              virtual_indexes,
+                                                              values_count)
+                # --- Sorting
+                arr.partition(
+                    np.unique(np.concatenate(([0, -1],
+                                              previous_indexes.ravel(),
+                                              next_indexes.ravel(),
+                                              ))),
+                    axis=0)
+                if supports_nans:
+>                   slices_having_nans = np.isnan(arr[-1, ...])
+                                                  ^^^^^^^^^^^^
+E                   IndexError: index -1 is out of bounds for axis 0 with size 0
+
+.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4806: IndexError
+_______________ test_planning_rejects_too_few_bootstrap_draws[2] _______________
+
+n = 2
+
+    @pytest.mark.parametrize('n',[1,2,3])
+    def test_planning_rejects_too_few_bootstrap_draws(n):
+        from ra.stats import calibrate_design
+        p=protocol()['planning'];p['bootstrap_repetitions']=n
+>       with pytest.raises(ValueError,match='bootstrap|dimensions'): calibrate_design([{**r,'phase':'pilot'} for r in rows()],p)
+                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_stats.py:67: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/ra/stats.py:79: in calibrate_design
+    batches=[np.quantile(block[:,k],[q,1-q]) for block in np.array_split(crossed,4)]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4509: in quantile
+    return _quantile_unchecked(
+.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4523: in _quantile_unchecked
+    return _ureduce(a,
+.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:3893: in _ureduce
+    r = func(a, **kwargs)
+        ^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4682: in _quantile_ureduce_func
+    result = _quantile(arr,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+arr = array([], dtype=float64), quantiles = array([0.025, 0.975]), axis = 0
+method = 'linear', out = None, weights = None, weak_q = False
+
+    def _quantile(
+        arr: "np.typing.ArrayLike",
+        quantiles: np.ndarray,
+        axis: int = -1,
+        method: str = "linear",
+        out: np.ndarray | None = None,
+        weights: "np.typing.ArrayLike | None" = None,
+        weak_q: bool = False,
+    ) -> np.ndarray:
+        """
+        Private function that doesn't support extended axis or keepdims.
+        These methods are extended to this function using _ureduce.
+        See nanpercentile for parameter usage.
+        It computes the quantiles of the array for the given axis.
+        A linear interpolation is performed based on the `method`.
+    
+        By default, the method is "linear" where alpha == beta == 1 which
+        performs the 7th method of Hyndman&Fan.
+        With "median_unbiased" we get alpha == beta == 1/3
+        thus the 8th method of Hyndman&Fan.
+        """
+        # --- Setup
+        arr = np.asanyarray(arr)
+        values_count = arr.shape[axis]
+        # The dimensions of `q` are prepended to the output shape, so we need the
+        # axis being sampled from `arr` to be last.
+        if axis != 0:  # But moveaxis is slow, so only call it if necessary.
+            arr = np.moveaxis(arr, axis, destination=0)
+        supports_nans = (
+            np.issubdtype(arr.dtype, np.inexact) or arr.dtype.kind in 'Mm'
+        )
+    
+        if weights is None:
+            # --- Computation of indexes
+            # Index where to find the value in the sorted array.
+            # Virtual because it is a floating point value, not a valid index.
+            # The nearest neighbours are used for interpolation
+            try:
+                method_props = _QuantileMethods[method]
+            except KeyError:
+                raise ValueError(
+                    f"{method!r} is not a valid method. Use one of: "
+                    f"{_QuantileMethods.keys()}") from None
+            virtual_indexes = method_props["get_virtual_index"](values_count,
+                                                                quantiles)
+            virtual_indexes = np.asanyarray(virtual_indexes)
+    
+            if method_props["fix_gamma"] is None:
+                supports_integers = True
+            else:
+                int_virtual_indices = np.issubdtype(virtual_indexes.dtype,
+                                                    np.integer)
+                supports_integers = method == 'linear' and int_virtual_indices
+    
+            if supports_integers:
+                # No interpolation needed, take the points along axis
+                if supports_nans:
+                    # may contain nan, which would sort to the end
+                    arr.partition(
+                        concatenate((virtual_indexes.ravel(), [-1])), axis=0,
+                    )
+                    slices_having_nans = np.isnan(arr[-1, ...])
+                else:
+                    # cannot contain nan
+                    arr.partition(virtual_indexes.ravel(), axis=0)
+                    slices_having_nans = np.array(False, dtype=bool)
+                result = take(arr, virtual_indexes, axis=0, out=out)
+            else:
+                previous_indexes, next_indexes = _get_indexes(arr,
+                                                              virtual_indexes,
+                                                              values_count)
+                # --- Sorting
+                arr.partition(
+                    np.unique(np.concatenate(([0, -1],
+                                              previous_indexes.ravel(),
+                                              next_indexes.ravel(),
+                                              ))),
+                    axis=0)
+                if supports_nans:
+>                   slices_having_nans = np.isnan(arr[-1, ...])
+                                                  ^^^^^^^^^^^^
+E                   IndexError: index -1 is out of bounds for axis 0 with size 0
+
+.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4806: IndexError
+_______________ test_planning_rejects_too_few_bootstrap_draws[3] _______________
+
+n = 3
+
+    @pytest.mark.parametrize('n',[1,2,3])
+    def test_planning_rejects_too_few_bootstrap_draws(n):
+        from ra.stats import calibrate_design
+        p=protocol()['planning'];p['bootstrap_repetitions']=n
+>       with pytest.raises(ValueError,match='bootstrap|dimensions'): calibrate_design([{**r,'phase':'pilot'} for r in rows()],p)
+                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_stats.py:67: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/ra/stats.py:79: in calibrate_design
+    batches=[np.quantile(block[:,k],[q,1-q]) for block in np.array_split(crossed,4)]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4509: in quantile
+    return _quantile_unchecked(
+.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4523: in _quantile_unchecked
+    return _ureduce(a,
+.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:3893: in _ureduce
+    r = func(a, **kwargs)
+        ^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4682: in _quantile_ureduce_func
+    result = _quantile(arr,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+arr = array([], dtype=float64), quantiles = array([0.025, 0.975]), axis = 0
+method = 'linear', out = None, weights = None, weak_q = False
+
+    def _quantile(
+        arr: "np.typing.ArrayLike",
+        quantiles: np.ndarray,
+        axis: int = -1,
+        method: str = "linear",
+        out: np.ndarray | None = None,
+        weights: "np.typing.ArrayLike | None" = None,
+        weak_q: bool = False,
+    ) -> np.ndarray:
+        """
+        Private function that doesn't support extended axis or keepdims.
+        These methods are extended to this function using _ureduce.
+        See nanpercentile for parameter usage.
+        It computes the quantiles of the array for the given axis.
+        A linear interpolation is performed based on the `method`.
+    
+        By default, the method is "linear" where alpha == beta == 1 which
+        performs the 7th method of Hyndman&Fan.
+        With "median_unbiased" we get alpha == beta == 1/3
+        thus the 8th method of Hyndman&Fan.
+        """
+        # --- Setup
+        arr = np.asanyarray(arr)
+        values_count = arr.shape[axis]
+        # The dimensions of `q` are prepended to the output shape, so we need the
+        # axis being sampled from `arr` to be last.
+        if axis != 0:  # But moveaxis is slow, so only call it if necessary.
+            arr = np.moveaxis(arr, axis, destination=0)
+        supports_nans = (
+            np.issubdtype(arr.dtype, np.inexact) or arr.dtype.kind in 'Mm'
+        )
+    
+        if weights is None:
+            # --- Computation of indexes
+            # Index where to find the value in the sorted array.
+            # Virtual because it is a floating point value, not a valid index.
+            # The nearest neighbours are used for interpolation
+            try:
+                method_props = _QuantileMethods[method]
+            except KeyError:
+                raise ValueError(
+                    f"{method!r} is not a valid method. Use one of: "
+                    f"{_QuantileMethods.keys()}") from None
+            virtual_indexes = method_props["get_virtual_index"](values_count,
+                                                                quantiles)
+            virtual_indexes = np.asanyarray(virtual_indexes)
+    
+            if method_props["fix_gamma"] is None:
+                supports_integers = True
+            else:
+                int_virtual_indices = np.issubdtype(virtual_indexes.dtype,
+                                                    np.integer)
+                supports_integers = method == 'linear' and int_virtual_indices
+    
+            if supports_integers:
+                # No interpolation needed, take the points along axis
+                if supports_nans:
+                    # may contain nan, which would sort to the end
+                    arr.partition(
+                        concatenate((virtual_indexes.ravel(), [-1])), axis=0,
+                    )
+                    slices_having_nans = np.isnan(arr[-1, ...])
+                else:
+                    # cannot contain nan
+                    arr.partition(virtual_indexes.ravel(), axis=0)
+                    slices_having_nans = np.array(False, dtype=bool)
+                result = take(arr, virtual_indexes, axis=0, out=out)
+            else:
+                previous_indexes, next_indexes = _get_indexes(arr,
+                                                              virtual_indexes,
+                                                              values_count)
+                # --- Sorting
+                arr.partition(
+                    np.unique(np.concatenate(([0, -1],
+                                              previous_indexes.ravel(),
+                                              next_indexes.ravel(),
+                                              ))),
+                    axis=0)
+                if supports_nans:
+>                   slices_having_nans = np.isnan(arr[-1, ...])
+                                                  ^^^^^^^^^^^^
+E                   IndexError: index -1 is out of bounds for axis 0 with size 0
+
+.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4806: IndexError
+________________ test_distinct_claim_classes[bounds0-positive] _________________
+
+bounds = [0.01, 0.03], word = 'positive'
+
+    @pytest.mark.parametrize('bounds,word',[([.01,.03],'positive'),([-.03,-.01],'negative'),([-.0001,.0001],'tight-null'),([-.1,.1],'inconclusive')])
+    def test_distinct_claim_classes(bounds,word):
+>       from ra.report import classify_claim
+E       ModuleNotFoundError: No module named 'ra.report'
+
+tests/test_report.py:7: ModuleNotFoundError
+________________ test_distinct_claim_classes[bounds1-negative] _________________
+
+bounds = [-0.03, -0.01], word = 'negative'
+
+    @pytest.mark.parametrize('bounds,word',[([.01,.03],'positive'),([-.03,-.01],'negative'),([-.0001,.0001],'tight-null'),([-.1,.1],'inconclusive')])
+    def test_distinct_claim_classes(bounds,word):
+>       from ra.report import classify_claim
+E       ModuleNotFoundError: No module named 'ra.report'
+
+tests/test_report.py:7: ModuleNotFoundError
+_______________ test_distinct_claim_classes[bounds2-tight-null] ________________
+
+bounds = [-0.0001, 0.0001], word = 'tight-null'
+
+    @pytest.mark.parametrize('bounds,word',[([.01,.03],'positive'),([-.03,-.01],'negative'),([-.0001,.0001],'tight-null'),([-.1,.1],'inconclusive')])
+    def test_distinct_claim_classes(bounds,word):
+>       from ra.report import classify_claim
+E       ModuleNotFoundError: No module named 'ra.report'
+
+tests/test_report.py:7: ModuleNotFoundError
+______________ test_distinct_claim_classes[bounds3-inconclusive] _______________
+
+bounds = [-0.1, 0.1], word = 'inconclusive'
+
+    @pytest.mark.parametrize('bounds,word',[([.01,.03],'positive'),([-.03,-.01],'negative'),([-.0001,.0001],'tight-null'),([-.1,.1],'inconclusive')])
+    def test_distinct_claim_classes(bounds,word):
+>       from ra.report import classify_claim
+E       ModuleNotFoundError: No module named 'ra.report'
+
+tests/test_report.py:7: ModuleNotFoundError
+__________ test_primal_worsening_is_tradeoff_even_with_frontier_gain ___________
+
+    def test_primal_worsening_is_tradeoff_even_with_frontier_gain():
+>       from ra.report import guardrail_interpretation
+E       ModuleNotFoundError: No module named 'ra.report'
+
+tests/test_report.py:12: ModuleNotFoundError
+________________ test_partial_inventory_cannot_publish_primary _________________
+
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1786/test_partial_inventory_cannot_0')
+
+    def test_partial_inventory_cannot_publish_primary(tmp_path):
+>       from ra.report import validate_inventory
+E       ModuleNotFoundError: No module named 'ra.report'
+
+tests/test_report.py:17: ModuleNotFoundError
+=========================== short test summary info ============================
+FAILED tests/test_metrics.py::test_frontier_uses_all_deadlines_and_retains_fault_output
+FAILED tests/test_metrics.py::test_summary_rejects_duplicate_and_incomplete_budget_groups
+FAILED tests/test_metrics.py::test_raw_gap_is_not_tolerance_plot_clipped - Im...
+FAILED tests/test_stats.py::test_constant_paired_advantage_has_exact_endpoints[0.0]
+FAILED tests/test_stats.py::test_constant_paired_advantage_has_exact_endpoints[0.02]
+FAILED tests/test_stats.py::test_constant_paired_advantage_has_exact_endpoints[-0.02]
+FAILED tests/test_stats.py::test_strata_weights_not_empirical_population_frequency
+FAILED tests/test_stats.py::test_native_is_shared_across_fit_draws_and_complete_pairs_required
+FAILED tests/test_stats.py::test_bonferroni_and_all_contrasts_retained - Impo...
+FAILED tests/test_stats.py::test_planning_rejects_too_few_bootstrap_draws[1]
+FAILED tests/test_stats.py::test_planning_rejects_too_few_bootstrap_draws[2]
+FAILED tests/test_stats.py::test_planning_rejects_too_few_bootstrap_draws[3]
+FAILED tests/test_report.py::test_distinct_claim_classes[bounds0-positive] - ...
+FAILED tests/test_report.py::test_distinct_claim_classes[bounds1-negative] - ...
+FAILED tests/test_report.py::test_distinct_claim_classes[bounds2-tight-null]
+FAILED tests/test_report.py::test_distinct_claim_classes[bounds3-inconclusive]
+FAILED tests/test_report.py::test_primal_worsening_is_tradeoff_even_with_frontier_gain
+FAILED tests/test_report.py::test_partial_inventory_cannot_publish_primary - ...
+18 failed, 1 passed in 1.83s

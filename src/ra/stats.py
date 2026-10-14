@@ -25,6 +25,7 @@ def calibrate_design(pilot_summary: Sequence[dict[str, object]], design: dict[st
             or d['alpha']!=.05 or not d['contrasts'] or len({tuple(c) for c in d['contrasts']})!=len(d['contrasts'])
             or any(len(c)!=2 or c[0]==c[1] or not set(c)<=set(methods) for c in d['contrasts'])
             or any(type(d[k]) is not int or d[k]<1 for k in ('sample_per_cell','timing_repeats','bootstrap_repetitions'))
+            or d['bootstrap_repetitions']<4
             or not math.isfinite(d['useful_precision']) or d['useful_precision']<=0):
         raise ValueError('invalid planning dimensions/contrasts')
     if not pilot_summary: raise ValueError('public pilot observations required')
@@ -136,3 +137,69 @@ def write_pilot_report(rows, design, out):
     Path(out).parent.mkdir(parents=True,exist_ok=True)
     Path(out).write_text('\n'.join(lines)+'\n')
     return {'success':True,'dry_run':True,'out':str(out),'scope':result['scope']}
+
+
+def paired_frontier_intervals(summary: Sequence[dict[str, object]], protocol: dict[str, object]) -> dict[str, object]:
+    """Frozen percentile inference, stratified by original and crossed by genuine fit.
+
+    Complete deadline/method/repeat vectors stay together. Native results are
+    shared along the fit axis. Faults are outcomes; correctness alarms quarantine
+    claims without deleting rows. No pilot-label conversion or new planning occurs.
+    """
+    d, bootstrap = protocol['planning'], protocol['bootstrap']
+    cells, methods, fits = dict(sorted(d['cells'].items())), d['methods'], d['fit_ids']
+    native, deadlines = d['native_methods'], protocol['deadlines_ns']
+    pairs, weights = protocol['contrasts'], protocol['weights']
+    nboot, alpha, seed = bootstrap['repetitions'], bootstrap['alpha'], bootstrap['seed']
+    if (type(nboot) is not int or nboot<4 or not 0<alpha<1 or not pairs or bootstrap['B']!=len(pairs)
+            or len({tuple(p) for p in pairs})!=len(pairs) or any(len(p)!=2 or p[0]==p[1] or not set(p)<=set(methods) for p in pairs)
+            or len(set(methods))!=len(methods) or len(set(fits))!=len(fits) or not fits or 'shared' in fits
+            or not cells or any(v<=0 or not math.isfinite(v) for v in cells.values()) or not math.isclose(sum(cells.values()),1)):
+        raise ValueError('invalid bootstrap dimensions/contrasts')
+    table, strata = {}, {}
+    for r in summary:
+        t,c,m,f,b,p = (r[k] for k in ('template_id','cell_id','method','fit_id','budget_ns','repeat'))
+        key=t,m,f,b,p
+        if (key in table or c not in cells or m not in methods or b not in deadlines
+                or f not in (['shared'] if m in native else fits) or p not in range(d['timing_repeats'])
+                or t in strata and strata[t]!=c or not math.isfinite(r['utility'])):
+            raise ValueError('invalid or duplicate paired endpoint')
+        table[key]=r; strata[t]=c
+    templates=sorted(strata); groups={c:np.array([i for i,t in enumerate(templates) if strata[t]==c]) for c in cells}
+    if any(len(idx)!=d['sample_per_cell'] for idx in groups.values()): raise ValueError('incomplete original-template cohort')
+    values=np.empty((len(templates),len(fits),d['timing_repeats'],len(methods)))
+    for ti,t in enumerate(templates):
+        for fi,f in enumerate(fits):
+            for repeat in range(d['timing_repeats']):
+                for mi,m in enumerate(methods):
+                    try: values[ti,fi,repeat,mi]=sum(w*table[t,m,'shared' if m in native else f,b,repeat]['utility'] for b,w in zip(deadlines,weights))
+                    except KeyError as exc: raise ValueError('incomplete paired template/fit/repeat/budget cohort') from exc
+    differences=np.stack([values[:,:,:,methods.index(a)]-values[:,:,:,methods.index(b)] for a,b in pairs])
+    estimate=sum(cells[c]*differences[:,idx].mean(axis=(1,2,3)) for c,idx in groups.items())
+    conditional=np.zeros((nboot,len(pairs))); crossed=np.zeros_like(conditional)
+    rng=np.random.default_rng(seed)
+    fit_draws=rng.integers(0,len(fits),(nboot,len(fits)))
+    for c,idx in groups.items():
+        picked=rng.choice(idx,size=(nboot,len(idx)),replace=True)
+        # Vectorized block means: no independent sampling of budgets or repeats.
+        sampled=differences.mean(axis=3)[:,picked,:]
+        conditional+=cells[c]*sampled.mean(axis=(2,3)).T
+        crossed+=cells[c]*np.take_along_axis(sampled,fit_draws[None,:,None,:],axis=3).mean(axis=(2,3)).T
+    q=alpha/(2*len(pairs)); tolerance=d['useful_precision']*.05
+    contrasts=[]
+    for k,(a,b) in enumerate(pairs):
+        spread=np.ptp([np.quantile(v[:,k],[q,1-q]) for v in np.array_split(conditional,4)],axis=0)
+        contrasts.append(dict(method=a,baseline=b,estimate=float(estimate[k]),
+            ordinary_interval=np.quantile(conditional[:,k],[alpha/2,1-alpha/2]).tolist(),
+            simultaneous_interval=np.quantile(conditional[:,k],[q,1-q]).tolist(),
+            across_fit_interval=np.quantile(crossed[:,k],[q,1-q]).tolist() if len(fits)>1 else None,
+            quantile_batch_spread=spread.tolist(),quantile_stable=bool(max(spread)<=tolerance),
+            correctness_quarantined=any(r.get('correctness_alarm',False) and r['method'] in (a,b) for r in summary)))
+    return dict(schema_version=1,contrasts=contrasts,B=len(pairs),alpha=alpha,per_contrast_alpha=alpha/len(pairs),
+        bootstrap_repetitions=nboot,seed=seed,quantile_method='linear percentile',quantile_stability_tolerance=tolerance,
+        independent_templates=len(templates),independent_fit_runs=len(fits),timing_repeats=d['timing_repeats'],
+        status_counts=dict(Counter(r['status'] for r in summary)),aliases=protocol.get('aliases',{}),
+        uncertainty=dict(across_fit_reliable=False,
+            fit_scope='conditional on frozen fitted assets and training data; across-fit uncertainty unavailable' if len(fits)==1 else 'few complete crossed fits; across-fit distribution poorly identified',
+            template_scope='stratified original-template clusters; complete paired budgets, methods and repeats retained',
+            limitation='empirical resampling cannot identify unobserved tails; no training-procedure robustness claim'))

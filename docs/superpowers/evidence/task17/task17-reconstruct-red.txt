@@ -1,0 +1,36 @@
+......FFF                                                                [100%]
+=================================== FAILURES ===================================
+__ test_immutable_reconstruction_uses_exact_boundary_and_verifies_assignments __
+
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1788/test_immutable_reconstruction_0')
+
+    def test_immutable_reconstruction_uses_exact_boundary_and_verifies_assignments(tmp_path):
+>       from ra.report import reconstruct_attempt
+E       ImportError: cannot import name 'reconstruct_attempt' from 'ra.report' (/Users/artemlegotin/Documents/git_alter/reasoning-allocation/src/ra/report.py)
+
+tests/test_report.py:55: ImportError
+______________ test_authenticated_but_invalid_assignment_rejected ______________
+
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1788/test_authenticated_but_invalid0')
+
+    def test_authenticated_but_invalid_assignment_rejected(tmp_path):
+        import json,hashlib
+>       from ra.report import reconstruct_attempt
+E       ImportError: cannot import name 'reconstruct_attempt' from 'ra.report' (/Users/artemlegotin/Documents/git_alter/reasoning-allocation/src/ra/report.py)
+
+tests/test_report.py:67: ImportError
+_________________ test_dry_run_does_not_read_outcomes_or_write _________________
+
+tmp_path = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1788/test_dry_run_does_not_read_out0')
+
+    def test_dry_run_does_not_read_outcomes_or_write(tmp_path):
+        from pathlib import Path
+>       from ra.report import analyze
+E       ImportError: cannot import name 'analyze' from 'ra.report' (/Users/artemlegotin/Documents/git_alter/reasoning-allocation/src/ra/report.py)
+
+tests/test_report.py:78: ImportError
+=========================== short test summary info ============================
+FAILED tests/test_report.py::test_immutable_reconstruction_uses_exact_boundary_and_verifies_assignments
+FAILED tests/test_report.py::test_authenticated_but_invalid_assignment_rejected
+FAILED tests/test_report.py::test_dry_run_does_not_read_outcomes_or_write - I...
+3 failed, 6 passed in 0.04s

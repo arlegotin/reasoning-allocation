@@ -55,9 +55,16 @@ def main(argv: list[str] | None = None) -> int:
     report_parser.add_argument('--pilot-summary', type=Path, required=True)
     report_parser.add_argument('--design', type=Path, required=True)
     report_parser.add_argument('--out', type=Path, required=True)
+    analyze_parser = subcommands.add_parser('analyze', help='Reconstruct historical frozen endpoints and paired inference')
+    analyze_parser.add_argument('--config', type=Path, required=True)
+    analyze_parser.add_argument('--out', type=Path, required=True)
+    analyze_parser.add_argument('--dry-run', action='store_true')
     args = parser.parse_args(argv)
     try:
-        if args.command == 'freeze':
+        if args.command == 'analyze':
+            from ra.report import analyze
+            report = analyze(args.config, args.out, dry_run=args.dry_run)
+        elif args.command == 'freeze':
             from ra.freeze import freeze_protocol
             value = freeze_protocol(args.config, args.out, dry_run=args.dry_run)
             report = {'success':True, 'dry_run':args.dry_run, 'digest':value, 'out':str(args.out)}
