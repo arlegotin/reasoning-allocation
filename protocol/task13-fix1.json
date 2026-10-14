@@ -1,0 +1,128 @@
+{
+  "base_commit": "328013b",
+  "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+  "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+  "exact_regimes": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32,
+    64
+  ],
+  "expansion": {
+    "max_additional_methods": 9,
+    "max_cold_cost_ratio": 1.25,
+    "max_median_prediction_ns": 5000000,
+    "max_new_candidates": 3,
+    "max_requests": 162,
+    "rule": "Only the best B3, best B4 and best B5 deployments: if improvement over same-stage ridge1 original baseline >=.0002 and full cold sum ratio<=1.25 and measured median inference<=5ms, extend a winning alpha.1/10 boundary once to.01/100, or winning hist7 once tohist15. Reuse B5 assets when identical. Deduplicate L1. Other fixed regimes are bounded joint-search screening, not globally saturated.",
+    "utility_threshold": 0.0002
+  },
+  "final": {
+    "budgets_ns": [
+      526707240,
+      2106828958,
+      8427315832
+    ],
+    "requests_max": 288,
+    "weights": [
+      0.25,
+      0.5,
+      0.25
+    ]
+  },
+  "fit_candidates": 23,
+  "fit_executions_including_two_curves_each": 69,
+  "fit_seeds": [
+    17
+  ],
+  "max_new_requests": 672,
+  "new_B5_grid": [
+    {
+      "kind": "ridge",
+      "name": "ridge0p1",
+      "parameters": {
+        "alpha": 0.1
+      }
+    },
+    {
+      "kind": "ridge",
+      "name": "ridge10",
+      "parameters": {
+        "alpha": 10.0
+      }
+    }
+  ],
+  "new_regime_grid": [
+    {
+      "kind": "ridge",
+      "name": "ridge0p1",
+      "parameters": {
+        "alpha": 0.1
+      }
+    },
+    {
+      "kind": "ridge",
+      "name": "ridge10",
+      "parameters": {
+        "alpha": 10.0
+      }
+    },
+    {
+      "kind": "histogram",
+      "name": "hist7",
+      "parameters": {
+        "max_iter": 30,
+        "max_leaf_nodes": 7,
+        "min_samples_leaf": 10
+      },
+      "quantile": true
+    }
+  ],
+  "reason": "Review I1: fresh B3/B4/B5 actual-regime tuning lacked stopping evidence",
+  "resource_stop": "One actual-regime nonlinear rung and two regularization neighbors per regime, hierarchical survivor allocation, at mostone conditional outward step for each winning control. Further tuning stops at this finite resource allocation; report any continuing trend, do not call it statistical/global convergence.",
+  "reuse": "alpha1 exact-regime assets; B5 matched6564-row hist7/15/31 assets deployed with control_id=B5; no duplicate fits",
+  "run_order_seed": 20261014,
+  "scope": "Public exploratory conditional-on-fit tuning; six originals remain six; preserve all previous1614 attempts/cards; no protected outcomes",
+  "screen": {
+    "budgets_ns": [
+      2106828958
+    ],
+    "methods": 37,
+    "originals": 6,
+    "purpose": "Resource screening only; omitted candidates have unmeasured short/long-budget advantages, flagged explicitly",
+    "requests": 222
+  },
+  "selection": "Completed three-budget weighted utility, ties lower total cold request wall then model bytes/name; no seed aliases or screen score used as final score.",
+  "solver_seeds": [
+    17
+  ],
+  "source_freeze": "No runtime changes, fitting or tests during timed stages",
+  "source_hash": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+  "survivors": "Winner per fixed regime; L1 runner-up; highest remaining fixed contender; top2 B5; original L1/B5 ridge1; B0/no-plunge/estimate-L1. At most16 methods; exact count/config sealed after screening, before timing.",
+  "training_indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "validation_indices": [
+    0,
+    2,
+    4,
+    6,
+    8,
+    10
+  ],
+  "version": 1
+}

@@ -96,3 +96,32 @@ def test_compact_logging_keeps_negative_selected_raw_gain_and_body():
     assert d['selected_body_seconds'] == -.1
     assert d['negative_gain_count'] == d['negative_body_count'] == 1
     assert a.seconds_prediction == 1e-6
+
+
+def test_tuning_deployment_keeps_actual_control_regime(monkeypatch):
+    monkeypatch.syspath_prepend(str(Path('checks').resolve()))
+    from task13_tuning import deployment
+    template={'name':'old','kind':'shared','pool_size':128,
+              'allocator':{'policy':'local','control_id':'B5','fixed_length':4},
+              'learned':{'pool_seed':17}}
+    for control_id,length in [('B3',1),('B4',8),('B5',None)]:
+        m=deployment(template,'new','/tmp/asset.json','hash',control_id,length)
+        assert m['allocator']['control_id']==control_id
+        assert m['allocator'].get('fixed_length')==(length if control_id=='B4' else None)
+        assert m['allocator']['model_path']=='/tmp/asset.json'
+        assert m['learned']['compact_logging'] is True
+    assert template['allocator']['fixed_length']==4
+
+
+def test_tuning_survivors_preserve_regime_winners_and_ridge_anchors(monkeypatch):
+    monkeypatch.syspath_prepend(str(Path('checks').resolve()))
+    from task13_tuning import survivors
+    methods=[{'name':f'fix1-L{n}-{model}'} for n in (1,2,4,8,16,32,64) for model in ('ridge1','ridge0p1','ridge10','hist7')]
+    methods += [{'name':'fix1-B5-'+model} for model in ('ridge1','ridge0p1','ridge10','hist7','hist15','hist31')]
+    methods += [{'name':n} for n in ('B0','B1-no-plunge','B2-estimate-L1')]
+    scores={m['name']:float(i) for i,m in enumerate(methods)}
+    chosen=survivors(methods,scores)
+    names={m['name'] for m in chosen}
+    assert all(f'fix1-L{n}-hist7' in names for n in (1,2,4,8,16,32,64))
+    assert {'fix1-L1-ridge1','fix1-B5-ridge1','fix1-B5-hist31','fix1-B5-hist15','B0','B1-no-plunge','B2-estimate-L1'}<=names
+    assert len(names)==len(chosen)<=16
