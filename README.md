@@ -2,14 +2,14 @@
 
 A planned proof of concept for overhead-aware local bidding on bounded SCIP subtree investments. The first workload is generated weighted set cover, compared with native default and tuned SCIP scheduling, matched learned controls, and faithfully reproduced literature methods where feasible.
 
-The repository contains the specification, implementation plan, environment doctor, analytical checks, live SCIP lease adapter, and serial cold-request harness. WP00 has passed on the target Apple M3 Max: native ARM64 Python 3.12.9, 36 GiB RAM, and PySCIPOpt 6.3.0 using linked SCIP 10.0.2 / SoPlex 8.0.2. Reviewed checks cover credit conservation, evidence separation, bounded leases, candidate pools, restarts, and safe callback failures. Training and allocation comparisons remain unexecuted. The supplied analytical reference has also been reproduced locally.
+The repository contains the specification, implementation plan, environment doctor, analytical checks, live SCIP lease adapter, serial cold-request harness, and native-only pilot. WP00 has passed on the target Apple M3 Max: native ARM64 Python 3.12.9, 36 GiB RAM, and PySCIPOpt 6.3.0 using linked SCIP 10.0.2 / SoPlex 8.0.2. Reviewed checks cover credit conservation, evidence separation, bounded leases, candidate pools, restarts, and safe callback failures. Training and learned allocation comparisons remain unexecuted. The supplied analytical reference has also been reproduced locally.
 
 - [PoC specification](docs/superpowers/specs/2026-10-13-reasoning-allocation-design.md): scientific scope, correctness and timing contracts, architecture, controls, evaluation gates, and complete analytical reference.
 - [Implementation plan](docs/superpowers/plans/2026-10-13-reasoning-allocation.md): 20 tasks covering WP00–WP10, with interfaces, test cases, verification commands, and commit milestones.
 - [Progress](PROGRESS.md): current stage and next entry gate.
 - [Decisions](DECISIONS.md): assumptions and engineering choices made during specification.
 
-WP01's correctness gate has passed, including generated-cover checks against tiny exhaustive optima. WP02's cold parent/worker harness, immutable recovery and native/shared controls have passed review. The next gate measures native allocation headroom. Measured headroom gates learning; a frozen protocol gates confirmation; evidence gates population engineering and transfer. A rigorous negative result or an explicit blocked gate is a valid scoped outcome.
+WP01's correctness gate has passed, including generated-cover checks against tiny exhaustive optima. WP02's cold parent/worker harness, immutable recovery and native/shared controls have passed review. WP03's reviewed native pilot supports continuing to local features and learning, with finite workload cells and action support recorded in [pilot evidence](docs/superpowers/evidence/task9.json). Native defaults remain the selected tuned configuration; no learned gain is established. A frozen protocol gates confirmation; evidence gates population engineering and transfer. A rigorous negative result or an explicit blocked gate is a valid scoped outcome.
 
 `doctor`, `check --suite analytical`, `generate`, and `run` are available. Use a native ARM64 Python 3.12 environment on the target Mac; the artifact lock records the resolved macOS wheels.
 
@@ -35,6 +35,6 @@ The analytical command reproduces 512 seeded runs and 102,400 coupled decisions,
 
 Generation preserves original incidence, integer costs, lineage, hashes, and split ownership. The probe grid is discovery-only and performs no solving. [Amendment A001](protocol/amendments/0001-ordinary-column-clones.md) records the ordinary-column clone rule before pilot selection.
 
-The run command validates public split ownership and serial admission, retains every immutable attempt and prior cost, and supports exact-hash resume. Configured native grids are initial exploratory support; tuning and headroom selection are pending. Protected execution remains unavailable before protocol freeze.
+The run command validates public split ownership and serial admission, retains every immutable attempt and prior cost, and supports exact-hash resume. The exploratory configuration uses the native pilot's finite cells, calibrated cold deadlines and supported lease grid. Protected execution remains unavailable before protocol freeze.
 
 Reports, wheels, and licenses are generated under ignored `artifacts/`. Raw hardware reports can include machine identifiers; keep them private. Installation and discovery are setup costs, not benchmark results. Other commands in the design remain future work.
