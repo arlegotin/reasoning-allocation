@@ -309,8 +309,8 @@ def test_total_cost_changes_bid_ranking(costed_two_action_case):
 
 **Interfaces:** Produces `features.append_pooled_context(batch: FeatureBatch, schema: FeatureSchema) -> FeatureBatch`; `train.fit_control(control_id: str, config_path: Path, trace_root: Path, output: Path) -> dict[str, object]`. Control IDs/configs resolve B3 one-node, B4 separately selected fixed length, B5 estimate-node/adaptive-length, and B6 pooled critic without changing the underlying solver.
 
-- [ ] **Step 1: Write failing matched-control tests.** B3 action support is only length 1 and is refit in that regime; B4 cannot change its fixed length within a run and selects its best length only from validation; B5 always chooses the estimate-ranked node while learning length. Shared pool/caching does not change eligible native work or hidden solver settings. All applicable controls charge their actual extraction/model loading/scoring costs.
-- [ ] **Step 2: Write failing pooled-context tests.** Pool values `(1,3)` append mean 2, population standard deviation 1, minimum 1, maximum 3; missing fractions and frontier size are explicit. Pool statistics aggregate continuous node fields over unique candidate nodes, not repeated length rows; action-length features are not pooled. Missing-only fields have declared masks. B6 is named pooled tabular and never receives a literature algorithm's name.
+- [x] **Step 1: Write failing matched-control tests.** B3 action support is only length 1 and is refit in that regime; B4 cannot change its fixed length within a run and selects its best length only from validation; B5 always chooses the estimate-ranked node while learning length. Shared pool/caching does not change eligible native work or hidden solver settings. All applicable controls charge their actual extraction/model loading/scoring costs.
+- [x] **Step 2: Write failing pooled-context tests.** Pool values `(1,3)` append mean 2, population standard deviation 1, minimum 1, maximum 3; missing fractions and frontier size are explicit. Pool statistics aggregate continuous node fields over unique candidate nodes, not repeated length rows; action-length features are not pooled. Missing-only fields have declared masks. B6 is named pooled tabular and never receives a literature algorithm's name.
 
 ```python
 def test_pooled_context_does_not_duplicate_nodes_by_length(pooled_13_case):
@@ -318,10 +318,10 @@ def test_pooled_context_does_not_duplicate_nodes_by_length(pooled_13_case):
     enriched = append_pooled_context(batch, schema)
     assert enriched.matrix[:, mean_column] == pytest.approx(2.0)
 ```
-- [ ] **Step 3: Run red.** `python -m pytest tests/test_attribution_controls.py tests/test_pooled_features.py -q`; expected absent control paths/context features.
-- [ ] **Step 4: Implement and tune controls.** Recollect/refit supported regimes as necessary within train namespaces. Evaluate matched capacity then best measured feasible capacity for B6. Cross ranking × horizon and include tuned native plunging. Share generic engineering/vectorization/early exits among applicable Python methods; leave compiled native alone. Tune B0/B1/B2 and learned controls until the recorded validation saturation/resource criteria are met.
-- [ ] **Step 5: Verify and audit fairness.** Run both tests and serial closed-loop validation; record every contender/config, training/tuning expenditure, teacher-free feature boundary, and strongest validation choice. Gains absorbed by a fixed lease, pooled feature, or generic optimization are attributed to that component. All-frontier diagnostics run at a feasible scale with the same ledger.
-- [ ] **Step 6: Commit.** Stage control/features/train/tests/config/cards; commit `feat: add matched horizon and pooled-context controls`.
+- [x] **Step 3: Run red.** `python -m pytest tests/test_attribution_controls.py tests/test_pooled_features.py -q`; expected absent control paths/context features.
+- [x] **Step 4: Implement and tune controls.** Recollect/refit supported regimes as necessary within train namespaces. Evaluate matched capacity then best measured feasible capacity for B6. Cross ranking × horizon and include tuned native plunging. Share generic engineering/vectorization/early exits among applicable Python methods; leave compiled native alone. Tune B0/B1/B2 and learned controls until the recorded validation saturation/resource criteria are met.
+- [x] **Step 5: Verify and audit fairness.** Run both tests and serial closed-loop validation; record every contender/config, training/tuning expenditure, teacher-free feature boundary, and strongest validation choice. Gains absorbed by a fixed lease, pooled feature, or generic optimization are attributed to that component. All-frontier diagnostics run at a feasible scale with the same ledger.
+- [x] **Step 6: Commit.** Stage control/features/train/tests/config/cards; commit `feat: add matched horizon and pooled-context controls`.
 
 ## Task 14: Literature reproduction and claim-scope register (WP05)
 
