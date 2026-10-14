@@ -1,0 +1,160 @@
+{
+  "batch_wall_ns": 602061598042,
+  "bounded_required_originals_for_half_width_001": 10961277.846683983,
+  "deadline_calibration": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task15/generation4/deadline-calibration.json",
+    "sha256": "84027401356d306f4a30fdc2beee0ba275a20cc5f1c8f6b585ccbc76965c113c"
+  },
+  "decision": "limited conditional-on-fit evaluation; no reliable across-fit power; empirical two-per-cell extrapolation cannot certify population precision",
+  "monte_carlo_stability": [
+    {
+      "repetitions": 65536,
+      "spreads": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "stable": true
+    }
+  ],
+  "options": [
+    {
+      "conservative_half_width": 0.9557404566915636,
+      "empirical_half_widths": [
+        0.0009875186033181983,
+        0.0013464767576624181,
+        0.0012273828575534392,
+        0.0002726262034391062,
+        0.00039789008288061234,
+        3.627888716500419e-05
+      ],
+      "original_templates": 12,
+      "request_count": 504,
+      "storage_bytes_with_reserve": 1630175136,
+      "templates_per_cell": 2,
+      "wall_seconds_with_reserve": 1125.408528006
+    },
+    {
+      "conservative_half_width": 0.6758105579809325,
+      "empirical_half_widths": [
+        0.0007031830232144959,
+        0.0011334482297451764,
+        0.0010115476034995088,
+        0.00022166243904650496,
+        0.00034347189742491707,
+        2.6820215085622074e-05
+      ],
+      "original_templates": 24,
+      "request_count": 1008,
+      "storage_bytes_with_reserve": 3260350272,
+      "templates_per_cell": 4,
+      "wall_seconds_with_reserve": 2250.817056012
+    },
+    {
+      "conservative_half_width": 0.42742012600180596,
+      "empirical_half_widths": [
+        0.0004760503277711841,
+        0.0007743664815977823,
+        0.0006927579064623786,
+        0.0001578255408336578,
+        0.0002485604048416875,
+        1.7462638214769e-05
+      ],
+      "original_templates": 60,
+      "request_count": 2520,
+      "storage_bytes_with_reserve": 8150875680,
+      "templates_per_cell": 10,
+      "wall_seconds_with_reserve": 5627.04264003
+    },
+    {
+      "conservative_half_width": 0.30223166951148556,
+      "empirical_half_widths": [
+        0.00034018665234503685,
+        0.0005514295388238269,
+        0.00049901093507274,
+        0.00011127176719999961,
+        0.00017638860056910804,
+        1.2407499472396472e-05
+      ],
+      "original_templates": 120,
+      "request_count": 5040,
+      "storage_bytes_with_reserve": 16301751360,
+      "templates_per_cell": 20,
+      "wall_seconds_with_reserve": 11254.08528006
+    },
+    {
+      "conservative_half_width": 0.21371006300090298,
+      "empirical_half_widths": [
+        0.00024081083382184853,
+        0.0003952159757724093,
+        0.0003567242430515046,
+        7.952886126287952e-05,
+        0.0001260818338958502,
+        8.86020915175659e-06
+      ],
+      "original_templates": 240,
+      "request_count": 10080,
+      "storage_bytes_with_reserve": 32603502720,
+      "templates_per_cell": 40,
+      "wall_seconds_with_reserve": 22508.17056012
+    },
+    {
+      "conservative_half_width": 0.1351621115961865,
+      "empirical_half_widths": [
+        0.0001517637871477744,
+        0.00025170784285818824,
+        0.00022613041545737922,
+        5.0347588217841295e-05,
+        7.95058104510395e-05,
+        5.558256451186069e-06
+      ],
+      "original_templates": 600,
+      "request_count": 25200,
+      "storage_bytes_with_reserve": 81508756800,
+      "templates_per_cell": 100,
+      "wall_seconds_with_reserve": 56270.4264003
+    }
+  ],
+  "pilot_wall_ns": 588778530793,
+  "prospective": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task15/generation4/prospective.json",
+    "sha256": "d14e1199cbea76a4383f9b31c2d38cf313450d7b431573da1ec4e9c93b97f1f9"
+  },
+  "selected": {
+    "conservative_half_width": 0.42742012600180596,
+    "empirical_half_widths": [
+      0.0004760503277711841,
+      0.0007743664815977823,
+      0.0006927579064623786,
+      0.0001578255408336578,
+      0.0002485604048416875,
+      1.7462638214769e-05
+    ],
+    "original_templates": 60,
+    "request_count": 2520,
+    "storage_bytes_with_reserve": 8150875680,
+    "templates_per_cell": 10,
+    "wall_seconds_with_reserve": 5627.04264003
+  }
+}

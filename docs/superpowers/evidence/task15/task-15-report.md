@@ -1,4 +1,8 @@
-# Task 15 / WP06: pilot design and immutable protected freeze
+# Task 15 / WP06 — current disposition after fix round 1
+
+**DONE_WITH_CONCERNS; ready for scoped rereview.** Current untouched freeze is **A003/e004**, `protocol/freeze-A003.sha256`, digest `f4511084b7d2aa5474182c7d0767771bddb9c6f5755d020608d1bb3d1e9de45c`, measured on source **5f16f8f**. It fixes I1/I2, retains N60/two repeats/one frozen fit/2520 physical requests, and includes the authorized common4096 learned telemetry and shared linear transport corrections. Generation4 is504 requests without faults;203 focused tests pass. No protected outcomes exist. Task16 source wiring requires **A004**. The following original-delivery record is historical; its old zero-fault rule, live-verification status and active hashes are explicitly superseded by the appended fix report.
+
+# Task 15 original delivery (historical, superseded by fix round 1 below)
 
 **Status: DONE_WITH_CONCERNS.** The active untouched design is **ra-wp06-e003, amendment A002**, at `protocol/freeze-A002.sha256`, using `configs/confirmatory-A002.json` and `protocol/confirmatory-A002.md`. The original e001 freeze at the brief's requested `protocol/freeze.sha256` is preserved unchanged. All three strict-verification paths pass; e002/A001 is also preserved. No protected solutions, traces, timing or outcomes exist or were opened.
 
@@ -113,3 +117,72 @@ Exact feature/model/data/split/environment/queue/config references and statuses 
 **Task 16:** public execution still refuses protected phases. Any protected-run wiring changes the live source identity. Preserve e001, e002 and e003 assets; create **A003 and a new experiment ID / untouched verified freeze before the first protected outcome**. Reusing the 60 inputs is permissible only while still unopened and explicitly declared in that amendment. Do not silently exempt runner/CLI/stats/reporting changes from source verification. Future outcome-informed scientific changes need appropriate fresh confirmation. The frozen empty access ledger is an at-freeze attestation; append actual protected-access events in a separate execution journal.
 
 **Task 17:** retain `verify_protocol` as mandatory strict live-source/environment verification for launch/resume. Later analysis source changes do not rewrite what executed. Historical analysis/reproduction uses `verify_envelope`, the frozen committed-source inventory, and attempt/source/config/model/environment/build identity checks, while recording analysis code independently. `stats.calibrate_design` remains public-only; its dry report is never confirmation. Across-fit uncertainty remains unidentifiable, and no statistical or superiority claim is made by this freeze.
+
+
+# Fix round 1 / BASE60d8f94
+
+## Findings addressed and preserved history
+
+**I1 — Ordinary faults are frozen with the wrong primary score.** The original configuration/protocol/packager incorrectly specified zero utility after an ordinary fault. The binding rule is now mechanically enforced in `freeze.ordinary_fault_policy`: retain the last valid available-by-deadline utility and fault flag, halt and diagnose. Startup without valid progress scores zero; numerical/correctness alarms quarantine scientific claims while retaining evidence. The runner already retained valid progress; a real cold-worker regression now establishes nonzero progress before both ordinary and numerical faults and verifies the retained score and distinct status. A separate RED demonstrated that the old freeze accepted a zero-score policy; it now rejects it. No old score or raw attempt is rewritten.
+
+**I2 — Successor can reuse already-observed protected templates.** A successor now walks every predecessor envelope, checks overlap by template and instance identity, and rejects reuse if any relevant ancestor has outcome artifacts, recorded execution access or unresolved access metadata. Tests cover allowed unopened reuse, immediate predecessor outcomes, earlier ancestry outcomes, earlier ancestry journal access, fresh disjoint identities, and journal redirection. Namespace checks never open outcome contents. A deterministic `<outcome_directory>.access.json` journal is pinned explicitly for new freezes; historical ancestors use the same namespace-derived path. The frozen empty ledger remains separate and immutable. Task16 must durably record actual access in this journal before protected execution. Undeclared off-protocol access cannot be detected mechanically; controller provenance remains necessary.
+
+All e001/e002/e003 configs, protocols, queues, manifests, registries, digests and inputs remain unchanged. Their archival envelopes and frozen committed-source inventories pass. Strict current deployment verification rejects them at the new required-field/schema gate; it is not bypassed or reinterpreted as proof of old execution under new source. A003 explicitly reuses all60 unopened e003 inputs, with no data generation or solving during amendment preparation. All four declared outcome namespaces and the current execution journal are absent.
+
+## Ruling8 telemetry capacity and measured transport dependency
+
+Controller approved a common **4096** bounded learned trace cap for A/B3/B5/B6. Generation2's maximum841 decisions left only about22% headroom below1024. B3 traces above100 decisions measured32.18–34.02kB per decision;793/841 decisions produced25.65/27.14MB trace and28.64/30.29MB total artifacts, with168.33/168.43MB terminal-reported RSS. RSS was nonmonotone (214.53MB at221 decisions); no causal per-decision RSS slope is claimed.4096 provides4.87 times observed decision headroom; the max-density linear trace projection is139.3MB/request, not a measured future peak or guarantee. The bounded writer regression actually writes4096 decisions, verifies files beyond1024, and rejects overflow and4097 capacity. Selected scientific/model fields and the old register remain unchanged; no fallback is introduced.
+
+Source **893e3e9** committed I1/I2, capacity enforcement,4096 telemetry and the corrected prospective packager before generation3. Its fixed504 requests completed unchanged:347 complete,155 deadline and two B2 implementation errors, one per repeat on public template `ab7a18f8c18bfaa6b289c99c37190c7831648bb01c860173c53f87cf9132f055`, longest deadline. Exact error: `ValueError: truncated worker frame; worker terminated by SIGTERM (parent_watchdog, watchdog)`. Both retain valid utility0.9910105328572199. Durations are censored; terminal provenance and exact worker CPU/RSS are missing, with sampled lower bounds retained. No silent retries, omission or successful relabelling occurred. The original public rows/preflight remain. Summary cannot calibrate that incomplete provenance (`TypeError` from None/string cell sorting); no invented cell/precision or clean preflight was substituted. Public input hashes independently identify the affected template for the diagnostic only.
+
+Systematic debugging compared the same request in generation2: its960/961 allocation decisions produced19.272/19.294MB terminal frames. Immutable concatenation and full-buffer newline rescans caused quadratic receive work; terminal receipts were2.080/2.067s after deadline and parent CPU3.119/3.090s. A real32MiB cold-worker terminal regression reproduced the same watchdog/truncated-frame failure (RED3.17s). Linear bytearray extension and incremental newline search passed the same case (GREEN1.67s), preserving complete frames, strict JSON/UTF-8, ordering, receipt/deadline semantics and2s grace. Additional real-worker tests cover malformed/truncated/invalidUTF-8 frames, combined frames with split UTF-8, duplicate progress and oversized frames. The common128MiB frame limit bounds buffering (with one64KiB receive-chunk allowance), exceeds four times the observed19.3MB terminal, and is recorded in attempt resources. Oversize remains a retained ordinary fault. Source **5f16f8f** committed this generic transport correction before generation4; it applies to every method and is not evidence of learned allocation gain.
+
+## Fresh current-source calibration and capacity
+
+Generation4 ran the unchanged fixed504 requests with prospective source/config/order pins and no overlapping edits/tests/fits: **347 complete,157 deadline, zero faults, zero censored durations, no missing final CPU/RSS and all resources released**. The12 pilot templates remain two per cell; source generations and timing repeats do not increase independent N. New training/fit runs remain zero; one preexisting bundle is conditional on its frozen assets/training data, with across-fit variability unidentifiable.
+
+| Measure | Generation3 | Generation4 |
+|---|---:|---:|
+| Inclusive batch wall seconds |586.084906|602.061598|
+| Request wall including publication seconds |576.028921|588.778531|
+| Exact worker CPU seconds (missing count) |515.366397 (2)|539.629860 (0)|
+| Sampled worker CPU lower-bound sum seconds, overlapping scope |524.114562|531.843363|
+| Parent CPU seconds |41.236088|41.394458|
+| Coordinator CPU seconds, overlapping scope |58.154545|63.848168|
+| Publication wall seconds |8.042043|12.562907|
+| Overshoot seconds |8.786612|7.722869|
+| Artifact bytes |460098803|652779651|
+| Coordinator peak bytes |1256423424|679837696|
+| Maximum terminal-reported worker RSS bytes |232128512|265011200|
+| Maximum sampled worker RSS bytes |304332800|294682624|
+| Maximum learned decisions |796|803|
+
+Exact and sampled CPU scopes overlap; they must not be added. Generation3's smaller artifacts reflect missing terminal evidence, not a demonstrated efficiency improvement. Four fixed pilot generations total2016 requests on12 unique templates. New generations add1188.146504 batch seconds to the prior1179.646043 seconds, totaling2367.792547 seconds of inclusive measured batches. Earlier trace faults, transport faults and unsuccessful preparation/analysis commands remain disclosed.
+
+In generation4 the relevant B2 terminal frames18.878/18.487MB (942/924 decisions) arrive225/263ms after deadline, with parent CPU1.266/1.327s and overshoot1.313/1.345s. Its utility remains0.9910105. These measured transport improvements do not turn the slower total generation4 batch into an overall runtime win and do not establish any allocator superiority.
+
+N60/two repeats/one fit/2520 requests remains binding. The current measured stratified-max forecast with1.5 operational reserve is **5627.042640s =93.784min and8150875680 bytes**. Current six simultaneous empirical half-widths are0.00047605,0.00077437,0.00069276,0.00015783,0.00024856,0.00001746. Worst0.000774366 meets the0.001 empirical planning target, while the bounded sensitivity remains0.427420; this is limited conditional inference, not reliable prospective power. The current alternative grid is retained. Four seeds at65536 replicates give maximum endpoint range1.251622e−5, below5e−5. That diagnostic costs1.082311 wall/1.075684 CPU seconds and144097280-byte process peak.
+
+The enforceable conservative capacity envelope is separate from the empirical forecast: storage33576268800 bytes (at least4× current and prior N60 forecasts), worker1217331200 bytes (4× largest observed RSS including304332800-byte sampled peak),20GiB coordinator and4GiB OS. Joint26987134976 bytes fits38654705664 physical bytes; pinned free storage83423698944 exceeds the33.576GB envelope. A preseal reconciliation preserved the packager draft and increased the worker envelope from terminal-only peaks to include sampled peaks. It did not change source/runtime and is recorded in `capacity-reconciliation.json`. These are operational allowances, not guarantees; no RSS slope or tail bound is invented.
+
+Test CPU/RSS, initial unsuccessful summary overhead, full design-grid recomputation overhead, audit/report/sealing tails and future background/thermal/storage/time extremes remain unmeasured. All actual trace/publication/overshoot costs and the two censored worker tails remain visible. No extra model, operator, hardware or native fallback was introduced.
+
+## RED/GREEN, verification and active identities
+
+Initial I1/I2 command produced4 failed /3 passed /98 deselected in3.69s, precisely reproducing accepted zero scoring and three ancestor-reuse bypasses.4096 trace validation failed before the cap change; inadequate capacity failed to reject before the gate; large-frame and overflow tests independently failed before their corrections. Intermediate targeted runs passed167 and197 tests. After the transport correction and its malformed/truncated/multiple-frame/bounded cases, the relevant final suite passed **203 tests in30.28s**:
+
+```sh
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 LOKY_MAX_CPU_COUNT=1 .venv/bin/python -m pytest tests/test_freeze.py tests/test_design_calibration.py tests/test_collection.py tests/test_worker.py tests/test_harness_controls.py -q
+```
+
+Compilation and `git diff --check` passed. No full-suite or old solver-grid rerun occurred. Generation3 and generation4 each used `checks/task15_design.py prepare/pilot` only after their source commit; every queue remained fixed. The current `summarize` and labelled public CLI `report` commands completed. A003 dry freeze, actual freeze and strict verification passed; all old archival/source-inventory checks pass and old live verification fails. M1 (bootstrap counts1–3) is explicitly deferred per controller and unaffected at65536.
+
+- Active canonical digest: `f4511084b7d2aa5474182c7d0767771bddb9c6f5755d020608d1bb3d1e9de45c`.
+- Runtime source commit: `5f16f8ffa5eb9db8e1e4d1777eb55a98cf68052b`; source hash `78e999cdfd210f6c3e26645d6fbfef6f588fb76fe4ded140fad64ba85f7eefd7`.
+- Config bytes: `ef96d844ec6786b78f44608508f909292a724ac2e5a680529789c007e303b64c`.
+- Queue bytes: `57b7b276a4301da442b59024fb642c8765cf11f9910e32d198c3850092bf35bd` (2520 requests).
+- Protected manifest remains `18c57e1ce37c1765dc833f23384bf9b96076bb592c393c0105e77ae6104b3ff0` (60 unopened originals).
+- Current power/design bytes: `3ac6a238f392a2e69d3a431bba39d326418c2b8c2b622372f4b3e5b4a6889bad`.
+- Environment/build remain `581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329` / `090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf`; all model/feature hashes remain unchanged.
+
+Durable `docs/superpowers/evidence/task15/fix1-*` files retain validation, all-generation inventory, transport comparisons, current design/Monte Carlo/capacity, dry report and seal checks. Supplemental artifact scripts are preserved with hashes. Root owns scoped rereview and Task16 dispatch. **Task16 requires A004/new experiment/new untouched freeze before protected access**, with the deterministic actual execution journal and complete ancestral reuse checks. Strict live launch/resume verification remains separate from archival analysis verification and independent analysis-code provenance.

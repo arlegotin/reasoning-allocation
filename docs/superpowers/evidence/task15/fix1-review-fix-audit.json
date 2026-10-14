@@ -1,0 +1,347 @@
+{
+  "generations": {
+    "generation2": {
+      "all_released": true,
+      "batches": [
+        {
+          "collection_end_ns": 228592340354375,
+          "coordinator_cpu_ns": 30190493000,
+          "coordinator_peak_rss_bytes": 1548533760,
+          "report_generation_tail_ns": null,
+          "schema_version": 1,
+          "scope": "entry through configuration/resume, serial workers, full request publication/accounting writes, effective-outcome audit and status publication; this final audit write is report-generation overhead",
+          "status_audit_end_ns": 228592339167708,
+          "status_audit_ns": 3059394250,
+          "status_publication_end_ns": 228592340354333,
+          "status_publication_ns": 1185292,
+          "total_observed_ns": 293163199209
+        },
+        {
+          "collection_end_ns": 228884477705541,
+          "coordinator_cpu_ns": 30406351000,
+          "coordinator_peak_rss_bytes": 1667350528,
+          "report_generation_tail_ns": null,
+          "schema_version": 1,
+          "scope": "entry through configuration/resume, serial workers, full request publication/accounting writes, effective-outcome audit and status publication; this final audit write is report-generation overhead",
+          "status_audit_end_ns": 228884476450291,
+          "status_audit_ns": 3024512958,
+          "status_publication_end_ns": 228884477705416,
+          "status_publication_ns": 1254041,
+          "total_observed_ns": 292136033083
+        }
+      ],
+      "censored": 0,
+      "faults": [],
+      "max_decisions": 841,
+      "max_sampled_worker_rss": 300941312,
+      "max_worker_rss": 265863168,
+      "missing": {
+        "cpu": 0,
+        "rss": 0
+      },
+      "requests": 504,
+      "status_counts": {
+        "complete": 347,
+        "deadline": 157
+      },
+      "totals": {
+        "bytes": 676882637,
+        "cpu": 527306642000,
+        "overshoot": 11256807254,
+        "parent_cpu": 40609220000,
+        "publication": 12362636266,
+        "sampled_cpu": 516834097053,
+        "wall": 576972324413
+      }
+    },
+    "generation3": {
+      "all_released": true,
+      "batches": [
+        {
+          "collection_end_ns": 231402103544833,
+          "coordinator_cpu_ns": 29241464000,
+          "coordinator_peak_rss_bytes": 1105362944,
+          "report_generation_tail_ns": null,
+          "schema_version": 1,
+          "scope": "entry through configuration/resume, serial workers, full request publication/accounting writes, effective-outcome audit and status publication; this final audit write is report-generation overhead",
+          "status_audit_end_ns": 231402102701583,
+          "status_audit_ns": 4239055708,
+          "status_publication_end_ns": 231402103544708,
+          "status_publication_ns": 841833,
+          "total_observed_ns": 293611561833
+        },
+        {
+          "collection_end_ns": 231694578198666,
+          "coordinator_cpu_ns": 28913081000,
+          "coordinator_peak_rss_bytes": 1256423424,
+          "report_generation_tail_ns": null,
+          "schema_version": 1,
+          "scope": "entry through configuration/resume, serial workers, full request publication/accounting writes, effective-outcome audit and status publication; this final audit write is report-generation overhead",
+          "status_audit_end_ns": 231694577402875,
+          "status_audit_ns": 3577919334,
+          "status_publication_end_ns": 231694578198500,
+          "status_publication_ns": 794625,
+          "total_observed_ns": 292473344041
+        }
+      ],
+      "censored": 2,
+      "faults": [
+        {
+          "attempt": {
+            "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task15/generation3/pilot-repeat0/attempts/7f423924ed50ee580b4d4bc4d272d0f7fd8284a1eb97208993a5be24feaa0b1a/bf1d2d125c3947aa86099e9e39bc1edc/attempt.json",
+            "sha256": "748cbeed195943228110225f81d9f605f865a9363ede38f3e64154262c152a8a"
+          },
+          "available": {
+            "assignment_available": true,
+            "dual_original": 1279.7051198424679,
+            "incumbent_hash": "d8bb5ff7e4bff2e873f742db3e5e040b669dbf69cebea3d09fff2ba29fd76746",
+            "primal_original": 1401,
+            "sequence": 58,
+            "utility": 0.9910105328572199
+          },
+          "error": "ValueError: truncated worker frame; worker terminated by SIGTERM (parent_watchdog, watchdog)",
+          "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task15/generation3/public/validation/1b1983be680bdb56ea7afbcee812ed980a0f6f2511a8d7bc923638ffeb4730b9.json",
+          "method": "B2-estimate-L1",
+          "provenance_available": false,
+          "request_id": "7f423924ed50ee580b4d4bc4d272d0f7fd8284a1eb97208993a5be24feaa0b1a"
+        },
+        {
+          "attempt": {
+            "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task15/generation3/pilot-repeat1/attempts/7f423924ed50ee580b4d4bc4d272d0f7fd8284a1eb97208993a5be24feaa0b1a/a66e29cba0a443d6aa902d387f48af14/attempt.json",
+            "sha256": "81e32725914dc066c47f46e0963e3b8ae19725afa9d23386f2d041b5f76d8c54"
+          },
+          "available": {
+            "assignment_available": true,
+            "dual_original": 1279.7051198424679,
+            "incumbent_hash": "d8bb5ff7e4bff2e873f742db3e5e040b669dbf69cebea3d09fff2ba29fd76746",
+            "primal_original": 1401,
+            "sequence": 58,
+            "utility": 0.9910105328572199
+          },
+          "error": "ValueError: truncated worker frame; worker terminated by SIGTERM (parent_watchdog, watchdog)",
+          "instance_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task15/generation3/public/validation/1b1983be680bdb56ea7afbcee812ed980a0f6f2511a8d7bc923638ffeb4730b9.json",
+          "method": "B2-estimate-L1",
+          "provenance_available": false,
+          "request_id": "7f423924ed50ee580b4d4bc4d272d0f7fd8284a1eb97208993a5be24feaa0b1a"
+        }
+      ],
+      "max_decisions": 796,
+      "max_sampled_worker_rss": 304332800,
+      "max_worker_rss": 232128512,
+      "missing": {
+        "cpu": 2,
+        "rss": 2
+      },
+      "requests": 504,
+      "status_counts": {
+        "complete": 347,
+        "deadline": 155,
+        "implementation_error": 2
+      },
+      "totals": {
+        "bytes": 460098803,
+        "cpu": 515366397000,
+        "overshoot": 8786611924,
+        "parent_cpu": 41236088000,
+        "publication": 8042042654,
+        "sampled_cpu": 524114561946,
+        "wall": 576028921325
+      }
+    },
+    "generation4": {
+      "all_released": true,
+      "batches": [
+        {
+          "collection_end_ns": 232288694911916,
+          "coordinator_cpu_ns": 31179084000,
+          "coordinator_peak_rss_bytes": 679837696,
+          "report_generation_tail_ns": null,
+          "schema_version": 1,
+          "scope": "entry through configuration/resume, serial workers, full request publication/accounting writes, effective-outcome audit and status publication; this final audit write is report-generation overhead",
+          "status_audit_end_ns": 232288694094583,
+          "status_audit_ns": 5224627792,
+          "status_publication_end_ns": 232288694911666,
+          "status_publication_ns": 815208,
+          "total_observed_ns": 297265847583
+        },
+        {
+          "collection_end_ns": 232593492160750,
+          "coordinator_cpu_ns": 32669084000,
+          "coordinator_peak_rss_bytes": 679837696,
+          "report_generation_tail_ns": null,
+          "schema_version": 1,
+          "scope": "entry through configuration/resume, serial workers, full request publication/accounting writes, effective-outcome audit and status publication; this final audit write is report-generation overhead",
+          "status_audit_end_ns": 232593491281750,
+          "status_audit_ns": 5689037875,
+          "status_publication_end_ns": 232593492160666,
+          "status_publication_ns": 876916,
+          "total_observed_ns": 304795750459
+        }
+      ],
+      "censored": 0,
+      "faults": [],
+      "max_decisions": 803,
+      "max_sampled_worker_rss": 294682624,
+      "max_worker_rss": 265011200,
+      "missing": {
+        "cpu": 0,
+        "rss": 0
+      },
+      "requests": 504,
+      "status_counts": {
+        "complete": 347,
+        "deadline": 157
+      },
+      "totals": {
+        "bytes": 652779651,
+        "cpu": 539629860000,
+        "overshoot": 7722869010,
+        "parent_cpu": 41394458000,
+        "publication": 12562907127,
+        "sampled_cpu": 531843363364,
+        "wall": 588778530793
+      }
+    }
+  },
+  "limits": "Generations retain distinct source identities. Sampled CPU/RSS are lower bounds, not missing exact costs. No protected outcomes. Shared transport engineering does not establish allocation superiority.",
+  "monte_carlo": {
+    "cpu_ns": 1075684000,
+    "endpoint_ranges": [
+      [
+        5.115340296927228e-06,
+        5.284272326717531e-06
+      ],
+      [
+        7.475875763340812e-06,
+        7.301479961718512e-06
+      ],
+      [
+        1.777172657023871e-06,
+        1.251621883623078e-05
+      ],
+      [
+        3.285817845603367e-06,
+        1.6429089228017107e-06
+      ],
+      [
+        9.888530924373473e-07,
+        1.9159028665973604e-06
+      ],
+      [
+        3.379685585926974e-08,
+        3.5909159350514756e-08
+      ]
+    ],
+    "maximum": 1.251621883623078e-05,
+    "peak_rss_bytes": 144097280,
+    "repetitions": 65536,
+    "scope": "N60 public conditional-on-fit numerical stability; no fit/tail guarantee",
+    "seeds": [
+      2026101502,
+      2026101503,
+      2026101504,
+      2026101505
+    ],
+    "stable": true,
+    "tolerance": 5e-05,
+    "wall_ns": 1082310709
+  },
+  "transport_comparison": [
+    {
+      "censored": false,
+      "decisions": 960,
+      "error": null,
+      "generation": "generation2",
+      "max_complete_frame_bytes": 19271922,
+      "overshoot_ns": 3212986376,
+      "parent_cpu_ns": 3119288000,
+      "repeat": "pilot-repeat0",
+      "status": "deadline",
+      "terminal_after_deadline_ns": 2079614918,
+      "utility": 0.9910105328572199,
+      "wire_bytes": 19315553,
+      "worker_peak_rss_bytes": 265863168,
+      "worker_sampled_peak_rss_bytes": 300941312
+    },
+    {
+      "censored": false,
+      "decisions": 961,
+      "error": null,
+      "generation": "generation2",
+      "max_complete_frame_bytes": 19293969,
+      "overshoot_ns": 3119476793,
+      "parent_cpu_ns": 3089819000,
+      "repeat": "pilot-repeat1",
+      "status": "deadline",
+      "terminal_after_deadline_ns": 2067353627,
+      "utility": 0.9910105328572199,
+      "wire_bytes": 19337600,
+      "worker_peak_rss_bytes": 264437760,
+      "worker_sampled_peak_rss_bytes": 299532288
+    },
+    {
+      "censored": true,
+      "decisions": 0,
+      "error": "ValueError: truncated worker frame; worker terminated by SIGTERM (parent_watchdog, watchdog)",
+      "generation": "generation3",
+      "max_complete_frame_bytes": 1321,
+      "overshoot_ns": 2012720085,
+      "parent_cpu_ns": 2062995000,
+      "repeat": "pilot-repeat0",
+      "status": "implementation_error",
+      "terminal_after_deadline_ns": null,
+      "utility": 0.9910105328572199,
+      "wire_bytes": 43631,
+      "worker_peak_rss_bytes": null,
+      "worker_sampled_peak_rss_bytes": 304332800
+    },
+    {
+      "censored": true,
+      "decisions": 0,
+      "error": "ValueError: truncated worker frame; worker terminated by SIGTERM (parent_watchdog, watchdog)",
+      "generation": "generation3",
+      "max_complete_frame_bytes": 1321,
+      "overshoot_ns": 2010961876,
+      "parent_cpu_ns": 2071097000,
+      "repeat": "pilot-repeat1",
+      "status": "implementation_error",
+      "terminal_after_deadline_ns": null,
+      "utility": 0.9910105328572199,
+      "wire_bytes": 43631,
+      "worker_peak_rss_bytes": null,
+      "worker_sampled_peak_rss_bytes": 299876352
+    },
+    {
+      "censored": false,
+      "decisions": 942,
+      "error": null,
+      "generation": "generation4",
+      "max_complete_frame_bytes": 18878330,
+      "overshoot_ns": 1312749543,
+      "parent_cpu_ns": 1265800000,
+      "repeat": "pilot-repeat0",
+      "status": "deadline",
+      "terminal_after_deadline_ns": 225345334,
+      "utility": 0.9910105328572199,
+      "wire_bytes": 18921961,
+      "worker_peak_rss_bytes": 265011200,
+      "worker_sampled_peak_rss_bytes": 284557312
+    },
+    {
+      "censored": false,
+      "decisions": 924,
+      "error": null,
+      "generation": "generation4",
+      "max_complete_frame_bytes": 18486562,
+      "overshoot_ns": 1345340460,
+      "parent_cpu_ns": 1327097000,
+      "repeat": "pilot-repeat1",
+      "status": "deadline",
+      "terminal_after_deadline_ns": 263250168,
+      "utility": 0.9910105328572199,
+      "wire_bytes": 18530193,
+      "worker_peak_rss_bytes": 261046272,
+      "worker_sampled_peak_rss_bytes": 294682624
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "active": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/protocol/freeze-A003.sha256",
+    "sha256": "3ad4b3c20fe75831c59cbb2616016553007bc12ae0ef1ddee17221e7b811e74c"
+  },
+  "config": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/confirmatory-A003.json",
+    "sha256": "ef96d844ec6786b78f44608508f909292a724ac2e5a680529789c007e303b64c"
+  },
+  "green_results": [
+    "167 passed in23.78s",
+    "197 passed in27.77s",
+    "large terminal1 passed,49 deselected in1.67s",
+    "198 passed in29.21s",
+    "203 passed in30.28s"
+  ],
+  "minor_M1": "deferred per controller; bootstrap count65536 unaffected",
+  "no_protected_outcomes": true,
+  "red_results": [
+    "I1/I2:4 failed,3 passed,98 deselected in3.69s",
+    "4096 writer:1 failed,47 deselected in0.10s",
+    "capacity gate:1 failed,56 deselected in0.58s",
+    "large terminal:1 failed,49 deselected in3.17s",
+    "frame bound:1 failed,4 passed,50 deselected in0.95s"
+  ],
+  "source_commits": [
+    "893e3e9",
+    "5f16f8f"
+  ],
+  "supplemental_scripts": [
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task15/generation4/task15_fix_audit.py",
+      "sha256": "a2d5b91b3e2adfa3fa18ea5a6e3f825b4f280f01ee894aa7fb5e73d9854562bd"
+    },
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task15/generation4/task15_seal_a003.py",
+      "sha256": "12e626b9aeecd2caa16009427239d9b67a73151faf6daf81f1da2807db047945"
+    }
+  ],
+  "test_command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 LOKY_MAX_CPU_COUNT=1 .venv/bin/python -m pytest tests/test_freeze.py tests/test_design_calibration.py tests/test_collection.py tests/test_worker.py tests/test_harness_controls.py -q",
+  "test_result": "203 passed in30.28s; no source/test mutations during generation4 timing"
+}

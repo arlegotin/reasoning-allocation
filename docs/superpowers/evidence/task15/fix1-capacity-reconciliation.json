@@ -1,0 +1,20 @@
+{
+  "capacity": {
+    "basis": "Separate conservative4x artifact/worker envelopes; no identified RSS slope, no guaranteed bound",
+    "coordinator_reserve_bytes": 21474836480,
+    "free_storage_bytes": 83423698944,
+    "joint_memory_bytes": 26987134976,
+    "observed_worker_peak_including_samples_bytes": 304332800,
+    "os_reserve_bytes": 4294967296,
+    "physical_memory_bytes": 38654705664,
+    "storage_envelope_bytes": 33576268800,
+    "worker_observation_basis": "Largest observed exact or sampled process RSS across retained generations; sampled peaks are lower bounds, never replace missing exact finals with zero",
+    "worker_peak_envelope_bytes": 1217331200
+  },
+  "prior_draft": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task15/generation4/config-before-sampled-rss-reconciliation.json",
+    "sha256": "a010cb2496969fbffeb6c1e8fdcc57bc222d3cc07d80653debf3c388728fed69"
+  },
+  "reason": "Preseal reconcile sampled worker peaks omitted by terminal self-report; no new runtime/source change",
+  "resolved_configuration_before_evidence_link_sha256": "24c82703cf915d02942a2776ab3de2497fe7366da489e76b67bb58c8fcbb1ffc"
+}

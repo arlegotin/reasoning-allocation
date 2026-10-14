@@ -1,0 +1,62 @@
+{
+  "active": {
+    "digest": "f4511084b7d2aa5474182c7d0767771bddb9c6f5755d020608d1bb3d1e9de45c",
+    "experiment_id": "ra-wp06-e004",
+    "queue_count": 2520,
+    "source_commit": "5f16f8ffa5eb9db8e1e4d1777eb55a98cf68052b",
+    "success": true
+  },
+  "all_outcome_namespaces_absent": true,
+  "capacity": {
+    "basis": "Separate conservative4x artifact/worker envelopes; no identified RSS slope, no guaranteed bound",
+    "coordinator_reserve_bytes": 21474836480,
+    "free_storage_bytes": 83423698944,
+    "joint_memory_bytes": 26987134976,
+    "observed_worker_peak_including_samples_bytes": 304332800,
+    "os_reserve_bytes": 4294967296,
+    "physical_memory_bytes": 38654705664,
+    "storage_envelope_bytes": 33576268800,
+    "worker_observation_basis": "Largest observed exact or sampled process RSS across retained generations; sampled peaks are lower bounds, never replace missing exact finals with zero",
+    "worker_peak_envelope_bytes": 1217331200
+  },
+  "config": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/confirmatory-A003.json",
+    "sha256": "ef96d844ec6786b78f44608508f909292a724ac2e5a680529789c007e303b64c"
+  },
+  "environment": {
+    "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+    "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+    "source_hash": "78e999cdfd210f6c3e26645d6fbfef6f588fb76fe4ded140fad64ba85f7eefd7"
+  },
+  "old_archives": [
+    {
+      "archival_digest": "9bf1e05c293ab936bc6cde4a9b585087e8c11ff24a33c87fa7609f30e9723aa6",
+      "live_rejected": "unresolved scientific fields: capacity, execution_access_journal",
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/protocol/freeze.sha256"
+    },
+    {
+      "archival_digest": "9b8e9907f6b7d3fda31d05bfefe884dacb53b1cddc1c2278540cc541b627551f",
+      "live_rejected": "unresolved scientific fields: capacity, execution_access_journal",
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/protocol/freeze-A001.sha256"
+    },
+    {
+      "archival_digest": "8597c9ef7f0046b7ded617439f9026de9bc957d23e06b6f224492d0ee2cf3d62",
+      "live_rejected": "unresolved scientific fields: capacity, execution_access_journal",
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/protocol/freeze-A002.sha256"
+    }
+  ],
+  "protected_manifests": [
+    {
+      "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/data/confirmatory/ra-wp06-e003-snapshot/inputs/manifest.json",
+      "sha256": "18c57e1ce37c1765dc833f23384bf9b96076bb592c393c0105e77ae6104b3ff0"
+    }
+  ],
+  "queue": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task15/generation4/protected-queue.json",
+    "sha256": "57b7b276a4301da442b59024fb642c8765cf11f9910e32d198c3850092bf35bd"
+  },
+  "resources": {
+    "path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task15/generation4/power-design.json",
+    "sha256": "3ac6a238f392a2e69d3a431bba39d326418c2b8c2b622372f4b3e5b4a6889bad"
+  }
+}
