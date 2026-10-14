@@ -44,15 +44,15 @@ crossing_request = 2
         assert len(artificial_worker[0])==crossing_request
 >       assert_storage_halt(out,crossing_request)
 
-tests/test_confirmatory_execution.py:363: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_confirmatory_execution.py:363:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 tests/test_confirmatory_execution.py:340: in assert_storage_halt
     assert json.loads((out/'halt.json').read_text())['reason']=='resource_alarm'
                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /opt/homebrew/Cellar/python@3.12/3.12.9/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1027: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1781/test_storage_attempt_crossing_1/outcomes/halt.json')
 mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
@@ -143,15 +143,15 @@ stage = 'progress', count = 2, expected = 2
         assert len(artificial_worker[0])==expected
 >       assert_storage_halt(out,expected)
 
-tests/test_confirmatory_execution.py:382: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_confirmatory_execution.py:382:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 tests/test_confirmatory_execution.py:340: in assert_storage_halt
     assert json.loads((out/'halt.json').read_text())['reason']=='resource_alarm'
                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /opt/homebrew/Cellar/python@3.12/3.12.9/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1027: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1781/test_storage_operational_metad2/outcomes/halt.json')
 mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
@@ -221,15 +221,15 @@ stage = 'accounting'
         assert len(artificial_worker[0])==2
 >       assert_storage_halt(out,2)
 
-tests/test_confirmatory_execution.py:403: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_confirmatory_execution.py:403:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 tests/test_confirmatory_execution.py:340: in assert_storage_halt
     assert json.loads((out/'halt.json').read_text())['reason']=='resource_alarm'
                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /opt/homebrew/Cellar/python@3.12/3.12.9/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1027: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1781/test_storage_finalization_spac0/outcomes/halt.json')
 mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
@@ -274,15 +274,15 @@ stage = 'seal'
         assert len(artificial_worker[0])==2
 >       assert_storage_halt(out,2)
 
-tests/test_confirmatory_execution.py:403: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_confirmatory_execution.py:403:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 tests/test_confirmatory_execution.py:340: in assert_storage_halt
     assert json.loads((out/'halt.json').read_text())['reason']=='resource_alarm'
                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /opt/homebrew/Cellar/python@3.12/3.12.9/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1027: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1781/test_storage_finalization_spac1/outcomes/halt.json')
 mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
