@@ -23,6 +23,7 @@
       "ff9a63d501c346ce98d33534df51d6ea"
     ],
     "body_fit_eligible": 298,
+    "body_fit_eligible_status": "historical raw value298 is superseded by authoritative_training_targets (306)",
     "bytes_per_label": 68077.32026143791,
     "collection_wall_ns": 28919369083,
     "coordinator_cpu_ns": 2411700000,
@@ -99,6 +100,127 @@
   },
   "actual_source_scope": "retained initial source; cap inactive(max70/128), later accounting/weight/guard/metadata/recovery corrections are separately tested; no native cohort rerun",
   "audited_summary": {
+    "audit_ns": 510750208,
+    "behavior_label_counts": {
+      "collect-bound": 40,
+      "collect-deepest": 155,
+      "collect-estimate": 111
+    },
+    "counts": {
+      "attempts": 18,
+      "body_fit_eligible": 306,
+      "complete": 15,
+      "deadline": 3,
+      "deadline_censored_leases": 2,
+      "decisions": 307,
+      "duration_lower_bound_leases": 0,
+      "eligibility_corrections": 8,
+      "exploration_draws": 49,
+      "historical_body_fit_eligible": 298,
+      "labels": 306,
+      "max_decisions_per_attempt": 70,
+      "natural_completion_known": 298,
+      "zero_gain": 231
+    },
+    "duration_eligibility": {
+      "path": "artifacts/checks/task11/fix1/reconstruction/derived-duration-eligibility.json",
+      "sha256": "582ef2e113e0bec48017c5ab9dbe59a9dfaece8e75cf969f584bf010f9775b78"
+    },
+    "generated_originals": 12,
+    "length_counts": {
+      "1": 131,
+      "16": 35,
+      "2": 6,
+      "32": 4,
+      "4": 115,
+      "64": 9,
+      "8": 6
+    },
+    "maximum_observed_gain": 0.9955847535856837,
+    "nanoseconds": {
+      "admin_ns": 2481559254,
+      "body_ns": 21007365619,
+      "corrected_residual_administration": 25142876,
+      "full_ns": 23488924873,
+      "historical_residual_administration": 14049334,
+      "local_feature_extraction": 837660547,
+      "pooled_feature_extraction": 721398038,
+      "selected_and_pooled_array_storage": 152520835
+    },
+    "original_ids": [
+      "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+      "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+      "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+      "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828",
+      "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1",
+      "b9580559c7fd7ab08442a3be706731529c936ef1a334a492bb1f83977886cdce"
+    ],
+    "originals_with_labels": 6,
+    "pool_max": 128,
+    "pool_min": 1,
+    "scheduled_originals": 6,
+    "sizes": {
+      "decision_metadata_bytes": 15306712,
+      "pooled_file_bytes": 307000,
+      "pooled_payload_bytes": 267704,
+      "selected_file_bytes": 510848,
+      "selected_payload_bytes": 471552
+    },
+    "version": 2
+  },
+  "authoritative_training_targets": {
+    "body_fit_eligible": 306,
+    "cohort_weights": {
+      "path": "artifacts/checks/task11/reconstruction-final/derived-cohort-weights.json",
+      "sha256": "60ddfb765be06c83965b1aa769f8abeb754eb9297478c86ff8902ef07fdbb518"
+    },
+    "duration_eligibility": {
+      "path": "artifacts/checks/task11/fix1/reconstruction/derived-duration-eligibility.json",
+      "sha256": "582ef2e113e0bec48017c5ab9dbe59a9dfaece8e75cf969f584bf010f9775b78"
+    },
+    "natural_completion_known": 298,
+    "required_join": "source label path/hash; raw historical body_fit_eligible flags are superseded"
+  },
+  "derived_corrections": {
+    "added_orphan_rebid_administration_ns": 11093542,
+    "cohort_total_weight": 1.0,
+    "historical_residual_administration_ns": 14049334,
+    "per_scheduled_original_weight": 0.16666666666666666,
+    "residual_administration_ns": 25142876,
+    "trace_bytes_semantics": "initial total_bytes includes arrays; initial per-attempt collection.trace_bytes separate from resources.trace_bytes, final implementation includes both in resources.trace_bytes"
+  },
+  "final_source_hashes": {
+    "checks/task11_reconstruct.py": "773c0e8691c1a6b45ecbafa2c41d4d06f5b5ac2739500c145d383a198067ea71",
+    "configs/exploratory.json": "a05ec58053956f051b27f64cc960952734b193777c8fa564511ebde906f2e098",
+    "configs/features.json": "0c7eb90f2cc76d6b29a918446be3cd0702a300b03230964d0d516dd0e5a5df93",
+    "configs/workload_manifest.json": "9f0de3b20abe5ca4acd46d4e3822daef5b5bb16b861ef6ead3e3c9df869db127",
+    "protocol/collection.json": "f16165caa99bccc736f31dad924ceeb4bec25d321165ae30905c53717be0e29b",
+    "protocol/collection.md": "aef2010ddf28b44c9623388cd93341a96c6a9f45d1517ce8cd6371dbf900c4ea",
+    "src/ra/__init__.py": "af231eb3ba064a73f3f70e7e506d6685a6452c6d46291578fa25bfe1e76aaa23",
+    "src/ra/allocators.py": "b7e8e23dbafcbf5394936c85fa4a77fdffafbdd87b6e47019e73ce2a745ec2d6",
+    "src/ra/candidates.py": "be5f6e872511bb5dd51de0fcf23c95bf8638572f7f5df09cfcc41509d7181f0f",
+    "src/ra/checks.py": "4bc71d7d9888cd9429467f45c1b7648224d05a2c265c0897eb2b230057e59d1f",
+    "src/ra/cli.py": "687817973cd604d3ee6654a8c35eff7c692671458ef076ce52623cb6e8be912b",
+    "src/ra/collect.py": "42227ff0a6c91dfffdbbe0af67f07c03f6a82190ed1ffd58b1e27440ecbb3922",
+    "src/ra/config.py": "94845633b11a8c09619a0036f9c5606d23e903b382e1fa1c13d64a041dc20ba1",
+    "src/ra/data.py": "073aa4e94a4d1c7c6315552575b0c400cd8f78e03974842b7dd51f3b81ac2aa4",
+    "src/ra/doctor.py": "629d86ada68f6c0c37a508c4d4b7338f1a67229b5990bb6f2103d3ed567b294b",
+    "src/ra/exact.py": "455683ed023d7b00604b27d2db16d5098323a4726dd7efb5469de7c9fe690b0c",
+    "src/ra/features.py": "b9aaac9fb82147e75a96f03ceef4bed2953f6ed96980021d380655eaf6d27434",
+    "src/ra/leases.py": "10532de9104133753b5a2dfb29d812fa6abb7807887d3ca6b6439f7075fd2f15",
+    "src/ra/ledger.py": "94500f07b4d1aefa63d7cea11d6ddfe2fc37582ef46349fcaa7885f7e791dcab",
+    "src/ra/metrics.py": "575028b9a47ab3ca201cbae981f4cd08586874487fe148b5978931bd0bc0bcd3",
+    "src/ra/observer.py": "074a92b6cde7497838c08ec6f69812a2fde1bbbcd9b36f118a3a60250699d6d1",
+    "src/ra/pilot.py": "2f83ac72c7f9dc9a86b69882309f5da222620e0963ae0777b8ee52bc2941f5f9",
+    "src/ra/provenance.py": "97ea0ade60db01db82595423f4a88e36a6352b5451b7f46ee50dc28798770c61",
+    "src/ra/runner.py": "15a72e7e5d46856da5a00d5c807d7df0cf2f2f766427de4111de978f0bdd56ee",
+    "src/ra/scip_backend.py": "5d0a922e2e990357a180848f1ee6944aaf5f84bea976afcf892adb755add4145",
+    "src/ra/types.py": "e2e2ba5aec51efe24ed4820ec0d34b9f96e0e5ec2fe87f26ab6b26aaa84c4c5d",
+    "src/ra/worker.py": "368848503b59f7f23fc78d355a88aa85cf10de3fdc2b32eb98ead8d0383f8f46",
+    "tests/test_collection.py": "d7c0a6b5c2baa8c8ffc2b7b429fdd253b8e6ae8f4a69662d6afcef1a908ca8fe",
+    "tests/test_lease_labels.py": "4634e66c0a7754edadea3d9404751c8ddf1c0f0370eb5f7964ef382f2b7ea962"
+  },
+  "historical_audited_summary_pre_fix1": {
     "audit_ns": 434056125,
     "behavior_label_counts": {
       "collect-bound": 40,
@@ -161,45 +283,6 @@
     },
     "version": 1
   },
-  "derived_corrections": {
-    "added_orphan_rebid_administration_ns": 11093542,
-    "cohort_total_weight": 1.0,
-    "historical_residual_administration_ns": 14049334,
-    "per_scheduled_original_weight": 0.16666666666666666,
-    "residual_administration_ns": 25142876,
-    "trace_bytes_semantics": "initial total_bytes includes arrays; initial per-attempt collection.trace_bytes separate from resources.trace_bytes, final implementation includes both in resources.trace_bytes"
-  },
-  "final_source_hashes": {
-    "checks/task11_reconstruct.py": "1f45f0155d57893b5a7bf6e5634f4953e72e41d37ca10a7450d9d9b6d14958aa",
-    "configs/exploratory.json": "a05ec58053956f051b27f64cc960952734b193777c8fa564511ebde906f2e098",
-    "configs/features.json": "0c7eb90f2cc76d6b29a918446be3cd0702a300b03230964d0d516dd0e5a5df93",
-    "configs/workload_manifest.json": "9f0de3b20abe5ca4acd46d4e3822daef5b5bb16b861ef6ead3e3c9df869db127",
-    "protocol/collection.json": "f16165caa99bccc736f31dad924ceeb4bec25d321165ae30905c53717be0e29b",
-    "protocol/collection.md": "844d0fb1c1236df07c4ffb8a92cb127efa6523de10147206761c31dcadae0720",
-    "src/ra/__init__.py": "af231eb3ba064a73f3f70e7e506d6685a6452c6d46291578fa25bfe1e76aaa23",
-    "src/ra/allocators.py": "b7e8e23dbafcbf5394936c85fa4a77fdffafbdd87b6e47019e73ce2a745ec2d6",
-    "src/ra/candidates.py": "be5f6e872511bb5dd51de0fcf23c95bf8638572f7f5df09cfcc41509d7181f0f",
-    "src/ra/checks.py": "4bc71d7d9888cd9429467f45c1b7648224d05a2c265c0897eb2b230057e59d1f",
-    "src/ra/cli.py": "687817973cd604d3ee6654a8c35eff7c692671458ef076ce52623cb6e8be912b",
-    "src/ra/collect.py": "cba9c419e430ef85479a2612294f227015e59b9ba947f6282443459abe4ce40d",
-    "src/ra/config.py": "94845633b11a8c09619a0036f9c5606d23e903b382e1fa1c13d64a041dc20ba1",
-    "src/ra/data.py": "073aa4e94a4d1c7c6315552575b0c400cd8f78e03974842b7dd51f3b81ac2aa4",
-    "src/ra/doctor.py": "629d86ada68f6c0c37a508c4d4b7338f1a67229b5990bb6f2103d3ed567b294b",
-    "src/ra/exact.py": "455683ed023d7b00604b27d2db16d5098323a4726dd7efb5469de7c9fe690b0c",
-    "src/ra/features.py": "b9aaac9fb82147e75a96f03ceef4bed2953f6ed96980021d380655eaf6d27434",
-    "src/ra/leases.py": "10532de9104133753b5a2dfb29d812fa6abb7807887d3ca6b6439f7075fd2f15",
-    "src/ra/ledger.py": "94500f07b4d1aefa63d7cea11d6ddfe2fc37582ef46349fcaa7885f7e791dcab",
-    "src/ra/metrics.py": "575028b9a47ab3ca201cbae981f4cd08586874487fe148b5978931bd0bc0bcd3",
-    "src/ra/observer.py": "074a92b6cde7497838c08ec6f69812a2fde1bbbcd9b36f118a3a60250699d6d1",
-    "src/ra/pilot.py": "2f83ac72c7f9dc9a86b69882309f5da222620e0963ae0777b8ee52bc2941f5f9",
-    "src/ra/provenance.py": "97ea0ade60db01db82595423f4a88e36a6352b5451b7f46ee50dc28798770c61",
-    "src/ra/runner.py": "61dc952495e3a2087c22f04949754b6c5599ff68eb58196e476b298df7f762f5",
-    "src/ra/scip_backend.py": "5d0a922e2e990357a180848f1ee6944aaf5f84bea976afcf892adb755add4145",
-    "src/ra/types.py": "e2e2ba5aec51efe24ed4820ec0d34b9f96e0e5ec2fe87f26ab6b26aaa84c4c5d",
-    "src/ra/worker.py": "368848503b59f7f23fc78d355a88aa85cf10de3fdc2b32eb98ead8d0383f8f46",
-    "tests/test_collection.py": "050f8f0d85729008c4ae889647370dd9f449b38d3450882093e6b9b0f00aefe9",
-    "tests/test_lease_labels.py": "140065b82b96cf2e733aaf593a5f5661906b6dbd275f1f5519312b4dce5dd2f2"
-  },
   "implementation_commit": "131f6db",
   "inventory_entries": 2443,
   "limits": [
@@ -210,7 +293,13 @@
     "one full476-test suite; later narrow metadata/recovery/residual fixes covered by84 passing focused tests"
   ],
   "references": {
-    ".superpowers/sdd/2026-10-13-reasoning-allocation/task-11-report.md": "315f46394801bc515fa2c46239adaaa9c9fb248ba2b4d554a64f10e165858de0",
+    ".superpowers/sdd/2026-10-13-reasoning-allocation/task-11-report.md": "6fc2306a177e1e369f46ed5d369ce589879288cb8b1b344ff1b62639c0bb864b",
+    "artifacts/checks/task11/fix1/compact-before-fix1.json": "445296f7f4293c7e7ca8a93d2c3934227adbe7818635b12e8ea94ceddaf95c1c",
+    "artifacts/checks/task11/fix1/green.txt": "14c4bb8ccb5f670bd33e6409f74acdba1ba87ea86db11b72eeaf36142b825a84",
+    "artifacts/checks/task11/fix1/inventory.json": "a55f5240dfab9e14108849023c1d23f2af7c62e121e5d4ca6ef16f44644922c9",
+    "artifacts/checks/task11/fix1/reconstruction/derived-duration-eligibility.json": "582ef2e113e0bec48017c5ab9dbe59a9dfaece8e75cf969f584bf010f9775b78",
+    "artifacts/checks/task11/fix1/reconstruction/reconstruction.json": "1f01b9b3117fdeba24bf0989d3b6de41976e229d00fc5bf932a9a2a21b216554",
+    "artifacts/checks/task11/fix1/report-before-fix1.md": "315f46394801bc515fa2c46239adaaa9c9fb248ba2b4d554a64f10e165858de0",
     "artifacts/checks/task11/full-suite.txt": "18d485954ab0f557ee5de5c79fca926d3a47d6cda8d55ab9138d41dd79197580",
     "artifacts/checks/task11/inventory.json": "3eed75a0fac51fe4419b9ba28a5ae82f6004ae67ca88d54dac4b14a8e1547f0a",
     "artifacts/checks/task11/reconstruction-final/derived-cohort-weights.json": "60ddfb765be06c83965b1aa769f8abeb754eb9297478c86ff8902ef07fdbb518",
@@ -222,6 +311,20 @@
     "data/traces/train/runs/schedule.json": "d667f2a1288f52f2c2d96d5e8a63e6d47f6c968a650dc3f3f7683d5dc526ccd8"
   },
   "residual_fix_commit": "6b8fe68",
+  "review_fix1": {
+    "audit_ns": 510750208,
+    "changed_eligibilities": 8,
+    "corrected_actual_count": 306,
+    "historical_actual_count": 298,
+    "issues": [
+      "I1",
+      "M1"
+    ],
+    "report": "see appended review-fix1 section; no cohort/full-suite repeat",
+    "tests": "RED14 failed27 passed0.78s; GREEN115 passed7.44s",
+    "unchanged_raw_inventory_entries": 2443
+  },
+  "review_fix1_commit": "ecf319b",
   "schema_version": 1,
-  "status": "locally_complete_independent_review_pending"
+  "status": "review_fix1_locally_verified_scoped_review_pending"
 }
