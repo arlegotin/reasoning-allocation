@@ -34,7 +34,7 @@
     },
     "narrative": {
       "path": "docs/superpowers/evidence/task20/interpretation.md",
-      "sha256": "8f49cedaa582dea4e3faf36f857ecef4876c9823de9b3c2611ba4a4aa8db9ec8"
+      "sha256": "c08429834ca5df2d6b5a06d224cefc42df71b65f51d299f383edcfe0e18a5d76"
     },
     "endpoints": {
       "path": "results/confirmatory/endpoints.csv",

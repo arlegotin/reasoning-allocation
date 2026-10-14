@@ -598,7 +598,10 @@ def build_report(manifest_path, out, *, dry_run=False):
         audit=read(project/refs['audit']['path']); curves=_read_table(project/refs['curves']['path'])
         resources=_read_table(project/refs['resources']['path'])
         _validate_a004_render(config,inference,curves,audit)
-        lines+=(project/refs['narrative']['path']).read_text().splitlines()+['']
+        narrative=(project/refs['narrative']['path']).read_text()
+        for name in ('native_work','coverage'):
+            narrative=narrative.replace(f"]({Path(refs[name]['path']).name})",f"]({refs[name]['path']})")
+        lines+=narrative.splitlines()+['']
         table={(r['method'],r['budget_ns']):r for r in curves if r['scope']=='all'}
         for contrast in inference['contrasts']:
             baseline=contrast['baseline']
@@ -667,7 +670,10 @@ def build_report(manifest_path, out, *, dry_run=False):
     for package in manifest['packages']:
         lines.append(f"| {package['name']} | {package['status']} | {package['reason']} |")
     lines+=['','## Limits','']+['- '+item for item in manifest.get('limitations',[])]+['','## Authenticated sources','']
-    for name,ref in refs.items():lines.append(f"- {name}: [{ref['path']}]({ref['path']}), SHA256 `{ref['sha256']}`")
+    for name,ref in refs.items():
+        label=(f"`{ref['path']}` (retained local asset)" if ref['path'].startswith('artifacts/')
+               else f"[{ref['path']}]({ref['path']})")
+        lines.append(f"- {name}: {label}, SHA256 `{ref['sha256']}`")
     result=dict(success=True,dry_run=dry_run,scope=manifest['scope'],empirical_solver_claims=claims,headline_rows=headlines,reuse_presentation=reuse,out=str(out))
     if not dry_run:
         out.parent.mkdir(parents=True,exist_ok=True)

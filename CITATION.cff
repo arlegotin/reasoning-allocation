@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "If you use this software or its reported results, please cite this repository and record the commit used."
+type: software
+title: "Reasoning allocation: overhead-aware subtree scheduling in SCIP"
+authors:
+  - family-names: Legotin
+    given-names: Artem
+version: 0.1.0
+date-released: "2026-10-14"
+repository-code: "https://github.com/arlegotin/reasoning-allocation"
+url: "https://github.com/arlegotin/reasoning-allocation"
+license: AGPL-3.0-only
+abstract: >-
+  Research software for allocating bounded SCIP subtree leases using local
+  predictions of optimization progress and execution cost. The completed
+  cold-request study used 60 independent generated weighted-set-cover templates,
+  one fitted model bundle, two timing repeats and three deadlines, producing
+  2,520 requests. No registered positive superiority was established; the local
+  adaptive bidder lost to a simple estimate-based one-node selector, while other
+  directional comparisons remained inconclusive. A pooled-control Monte Carlo
+  stability diagnostic failed. The repository preserves scoped findings,
+  resource accounting, solver correctness checks and reproducibility records.
+  Full raw-result authentication requires external retained research assets.
+keywords:
+  - metareasoning
+  - computation allocation
+  - mixed-integer optimization
+  - branch and bound
+  - SCIP
+  - reproducible research

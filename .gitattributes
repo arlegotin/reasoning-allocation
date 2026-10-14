@@ -1,0 +1,4 @@
+# Preserve canonical license and third-party notice bytes, including whitespace.
+LICENSE -whitespace
+licenses/CC-BY-4.0.txt -whitespace
+licenses/third-party/LICENSE_DEJAVU -whitespace

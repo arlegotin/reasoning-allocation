@@ -1,5 +1,7 @@
 # Reproduce the achieved A004 scope
 
+A fresh clone provides source, tests, saved result tables and compact scientific receipts. Start with the [README](README.md) installation and analytical checks. The A004 report and numerical reconstruction commands below require the separately retained raw data, model assets, offline wheels and native environment receipts; report `--dry-run` authenticates those assets too. [Publication scope](docs/PUBLICATION.md) describes the public files and retained archive boundary.
+
 Run from this repository root on the retained ARM64 macOS/CPython 3.12.9 machine. No chat or original external brief is required. `REPORT.md`, `CLAIMS.md`, `configs/report-achieved.json`, the versioned specification/plan, and authenticated CSV/JSON sources define the achieved scope. A000–A003 are historical: always use **`configs/confirmatory-A004.json` / `protocol/freeze-A004.sha256`** for the completed experiment.
 
 ## Rebuild primary tables from saved immutable results

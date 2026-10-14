@@ -130,7 +130,7 @@ These are the same saved population-weighted utilities at that deadline, repeate
 - curves: [results/confirmatory/curves.csv](results/confirmatory/curves.csv), SHA256 `92236660088ee9be2771dbb6cfca01a91f430e7381abd6366e866bc2c86de91f`
 - resources: [results/confirmatory/resource_summary.csv](results/confirmatory/resource_summary.csv), SHA256 `ef43c4a67e679bc1747a623f6807419583a7b79c743dc953fc1391ebebbb9c85`
 - audit: [docs/superpowers/evidence/task16/execution-audit.json](docs/superpowers/evidence/task16/execution-audit.json), SHA256 `83cf330827f68bc9b736ad0e8e240189193e0a927fe4bc6c99ab99435c116809`
-- narrative: [docs/superpowers/evidence/task20/interpretation.md](docs/superpowers/evidence/task20/interpretation.md), SHA256 `8f49cedaa582dea4e3faf36f857ecef4876c9823de9b3c2611ba4a4aa8db9ec8`
+- narrative: [docs/superpowers/evidence/task20/interpretation.md](docs/superpowers/evidence/task20/interpretation.md), SHA256 `c08429834ca5df2d6b5a06d224cefc42df71b65f51d299f383edcfe0e18a5d76`
 - endpoints: [results/confirmatory/endpoints.csv](results/confirmatory/endpoints.csv), SHA256 `f70419cf12bffea8b0eff4a2a86cf6f36786d84a440050a1cfbb397cb6c61817`
 - costs: [results/confirmatory/project_costs.csv](results/confirmatory/project_costs.csv), SHA256 `3d6010b223b38ad1a003f0abfdfe7c6fc89067cc01f05fd526d2cd88920cafdb`
 - historical_cost_envelopes: [results/confirmatory/historical_resource_evidence.json](results/confirmatory/historical_resource_evidence.json), SHA256 `cdd7a5b9db2e60e6585a4a9df10e2930ec43945ee2ae641a9aa038ee160f0221`
@@ -145,5 +145,5 @@ These are the same saved population-weighted utilities at that deadline, repeate
 - qualified_plot: [results/handoff/derivation.json](results/handoff/derivation.json), SHA256 `7397ceb583cf211ddaf754ba1fc51f53e0607164c21140376028e494109e767e`
 - resources_wp10: [docs/superpowers/evidence/task20/resources.md](docs/superpowers/evidence/task20/resources.md), SHA256 `2b34b09f75243196a3289cf268ec058457282163ec4841af5325f3a5f5410dfd`
 - native_work_table: [docs/superpowers/evidence/task20/native-work.md](docs/superpowers/evidence/task20/native-work.md), SHA256 `543423d05f1d27642bb1c20668ac998e65af760ba6ac66ef92c17861092986ca`
-- reuse_fit_card: [artifacts/task13/models/B5/fit-card.json](artifacts/task13/models/B5/fit-card.json), SHA256 `2535b6846657d21cb0c9b8321458424e774dc17cf8694a56511c856caf0bd484`
+- reuse_fit_card: `artifacts/task13/models/B5/fit-card.json` (retained local asset), SHA256 `2535b6846657d21cb0c9b8321458424e774dc17cf8694a56511c856caf0bd484`
 - reuse_definition: [docs/superpowers/evidence/task20/reuse-definition.json](docs/superpowers/evidence/task20/reuse-definition.json), SHA256 `0b631648f11e8be509860d97c3d53dd1df69a5c032f29ad29eb4d982f08b1a90`

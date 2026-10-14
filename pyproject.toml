@@ -1,11 +1,15 @@
 [build-system]
-requires = ["setuptools>=75"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "ra"
 version = "0.1.0"
 description = "Local reasoning allocation experiments with native SCIP"
+readme = "README.md"
+authors = [{name = "Artem Legotin"}]
+license = "AGPL-3.0-only AND CC-BY-4.0"
+license-files = ["LICENSE", "licenses/CC-BY-4.0.txt", "NOTICE", "LICENSING.md", "THIRD_PARTY_NOTICES.md"]
 requires-python = ">=3.12"
 dependencies = [
   "pyscipopt==6.3.0",
@@ -18,6 +22,11 @@ dependencies = [
 
 [project.optional-dependencies]
 test = ["pytest"]
+
+[project.urls]
+Repository = "https://github.com/arlegotin/reasoning-allocation"
+Documentation = "https://github.com/arlegotin/reasoning-allocation/blob/main/REPRODUCE.md"
+Issues = "https://github.com/arlegotin/reasoning-allocation/issues"
 
 [project.scripts]
 ra = "ra.cli:main"
