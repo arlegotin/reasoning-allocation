@@ -83,3 +83,15 @@ def progress_at(records: Sequence[ProgressRecord], deadline_ns: int, p0: int,
     for record in records:
         stream.accept(record)
     return stream.available
+
+
+def log_budget_weights(deadlines: Sequence[float]) -> list[float]:
+    """Normalized trapezoidal integration on strictly increasing log deadlines."""
+    if (len(deadlines) < 2 or any(isinstance(x, bool) or not isinstance(x, (int, float))
+            or not math.isfinite(x) or x <= 0 for x in deadlines)
+            or any(a >= b for a, b in zip(deadlines, deadlines[1:]))):
+        raise ValueError('at least two positive finite increasing deadlines required')
+    points = [math.log(x) for x in deadlines]
+    span = points[-1] - points[0]
+    widths = [b-a for a,b in zip(points, points[1:])]
+    return [widths[0]/(2*span), *[(a+b)/(2*span) for a,b in zip(widths,widths[1:])], widths[-1]/(2*span)]

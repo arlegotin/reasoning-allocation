@@ -45,9 +45,30 @@ def main(argv: list[str] | None = None) -> int:
     reproduce.add_argument('--config', type=Path, required=True, help='Mandatory baseline register')
     reproduce.add_argument('--out', type=Path, required=True)
     reproduce.add_argument('--dry-run', action='store_true')
+    freeze = subcommands.add_parser('freeze', help='Validate and seal an unopened scientific protocol')
+    freeze.add_argument('--config', type=Path, required=True)
+    freeze.add_argument('--out', type=Path, required=True)
+    freeze.add_argument('--dry-run', action='store_true')
+    verify = subcommands.add_parser('verify-freeze', help='Verify all frozen references and current runtime')
+    verify.add_argument('--manifest', type=Path, required=True)
+    report_parser = subcommands.add_parser('report', help='Public discovery/validation dry report only')
+    report_parser.add_argument('--pilot-summary', type=Path, required=True)
+    report_parser.add_argument('--design', type=Path, required=True)
+    report_parser.add_argument('--out', type=Path, required=True)
     args = parser.parse_args(argv)
     try:
-        if args.command == 'reproduce':
+        if args.command == 'freeze':
+            from ra.freeze import freeze_protocol
+            value = freeze_protocol(args.config, args.out, dry_run=args.dry_run)
+            report = {'success':True, 'dry_run':args.dry_run, 'digest':value, 'out':str(args.out)}
+        elif args.command == 'verify-freeze':
+            from ra.freeze import verify_protocol
+            report = verify_protocol(args.manifest)
+        elif args.command == 'report':
+            from ra.freeze import read
+            from ra.stats import write_pilot_report
+            report = write_pilot_report(read(args.pilot_summary),read(args.design),args.out)
+        elif args.command == 'reproduce':
             from ra.baselines.register import reproduce_baseline
             report = reproduce_baseline(args.baseline, args.config, args.out, dry_run=args.dry_run)
         elif args.command == 'train':

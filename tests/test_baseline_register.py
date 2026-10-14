@@ -309,3 +309,11 @@ def test_own_named_reproduction_does_not_dispatch_arbitrary_pinned_script(record
     assert main(['reproduce', '--baseline', 'labassi', '--config', 'register.json', '--out', 'out']) == 1
     assert 'no permitted executable port installed' in capsys.readouterr().err
     assert not Path('out').exists()
+
+
+def test_locked_register_malformed_supplied_id_is_validation_error():
+    register=json.loads(Path('configs/mandatory_baselines.json').read_text())
+    from ra.baselines.register import read_card
+    cards=[read_card(ref) for ref in register['baseline_register']['cards']]
+    cards[0]['id']=[]
+    with pytest.raises(ValueError): validate(register,cards)

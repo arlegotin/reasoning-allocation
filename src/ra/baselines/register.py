@@ -183,9 +183,11 @@ def validate_register(register: dict[str, object], cards: Sequence[dict[str, obj
         refs = register.get('cards')
         _require(isinstance(refs, list) and bool(refs), 'locked literature cards required')
         locked = [read_card(ref) for ref in refs]
+        _require(all(isinstance(c, dict) and _text(c.get('id')) for c in locked), 'invalid locked card identity')
         _require(NAMED_METHODS <= {c.get('id') for c in locked}, 'every required named method needs a disposition')
         _require(isinstance(cards, Sequence) and not isinstance(cards, (str, bytes))
                  and len(cards) == len(locked), 'locked literature cards cannot disappear')
+        _require(all(isinstance(c, dict) and _text(c.get('id')) for c in cards), 'invalid supplied card identity')
         _require({c.get('id') for c in cards if isinstance(c, dict)} == {c.get('id') for c in locked},
                  'locked literature identities cannot disappear')
         _require(all(c in locked for c in cards), 'supplied cards must match locked hash-addressed records')

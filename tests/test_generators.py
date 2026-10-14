@@ -180,3 +180,19 @@ def test_manifest_equal_family_then_cell_weights_and_default_out(tmp_path, monke
     assert {r['population_weight'] for r in manifest['instances'] if r['family'] == 'uniform'} == {.125}
     with pytest.raises(ValueError):
         generate_workload(config, 'train', None)
+
+
+def test_append_population_preserves_original_prefix_hashes_and_lineage(tmp_path):
+    from ra.data import generate_workload, generate_indexed_workload
+    import json
+    from pathlib import Path
+    config=json.loads(Path('configs/workload_manifest.json').read_text())
+    old=generate_workload(config,'validation',tmp_path/'old')
+    new=generate_indexed_workload(config,'validation',tmp_path/'new',templates_per_cell=4)
+    assert len(new['instances'])==24
+    for a,b in zip(old['instances'],new['instances'][:12]):
+        assert {k:a[k] for k in ('template_index','instance_id','template_id','cell_id','sha256')} == {k:b[k] for k in ('template_index','instance_id','template_id','cell_id','sha256')}
+        assert (tmp_path/'old'/a['path']).read_bytes()==(tmp_path/'new'/b['path']).read_bytes()
+    assert sorted(r['template_index'] for r in new['instances'])==list(range(24))
+    assert len({r['template_id'] for r in new['instances']})==24
+    assert sum(r['population_weight'] for r in new['instances'])==pytest.approx(1)

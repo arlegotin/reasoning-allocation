@@ -640,7 +640,7 @@ def _runtime_identity() -> tuple[str, str, str, dict]:
     from importlib import metadata
     import pyscipopt
     sources = {str(p.relative_to(Path(__file__).parent)): hashlib.sha256(p.read_bytes()).hexdigest()
-               for p in sorted(Path(__file__).parent.glob('*.py'))}
+               for p in sorted(Path(__file__).parent.rglob('*.py'))}
     binary = Path(pyscipopt.scip.__file__)
     # Hash the extension plus the linked wheel's native SCIP library.
     libraries = [binary, *sorted(binary.parent.parent.glob('pyscipopt.libs/*')),

@@ -173,6 +173,16 @@ def config_cells(config: dict[str, object]) -> list[GeneratorCell]:
 
 
 def generate_workload(config: dict[str, object], split: str, out: Path | None, *, dry_run: bool = False) -> dict[str, object]:
+    return _generate_workload(config, split, out, dry_run=dry_run)
+
+
+def generate_indexed_workload(config: dict[str, object], split: str, out: Path, *,
+                              templates_per_cell: int, dry_run: bool = False) -> dict[str, object]:
+    """Append rounds after the locked cell-major prefix without remapping it."""
+    return _generate_workload(config, split, out, dry_run=dry_run, count=templates_per_cell)
+
+
+def _generate_workload(config, split, out, *, dry_run=False, count=None):
     from ra.config import validate_config
     from ra.provenance import SplitOwnership, derive_seed
     validate_config(config, 'workload_probes' if config.get('purpose') == 'discovery' else 'workload')
@@ -180,12 +190,18 @@ def generate_workload(config: dict[str, object], split: str, out: Path | None, *
     if config['purpose'] == 'discovery' and split != 'discovery':
         raise ValueError('probe configuration is discovery-only')
     cells = config_cells(config)
+    prefix = config['templates_per_cell']
+    count = prefix if count is None else count
+    if type(count) is not int or count < prefix:
+        raise ValueError('append count must retain every locked prefix original')
     if not cells:
         raise ValueError('configuration has no valid cells')
     out = Path(out) if out is not None else Path('data') / split
     report = {'success': True, 'dry_run': dry_run, 'split': split, 'out': str(out), 'purpose': config['purpose'],
               'population_frozen': False, 'generator_version': GENERATOR_VERSION,
-              'cells': [asdict(c) for c in cells], 'instance_count': len(cells) * config['templates_per_cell']}
+              'cells': [asdict(c) for c in cells], 'instance_count': len(cells) * count,
+              'index_mapping': 'locked-cell-major-prefix-then-round-robin-v1',
+              'templates_per_cell': count, 'prefix_templates_per_cell': prefix}
     if dry_run:
         return report
     if out.exists() and any(out.iterdir()):
@@ -193,12 +209,12 @@ def generate_workload(config: dict[str, object], split: str, out: Path | None, *
     owner_path = out.parent / 'split_ownership.json'
     owners = SplitOwnership.load(owner_path) if owner_path.exists() else SplitOwnership()
     instances = []
-    for c_index, cell in enumerate(cells):
-        for i in range(config['templates_per_cell']):
-            index = c_index * config['templates_per_cell'] + i
-            instance = generate_cover(cell, derive_seed(config['master_seed'], split, index))
-            owners.register(instance, split)
-            instances.append((instance, index))
+    cell_indices = [c for c in range(len(cells)) for _ in range(prefix)]
+    cell_indices += [c for _ in range(count - prefix) for c in range(len(cells))]
+    for index, c_index in enumerate(cell_indices):
+        instance = generate_cover(cells[c_index], derive_seed(config['master_seed'], split, index))
+        owners.register(instance, split)
+        instances.append((instance, index))
     configured_weights = config.get('family_weights') or {f: 1 for f in {c.family for c in cells}}
     total_weight = sum(configured_weights.values())
     family_counts = {f: sum(c.family == f for c in cells) for f in configured_weights}
@@ -215,7 +231,7 @@ def generate_workload(config: dict[str, object], split: str, out: Path | None, *
         records.append({'instance_id': instance.instance_id, 'template_id': instance.template_id, 'cell_id': instance.cell_id,
                         'template_index': index, 'family': family, 'path': path.name,
                         'sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
-                        'population_weight': configured_weights[family] / total_weight / family_counts[family] / config['templates_per_cell']})
+                        'population_weight': configured_weights[family] / total_weight / family_counts[family] / count})
     manifest = {**report, 'config': config, 'config_hash': hashlib.sha256(json.dumps(config, sort_keys=True, separators=(',', ':')).encode()).hexdigest(),
                 'seed_scheme': 'sha256-json-v1', 'ownership_registry': str(owner_path), 'instances': records}
     (out / 'manifest.json').write_text(json.dumps(manifest, sort_keys=True, indent=2) + '\n')
