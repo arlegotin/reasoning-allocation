@@ -1,6 +1,7 @@
 """Cold-process contract includes imports, original loading and transmission."""
 from dataclasses import asdict, replace
 import hashlib
+import errno
 import json
 from pathlib import Path
 import sys
@@ -494,3 +495,37 @@ Channel.send = send
     assert result.duration_censored
     assert result.timestamps['parent_release_ns'] >= result.timestamps['ready_receipt_ns']
     assert 'worker_cpu_ns' not in result.resources and 'worker_peak_rss_bytes' not in result.resources
+
+
+@pytest.mark.parametrize('send_errno', [errno.ENOTCONN, errno.EIO])
+def test_stop_send_closed_socket_drains_terminal_but_other_oserror_is_fault(cold_request,tmp_path,monkeypatch,send_errno):
+    """macOS ENOTCONN close race is equivalent to EPIPE, not an early kill."""
+    import errno
+    from ra.worker import Channel
+    driver(monkeypatch,tmp_path,'''
+from ra.worker import Channel,execute_request
+import time
+original=Channel.send
+def send(self,packet):
+    if packet['kind']=='terminal':time.sleep(.4)
+    original(self,packet)
+Channel.send=send
+''')
+    original=Channel.send
+    seen=[]
+    def send(self,packet):
+        if packet['kind']=='stop':
+            seen.append(packet)
+            raise OSError(send_errno,'injected stop-send OS error')
+        return original(self,packet)
+    monkeypatch.setattr(Channel,'send',send)
+    result=run_request(replace(cold_request,budget_ns=300_000_000),tmp_path/'stop-close')
+    assert seen
+    if send_errno==errno.ENOTCONN:
+        assert result.status=='deadline',result.error
+        assert result.timestamps['terminal_receipt_ns']>result.request.deadline_ns
+        assert result.resources['native_released'] is True
+        assert result.error is None
+    else:
+        assert result.status=='implementation_error'
+        assert 'injected stop-send OS error' in result.error

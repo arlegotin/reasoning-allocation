@@ -176,8 +176,12 @@ def _run_request(request: Request, out: Path) -> Attempt:
                     timestamps['parent_stop_request_ns'] = now
                     try:
                         channel.send({'kind': 'stop'})
-                    except (BrokenPipeError, ConnectionResetError):
-                        pass
+                    except OSError as exc:
+                        # macOS may report ENOTCONN when the worker closes just
+                        # before this advisory send. Drain queued terminal data.
+                        import errno
+                        if exc.errno not in (errno.EPIPE, errno.ECONNRESET, errno.ENOTCONN):
+                            raise
                     stop_sent = True
                 if now >= request.deadline_ns + request.watchdog_grace_ns and process.poll() is None:
                     timestamps['watchdog_ns'] = now
