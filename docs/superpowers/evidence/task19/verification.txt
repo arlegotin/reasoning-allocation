@@ -1,0 +1,11 @@
+COMMAND: python3 /tmp/task19-validate-docs.py
+PASS: JSON parses; scientific alternatives unmet; 4 remaining feasibility gates unassessed.
+PASS: 7 evidence SHA256 identities match current bytes and base commit; both reviewed dependencies are ancestors.
+PASS: Task17 dimensions, negative A-B2, other inconclusive simultaneous directions, B4 alias and B6 instability match saved inference.
+PASS: Task18 dimensions, doses, descriptive utility contrasts and executed protocol identity match saved summary; no inference rerun.
+PASS: Four proposed tracks unexecuted; zero execution counts, null metrics and unmeasured documentation costs retain distinct meanings.
+PASS: 10 relative documentation links resolve, including plan anchor.
+PASS: Git scope is limited to four authorized documentation/evidence paths; tracked scientific/source/config/model/raw/primary-table paths unchanged; diff --check clean.
+NOT RUN: transfer APIs/tests/CLI, solver requests, fits, downloads, author contact, bootstrap, protected reconstruction or full suite (documentation-only gate disposition).
+LIMIT: Verification is static evidence/card/link/scope validation; it neither independently recreates historical experiments nor measures total documentation/review costs.
+EXIT_CODE: 0

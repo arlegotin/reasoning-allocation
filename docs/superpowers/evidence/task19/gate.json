@@ -1,0 +1,177 @@
+{
+  "schema_version": 1,
+  "task": 19,
+  "work_package": "WP09",
+  "disposition": "skipped_entry_gate_unmet",
+  "scope": "Existing reviewed Task17 and Task18 evidence at the base commit; no new experiment or extrapolated hypothesis.",
+  "base_commit": "ceb4f7dc0ea166d2905f5f19f1e9bcfc6494f58b",
+  "reviewed_dependencies": {
+    "task17": "27aa094fc4209649e35cfa775e3c61095d357bda",
+    "task18": "a66d46abb739237c3407239a0f49906f914a9862"
+  },
+  "entry_predicate": "(meaningful_primary_benefit_with_attribution OR specific_evidence_supported_locality_or_scale_prediction) AND source_license_storage_resource_feasibility",
+  "scientific_gate": {
+    "status": "unmet",
+    "meaningful_primary_benefit_with_attribution": {
+      "status": "unmet",
+      "evidence": [
+        "task17_report",
+        "task17_inference",
+        "task18_summary",
+        "task18_report"
+      ],
+      "reason": "No registered positive primary superiority result; public latency sensitivity does not establish primary causal attribution or a revised candidate benefit."
+    },
+    "specific_evidence_supported_locality_or_scale_prediction": {
+      "status": "unmet",
+      "evidence": [
+        "task17_report",
+        "task18_report",
+        "task18_protocol"
+      ],
+      "reason": "The reviewed evidence supplies no specific measured locality/scale prediction warranting a transfer workload. One fit, near-ceiling endpoints and generic wall-delay sensitivity do not supply one."
+    }
+  },
+  "remaining_gates": {
+    "source_selection": {
+      "status": "not_assessed",
+      "reason": "Scientific entry gate unmet; no transfer selection or execution."
+    },
+    "license_and_redistribution": {
+      "status": "not_assessed",
+      "reason": "Scientific entry gate unmet; no transfer selection or execution."
+    },
+    "storage_feasibility": {
+      "status": "not_assessed",
+      "reason": "Scientific entry gate unmet; no transfer selection or execution."
+    },
+    "local_resource_feasibility": {
+      "status": "not_assessed",
+      "reason": "Scientific entry gate unmet; no transfer selection or execution."
+    }
+  },
+  "evidence": {
+    "task17_report": {
+      "path": "results/confirmatory/confirmatory_report.md",
+      "sha256": "447d575bdf71243c583ba8f2c8a3bdd25729cb3b381123c2dcbaec46b718e85f"
+    },
+    "task17_inference": {
+      "path": "results/confirmatory/inference.json",
+      "sha256": "c72b4940fd1bf646c9c2dc99ed38658035d90a8142f8b4442ac9e773765669b5"
+    },
+    "task17_provenance": {
+      "path": "results/confirmatory/provenance.json",
+      "sha256": "8ff7650f0a96c7634940868c61d48c654477936a70e88283aebc6dd5a93a87de"
+    },
+    "task18_summary": {
+      "path": "results/ablations/task18-latency/summary.json",
+      "sha256": "0672bfdc927c884d6a4bba446659d0ecacbfc0405532b00bfb66a44079c06f81"
+    },
+    "task18_report": {
+      "path": "docs/superpowers/evidence/task18/report.md",
+      "sha256": "8a4eb30966e5819500eb2c9ddd6cb024100527d6cfa35a3cc9f4bb945cb380b2"
+    },
+    "task18_protocol": {
+      "path": "protocol/task18-latency.md",
+      "sha256": "16bdb8148b48e9766939217549e5d984a2644bb417e2f8648c22a816c12c1171"
+    },
+    "task18_protocol_identity": {
+      "path": "protocol/task18-latency.json",
+      "sha256": "af3ec3595670c9bb970c825ffad7a2a8dd088da3996a39f7d619a413113058f8"
+    }
+  },
+  "task17_supported_facts": {
+    "registered_positive_superiority_established": false,
+    "A_minus_B2": {
+      "estimate": -0.0016836683476519694,
+      "simultaneous_interval": [
+        -0.0027070604003166673,
+        -0.0006838331156158566
+      ],
+      "claim": "negative frontier effect"
+    },
+    "other_registered_directions": "inconclusive",
+    "aliases": {
+      "B4": "B3"
+    },
+    "independent_templates": 60,
+    "independent_fit_runs": 1,
+    "timing_repeats": 2,
+    "B6_quantile_stable": false,
+    "inference_scope": "conditional on frozen fitted assets and training data; across-fit uncertainty unavailable"
+  },
+  "task18_supported_facts": {
+    "claim_level": "exploratory descriptive latency sensitivity",
+    "requests_completed": 36,
+    "independent_originals": 6,
+    "timing_repeats": 2,
+    "budget_ns": 2106828958,
+    "requested_delay_doses_ms": [
+      0.0,
+      4.0,
+      10.0
+    ],
+    "paired_original_mean_utility_differences_vs_zero_ms": {
+      "0.0": 0.0,
+      "4.0": -0.0001476595240620012,
+      "10.0": -0.00031759288089489024
+    },
+    "causal_primary_loss_decomposition_established": false,
+    "representation_benefit_established": false
+  },
+  "transfer_execution": {
+    "tracks": [
+      {
+        "domain": "synthetic_weighted_independent_set",
+        "track": "frozen_zero_shot",
+        "status": "unexecuted_gate_unmet",
+        "requests": 0,
+        "fits": 0
+      },
+      {
+        "domain": "synthetic_weighted_independent_set",
+        "track": "retrained",
+        "status": "unexecuted_gate_unmet",
+        "requests": 0,
+        "fits": 0
+      },
+      {
+        "domain": "miplib_compatible_instances",
+        "track": "frozen_zero_shot",
+        "status": "unexecuted_gate_unmet",
+        "requests": 0,
+        "fits": 0
+      },
+      {
+        "domain": "miplib_compatible_instances",
+        "track": "retrained",
+        "status": "unexecuted_gate_unmet",
+        "requests": 0,
+        "fits": 0
+      }
+    ],
+    "executed_tracks": 0,
+    "solver_requests": 0,
+    "fits": 0,
+    "teacher_calculations": 0,
+    "downloads": 0,
+    "author_contacts": 0,
+    "metrics": null
+  },
+  "cost_scope": {
+    "transfer_execution_counts_only": "Zero executed tracks does not mean zero documentation, validation or review cost.",
+    "task19_total_wall_seconds": null,
+    "task19_total_cpu_seconds": null,
+    "task19_peak_rss_bytes": null,
+    "measurement_status": "Task19 documentation and validation costs not independently instrumented; existing experimental costs retain their original scopes."
+  },
+  "claim_limits": [
+    "No transfer success or failure result: all proposed tracks are unexecuted.",
+    "No independent-set, MIPLIB, zero-shot or retrained performance claim.",
+    "No new-domain, size/structure/cost shift, locality/scale or training-procedure robustness claim.",
+    "No causal decomposition of primary A loss, corrected-A score, representation benefit or generic optimization benefit.",
+    "Unassessed source/license/storage/resource gates are neither approved nor declared infeasible."
+  ],
+  "next_task": 20,
+  "acceptance_owner": "controller_after_review"
+}
