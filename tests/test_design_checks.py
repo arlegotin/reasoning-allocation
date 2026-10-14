@@ -74,6 +74,29 @@ def test_analytical_cli_executes_and_saves_results(tmp_path, capsys):
     assert json.loads((tmp_path / "design.json").read_text()) == result
 
 
+def test_analytical_cli_dry_run_describes_without_diagnostics_or_writes(tmp_path, capsys, monkeypatch):
+    import ra.checks
+    def forbidden(*args):
+        pytest.fail('dry-run executed analytical diagnostics')
+    monkeypatch.setattr(ra.checks, 'run_design_checks', forbidden)
+    out = tmp_path / 'preview'
+    assert main(['check', '--suite', 'analytical', '--out', str(out), '--dry-run']) == 0
+    result = json.loads(capsys.readouterr().out)
+    assert result['dry_run'] and result['suite'] == 'analytical'
+    assert result['out'] == str(out / 'design.json')
+    assert result['operations'] == ['appendix_a', 'administrative_coupling', 'evidence_clone', 'anti_lease']
+    assert not out.exists()
+
+
+def test_check_cli_dry_run_rejects_unsupported_suite(tmp_path):
+    out = tmp_path / 'unsupported'
+    completed = subprocess.run([sys.executable, '-m', 'ra.cli', 'check', '--suite', 'native',
+        '--out', str(out), '--dry-run'], capture_output=True, text=True)
+    assert completed.returncode != 0
+    assert 'invalid choice' in completed.stderr and 'native' in completed.stderr
+    assert not out.exists()
+
+
 @pytest.mark.parametrize("extra", [["--suite", "native"], ["--suite", "all"],
                                  ["--suite", "analytical", "--phase", "confirmatory"]])
 def test_unsupported_suites_and_phases_fail_without_results(tmp_path, extra):

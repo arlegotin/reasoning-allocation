@@ -19,6 +19,7 @@ def main(argv: list[str] | None = None) -> int:
     check = subcommands.add_parser("check", help="Run implemented analytical diagnostics")
     check.add_argument("--suite", choices=["analytical"], required=True)
     check.add_argument("--out", type=Path, required=True, help="Private analytical report directory")
+    check.add_argument("--dry-run", action="store_true", help="Describe diagnostics without running or writing")
     generate = subcommands.add_parser("generate", help="Generate deterministic covers without solving")
     generate.add_argument("--config", type=Path, required=True)
     generate.add_argument("--split", choices=['discovery', 'train', 'validation', 'confirmatory', 'shift'], required=True)
@@ -113,8 +114,12 @@ def main(argv: list[str] | None = None) -> int:
             raw = load_config(args.config, 'generation')
             report = generate_workload(raw, args.split, args.out, dry_run=args.dry_run)
         elif args.command == "check":
-            from ra.checks import run_design_checks
-            report = run_design_checks(args.out)
+            if args.dry_run:
+                report = {'dry_run': True, 'suite': args.suite, 'out': str(args.out / 'design.json'),
+                          'operations': ['appendix_a', 'administrative_coupling', 'evidence_clone', 'anti_lease']}
+            else:
+                from ra.checks import run_design_checks
+                report = run_design_checks(args.out)
         else:
             report = doctor.discover_environment(args.out, dry_run=args.dry_run)
     except OSError as exc:

@@ -88,6 +88,7 @@ def _run_request(request: Request, out: Path) -> Attempt:
                  'timer_resolution_ns': max(1, round(time.get_clock_info('perf_counter').resolution * 1e9)),
                  'parent_sampling_ns': 0, 'worker_frame_limit_bytes': MAX_WORKER_FRAME_BYTES}
     terminal = None
+    correctness_alarm = None
     stream = None
     aligned = False
     ready = False
@@ -125,7 +126,7 @@ def _run_request(request: Request, out: Path) -> Attempt:
                      'cell_id': resources.get('instance', {}).get('cell_id'),
                      'lineage': resources.get('instance', {}).get('lineage'),
                      'instance_provenance_available': 'instance' in resources,
-                     'duration_censored': True, 'quarantined': terminal is not None and terminal['status'] == 'numerical_alarm'})
+                     'duration_censored': True, 'quarantined': correctness_alarm is not None})
 
     def sample():
         nonlocal last_sample
@@ -289,9 +290,15 @@ def _run_request(request: Request, out: Path) -> Attempt:
                         if terminal is not None:
                             raise ValueError('duplicate terminal record')
                         terminal = packet
+                        if packet['status'] == 'numerical_alarm':
+                            correctness_alarm = {'source': 'worker_terminal', 'receipt_ns': receipt,
+                                                 'error': packet.get('error')}
                         timestamps.update(packet['timestamps'])
                         timestamps['terminal_receipt_ns'] = receipt
                         resources.update(packet['resources'])
+                        resources['worker_terminal_status'] = packet['status']
+                        if correctness_alarm is not None:
+                            resources['correctness_alarm'] = correctness_alarm
                         checkpoint()
                     else:
                         raise ValueError(f'unknown worker packet: {kind}')
@@ -331,7 +338,8 @@ def _run_request(request: Request, out: Path) -> Attempt:
                  if aligned else AvailableProgress(False, 0., None, 0., None))
     if terminal is not None:
         status = terminal['status']
-        error = error or terminal['error']
+        if terminal['error']:
+            error = f"{terminal['error']}; {error}" if error else terminal['error']
     else:
         status = 'deadline' if censored and ready else 'startup_timeout' if censored else 'implementation_error'
         error = error or 'worker exited without terminal record'
@@ -359,6 +367,11 @@ def _run_request(request: Request, out: Path) -> Attempt:
                   f"({termination['origin']}, {termination['kind']})")
         error = f'{error}; {detail}' if error else detail
         censored = True
+    censored = censored or parent_interrupted or status == 'external_interrupt'
+    # An observed correctness alarm is monotone. Later transport, interruption,
+    # signal, or finalization faults add evidence but cannot re-enable labels.
+    if correctness_alarm is not None:
+        status = 'numerical_alarm'
     if {'collection', 'learned'} & request.method_config.keys():
         from ra.collect import finalize_trace
         try:
@@ -366,7 +379,9 @@ def _run_request(request: Request, out: Path) -> Attempt:
                 resources.get('selection_boundaries', []), status, censored,
                 timing_valid=resources.get('timing_instrumentation_failed') is not True)
         except (ValueError, OSError, TypeError) as exc:
-            status, error = 'implementation_error', f'collection finalization: {exc}'
+            status = 'numerical_alarm' if correctness_alarm is not None else 'implementation_error'
+            detail = f'collection finalization: {exc}'
+            error = f'{error}; {detail}' if error else detail
     resources['parent_cpu_ns'] = time.process_time_ns() - parent_cpu
     resources['parent_observation_ns_overlapping_worker'] = observation_ns
     resources['trace_bytes'] = sum((out / name).stat().st_size for name in ('wire.jsonl', 'progress.jsonl', 'stdout.log', 'stderr.log'))
@@ -404,14 +419,13 @@ def _run_request(request: Request, out: Path) -> Attempt:
     finalization_cpu = time.process_time_ns()
     if status == 'complete' and end > request.deadline_ns:
         status = 'deadline'
-    censored = censored or status == 'external_interrupt'
     deadline = request.deadline_ns or timestamps['parent_finalize_ns']
     provenance = resources.get('instance', {})
     attempt = Attempt(request.request_id, status, available, aligned, timestamps, resources,
                       max(0, timestamps['parent_release_ns'] - deadline), censored, error, request,
                       attempt_id=attempt_id,
                       prior_attempt_id=request.prior_attempt_ids[-1] if request.prior_attempt_ids else None,
-                      cumulative_prior_costs=dict(request.prior_costs), quarantined=status == 'numerical_alarm',
+                      cumulative_prior_costs=dict(request.prior_costs), quarantined=correctness_alarm is not None,
                       template_id=provenance.get('template_id'), cell_id=provenance.get('cell_id'),
                       lineage=provenance.get('lineage'), instance_provenance_available=bool(provenance))
     _atomic_json(out / 'partial.json', asdict(attempt))

@@ -8,6 +8,7 @@ import statistics
 import sys
 from pathlib import Path
 from collections import defaultdict
+from ra.metrics import log_budget_weights
 from ra.runner import _read_attempt
 
 
@@ -34,7 +35,9 @@ def summarize_records(rows, *, expected_budgets=None):
              for method,_,_ in cohorts}
     if any(value!=next(iter(support.values())) for value in support.values()):
         raise ValueError('incomplete matched method cohort')
-    weights=[.25,.5,.25] if len(budgets)==3 else [1/len(budgets)]*len(budgets)
+    # A single deadline is a screening score; multiple deadlines use the
+    # same normalized trapezoidal log frontier as the scientific endpoints.
+    weights=log_budget_weights(budgets) if len(budgets)>1 else [1.]
     by=defaultdict(list)
     for r in rows:
         by[r['request']['method']].append(r)

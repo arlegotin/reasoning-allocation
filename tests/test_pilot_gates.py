@@ -156,3 +156,24 @@ def test_tuning_helper_requires_declared_grid_when_all_cohorts_omit_same_deadlin
     with pytest.raises(ValueError,match='declared'):summarize_records(rows)
     with pytest.raises(ValueError,match='incomplete'):summarize_records(rows,expected_budgets=[100,200,400])
     assert summarize_records(rows,expected_budgets=[100,400])['budgets_ns']==[100,400]
+
+
+@pytest.mark.parametrize('budgets,a,b,weights,scores', [
+    ([1, 2, 16], [1., 0., 0.], [0., 0., .5], [.125, .5, .375], [.125, .1875]),
+    ([1, 4, 16, 64], [1., 0., 0., 1.], [0., .7, .7, 0.], [1/6, 1/3, 1/3, 1/6], [1/3, 7/15]),
+    ([4], [.2], [.7], [1.], [.2, .7]),
+])
+def test_tuning_ranking_integrates_declared_log_grid(budgets, a, b, weights, scores):
+    from dataclasses import asdict
+    from checks.pilot_tuning_summary import summarize_records
+    rows = []
+    for method, values in [('A', a), ('B', b)]:
+        for budget, value in zip(budgets, values):
+            row = asdict(attempt(phase='validation'))
+            row['request'].update(method=method, budget_ns=budget)
+            row['available']['utility'] = value
+            rows.append(row)
+    result = summarize_records(rows, expected_budgets=budgets)
+    assert result['weights'] == pytest.approx(weights)
+    assert [result['methods'][m]['mean_F'] for m in ['A', 'B']] == pytest.approx(scores)
+    assert result['ranking'] == ['B', 'A']
