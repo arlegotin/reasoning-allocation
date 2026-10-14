@@ -5,7 +5,7 @@ import pytest
 @pytest.mark.parametrize('bounds,word',[([.01,.03],'positive'),([-.03,-.01],'negative'),([-.0001,.0001],'tight-null'),([-.1,.1],'inconclusive')])
 def test_distinct_claim_classes(bounds,word):
     from ra.report import classify_claim
-    assert word in classify_claim(bounds,precision=.001)
+    assert word in classify_claim(bounds,precision=.001,useful_effect_scale=.001)
 
 
 def test_primal_worsening_is_tradeoff_even_with_frontier_gain():
@@ -177,3 +177,30 @@ def test_calibration_uses_final_dispatched_revision_not_initial_preparation(tmp_
         (trace/name).write_text(json.dumps(value))
     progress=[ProgressRecord(**json.loads(line)) for line in (directory/'progress.jsonl').read_text().splitlines()]
     assert reconstruct_calibration(directory,progress,a.request)[0]['node_limit']==4
+
+
+def test_frozen_planning_sensitivity_is_not_a_practical_null_margin():
+    import json
+    from pathlib import Path
+    from ra.report import classify_claim
+    config=json.loads(Path('configs/confirmatory-A004.json').read_text())
+    text=classify_claim([-.00077,.00065],precision=config['planning']['useful_precision'])
+    assert 'inconclusive' in text and 'tight-null' not in text and 'no equivalence' in text
+
+
+@pytest.mark.parametrize('frontier,primal,dual',[(.02,1.,3.),(-.02,3.,1.),(.02,-3.,-1.)])
+def test_opposing_primal_dual_directions_are_exploratory_tradeoffs(frontier,primal,dual):
+    from ra.report import guardrail_interpretation
+    assert 'tradeoff' in guardrail_interpretation(frontier_effect=frontier,primal_effect=primal,dual_effect=dual)
+
+
+def test_secondary_budget_effects_keep_raw_components_without_inference():
+    from ra.report import secondary_effects
+    from test_metrics import protocol
+    curves=[dict(scope='all',method=m,budget_ns=b,utility=u,primal=p,dual=d,raw_gap=p-d,
+        relative_gap=(p-d)/p,normalized_primal=p/100,normalized_dual=d/100,solved=0,fault=0,assignment_available=1,overshoot_ns=0)
+        for b in [1,4,16] for m,u,p,d in [('A',.42,60,2),('B0',.4,50,-10)]]
+    result=secondary_effects(curves,protocol())
+    assert len(result)==3
+    assert all(r['utility_difference']==pytest.approx(.02) and r['primal_difference']==10 and r['dual_difference']==12 for r in result)
+    assert all(r['scope']=='all' and r['inference']=='exploratory point differences only' for r in result)

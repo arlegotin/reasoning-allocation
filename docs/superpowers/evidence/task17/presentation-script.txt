@@ -1,0 +1,44 @@
+"""Presentation-only reconciliation. Reads saved results, never raw runs/statistics."""
+from pathlib import Path
+import csv,json,time,hashlib,subprocess,copy,resource
+from ra.freeze import read,reference,digest
+from ra.report import classify_claim,render_report,secondary_effects,_write_csv,_write_json
+out=Path('results/confirmatory');start,cpu=time.perf_counter_ns(),time.process_time_ns()
+config=read(Path('configs/confirmatory-A004.json')); original=read(out/'inference.json')
+for name in ('inference.json','primary.csv','artifacts.json'):
+    target=out/(Path(name).stem+'.original'+Path(name).suffix)
+    if target.exists(): raise ValueError('original artifact already archived; do not overwrite')
+    target.write_bytes((out/name).read_bytes())
+corrected=copy.deepcopy(original)
+for c in corrected['contrasts']:
+    c['claim']='quarantined correctness alarm' if c['correctness_quarantined'] else classify_claim(c['simultaneous_interval'],precision=config['planning']['useful_precision'])
+    if not c['quantile_stable']:c['claim']+='; frozen Monte Carlo stability diagnostic failed'
+def numerical(value):
+    result=copy.deepcopy(value)
+    for c in result['contrasts']:c.pop('claim',None)
+    return result
+assert numerical(original)==numerical(corrected)
+with (out/'curves.csv').open() as stream:
+    curves=[]
+    for raw in csv.DictReader(stream):
+        row={k:(v if k in ('scope','method') else json.loads(v) if v else None) for k,v in raw.items()}
+        curves.append(row)
+_write_json(out/'inference.json',corrected);_write_csv(out/'primary.csv',corrected['contrasts'])
+_write_csv(out/'secondary_effects.csv',secondary_effects(curves,config))
+render_report(out,config,corrected,curves,read(Path('docs/superpowers/evidence/task16/execution-audit.json')))
+with (out/'confirmatory_report.md').open('a') as stream:
+    stream.write('\n## Interpretation provenance and limits\n\n')
+    stream.write('Across the21 method/deadline population means, available utility ranges0.9685536015568184–0.9997448286835815. This near-ceiling regime and one fixed fit limit interpretation beyond the designed population and frozen horizons. Raw primal/dual and solved-fraction differences remain visible; no broad transfer claim follows.\n\n')
+    stream.write('The original numerical inference and original initial classification text are preserved byte-for-byte in `inference.original.json` and `primary.original.csv`. The initial descriptive tight-null wording for B3/B5 was corrected after checking the prospectively registered sensitivity-only target. `interpretation_correction.json` records the source and identical numerical digest before/after. No bootstrap or raw reconstruction was rerun for this correction; `inference.json`, `primary.csv` and this report contain the authoritative corrected interpretation.\n\n')
+    stream.write('The successful analysis emitted `success:true`; its external `/usr/bin/time -l` wrapper subsequently exited1 when the sandbox denied `sysctl kern.clockrate`. Internal resource measurements and all saved artifacts verified. A prior pre-inference support-join stop and failed dependency setup have incompletely measured costs; they are retained in the implementation report rather than treated as free work.\n')
+correction=dict(scope='interpretation and saved-curve point differences only; no raw reconstruction/bootstrap/model/threshold/population/deadline changes',
+    original=reference(out/'inference.original.json'),corrected=reference(out/'inference.json'),
+    numeric_digest_before=digest(numerical(original)),numeric_digest_after=digest(numerical(corrected)),
+    original_analysis_source=read(out/'provenance.json')['analysis_source_commit'],
+    presentation_source=subprocess.run(['git','rev-parse','HEAD'],capture_output=True,text=True,check=True).stdout.strip(),
+    changed_claims=[{'baseline':a['baseline'],'original':a['claim'],'corrected':b['claim']} for a,b in zip(original['contrasts'],corrected['contrasts']) if a['claim']!=b['claim']],
+    wall_ns=time.perf_counter_ns()-start,cpu_ns=time.process_time_ns()-cpu,
+    cost_scope='presentation operation after imports; final correction/index writes excluded; no scientific recomputation')
+_write_json(out/'interpretation_correction.json',correction)
+_write_json(out/'artifacts.json',{'artifacts':[reference(p) for p in sorted(out.iterdir()) if p.is_file() and p.name!='artifacts.json']})
+print(json.dumps(correction,indent=2))

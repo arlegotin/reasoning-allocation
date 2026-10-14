@@ -1,0 +1,41 @@
+Authenticated and reconstructed 210/2520 cold endpoints
+Authenticated and reconstructed 420/2520 cold endpoints
+Authenticated and reconstructed 630/2520 cold endpoints
+Authenticated and reconstructed 840/2520 cold endpoints
+Authenticated and reconstructed 1050/2520 cold endpoints
+Authenticated and reconstructed 1260/2520 cold endpoints
+Authenticated and reconstructed 1470/2520 cold endpoints
+Authenticated and reconstructed 1680/2520 cold endpoints
+Authenticated and reconstructed 1890/2520 cold endpoints
+Authenticated and reconstructed 2100/2520 cold endpoints
+Authenticated and reconstructed 2310/2520 cold endpoints
+Authenticated and reconstructed 2520/2520 cold endpoints
+FROZEN PRIMARY INFERENCE COMPLETE
+A–B0: -0.000906485553; simultaneous [-0.0020026598875891523, 2.7574589489313432e-05]; wide-inconclusive frontier effect
+A–B1: 0.0006065083267; simultaneous [-0.0004928506394354197, 0.0018135692829494173]; wide-inconclusive frontier effect
+A–B2: -0.001683668348; simultaneous [-0.0027070604003166673, -0.0006838331156158566]; negative frontier effect
+A–B3: -0.0001077249188; simultaneous [-0.0007718153164298796, 0.0006529927233088936]; tight-null at the useful-precision scale (descriptive, not an equivalence test)
+A–B5: -0.0002285945105; simultaneous [-0.0008677190507143456, 0.0004080793995589306]; tight-null at the useful-precision scale (descriptive, not an equivalence test)
+A–B6: 0.000384038904; simultaneous [-0.0001803361359106237, 0.0012546774633990564]; wide-inconclusive frontier effect; frozen Monte Carlo stability diagnostic failed
+{
+  "analysis_resources": {
+    "cpu_ns": 140672316000,
+    "peak_rss_bytes": 2767126528,
+    "plotting_child_cpu_seconds": 0.812156,
+    "reconstruction_wall_ns": 151905907292,
+    "scope": "analysis invocation through plot completion; final accounting/index writes and interactive/development/setup/test costs excluded; no solver execution",
+    "unknown_tails": [
+      "final accounting and artifact-index writes",
+      "development/interactive work",
+      "dependency preparation and failed network setup"
+    ],
+    "wall_ns": 169227504084
+  },
+  "contrasts": 6,
+  "dry_run": false,
+  "out": "results/confirmatory",
+  "requests": 2520,
+  "success": true
+}
+      169.82 real        99.89 user        42.30 sys
+time: sysctl kern.clockrate: Operation not permitted

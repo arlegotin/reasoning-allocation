@@ -1,0 +1,103 @@
+FFFF............F.FFF                                                    [100%]
+=================================== FAILURES ===================================
+________________ test_distinct_claim_classes[bounds0-positive] _________________
+
+bounds = [0.01, 0.03], word = 'positive'
+
+    @pytest.mark.parametrize('bounds,word',[([.01,.03],'positive'),([-.03,-.01],'negative'),([-.0001,.0001],'tight-null'),([-.1,.1],'inconclusive')])
+    def test_distinct_claim_classes(bounds,word):
+        from ra.report import classify_claim
+>       assert word in classify_claim(bounds,precision=.001,useful_effect_scale=.001)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: classify_claim() got an unexpected keyword argument 'useful_effect_scale'
+
+tests/test_report.py:8: TypeError
+________________ test_distinct_claim_classes[bounds1-negative] _________________
+
+bounds = [-0.03, -0.01], word = 'negative'
+
+    @pytest.mark.parametrize('bounds,word',[([.01,.03],'positive'),([-.03,-.01],'negative'),([-.0001,.0001],'tight-null'),([-.1,.1],'inconclusive')])
+    def test_distinct_claim_classes(bounds,word):
+        from ra.report import classify_claim
+>       assert word in classify_claim(bounds,precision=.001,useful_effect_scale=.001)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: classify_claim() got an unexpected keyword argument 'useful_effect_scale'
+
+tests/test_report.py:8: TypeError
+_______________ test_distinct_claim_classes[bounds2-tight-null] ________________
+
+bounds = [-0.0001, 0.0001], word = 'tight-null'
+
+    @pytest.mark.parametrize('bounds,word',[([.01,.03],'positive'),([-.03,-.01],'negative'),([-.0001,.0001],'tight-null'),([-.1,.1],'inconclusive')])
+    def test_distinct_claim_classes(bounds,word):
+        from ra.report import classify_claim
+>       assert word in classify_claim(bounds,precision=.001,useful_effect_scale=.001)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: classify_claim() got an unexpected keyword argument 'useful_effect_scale'
+
+tests/test_report.py:8: TypeError
+______________ test_distinct_claim_classes[bounds3-inconclusive] _______________
+
+bounds = [-0.1, 0.1], word = 'inconclusive'
+
+    @pytest.mark.parametrize('bounds,word',[([.01,.03],'positive'),([-.03,-.01],'negative'),([-.0001,.0001],'tight-null'),([-.1,.1],'inconclusive')])
+    def test_distinct_claim_classes(bounds,word):
+        from ra.report import classify_claim
+>       assert word in classify_claim(bounds,precision=.001,useful_effect_scale=.001)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: classify_claim() got an unexpected keyword argument 'useful_effect_scale'
+
+tests/test_report.py:8: TypeError
+_______ test_frozen_planning_sensitivity_is_not_a_practical_null_margin ________
+
+    def test_frozen_planning_sensitivity_is_not_a_practical_null_margin():
+        import json
+        from pathlib import Path
+        from ra.report import classify_claim
+        config=json.loads(Path('configs/confirmatory-A004.json').read_text())
+        text=classify_claim([-.00077,.00065],precision=config['planning']['useful_precision'])
+>       assert 'inconclusive' in text and 'tight-null' not in text and 'no equivalence' in text
+E       AssertionError: assert ('inconclusive' in 'tight-null at the useful-precision scale (descriptive, not an equivalence test)')
+
+tests/test_report.py:188: AssertionError
+_ test_opposing_primal_dual_directions_are_exploratory_tradeoffs[-0.02-3.0-1.0] _
+
+frontier = -0.02, primal = 3.0, dual = 1.0
+
+    @pytest.mark.parametrize('frontier,primal,dual',[(.02,1.,3.),(-.02,3.,1.),(.02,-3.,-1.)])
+    def test_opposing_primal_dual_directions_are_exploratory_tradeoffs(frontier,primal,dual):
+        from ra.report import guardrail_interpretation
+>       assert 'tradeoff' in guardrail_interpretation(frontier_effect=frontier,primal_effect=primal,dual_effect=dual)
+E       AssertionError: assert 'tradeoff' in 'exploratory guardrails; frontier alone does not establish uniform primal/dual improvement'
+E        +  where 'exploratory guardrails; frontier alone does not establish uniform primal/dual improvement' = <function guardrail_interpretation at 0x1084a3240>(frontier_effect=-0.02, primal_effect=3.0, dual_effect=1.0)
+
+tests/test_report.py:194: AssertionError
+_ test_opposing_primal_dual_directions_are_exploratory_tradeoffs[0.02--3.0--1.0] _
+
+frontier = 0.02, primal = -3.0, dual = -1.0
+
+    @pytest.mark.parametrize('frontier,primal,dual',[(.02,1.,3.),(-.02,3.,1.),(.02,-3.,-1.)])
+    def test_opposing_primal_dual_directions_are_exploratory_tradeoffs(frontier,primal,dual):
+        from ra.report import guardrail_interpretation
+>       assert 'tradeoff' in guardrail_interpretation(frontier_effect=frontier,primal_effect=primal,dual_effect=dual)
+E       AssertionError: assert 'tradeoff' in 'exploratory guardrails; frontier alone does not establish uniform primal/dual improvement'
+E        +  where 'exploratory guardrails; frontier alone does not establish uniform primal/dual improvement' = <function guardrail_interpretation at 0x1084a3240>(frontier_effect=0.02, primal_effect=-3.0, dual_effect=-1.0)
+
+tests/test_report.py:194: AssertionError
+_____ test_secondary_budget_effects_keep_raw_components_without_inference ______
+
+    def test_secondary_budget_effects_keep_raw_components_without_inference():
+>       from ra.report import secondary_effects
+E       ImportError: cannot import name 'secondary_effects' from 'ra.report' (/Users/artemlegotin/Documents/git_alter/reasoning-allocation/src/ra/report.py)
+
+tests/test_report.py:198: ImportError
+=========================== short test summary info ============================
+FAILED tests/test_report.py::test_distinct_claim_classes[bounds0-positive] - ...
+FAILED tests/test_report.py::test_distinct_claim_classes[bounds1-negative] - ...
+FAILED tests/test_report.py::test_distinct_claim_classes[bounds2-tight-null]
+FAILED tests/test_report.py::test_distinct_claim_classes[bounds3-inconclusive]
+FAILED tests/test_report.py::test_frozen_planning_sensitivity_is_not_a_practical_null_margin
+FAILED tests/test_report.py::test_opposing_primal_dual_directions_are_exploratory_tradeoffs[-0.02-3.0-1.0]
+FAILED tests/test_report.py::test_opposing_primal_dual_directions_are_exploratory_tradeoffs[0.02--3.0--1.0]
+FAILED tests/test_report.py::test_secondary_budget_effects_keep_raw_components_without_inference
+8 failed, 13 passed in 0.27s

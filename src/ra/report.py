@@ -2,17 +2,22 @@
 from __future__ import annotations
 
 
-def classify_claim(interval, *, precision):
+def classify_claim(interval, *, precision, useful_effect_scale=None):
     low, high = interval
     if low>0: return 'positive frontier effect'
     if high<0: return 'tight-negative frontier effect' if high-low<=2*precision else 'negative frontier effect'
-    if low>=-precision and high<=precision: return 'tight-null at the useful-precision scale (descriptive, not an equivalence test)'
+    if useful_effect_scale is not None and low>=-useful_effect_scale and high<=useful_effect_scale:
+        return 'descriptive tight-null relative to an explicitly declared useful-effect scale; not an equivalence test'
+    if low>=-precision and high<=precision:
+        return 'direction inconclusive; narrow interval relative to planning precision; no equivalence margin registered'
     return 'wide-inconclusive frontier effect'
 
 
 def guardrail_interpretation(*, frontier_effect, primal_effect, dual_effect):
-    if frontier_effect>0 and primal_effect>0 and dual_effect>0:
-        return 'primal/dual tradeoff: higher frontier with worse primal; no uniform improvement'
+    if primal_effect>0 and dual_effect>0:
+        return 'exploratory primal/dual tradeoff: worse primal and better dual; no uniform improvement'
+    if primal_effect<0 and dual_effect<0:
+        return 'exploratory primal/dual tradeoff: better primal and worse dual; no uniform improvement'
     return 'exploratory guardrails; frontier alone does not establish uniform primal/dual improvement'
 
 
@@ -259,6 +264,7 @@ def _analyze_complete(config_path,out):
     _write_csv(out/'resource_summary.csv',resource_summary(attempts,metadata))
     _write_csv(out/'calibration.csv',calibration_summary(attempts,metadata))
     curves=endpoint_curves(rows,config);_write_csv(out/'curves.csv',curves)
+    _write_csv(out/'secondary_effects.csv',secondary_effects(curves,config))
     print('FROZEN PRIMARY INFERENCE COMPLETE',flush=True)
     for c in inference['contrasts']: print(f"{c['method']}–{c['baseline']}: {c['estimate']:.10g}; simultaneous {c['simultaneous_interval']}; {c['claim']}",flush=True)
     identity=_runtime_identity()
@@ -376,12 +382,13 @@ def render_report(out,config,inference,curves,audit):
     lines=['# A004 confirmatory paired solver analysis','',
         'Complete fixed cohort: 60 independent original templates (10 per cell), two timing repeats, three cold deadlines, seven physical methods, 2,520 requests. One genuine fitted bundle. Every utility was independently rebuilt from immutable complete-frame parent receipts and verified original-space assignments.',
         '', '## Registered primary frontier results','',
+        'No registered positive superiority result is established. A is worse than B2 on the conditional primary frontier; the native comparisons and remaining directions are inconclusive. These conclusions concern this designed population, deadlines and one frozen fitted bundle; they do not establish transfer or training-procedure robustness.', '',
         'The frontier integrates all three independent cold deadlines using the frozen log-budget weights. Ordinary percentile intervals and Bonferroni simultaneous intervals use 65,536 draws, seed 2026101502, alpha 0.05 and six unique A–control contrasts. Inference is conditional on the frozen fitted assets and training data. Across-fit and training-procedure uncertainty are unavailable.', '',
         '| Contrast | Paired effect | Ordinary 95% interval | Simultaneous interval | Interpretation |','|---|---:|---|---|---|']
     for c in inference['contrasts']:
         fmt=lambda pair:'['+', '.join(f'{v:.9g}' for v in pair)+']'
         lines.append(f"| {c['method']}–{c['baseline']} | {c['estimate']:.9g} | {fmt(c['ordinary_interval'])} | {fmt(c['simultaneous_interval'])} | {c['claim']} |")
-    lines += ['', 'B4 is the same outcome and contrast as B3. It contributes no extra test, fitted model, physical request, or sample. Tight-null wording is descriptive at the frozen useful-precision scale 0.001; it is not a registered equivalence test.',
+    lines += ['', 'B4 is the same outcome and contrast as B3. It contributes no extra test, fitted model, physical request, or sample. The frozen 0.001 planning sensitivity target is not a useful-effect or equivalence margin. B3/B5 intervals are narrower around zero but their directions remain inconclusive; practically relevant differences are not ruled out.',
         '', '### Monte Carlo and sampling limitations','',
         f"Four-batch endpoint diagnostic, tolerance {inference['quantile_stability_tolerance']:.6g}: "+'; '.join(f"{c['baseline']} {'stable' if c['quantile_stable'] else 'UNSTABLE'} (endpoint range {max(c['quantile_batch_spread']):.6g})" for c in inference['contrasts'])+'.',
         'The frozen draw count and seed are retained even where the numerical diagnostic is unstable. No additional seed, sample, model, deadline, or endpoint was selected from these results. Complete template clusters retain all paired methods, deadlines and repeats. Native results remain shared across fit resampling. A single fit cannot establish training-procedure robustness; empirical resampling also cannot reveal unobserved tails.',
@@ -390,7 +397,7 @@ def render_report(out,config,inference,curves,audit):
     for (method,budget),r in sorted(all_curves.items()):
         fmt=lambda v:'unavailable' if v is None else f'{v:.8g}'
         lines.append('| '+' | '.join([method,fmt(budget/1e9),*[fmt(r[k]) for k in ('utility','primal','dual','raw_gap','solved','fault')]])+' |')
-    lines+=['','Raw primal/dual/gap values are population-weighted in original objective units. Missing primal output stays unavailable. Tolerance clipping is used only for the explicitly labelled plotting gap; inference and raw tables retain unrounded values. Family, cell, deadline, calibration and resource outcomes are exploratory; no simultaneous secondary improvement claim is made. Full family/cell/status curves are in `curves.csv`, all physical endpoints and timing fields in `endpoints.csv`.','']
+    lines+=['','Raw primal/dual/gap values are population-weighted in original objective units. Missing primal output stays unavailable. Tolerance clipping is used only for the explicitly labelled plotting gap; inference and raw tables retain unrounded values. Family, cell, deadline, calibration and resource outcomes are exploratory; no simultaneous secondary improvement claim is made. Full family/cell/status curves are in `curves.csv`, paired per-budget/component effects in `secondary_effects.csv`, and all physical endpoints and timing fields in `endpoints.csv`.','']
     for c in inference['contrasts']:
         primal=dual=0.;missing=False
         for b,w in zip(config['deadlines_ns'],config['weights']):
@@ -485,3 +492,19 @@ def reconstruct_calibration(directory,records,request):
                 (end,label['parent_utility_end']),(end-begin,label['endpoint_gain']))): raise ValueError('raw receipt calibration gain mismatch')
         labels.append(label)
     return labels
+
+
+def secondary_effects(curves,protocol):
+    """Paired complete-cohort mean differences; no secondary interval/test claims."""
+    table={(r['scope'],r['method'],r['budget_ns']):r for r in curves}
+    result=[]
+    for scope in sorted({r['scope'] for r in curves}):
+        for budget in protocol['deadlines_ns']:
+            for a,b in protocol['contrasts']:
+                first,second=table[scope,a,budget],table[scope,b,budget]
+                row=dict(scope=scope,budget_ns=budget,method=a,baseline=b,inference='exploratory point differences only')
+                for metric in ('utility','primal','dual','raw_gap','relative_gap','normalized_primal','normalized_dual','solved','fault','assignment_available','overshoot_ns'):
+                    x,y=first[metric],second[metric]
+                    row[metric+'_difference']=None if x is None or y is None else x-y
+                result.append(row)
+    return result
