@@ -41,8 +41,10 @@ def strict_json(raw: str):
 def validate_request(request: Request, *, launched: bool = False) -> None:
     if request.schema_version != 1 or type(request.schema_version) is not int:
         raise ValueError('unsupported request schema')
-    if request.phase not in ('harness_validation', 'discovery', 'pilot', 'train', 'validation'):
-        raise ValueError('unsupported phase; protected execution is unavailable')
+    if request.phase not in ('harness_validation', 'discovery', 'pilot', 'train', 'validation', 'confirmatory'):
+        raise ValueError('unsupported request phase')
+    if request.phase == 'confirmatory' and not request.method_config:
+        raise ValueError('protected worker requires resolved frozen method configuration')
     if not request.method_config:
         if request.method not in ('native','depth'):
             raise ValueError('unsupported method; no learned execution is implemented')

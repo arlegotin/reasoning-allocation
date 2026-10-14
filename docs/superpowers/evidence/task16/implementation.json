@@ -1,0 +1,30 @@
+{
+  "base_commit": "bdd0f39",
+  "final_source_suite": {
+    "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 LOKY_MAX_CPU_COUNT=1 .venv/bin/python -m pytest -q",
+    "result": "718 passed in 143.11s",
+    "warnings": 0
+  },
+  "subsequent_test_only_fix": {
+    "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 LOKY_MAX_CPU_COUNT=1 .venv/bin/python -m pytest tests/test_confirmatory_execution.py tests/test_freeze.py -q",
+    "result": "78 passed in 106.04s",
+    "new_test": "artificial cohort disjoint from registered protected instance/template identities"
+  },
+  "red_evidence": {
+    "missing_execute_frozen": "10 failed in 3.94s",
+    "live_worker_recovery": "1 failed, 17 deselected in 8.65s",
+    "coordinator_cost_receipt": "1 failed, 17 deselected in 2.99s",
+    "fixture_identity_collision": "1 failed, 18 deselected in 0.58s"
+  },
+  "ruling10": "Replace original identities0\u201311 with fresh stable indices60\u201371; retain48; N60 and science unchanged; no performance-based selection",
+  "collision_audit": {
+    "path": "artifacts/task16/fixture-collision-audit.json",
+    "sha256": "5ef88bfd3addc21e4e252f34363eab0a6c4511ba6f475cd205871a139fe8104a"
+  },
+  "limitations": [
+    "runner remains large (1163 lines)",
+    "temperature unavailable; process enumeration unavailable in sandbox",
+    "source guards and preparation charged separately in coordinator accounting at the established launch boundary",
+    "raw immutable attempt evidence stays local, not staged"
+  ]
+}

@@ -159,6 +159,9 @@ def _run_request(request: Request, out: Path) -> Attempt:
             process = subprocess.Popen(argv, env=env, pass_fds=(child.fileno(),), stdout=stdout, stderr=stderr)
             timestamps['launched_ns'] = time.perf_counter_ns()
             monitor = psutil.Process(process.pid)
+            resources['worker_pid'] = process.pid
+            resources['worker_create_time'] = monitor.create_time()
+            checkpoint()
             sample()
             child.close()
             channel.send({'kind': 'launch', 'launch_ns': launch_ns, 'deadline_ns': request.deadline_ns})
@@ -851,3 +854,310 @@ def schedule_succeeded(out: Path) -> bool:
     if pointer.get('schema_version') != 1 or status.get('schema_version') != 1 or type(status.get('success')) is not bool:
         raise ValueError('invalid published schedule status')
     return status['success']
+
+
+def external_interruption_policy() -> dict:
+    return {'action': 'retry_entire_paired_block',
+        'block_keys': ['template_id', 'repeat', 'solver_seed', 'budget_ns'],
+        'effective': 'first_fully_completed_generation', 'prior_attempts': 'retain_all_costs',
+        'trigger': 'external_interrupt_or_incomplete_generation'}
+
+
+def _execution_conditions() -> dict:
+    """Operational observations only; unavailable sensors are explicit."""
+    import platform
+    import shutil
+    battery = None
+    if sys.platform == 'darwin':
+        result = subprocess.run(['pmset', '-g', 'batt'], capture_output=True, text=True)
+        battery = {'returncode': result.returncode, 'output': result.stdout.strip()}
+    try:
+        process_count, process_error = len(psutil.pids()), None
+    except (OSError, psutil.Error) as exc:
+        process_count, process_error = None, f'unavailable: {type(exc).__name__}: {exc}'
+    return {'utc_ns': time.time_ns(), 'monotonic_ns': time.perf_counter_ns(),
+        'load_average': list(os.getloadavg()), 'process_count': process_count,
+        'process_count_unavailable': process_error,
+        'available_memory_bytes': psutil.virtual_memory().available,
+        'coordinator_rss_bytes': psutil.Process().memory_info().rss,
+        'free_storage_bytes': shutil.disk_usage(Path.cwd()).free,
+        'power': battery, 'temperature': None,
+        'temperature_unavailable': 'no supported unprivileged continuous sensor',
+        'platform': platform.platform(), 'cpu_count': psutil.cpu_count()}
+
+
+def _compact_frozen_attempt(payload: dict) -> dict:
+    """Bound coordinator memory; raw immutable telemetry remains on disk."""
+    names = {'end_to_end_ns', 'parent_cpu_ns', 'worker_cpu_ns', 'worker_sampled_cpu_ns_lower_bound',
+        'worker_peak_rss_bytes', 'worker_sampled_peak_rss_bytes', 'trace_bytes', 'publication_ns',
+        'publication_accounting_complete', 'initialization_ns', 'initialization_cpu_ns',
+        'native_nodes', 'native_lps', 'model_bytes', 'input_bytes', 'parent_sampling_ns',
+        'parent_observation_ns_overlapping_worker', 'fallback_count', 'resource_release_confirmed',
+        'returncode', 'termination', 'worker_terminal_status', 'worker_pid', 'worker_create_time'}
+    return {**{k: v for k, v in payload.items() if k not in ('files_sha256', 'resources')},
+        'resources': {k: v for k, v in payload['resources'].items() if k in names}}
+
+
+def _frozen_attempt(directory: Path, request: Request) -> dict | None:
+    if not directory.exists():
+        return None
+    lock_path = directory/'active.lock'
+    with lock_path.open('a+b') as lock:
+        try: fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError: raise ValueError('protected attempt still running') from None
+        payload, final = _read_attempt(directory)
+    if _request_identity(payload['request']) != _request_identity(asdict(request)):
+        raise ValueError('frozen attempt request/hash mismatch')
+    receipt = directory/'accounting.json'
+    if not receipt.exists(): receipt = directory/'publication.json'
+    if receipt.exists():
+        publication = strict_json(receipt.read_text())
+        if (not final or publication['attempt_id'] != payload['attempt_id'] or
+                publication['manifest_sha256'] != hashlib.sha256((directory/'attempt.json').read_bytes()).hexdigest()):
+            raise ValueError('protected publication identity/hash mismatch')
+        payload['resources']['publication_ns'] = publication['publication_ns']
+        payload['resources']['parent_cpu_ns'] = payload['resources'].get('parent_cpu_ns', 0) + publication['parent_cpu_ns']
+        payload['resources']['publication_accounting_complete'] = receipt.name == 'accounting.json'
+    release = payload['resources'].get('resource_release_confirmed', False)
+    release_basis = 'recorded_parent_release' if release else 'unknown'
+    if not release and 'worker_pid' in payload['resources']:
+        try:
+            process = psutil.Process(payload['resources']['worker_pid'])
+            if process.create_time() == payload['resources'].get('worker_create_time'):
+                raise ValueError('protected worker still running; no overlapping retry permitted')
+            release, release_basis = True, 'recorded_pid_reused; prior_worker_gone; exit_time_unknown'
+        except psutil.NoSuchProcess:
+            release, release_basis = True, 'recorded_pid_absent; exit_time_unknown'
+        except psutil.AccessDenied:
+            release_basis = 'process_liveness_unavailable'
+    result = _compact_frozen_attempt(payload)
+    result.update(release_confirmed_for_recovery=release, release_evidence=release_basis, final=final, directory=str(directory),
+        manifest_sha256=hashlib.sha256((directory/'attempt.json').read_bytes()).hexdigest() if final else None)
+    return result
+
+
+def _frozen_requests(config: dict, queue: list[dict]) -> list[Request]:
+    """Construct each independent cold deadline request from its frozen method."""
+    inputs = {}
+    for ref in config['protected_manifests']:
+        manifest_path = Path(ref['path'])
+        for item in strict_json(manifest_path.read_text())['instances']:
+            p = (manifest_path.parent/item['path']).resolve()
+            inputs[item['instance_id']] = (p, item['sha256'], sum(strict_json(p.read_text())['costs']))
+    execution = config['execution']; environment = config['environment']
+    result = []
+    for row in queue:
+        method = config['physical_methods'][row['method']]
+        p, sha, p0 = inputs[row['instance_id']]
+        allocator = method.get('allocator', {})
+        result.append(Request(row['request_id'], str(p), sha, row['instance_id'], _digest(config),
+            environment['source_hash'], environment['environment_hash'], method['name'], 'confirmatory',
+            row['solver_seed'], row['budget_ns'], execution['watchdog_grace_ns'], p0,
+            integrality_tolerance=execution['integrality_tolerance'], bound_tolerance=execution['bound_tolerance'],
+            model_path=allocator.get('model_path'), model_hash=allocator.get('model_hash'),
+            build_hash=environment['build_hash'], method_config={**method, 'lease_lengths':execution['lease_lengths']}))
+    return result
+
+
+def execute_frozen(digest_path: Path, out: Path, *, resume: bool = False,
+                   dry_run: bool = False) -> list[Attempt]:
+    """Strict verified, fixed serial protected queue with immutable paired retries.
+
+    Return newly executed attempts with bounded resource summaries; full telemetry
+    is retained verbatim in the immutable attempt directories. No inference is run.
+    """
+    import tempfile
+    from ra.freeze import verify_protocol
+    with (Path(tempfile.gettempdir())/'ra-primary-timed.lock').open('a+b') as lock:
+        try: fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError: raise ValueError('another primary timed run is active') from None
+        started, cpu = time.perf_counter_ns(), time.process_time_ns()
+        verified = verify_protocol(Path(digest_path))
+        guard_ns = time.perf_counter_ns() - started
+        # verify_protocol has authenticated these exact bytes and their resolution.
+        manifest = strict_json(Path(digest_path).with_suffix('.manifest.json').read_text())
+        config = manifest['scientific_config']; out = Path(out).resolve()
+        if out != Path(config['outcome_directory']).resolve():
+            raise ValueError('output namespace differs from frozen protocol')
+        if config['exclusions'].get('external_interrupt') != external_interruption_policy():
+            raise ValueError('prospective entire paired-block interruption policy required')
+        resource_policy = config['exclusions'].get('execution_resource', {})
+        if (resource_policy.get('action') != 'halt_and_quarantine' or
+                any(type(resource_policy.get(k)) is not int or resource_policy[k] <= 0 for k in
+                    ('minimum_free_storage_bytes', 'minimum_available_memory_bytes'))):
+            raise ValueError('prospective execution resource stop policy required')
+        if dry_run: return []
+        return _execute_verified(manifest, verified['digest'], out, resume, started, cpu, guard_ns)
+
+
+def _execute_verified(manifest, freeze_digest, out, resume, started, cpu, guard_ns):
+    from collections import Counter
+    import itertools
+    from ra.freeze import execution_access_path, check_reference
+    config = manifest['scientific_config']
+    queue = strict_json(Path(config['queue']['path']).read_text())
+    metadata = {'schema_version':1, 'freeze_digest':freeze_digest, 'queue_sha256':config['queue']['sha256'],
+        'experiment_id':config['experiment_id'], 'source_commit':config['source_commit'],
+        'request_order':[r['request_id'] for r in queue], 'serial':True, 'threads':1}
+    if out.exists() and any(out.iterdir()) and not resume:
+        raise ValueError('nonempty protected output requires resume')
+    journal_path = execution_access_path(config)
+    journal_path.parent.mkdir(parents=True, exist_ok=True)
+    journal = strict_json(journal_path.read_text()) if journal_path.exists() else {'schema_version':1,'events':[]}
+    if journal.get('schema_version') != 1 or not isinstance(journal.get('events'), list):
+        raise ValueError('invalid execution access journal')
+    if journal['events'] and not resume:
+        raise ValueError('prior execution access requires resume')
+    if any(e.get('freeze_digest') != freeze_digest for e in journal['events']):
+        raise ValueError('execution access journal freeze hash mismatch')
+    # Durable admission is written BEFORE recovery reads any protected outcomes.
+    event = {'event_id':uuid4().hex, 'operation':'execute_or_resume', 'freeze_digest':freeze_digest,
+        'utc_ns':time.time_ns(), 'resume':resume, 'strict_guard_ns':guard_ns}
+    journal['events'].append(event)
+    _atomic_json(journal_path, journal)
+    out.mkdir(parents=True, exist_ok=True)
+    (out/'access-events').mkdir(exist_ok=True)
+    _atomic_json(out/'access-events'/(event['event_id']+'.json'), event, immutable=True)
+    schedule_path = out/'schedule.json'
+    if schedule_path.exists():
+        if strict_json(schedule_path.read_text()) != metadata: raise ValueError('frozen schedule hash drift')
+    else: _atomic_json(schedule_path, metadata, immutable=True)
+    if (out/'halt.json').exists():
+        raise ValueError('protected execution halted/quarantined; retain all evidence and diagnose')
+    requests = _frozen_requests(config, queue)
+    request_map = {r.request_id:r for r in requests}
+    keys = external_interruption_policy()['block_keys']
+    blocks = [(list(key),list(rows)) for key,rows in itertools.groupby(queue, lambda r:tuple(r[k] for k in keys))]
+    if len({_digest(key) for key,_ in blocks}) != len(blocks): raise ValueError('noncontiguous paired blocks')
+    block_root = out/'blocks'; block_root.mkdir(exist_ok=True)
+    histories = {}; all_attempts = []; expected_directories = set(); effective = {}
+    # Audit the complete registered history once. Prior generations are never rewritten.
+    for key, rows in blocks:
+        block_id = _digest(key); directory = block_root/block_id; directory.mkdir(exist_ok=True)
+        history = []
+        for generation_path in sorted(p for p in directory.glob('generation-*.json') if not p.name.endswith('.closed.json')):
+            generation = strict_json(generation_path.read_text())
+            if (generation['block_key'] != key or generation['freeze_digest'] != freeze_digest or
+                    [x['request_id'] for x in generation['requests']] != [x['request_id'] for x in rows]):
+                raise ValueError('paired block generation identity/hash mismatch')
+            observed = []
+            for entry in generation['requests']:
+                attempt_dir = (out/entry['directory']).resolve()
+                if not attempt_dir.is_relative_to(out/'attempts'): raise ValueError('attempt namespace escape')
+                if attempt_dir in expected_directories: raise ValueError('duplicate physical attempt directory')
+                expected_directories.add(attempt_dir)
+                item = _frozen_attempt(attempt_dir, request_map[entry['request_id']])
+                if item is not None: observed.append(item)
+            close_path = generation_path.with_suffix('.closed.json')
+            # Glob excludes closure files below; unsealed complete generations can be recovered.
+            status = ('halted' if any(not a['release_confirmed_for_recovery'] or a.get('quarantined') or a.get('status') in ('oom','numerical_alarm','implementation_error') for a in observed)
+                else 'complete' if len(observed)==len(rows) and all(a['final'] and a.get('status')!='external_interrupt' for a in observed)
+                else 'interrupted')
+            closure = {'generation_id':generation['generation_id'], 'status':status,
+                'attempt_ids':[a['attempt_id'] for a in observed], 'manifest_sha256':[a['manifest_sha256'] for a in observed]}
+            if close_path.exists():
+                old = strict_json(close_path.read_text())
+                if old != closure: raise ValueError('paired block closure hash/status mismatch')
+            else: _atomic_json(close_path, closure, immutable=True)
+            if status=='complete':
+                if block_id in effective: raise ValueError('duplicate effective paired block')
+                effective[block_id] = observed
+            history.append((generation, observed, status)); all_attempts.extend(observed)
+        histories[block_id] = history
+    actual_directories = {p.parent.resolve() for name in ('request.json','bootstrap.json') for p in (out/'attempts').rglob(name)}
+    if actual_directories - expected_directories: raise ValueError('attempt outside frozen registered queue')
+    if len({a['attempt_id'] for a in all_attempts}) != len(all_attempts): raise ValueError('duplicate physical attempt identity')
+    if (out/'halt.json').exists() or any(status=='halted' for h in histories.values() for _,_,status in h):
+        raise ValueError('protected execution halted/quarantined; retain all evidence and diagnose')
+    results = []; batch = out/('batch-'+uuid4().hex); batch.mkdir()
+    _atomic_json(batch/'start.json', {'entry_monotonic_ns':started, 'entry_cpu_ns':cpu,
+        'admitted_ns':time.perf_counter_ns(), 'strict_guard_ns':guard_ns,
+        'scope':'interrupted batches retain lower bounds; absent final accounting means unknown tail'}, immutable=True)
+    stop_reason = None; live_guard_ns = 0; storage_bytes = sum(p.stat().st_size for p in out.rglob('*') if p.is_file())
+    guard_refs = [r for r in manifest['assets'] if r['path'] in
+        {manifest['config_path'], config['queue']['path'], *(m['path'] for m in config['models']),
+         *(f['path'] for f in config['features']), *(m['path'] for m in config['protected_manifests'])}]
+    for key, rows in blocks:
+        block_id = _digest(key)
+        if block_id in effective: continue
+        conditions = _execution_conditions()
+        cap = config['capacity']; policy = config['exclusions']['execution_resource']
+        if (conditions['free_storage_bytes'] < policy['minimum_free_storage_bytes'] or
+                conditions['available_memory_bytes'] < policy['minimum_available_memory_bytes'] or
+                conditions['coordinator_rss_bytes'] > cap['coordinator_reserve_bytes'] or storage_bytes > cap['storage_envelope_bytes']):
+            stop_reason = 'resource_alarm'; break
+        generation_id = uuid4().hex
+        entries = [{'request_id':r['request_id'],'directory':f"attempts/{r['request_id']}/{uuid4().hex}"} for r in rows]
+        generation = {'generation_id':generation_id, 'block_key':key, 'freeze_digest':freeze_digest,
+            'conditions':conditions, 'requests':entries, 'prior_generation_ids':[g['generation_id'] for g,_,_ in histories[block_id]]}
+        path = block_root/block_id/f'generation-{len(histories[block_id]):06d}.json'
+        _atomic_json(path,generation,immutable=True)
+        observed = []
+        for entry,row in zip(entries,rows):
+            check_start = time.perf_counter_ns()
+            source, environment, build, _ = _runtime_identity()
+            try:
+                if {'source_hash':source,'environment_hash':environment,'build_hash':build} != config['environment']:
+                    raise ValueError('live source/environment/build hash drift')
+                for ref in guard_refs: check_reference(ref)
+                input_request = request_map[row['request_id']]
+                check_reference({'path':input_request.instance_path,'sha256':input_request.instance_sha256})
+            except (ValueError, OSError):
+                stop_reason = 'live_hash_drift'
+                live_guard_ns += time.perf_counter_ns()-check_start
+                break
+            live_guard_ns += time.perf_counter_ns()-check_start
+            request = request_map[row['request_id']]
+            prior = [a for a in all_attempts if a['request_id']==request.request_id]
+            request = replace(request, prior_attempt_ids=tuple(a['attempt_id'] for a in prior), prior_costs=_prior_costs(prior))
+            attempt_dir = out/entry['directory']; call_start = time.perf_counter_ns()
+            attempt = run_request(request, attempt_dir)
+            item = _frozen_attempt(attempt_dir, request)
+            observed.append(item); all_attempts.append(item)
+            results.append(replace(attempt, resources=item['resources']))
+            storage_bytes += sum(p.stat().st_size for p in attempt_dir.rglob('*') if p.is_file())
+            _atomic_json(batch/(attempt.attempt_id+'.json'), {'attempt_id':attempt.attempt_id,
+                'request_id':request.request_id, 'queue_metadata':row, 'metadata_provenance':'verified frozen queue; raw worker provenance unchanged',
+                'call_start_ns':call_start,'call_end_ns':time.perf_counter_ns(),
+                'coordinator_cpu_ns_lower_bound':time.process_time_ns()-cpu,
+                'batch_elapsed_ns_lower_bound':time.perf_counter_ns()-started,
+                'generation_id':generation_id,'status':str(attempt.status)}, immutable=True)
+            resources = item['resources']
+            if (max(resources.get('worker_peak_rss_bytes',0),resources.get('worker_sampled_peak_rss_bytes',0)) > cap['worker_peak_envelope_bytes'] or
+                    not resources.get('resource_release_confirmed',False)):
+                stop_reason = 'resource_alarm'; break
+            if attempt.status in ('oom','numerical_alarm','implementation_error'):
+                stop_reason = 'method_fault_or_correctness_alarm'; break
+            if attempt.status == 'external_interrupt':
+                stop_reason = 'external_interrupt'; break
+        status = 'halted' if stop_reason and stop_reason!='external_interrupt' else 'interrupted' if stop_reason else 'complete'
+        _atomic_json(path.with_suffix('.closed.json'), {'generation_id':generation_id,'status':status,
+            'attempt_ids':[a['attempt_id'] for a in observed],'manifest_sha256':[a['manifest_sha256'] for a in observed]}, immutable=True)
+        if status=='complete': effective[block_id]=observed
+        _atomic_json(batch/f'progress-{len(effective):04d}-{generation_id}.json',
+            {'effective_logical_requests':sum(len(x) for x in effective.values()),'physical_attempts':len(all_attempts),
+             'block_status':status,'stop_reason':stop_reason,'utc_ns':time.time_ns()},immutable=True)
+        if stop_reason: break
+    if stop_reason and stop_reason!='external_interrupt':
+        _atomic_json(out/'halt.json', {'reason':stop_reason,'freeze_digest':freeze_digest,'utc_ns':time.time_ns()},immutable=True)
+    effective_attempts = [a for key,_ in blocks for a in effective.get(_digest(key),[])]
+    sealed = len(effective_attempts)==len(queue)
+    if sealed:
+        seal = {'schema_version':1,'freeze_digest':freeze_digest,'queue_sha256':config['queue']['sha256'],
+            'logical_request_count':len(queue),'physical_attempt_count':len(all_attempts),
+            'status_counts':dict(Counter(a['status'] for a in all_attempts)), 'costs':_prior_costs(all_attempts),
+            'effective_attempts':[{'request_id':a['request_id'],'attempt_id':a['attempt_id'],
+                'manifest_sha256':a['manifest_sha256'],'directory':str(Path(a['directory']).relative_to(out))} for a in effective_attempts],
+            'effective_selection':external_interruption_policy()['effective']}
+        if (out/'execution-seal.json').exists():
+            if strict_json((out/'execution-seal.json').read_text()) != seal: raise ValueError('execution seal drift')
+        else: _atomic_json(out/'execution-seal.json',seal,immutable=True)
+    status = {'schema_version':1,'success':sealed,'phase':'confirmatory','request_count':len(queue),
+        'physical_attempt_count':len(all_attempts),'stop_reason':stop_reason,'freeze_digest':freeze_digest}
+    _atomic_json(batch/'status.json',status,immutable=True)
+    _atomic_json(out/'schedule-status.json',{'schema_version':1,'path':str((batch/'status.json').relative_to(out)),'sha256':_digest(status)})
+    _atomic_json(batch/'accounting.json',{'strict_guard_ns':guard_ns,'live_guard_ns':live_guard_ns,
+        'total_observed_ns':time.perf_counter_ns()-started,'coordinator_cpu_ns':time.process_time_ns()-cpu,
+        'physical_attempt_count':len(results),'conditions_end':_execution_conditions(),
+        'scope':'entry through strict verification, recovery, guards, serial calls, audits and status publication; final accounting write tail unmeasured'},immutable=True)
+    return results

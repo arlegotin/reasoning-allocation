@@ -79,11 +79,18 @@ def main(argv: list[str] | None = None) -> int:
             report = collect_traces(args.config, args.split, args.out, dry_run=args.dry_run)
         elif args.command == 'run':
             from ra.runner import run_schedule, schedule_succeeded
-            attempts = run_schedule(args.config, args.phase, args.out or Path('artifacts/runs')/args.phase,
-                                    resume=args.resume, dry_run=args.dry_run)
-            report = {'success': args.dry_run or schedule_succeeded(args.out or Path('artifacts/runs')/args.phase),
+            output = args.out or Path('artifacts/runs')/args.phase
+            if args.phase == 'confirmatory':
+                from ra.config import frozen_execution_paths
+                from ra.runner import execute_frozen
+                digest_path, frozen_output = frozen_execution_paths(args.config)
+                output = args.out or frozen_output
+                attempts = execute_frozen(digest_path, output, resume=args.resume, dry_run=args.dry_run)
+            else:
+                attempts = run_schedule(args.config, args.phase, output, resume=args.resume, dry_run=args.dry_run)
+            report = {'success': args.dry_run or schedule_succeeded(output),
                       'dry_run': args.dry_run, 'phase': args.phase, 'attempt_ids':[a.attempt_id for a in attempts],
-                      'out':str(args.out or Path('artifacts/runs')/args.phase)}
+                      'out':str(output)}
         elif args.command == "generate":
             from ra.config import load_config
             from ra.data import generate_workload

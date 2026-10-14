@@ -107,6 +107,7 @@ def scientific(tmp_path,monkeypatch):
     selected=json.loads(Path('configs/mandatory_baselines.json').read_text())['selected']
     methods={'A':selected['local-matched'],**{k:selected[k] for k in ('B0','B1','B2','B3','B5','B6')}}
     population=json.loads(Path('configs/workload_manifest.json').read_text())
+    population['master_seed']='artificial-freeze-tests-disjoint-v1'
     protected=tmp_path/'protected'
     manifest=generate_workload(population,'confirmatory',protected)
     cells={r['cell_id']:1/6 for r in manifest['instances']}

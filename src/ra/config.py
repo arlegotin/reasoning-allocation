@@ -262,3 +262,19 @@ def load_feature_schema(path: Path):
         if isinstance(exc, ConfigError):
             raise
         raise ConfigError(str(exc)) from exc
+
+
+def frozen_execution_paths(config_path: Path) -> tuple[Path, Path]:
+    """Find the unique immutable envelope for this exact scientific config path."""
+    from ra.freeze import read
+    config_path = Path(config_path).resolve()
+    config = read(config_path)
+    protocol_directory = Path(config['protocol']['path']).parent
+    matches = []
+    for digest_path in protocol_directory.glob('*.sha256'):
+        parts = digest_path.read_text().strip().split('  ')
+        if len(parts) != 2 or Path(parts[1]).name != parts[1]: continue
+        manifest = read(protocol_directory/parts[1])
+        if manifest.get('config_path') == str(config_path): matches.append(digest_path)
+    if len(matches) != 1: raise ValueError('exactly one frozen envelope required for execution config')
+    return matches[0], Path(config['outcome_directory'])
