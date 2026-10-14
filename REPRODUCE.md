@@ -77,3 +77,20 @@ PYTHONPATH="$PWD/src" OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 LOKY_MAX_CPU_COUN
 One Task20 full-suite invocation omitted that path and produced 91 subprocess/import failures (697 passed,106.24s). Its complete transcript and failing test names remain in `docs/superpowers/evidence/task20/full-suite-final-clean.txt`; the corrected invocation is recorded separately. This verification mistake does not alter the successful numerical reproduction, whose driver sets the absolute source path itself. Test-suite fixtures are isolated from the scientific raw trees; verification/development costs remain separate.
 
 The corrected final clean suite passed **788 tests in161.05s**. The historical `analyze` path also owns historical inventory outputs; the WP10 driver instead uses authenticated reconstruction with separate outputs. Use the supplied driver for a future numerical reproduction.
+
+After the controller updates the final archive pointer, refresh the tracked-file checksum manifest (excluding itself), then verify it:
+
+```sh
+python3 - <<'PY'
+from pathlib import Path
+import hashlib, subprocess
+names = subprocess.check_output(['git', 'ls-files', '-z']).decode().split('\0')
+paths = sorted({name for name in names if name and name != 'MANIFEST.sha256'})
+Path('MANIFEST.sha256').write_text(''.join(
+    hashlib.sha256(Path(name).read_bytes()).hexdigest() + '  ' + name + '\n'
+    for name in paths))
+PY
+shasum -a 256 -c MANIFEST.sha256
+```
+
+Stage any newly created compact receipts first so `git ls-files` includes them. The ignored raw/audit trees are covered by their retained inventory and sibling receipt hashes, not copied into Git. The current pre-final receipt includes the completed implementer report and publication commit; later controller reviews still require the documented final refresh.

@@ -102,6 +102,16 @@
       "path": "artifacts/task20/preparation-source/initial-report-manifest.py",
       "sha256": "0fd24827cc511b03526fdffae7cbd3c906afc4baf0f045713b11b940a7cdf773",
       "bytes": 4870
+    },
+    {
+      "path": "artifacts/audits/task20-pre-final-02-receipt.json",
+      "sha256": "2efceaf035978fcbd7b023e029a5e0c810bf22c72a53ae01d3d3c9bf86c30e36",
+      "bytes": 31309
+    },
+    {
+      "path": "artifacts/task20/preparation-source/final-verification.py",
+      "sha256": "96c07d5509d20dff0b696601420e7dc24ef5fe199ef25cc8c728cbddc738db47",
+      "bytes": 2367
     }
   ],
   "archive_generations": [
@@ -113,12 +123,21 @@
         "sha256": "472624941cbfb65a5d6ce96b7a0ba62c2d3a00d91deb9725323b0aaeb20c9f35",
         "bytes": 31309
       }
+    },
+    {
+      "path": "artifacts/audits/task20-pre-final-02",
+      "purpose": "completed Task20 report, latest controller ledger/source audits/reviews; closure explicitly pending",
+      "receipt": {
+        "path": "artifacts/audits/task20-pre-final-02-receipt.json",
+        "sha256": "2efceaf035978fcbd7b023e029a5e0c810bf22c72a53ae01d3d3c9bf86c30e36",
+        "bytes": 31309
+      }
     }
   ],
   "restore_root": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation",
   "restore_rule": "historical absolute paths and hashes are immutable; restore at original path or exact-path filesystem alias, never rewrite frozen JSON",
   "sdd_restore_mapping": {
-    "archive": "artifacts/audits/task20-pre-final-01/sdd",
+    "archive": "artifacts/audits/task20-pre-final-02/sdd",
     "original": ".superpowers/sdd/2026-10-13-reasoning-allocation"
   },
   "frozen_sdd_reference_check": {
@@ -128,5 +147,11 @@
   },
   "large_asset_scope": "Git carries compact evidence only; all large ignored original bytes remain on disk. Retain Git history/committed source objects and all pointer targets together. Protected descendants authenticated by request seals and337955-file historical inventory; full Task20 numerical reconstruction checked raw receipts/assignments.",
   "privacy": "Raw hardware diagnostics remain ignored/private. No serial identifiers are copied into committed receipts.",
-  "closure_refresh": "checks/task20_archive.py --phase final --out artifacts/audits/task20-final-closure; use new destination, then update this pointer and MANIFEST.sha256 after controller ledger/reviews close; sibling receipts avoid self-hash loops"
+  "closure_refresh": "checks/task20_archive.py --phase final --out artifacts/audits/task20-final-closure; use new destination, then update this pointer and MANIFEST.sha256 after controller ledger/reviews close; sibling receipts avoid self-hash loops",
+  "archive_verification": {
+    "files": 149,
+    "rulings": 11,
+    "all_hashes_verified": true,
+    "phase": "pre-final"
+  }
 }
