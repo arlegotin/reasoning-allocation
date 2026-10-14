@@ -33,10 +33,10 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     try:
         if args.command == 'run':
-            from ra.runner import run_schedule
+            from ra.runner import run_schedule, schedule_succeeded
             attempts = run_schedule(args.config, args.phase, args.out or Path('artifacts/runs')/args.phase,
                                     resume=args.resume, dry_run=args.dry_run)
-            report = {'success': all(a.status in ('complete','deadline','startup_timeout') for a in attempts),
+            report = {'success': args.dry_run or schedule_succeeded(args.out or Path('artifacts/runs')/args.phase),
                       'dry_run': args.dry_run, 'phase': args.phase, 'attempt_ids':[a.attempt_id for a in attempts],
                       'out':str(args.out or Path('artifacts/runs')/args.phase)}
         elif args.command == "generate":

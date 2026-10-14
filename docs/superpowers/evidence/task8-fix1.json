@@ -1,0 +1,227 @@
+{
+  "schema_version": 1,
+  "task": 8,
+  "fix_round": 1,
+  "base_commit": "c849be188390b44dc00ee470d31bd7edba332423",
+  "status": "locally verified; scoped independent re-review pending",
+  "review_fixes": [
+    "duplicate instance identity and request ID admission",
+    "primary timing admission before preparation",
+    "CLI effective complete-schedule retained failure status"
+  ],
+  "tests": {
+    "red": "3 failed in0.65s,exit1",
+    "green": "45 passed in4.91s,exit0",
+    "identity_guard": "1 passed in0.46s,exit0",
+    "full_suite": "not repeated; prior400 count historical"
+  },
+  "observer_protocol": {
+    "request_count": 18,
+    "repeated_timing_blocks": 6,
+    "public_templates": 1,
+    "solver_seed": 17,
+    "serial": true,
+    "native_work_output_parity": true,
+    "external_power_prospective": [
+      {
+        "replicate": 0,
+        "external_power": true
+      },
+      {
+        "replicate": 1,
+        "external_power": true
+      },
+      {
+        "replicate": 2,
+        "external_power": true
+      },
+      {
+        "replicate": 3,
+        "external_power": true
+      },
+      {
+        "replicate": 4,
+        "external_power": true
+      },
+      {
+        "replicate": 5,
+        "external_power": true
+      }
+    ],
+    "threads_verified": true,
+    "contrasts": {
+      "minimal-full_run_request_call_ns": {
+        "n": 6,
+        "paired_differences_ns": [
+          30848333,
+          11229500,
+          -15748541,
+          23259416,
+          -769958,
+          -8012666
+        ],
+        "mean_difference_ns": 6801014,
+        "student_t_95_interval_ns": [
+          -12286089.56027956,
+          25888117.56027956
+        ]
+      },
+      "minimal-solve_ns": {
+        "n": 6,
+        "paired_differences_ns": [
+          946709,
+          995542,
+          1282959,
+          1406458,
+          810917,
+          897542
+        ],
+        "mean_difference_ns": 1056687.8333333333,
+        "student_t_95_interval_ns": [
+          810527.4234008472,
+          1302848.2432658193
+        ]
+      },
+      "minimal-caller_cpu_ns": {
+        "n": 6,
+        "paired_differences_ns": [
+          5573000,
+          5117000,
+          2743000,
+          5507000,
+          1871000,
+          1347000
+        ],
+        "mean_difference_ns": 3693000,
+        "student_t_95_interval_ns": [
+          1670082.6428793862,
+          5715917.357120614
+        ]
+      },
+      "diagnostic-full_run_request_call_ns": {
+        "n": 6,
+        "paired_differences_ns": [
+          39428500,
+          49216833,
+          -1597625,
+          33455875,
+          30754959,
+          2994667
+        ],
+        "mean_difference_ns": 25708868.166666668,
+        "student_t_95_interval_ns": [
+          4263829.403601538,
+          47153906.9297318
+        ]
+      },
+      "diagnostic-solve_ns": {
+        "n": 6,
+        "paired_differences_ns": [
+          10067500,
+          7316708,
+          7120042,
+          7097833,
+          6941084,
+          6910334
+        ],
+        "mean_difference_ns": 7575583.5,
+        "student_t_95_interval_ns": [
+          6285368.683508022,
+          8865798.316491978
+        ]
+      },
+      "diagnostic-caller_cpu_ns": {
+        "n": 6,
+        "paired_differences_ns": [
+          7296000,
+          4525000,
+          3227000,
+          4143000,
+          2958000,
+          2634000
+        ],
+        "mean_difference_ns": 4130500,
+        "student_t_95_interval_ns": [
+          2336808.6382237333,
+          5924191.361776266
+        ]
+      }
+    },
+    "wall_ns": 5468012709,
+    "coordinator_cpu_ns": 1130824000,
+    "reaped_descendant_cpu_ns": 4046400000,
+    "mode_resource_totals": {
+      "minimal": {
+        "progress_emission_ns": 427161,
+        "parent_observation_ns_overlapping_worker": 54318000,
+        "worker_cpu_ns_measured_before_terminal_send": 1170869000,
+        "full_caller_cpu_ns": 131045000,
+        "trace_bytes": 73397,
+        "worker_peak_rss_bytes_process_maximum": 65781760
+      },
+      "diagnostic": {
+        "progress_emission_ns": 432874,
+        "parent_observation_ns_overlapping_worker": 50142336,
+        "worker_cpu_ns_measured_before_terminal_send": 1234611000,
+        "full_caller_cpu_ns": 133670000,
+        "trace_bytes": 73460,
+        "worker_peak_rss_bytes_process_maximum": 65323008
+      },
+      "uninstrumented_native": {
+        "progress_emission_ns": 321664,
+        "parent_observation_ns_overlapping_worker": 35267377,
+        "worker_cpu_ns_measured_before_terminal_send": 1130006000,
+        "full_caller_cpu_ns": 108887000,
+        "trace_bytes": 55620,
+        "worker_peak_rss_bytes_process_maximum": 65191936
+      }
+    },
+    "code_hash": "61377fd1f7ea1a2f69f74c64279f935b23f5d8f45cac2c2a792047a85d986c3b",
+    "composite_code_identity": {
+      "production_sources": {
+        "__init__.py": "af231eb3ba064a73f3f70e7e506d6685a6452c6d46291578fa25bfe1e76aaa23",
+        "allocators.py": "b7e8e23dbafcbf5394936c85fa4a77fdffafbdd87b6e47019e73ce2a745ec2d6",
+        "candidates.py": "be5f6e872511bb5dd51de0fcf23c95bf8638572f7f5df09cfcc41509d7181f0f",
+        "checks.py": "4bc71d7d9888cd9429467f45c1b7648224d05a2c265c0897eb2b230057e59d1f",
+        "cli.py": "cdbeb0212d4b090b07bf0b7484a674e3c3ff28e2965fb70739d699bfcdfc70c3",
+        "config.py": "1b78be28251667610e51eca82795b6d212de283b3fdff3cc34039264736e4aa2",
+        "data.py": "073aa4e94a4d1c7c6315552575b0c400cd8f78e03974842b7dd51f3b81ac2aa4",
+        "doctor.py": "629d86ada68f6c0c37a508c4d4b7338f1a67229b5990bb6f2103d3ed567b294b",
+        "exact.py": "455683ed023d7b00604b27d2db16d5098323a4726dd7efb5469de7c9fe690b0c",
+        "leases.py": "82259ec6eae2e7daca2040c5cff53b00b39b3abaa446a6a8343a1cda9fe15742",
+        "ledger.py": "94500f07b4d1aefa63d7cea11d6ddfe2fc37582ef46349fcaa7885f7e791dcab",
+        "metrics.py": "575028b9a47ab3ca201cbae981f4cd08586874487fe148b5978931bd0bc0bcd3",
+        "observer.py": "074a92b6cde7497838c08ec6f69812a2fde1bbbcd9b36f118a3a60250699d6d1",
+        "provenance.py": "97ea0ade60db01db82595423f4a88e36a6352b5451b7f46ee50dc28798770c61",
+        "runner.py": "e1a6b7b5d706e4f8fb9130f6eb9ff5a34c6c377e2d8ed03734efd65d5de56563",
+        "scip_backend.py": "3d99db4f031f4db54ba85702f7c6b5e40a53677cd7ae34d630b8355326215a12",
+        "types.py": "871d7eb654af23449ea9a8c3a7700529c62a31ddc5083df88cb7f1d47f264d52",
+        "worker.py": "adaf0218476b60433fe3e08f3379fbbb8ab17387d84eb6ac7e9c5eb8fbe9e1aa"
+      },
+      "diagnostic_worker_sha256": "2c4d837054da667f47daabf8f6e3fa3930c61d2d90a8142037fabc5048015d53",
+      "diagnostic_driver_sha256": "a764b9544c953c251a7e474d4c65fdf996df56e73a85370fda2a158419e2df5f"
+    },
+    "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+    "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+    "config_file_sha256": "a39565ad97c189a9cb35a10d127ea0969ba4f0c04659a7e6847499fcc5d13c5f",
+    "scope": "driver entry through setup, pre-run probes, all actual run_request calls including parent socket/receipt/publication/audit, parity and interval calculation. This final report write tail remains unmeasured.",
+    "uncertainty_scope": "six temporally paired randomized triplets conditional on one public64 template and solver seed17; t intervals assume paired timing fluctuations sufficiently independent. No population, solver-seed, superiority or competitive utility inference.",
+    "uninstrumented_native": "diagnostic no-online-observer with common anchor and terminal audit; not a competitive baseline. No public mode hook added."
+  },
+  "inventory": {
+    "path": "artifacts/checks/task8/fix1/inventory.json",
+    "sha256": "b07a040d98939dd64d83de95a63cf7ab170c0e5165e8d91ffb7a23148d473386"
+  },
+  "summary": {
+    "path": "artifacts/checks/task8/fix1/protocol-observer/summary.json",
+    "sha256": "835b5aeb66dab9bb846a6c33b4f3a930ea5b5f9d5c58583430e780e226efdb5a"
+  },
+  "limits": [
+    "Native short-solve overhead remains positive and charged; full-call interval spanning zero does not prove zero cost.",
+    "Timing uncertainty conditional on one template and solver seed; OS/background/cache/order assumptions limit generalization.",
+    "Parent CPU/emission timers overlap worker elapsed and are not extra wall summands.",
+    "Final reporting tails remain unmeasured, never zero; no instrumentation cost subtraction.",
+    "Prior stdout proxy pilots remain historical; no proxy/control/full-suite repetition in this narrow fix.",
+    "Search support Infinity minor remains assigned to Task9."
+  ]
+}

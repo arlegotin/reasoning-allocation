@@ -159,3 +159,63 @@ def test_bad_run_schema_rejects_before_output(tmp_path,changes):
     path=configuration(tmp_path);config=json.loads(path.read_text());config.update(changes);path.write_text(json.dumps(config))
     with pytest.raises(ValueError):runner.run_schedule(path,'discovery',tmp_path/'out',dry_run=True)
     assert not (tmp_path/'out').exists()
+
+
+def test_copied_input_identity_is_rejected_even_under_distinct_paths(tmp_path):
+    path=configuration(tmp_path)
+    copied=tmp_path/'copied.json';copied.write_bytes((tmp_path/'input.json').read_bytes())
+    manifest=tmp_path/'manifest.json';payload=json.loads(manifest.read_text())
+    payload['instances'].append({**payload['instances'][0],'path':copied.name})
+    manifest.write_text(json.dumps(payload))
+    with pytest.raises(ValueError,match='identity'):
+        runner.run_schedule(path,'discovery',tmp_path/'out',dry_run=True)
+    assert not (tmp_path/'out').exists()
+
+
+def test_contended_primary_lock_never_enters_preparation(tmp_path,monkeypatch):
+    import fcntl,tempfile
+    path=configuration(tmp_path)
+    entered=[];original=runner.prepare_schedule
+    def prepare(*args):entered.append(True);return original(*args)
+    monkeypatch.setattr(runner,'prepare_schedule',prepare)
+    with (Path(tempfile.gettempdir())/'ra-primary-timed.lock').open('a+b') as lock:
+        fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+        with pytest.raises(ValueError,match='timed run'):
+            runner.run_schedule(path,'discovery',tmp_path/'out')
+    assert entered==[]
+    assert not (tmp_path/'out').exists()
+
+
+def test_cli_resume_retains_failure_status_without_rerunning_fault(tmp_path,monkeypatch,capsys):
+    from test_worker import driver
+    path=configuration(tmp_path,[{'name':'B0','kind':'native','overrides':{}}])
+    driver(monkeypatch,tmp_path, '''
+from ra.worker import Channel,execute_request
+original=Channel.send
+sent=False
+def send(self,packet):
+    global sent
+    original(self,packet)
+    if packet['kind']=='progress' and not sent:
+        sent=True
+        original(self,packet)
+Channel.send=send
+''')
+    args=['run','--config',str(path),'--phase','discovery','--out',str(tmp_path/'runs')]
+    assert main(args)==1
+    first=json.loads(capsys.readouterr().out)
+    assert first['success'] is False
+    count=len(list((tmp_path/'runs').rglob('attempt.json')))
+    assert main([*args,'--resume'])==1
+    resumed=json.loads(capsys.readouterr().out)
+    assert resumed['success'] is False and resumed['attempt_ids']==[]
+    assert len(list((tmp_path/'runs').rglob('attempt.json')))==count==1
+
+
+def test_request_identity_collision_rejects_before_publication(tmp_path,monkeypatch):
+    path=configuration(tmp_path)
+    # Inject a hash collision at the identity boundary, not a solver fake.
+    monkeypatch.setattr(runner,'_digest',lambda value:'0'*64)
+    with pytest.raises(ValueError,match='scheduled request identity'):
+        runner.run_schedule(path,'discovery',tmp_path/'out')
+    assert not (tmp_path/'out').exists()

@@ -647,6 +647,7 @@ def prepare_schedule(config_path: Path, phase: str) -> tuple[list[Request], dict
     requests = []
     manifest_hashes = {}
     seen_inputs = set()
+    seen_instances = set()
     ownership = SplitOwnership()
     for manifest_name in config['input_manifests']:
         manifest_path = Path(manifest_name)
@@ -678,6 +679,9 @@ def prepare_schedule(config_path: Path, phase: str) -> tuple[list[Request], dict
             provisional = Request('validation', str(input_path), item['sha256'], item['instance_id'], config_hash,
                 code_hash, environment_hash, 'native', manifest['split'], 0, 1, 1, sum(payload['costs']))
             instance = load_instance(provisional)
+            if instance.instance_id in seen_instances:
+                raise ValueError('duplicate original instance identity across input paths')
+            seen_instances.add(instance.instance_id)
             local = SplitOwnership(); local.register(instance,manifest['split'])
             if any(owners.owners.get(key) != split for key,split in local.owners.items()):
                 raise ValueError('input is not registered in declared public namespace')
@@ -694,6 +698,8 @@ def prepare_schedule(config_path: Path, phase: str) -> tuple[list[Request], dict
                     order_seed = int(_digest([config['run_order_seed'],phase,instance.instance_id,seed,budget]),16)
                     random.Random(order_seed).shuffle(block)
                     requests.extend(block)
+    if len({request.request_id for request in requests}) != len(requests):
+        raise ValueError('duplicate scheduled request identity')
     metadata = {'schema_version':1, 'config':config, 'config_path':str(config_path), 'config_hash':config_hash,
                 'phase':phase, 'input_manifest_sha256':manifest_hashes, 'inventory':inventory,
                 'request_order':[r.request_id for r in requests], 'serial':True, 'threads':1}
@@ -707,19 +713,27 @@ def run_schedule(config_path: Path, phase: str, out: Path, *, resume: bool = Fal
     Batch elapsed includes request bootstrap, audit writes, release and publication.
     Coordinator CPU overlaps child CPU and is reported separately, never summed as wall time.
     """
+    if dry_run:
+        prepare_schedule(config_path, phase)
+        return []
+    import tempfile
+    # Admit before imports, native models, hashes or sparse input preparation.
+    with (Path(tempfile.gettempdir())/'ra-primary-timed.lock').open('a+b') as timed_lock:
+        try: fcntl.flock(timed_lock,fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError: raise ValueError('another primary timed run is active') from None
+        return _run_schedule(config_path, phase, out, resume=resume)
+
+
+def _run_schedule(config_path: Path, phase: str, out: Path, *, resume: bool) -> list[Attempt]:
     batch_start, batch_cpu = time.perf_counter_ns(), time.process_time_ns()
     requests, metadata = prepare_schedule(config_path, phase)
-    if dry_run: return []
     out = Path(out).resolve()
     if out.exists() and any(out.iterdir()) and not resume:
         raise ValueError('nonempty run output requires --resume')
     out.mkdir(parents=True,exist_ok=True)
     # Serialize coordinators as well as workers; a second timed run cannot overlap.
-    import tempfile
     import resource
-    with (Path(tempfile.gettempdir())/'ra-primary-timed.lock').open('a+b') as timed_lock, (out/'schedule.lock').open('a+b') as lock:
-        try: fcntl.flock(timed_lock,fcntl.LOCK_EX | fcntl.LOCK_NB)
-        except BlockingIOError: raise ValueError('another primary timed run is active') from None
+    with (out/'schedule.lock').open('a+b') as lock:
         try: fcntl.flock(lock,fcntl.LOCK_EX | fcntl.LOCK_NB)
         except BlockingIOError: raise ValueError('schedule already active') from None
         schedule_path = out/'schedule.json'
@@ -748,3 +762,24 @@ def run_schedule(config_path: Path, phase: str, out: Path, *, resume: bool = Fal
         _atomic_json(batch/'reporting.json',{'accounting_audit_write_ns':time.perf_counter_ns()-audit_start,
             'scope':'measured final accounting audit write; this reporting receipt tail remains unmeasured'},immutable=True)
     return attempts
+
+
+def schedule_succeeded(out: Path) -> bool:
+    """Reconstruct effective complete-schedule status, including retained faults.
+
+    An external interruption can be superseded by its valid retry; a terminal
+    method fault remains an outcome and is never converted to success by resume.
+    """
+    out = Path(out).resolve()
+    expected = strict_json((out/'schedule.json').read_text())['request_order']
+    effective = {}
+    for manifest in sorted((out/'attempts').rglob('attempt.json')):
+        payload, final = _read_attempt(manifest.parent)
+        identity = payload['request_id']
+        if identity not in expected:
+            raise ValueError('attempt outside scheduled request identities')
+        if final and payload['status'] != 'external_interrupt':
+            if identity in effective:
+                raise ValueError('duplicate terminal outcome for scheduled request')
+            effective[identity] = payload['status']
+    return bool(expected) and all(effective.get(identity) in ('complete','deadline','startup_timeout') for identity in expected)
