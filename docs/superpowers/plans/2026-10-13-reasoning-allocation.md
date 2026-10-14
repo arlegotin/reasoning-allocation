@@ -209,18 +209,18 @@ def test_resume_rejects_changed_model(changed_model_request_and_root):
 
 **Interfaces:** Produces `Allocator.choose(context: DecisionContext, candidates: Sequence[NodeRecord], lease_lengths: Sequence[int]) -> Allocation`, `observe(outcome: LeaseOutcome) -> None`; `make_allocator(method_config: dict[str, object], seed: int) -> Allocator`; `resolve_native_overrides(params: dict[str, object], overrides: dict[str, object]) -> dict[str, object]`; `runner.run_schedule(config_path: Path, phase: str, out: Path, *, resume: bool = False, dry_run: bool = False) -> list[Attempt]`. Native B0 avoids custom selectors/scans; B1 uses installed native plugin priorities/parameters.
 
-- [ ] **Step 1: Write failing selection/config tests.** Pin deterministic estimate/bound/depth/FIFO/round-robin choices and seeded uniform selection. The budget-sensitive rule starts alternating minimum bound every other rebid and uses configured remaining-time bins/lengths. Unsupported native names/ranges reject. Recreating a worker never inherits prior overrides. B0 retains installed defaults except shared scientific/thread/resource settings.
+- [x] **Step 1: Write failing selection/config tests.** Pin deterministic estimate/bound/depth/FIFO/round-robin choices and seeded uniform selection. The budget-sensitive rule starts alternating minimum bound every other rebid and uses configured remaining-time bins/lengths. Unsupported native names/ranges reject. Recreating a worker never inherits prior overrides. B0 retains installed defaults except shared scientific/thread/resource settings.
 
 ```python
 def test_native_override_must_exist_in_installed_build():
     with pytest.raises(ValueError):
         resolve_native_overrides({"limits/time": 10.0}, {"invented/param": 1})
 ```
-- [ ] **Step 2: Write failing harness controls.** Identical policy under two names has identical logical work/output with coupled seeds; deliberate delayed publication worsens its deadline score; tiny delayed-payoff optimum distinguishes the correct scheduler. Ensure method order is deterministic under run-order seed and serial throughout timed phases.
-- [ ] **Step 3: Run red.** `python -m pytest tests/test_allocators.py tests/test_harness_controls.py -q`; expected absent factory/schedule APIs.
-- [ ] **Step 4: Implement controls and command routing.** Add `run --config PATH --phase PHASE [--out PATH] [--resume] [--dry-run]`; default out is `artifacts/runs/PHASE`. Validate configured discovery/train/validation input namespaces; confirmatory mode stays unavailable until Task 15. Record B0/B1 settings and all B2 variants. Initialize estimate/plunge tuning from actual installed parameter dump and permitted native selectors.
-- [ ] **Step 5: Verify.** Run both test modules and serial discovery null/positive-control requests. Compare minimal common observer against diagnostic and uninstrumented native runs; report measured observation effect/uncertainty, simplify common observation if material, and repeat the pilot. Never subtract estimated instrumentation cost from reported outcomes.
-- [ ] **Step 6: Commit.** Stage controls/configs/tests/CLI; commit `feat: add strong native scheduling and harness controls`. WP02 passes only after reconstruction, timer, sensitivity, and observer checks.
+- [x] **Step 2: Write failing harness controls.** Identical policy under two names has identical logical work/output with coupled seeds; deliberate delayed publication worsens its deadline score; tiny delayed-payoff optimum distinguishes the correct scheduler. Ensure method order is deterministic under run-order seed and serial throughout timed phases.
+- [x] **Step 3: Run red.** `python -m pytest tests/test_allocators.py tests/test_harness_controls.py -q`; expected absent factory/schedule APIs.
+- [x] **Step 4: Implement controls and command routing.** Add `run --config PATH --phase PHASE [--out PATH] [--resume] [--dry-run]`; default out is `artifacts/runs/PHASE`. Validate configured discovery/train/validation input namespaces; confirmatory mode stays unavailable until Task 15. Record B0/B1 settings and all B2 variants. Initialize estimate/plunge tuning from actual installed parameter dump and permitted native selectors.
+- [x] **Step 5: Verify.** Run both test modules and serial discovery null/positive-control requests. Compare minimal common observer against diagnostic and uninstrumented native runs; report measured observation effect/uncertainty, simplify common observation if material, and repeat the pilot. Never subtract estimated instrumentation cost from reported outcomes.
+- [x] **Step 6: Commit.** Stage controls/configs/tests/CLI; commit `feat: add strong native scheduling and harness controls`. WP02 passes only after reconstruction, timer, sensitivity, and observer checks.
 
 ## Task 9: Native-only workload pilot and headroom decision (WP03)
 
