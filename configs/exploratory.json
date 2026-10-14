@@ -2,7 +2,8 @@
   "schema_version": 1,
   "purpose": "exploratory",
   "input_manifests": [
-    "../data/discovery/manifest.json"
+    "../data/pilot/discovery-64/finite-manifest.json",
+    "../data/pilot/discovery-256/finite-manifest.json"
   ],
   "solver_seeds": [
     0,
@@ -10,14 +11,17 @@
   ],
   "run_order_seed": 20261014,
   "budgets_ns": [
-    1000000000
+    2106828958
   ],
   "watchdog_grace_ns": 2000000000,
   "lease_lengths": [
     1,
     2,
     4,
-    8
+    8,
+    16,
+    32,
+    64
   ],
   "threads": 1,
   "integrality_tolerance": 1e-06,
@@ -29,13 +33,15 @@
       "overrides": {}
     },
     {
-      "name": "B1-estimate-initial",
+      "name": "B1-tuned",
+      "kind": "native",
+      "overrides": {}
+    },
+    {
+      "name": "B1-no-plunge",
       "kind": "native",
       "overrides": {
-        "nodeselection/estimate/stdpriority": 200000,
-        "nodeselection/estimate/minplungedepth": -1,
-        "nodeselection/estimate/maxplungedepth": -1,
-        "nodeselection/estimate/maxplungequot": 0.25
+        "nodeselection/estimate/maxplungedepth": 0
       }
     },
     {
@@ -43,54 +49,54 @@
       "kind": "shared",
       "allocator": {
         "policy": "fifo",
-        "length": 1
+        "length": 4
       },
-      "pool_size": null
+      "pool_size": 128
     },
     {
       "name": "B2-round_robin_parent_groups",
       "kind": "shared",
       "allocator": {
         "policy": "round_robin_parent_groups",
-        "length": 1
+        "length": 4
       },
-      "pool_size": null
+      "pool_size": 128
     },
     {
       "name": "B2-uniform",
       "kind": "shared",
       "allocator": {
         "policy": "uniform",
-        "length": 1
+        "length": 4
       },
-      "pool_size": null
+      "pool_size": 128
     },
     {
       "name": "B2-estimate",
       "kind": "shared",
       "allocator": {
         "policy": "estimate",
-        "length": 1
+        "length": 4
       },
-      "pool_size": null
+      "pool_size": 128
     },
     {
       "name": "B2-bound",
       "kind": "shared",
       "allocator": {
         "policy": "bound",
-        "length": 1
+        "length": 4
       },
-      "pool_size": null
+      "pool_size": 128
     },
     {
       "name": "B2-deepest",
       "kind": "shared",
       "allocator": {
         "policy": "deepest",
-        "length": 1
+        "length": 4
       },
-      "pool_size": null
+      "pool_size": 128
     },
     {
       "name": "B2-budget_sensitive",
@@ -98,16 +104,16 @@
       "allocator": {
         "policy": "budget_sensitive",
         "remaining_time_bins": [
-          0.1,
-          0.5
+          0.5267072395,
+          2.106828958
         ],
         "bin_lengths": [
           1,
-          2,
-          4
+          4,
+          16
         ]
       },
-      "pool_size": null
+      "pool_size": 128
     }
   ]
 }

@@ -1,0 +1,1077 @@
+{
+  "actual_attempt_count": 1059,
+  "arithmetic": {
+    "c_scope": "diagnostic post-first-main wall/native-node proxy, includes required observation",
+    "h_scope": "median charged rebid entry-to-dispatch including pool/admin across testedK/L; no learned inference",
+    "illustrative_maximum_extra_overhead_per_new_node_ns": 2993634.976013411,
+    "illustrative_q": 0.8,
+    "illustrative_time_ratio_L1": 0.8879087470946295,
+    "illustrative_time_ratio_L8": 0.8109885933868287,
+    "limitation": "arithmetic for steerable segment only; root/startup/finalization and future inference remain charged; no claimed end-to-end speedup",
+    "measured_c_ns": 11974539.904053643,
+    "measured_h_ns": 1315833.5,
+    "q_scope": "hypothetical20percent reduction in work; not measured learned improvement",
+    "schema_version": 1
+  },
+  "artifacts": {
+    "artifacts/pilot/artifact-inventory.json": "117cf82245242498ddf4145cf5597ad06784e494931d5c739d240c5eec0eda85",
+    "artifacts/pilot/cached-ranking-final.json": "357a651d34a6764a72e7f5f19cbeec33673c29124ef6a3dcb7f872df2c05e462",
+    "artifacts/pilot/calibration.json": "00dfe7d1a58ab33c6b5628ca1eec88366e940cf5e60bd7455484cc24e845f696",
+    "artifacts/pilot/closure-cost.json": "953c0f47375e0669f35320d7bed7a50cd25cdc196a24d2b362e7bd499573ccb2",
+    "artifacts/pilot/controls-ranking-final.json": "39a20477e9cde9c6594a7ea1f2bbaeaad51bc34700c6aff5611d20ecf2a0e111",
+    "artifacts/pilot/decision.json": "ece3338f50280d6ac14d0c1da7ca51347e4c354088ab2a1a7c9aa32b58918e71",
+    "artifacts/pilot/final-config-verification.json": "5bf48f20b0d8e4aad4297817bc9bd42b4c8835c7611426953e4478e9c688e9a2",
+    "artifacts/pilot/headroom-summary.json": "03c87d7ade2f87c181fb0452acf686fbfb5b2c08d0445e76b5622f831f7ece2a",
+    "artifacts/pilot/headroom.csv": "6486be00e453c5026a77bce08775c21b35ca3622a359ee01709851cc87fc3f02",
+    "artifacts/pilot/observer-share.json": "2fb3bb9b70917bae3aa8f342fe99b423399bda1c971edf073e463ff63c3caf6d",
+    "artifacts/pilot/overhead-arithmetic.json": "986e9bed17011b6a90b49b0dba8d10cb797233fdcc04bef28ddf73be1fba1eea",
+    "artifacts/pilot/pool-length-profile.json": "a694781ab3a93b3d50ca6c3d01bb94fe9da9b6e461976a8364404f6b6a40bca6",
+    "artifacts/pilot/population-lock.json": "a574e17fcf9c2cbe8ce0e5498148ece26377641f07c52b1ea08906c1bf7a5000",
+    "artifacts/pilot/resource_forecast.json": "ba77da5e176297c808d69312827c82d1d5e8c73153deef8e6b628862ee9524ac",
+    "artifacts/pilot/root-frontier-profile.json": "0c032c7a937f216de0409de37a1e0d1e70d86c8a3f2b2f5d2111ac3ad662dc3f",
+    "artifacts/pilot/seal-cost.json": "1ea97ada7c5f9e39e67e4478e5904c751545b39e4395ccd1db6c924c720e5fe6",
+    "artifacts/pilot/source-versions.json": "90c53c55c94f0921d1fa73e10f876414b6c995c3915fc7a0eebdf102fe57822c",
+    "artifacts/pilot/storage.json": "51b7509dd3a1073109626125817b62d6f20688f17f377b315dfaa1119052d568",
+    "artifacts/pilot/tails.json": "dc4e9a1c7c98d7eec1452bc45ae3cbc22ba6fe9e3f5d540254fd8c5107d137d6"
+  },
+  "base_commit": "060302b",
+  "calibration": {
+    "T0_ns": 2106828958,
+    "basis": "median cold end-to-end completion among four completed hard256 native extension attempts; censored block/512 records retained; exploratory grid, no effect threshold",
+    "budgets_ns": [
+      526707240,
+      2106828958,
+      8427315832
+    ],
+    "watchdog_basis": "initial2s retained pending measured safe-return tails; not a hard real-time guarantee",
+    "watchdog_grace_ns": 2000000000,
+    "weights": [
+      0.25,
+      0.5,
+      0.25
+    ]
+  },
+  "configs": {
+    "configs/exploratory.json": "65087ee5e3c2ae6835f72c1dae6fb3af8ba771c93c86e573c424974d9a3e7505",
+    "configs/native/default.json": "ec2b6ce2958d3818b57104a59cd97222ea425609e042118ffbf4490c62acbe1a",
+    "configs/native/search_space.json": "81eac2e3877c838b58ddaf5755457448859b2066ab07c7ebaa19720af6f4f0b7",
+    "configs/native/tuned.json": "f36ee3331834edb38ad17d064a224d9f1bb44f468f67bf70b96f0d9f3917bb5f",
+    "configs/workload_manifest.json": "9f0de3b20abe5ca4acd46d4e3822daef5b5bb16b861ef6ead3e3c9df869db127"
+  },
+  "current_sources": {
+    "src/ra/__init__.py": "af231eb3ba064a73f3f70e7e506d6685a6452c6d46291578fa25bfe1e76aaa23",
+    "src/ra/allocators.py": "b7e8e23dbafcbf5394936c85fa4a77fdffafbdd87b6e47019e73ce2a745ec2d6",
+    "src/ra/candidates.py": "be5f6e872511bb5dd51de0fcf23c95bf8638572f7f5df09cfcc41509d7181f0f",
+    "src/ra/checks.py": "4bc71d7d9888cd9429467f45c1b7648224d05a2c265c0897eb2b230057e59d1f",
+    "src/ra/cli.py": "cdbeb0212d4b090b07bf0b7484a674e3c3ff28e2965fb70739d699bfcdfc70c3",
+    "src/ra/config.py": "1b606b9d661af49142c28d94b10c2af83784291ba41944cbf9b4e777dba152a5",
+    "src/ra/data.py": "073aa4e94a4d1c7c6315552575b0c400cd8f78e03974842b7dd51f3b81ac2aa4",
+    "src/ra/doctor.py": "629d86ada68f6c0c37a508c4d4b7338f1a67229b5990bb6f2103d3ed567b294b",
+    "src/ra/exact.py": "455683ed023d7b00604b27d2db16d5098323a4726dd7efb5469de7c9fe690b0c",
+    "src/ra/leases.py": "82259ec6eae2e7daca2040c5cff53b00b39b3abaa446a6a8343a1cda9fe15742",
+    "src/ra/ledger.py": "94500f07b4d1aefa63d7cea11d6ddfe2fc37582ef46349fcaa7885f7e791dcab",
+    "src/ra/metrics.py": "575028b9a47ab3ca201cbae981f4cd08586874487fe148b5978931bd0bc0bcd3",
+    "src/ra/observer.py": "074a92b6cde7497838c08ec6f69812a2fde1bbbcd9b36f118a3a60250699d6d1",
+    "src/ra/pilot.py": "2f83ac72c7f9dc9a86b69882309f5da222620e0963ae0777b8ee52bc2941f5f9",
+    "src/ra/provenance.py": "97ea0ade60db01db82595423f4a88e36a6352b5451b7f46ee50dc28798770c61",
+    "src/ra/runner.py": "7673b01b3967f5e8378c74b5029819cef4f9ad10f994f97a5d5d753afe7bcafb",
+    "src/ra/scip_backend.py": "3d99db4f031f4db54ba85702f7c6b5e40a53677cd7ae34d630b8355326215a12",
+    "src/ra/types.py": "871d7eb654af23449ea9a8c3a7700529c62a31ddc5083df88cb7f1d47f264d52",
+    "src/ra/worker.py": "adaf0218476b60433fe3e08f3379fbbb8ab17387d84eb6ac7e9c5eb8fbe9e1aa"
+  },
+  "decision": {
+    "candidate_pool_size": 128,
+    "decision": "continue",
+    "evidence_class": "locally measured native-only pilot; no learned effect or H1 confirmation/falsification",
+    "finite_envelope_gain_over_B0": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.001262426859737098,
+      0.005279657308401298,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.003172821400115433,
+      0.005442029560393524
+    ],
+    "length_scope": "All tested in one diagnostic block; fixedL4 best there only, no universal ranking or frozen final B4 contender.",
+    "native_alternative": {
+      "nodeselection/estimate/maxplungedepth": 0
+    },
+    "next_task": "Task10 supported randomized trace collection, after independent WP03 review",
+    "pool_reason": "All observed frontiers <=102, so128 retained complete observed pools;32 truncation exercised,512 nonbinding. No claim for unseen larger frontiers.",
+    "precision_and_power": "WP06-gated; no invented useful delta or confirmatoryN/fits/repeats; namespace identities locked before training, protected assets/outcomes absent.",
+    "reasons": [
+      "256-column normal-enhancement native searches expose dozens/hundreds of completed nodes after a measured root/startup interval.",
+      "Source-identified profiles leave38.3\u201377.0percent of cold request wall after the first completed nonroot node; conservative steerability proxy.",
+      "Seriously tuned native default remains best aggregate validation choice after16 allocation-only configurations, neighbor expansion and common setup-cost refinement; no-plunge has instance-specific benefit.",
+      "Final matched discovery controls improve finite hindsight utility over B0 in4of12 instance-seed blocks, with different winners for uniform and block cells. Timing repeats are not independent templates.",
+      "Measured primitive rebid cost permits a specific plausible work-saving/overhead tradeoff, but q=.8 remains hypothetical and future learner inference/training is unmeasured."
+    ],
+    "rejected_conclusions": [
+      "A root-only64 proxy falsifies H1",
+      "A finite schedule envelope is a universal oracle",
+      "More nodes or longer leases imply better utility",
+      "The illustrative overhead ratio is a measured learned speedup"
+    ],
+    "schema_version": 1,
+    "selected_native_overrides": {},
+    "supported_lengths": [
+      1,
+      2,
+      4,
+      8,
+      16,
+      32,
+      64
+    ],
+    "timer_floor_ns": 42,
+    "unresolved": [
+      "Future learned inference/training cost and prediction quality",
+      "Across-template and fit uncertainty beyond finite public pilot",
+      "Native/fixed-control timing under other load/power conditions",
+      "Larger frontier support above102 and strong future/global contenders"
+    ],
+    "watchdog_grace_ns": 2000000000,
+    "watchdog_reason": "Observed maximum native safe-return debt10.573ms and full-release overshoot213.870ms; retain2s conservative grace (~9.35x observed full-release maximum) due finite tail support. Historical fault safe return remains missing."
+  },
+  "drivers": {
+    "checks/pilot_driver.py": "91c1db53b4c11039cbafb650a9d080654d57af06f19f3e03d2e6acd7b62891cc",
+    "checks/pilot_profile.py": "8c1eb4a3aeecc0f2a723ea5edf183bbca39412c04df79b716aa1fa1725f21086",
+    "checks/pilot_profile_worker.py": "96736573c9604c51ea3650ab8858cdd86ca22b0881b692cf891f5e7e364bfaf3",
+    "checks/pilot_reconstruct.py": "1cd880467b3929f00e6a7f3772cfc16a2e741497e729de2bc1d0397a3887ffc1",
+    "checks/pilot_tuning_summary.py": "f7f93714871174fa20654925d9a4e25ebd26e03a8bd2d799fd40a364dbcef290"
+  },
+  "limits": [
+    "One historical implementation error retained with missing safe return/terminal CPU; sampled lower bounds retained.",
+    "Native tuning before cache fix provisional, not pooled as confirmation; final180 requests support selected defaults.",
+    "K/length ranks conditional on one diagnostic block; final controls six originals with two paired solver seeds.",
+    "First completed nonroot event is a root proxy, not exact root decomposition.",
+    "Required observer ledger share includes anchor/terminal; no cost subtraction or randomized effect claim.",
+    "Final sample counts, fits, repeats, useful precision and power are WP06-gated; no learned or protected data.",
+    "All normal enhancements remain enabled; B0 compiled native; profiles separately source identified and charged.",
+    "Raw hardware reports remain private; environmental load/power settings limit extrapolation.",
+    "Final receipt/early preparation return tails unknown; observed ranges not future guarantees."
+  ],
+  "native_validation": {
+    "budgets_ns": [
+      526707240,
+      2106828958,
+      8427315832
+    ],
+    "methods": {
+      "B0": {
+        "attempts": 36,
+        "mean_F": 0.9950727222773021,
+        "original_F": {
+          "0b03a496455c9acf1528cd667fba3e37de2c1e35ec7cc7c7a79dff7f79b31c8b": 1.0,
+          "1b1983be680bdb56ea7afbcee812ed980a0f6f2511a8d7bc923638ffeb4730b9": 0.9602422049720809,
+          "46a0e36fe87da8e876b017a60bc033edee3082a2d3f87ed465c2a929d4ff8c30": 0.9991975949652967,
+          "54c33f200cd396ce695885bb0d262185f755a3567f836e82a552520dd003f0e3": 0.9960871943131893,
+          "5fa519d50125d7572e0b26548681c2c1dbd725b0282b1c92f6fee18ed1357438": 1.0,
+          "6f5aafc7ab79e7c3d5bb2e3d61738b84a33c66f1a057fd57c443900280418a90": 1.0,
+          "7ff6e9cdd990b93ff6f7f9c97816a484c38d5e4d19ecfaa93d1f5891efe1f52f": 1.0,
+          "a5b0855db49775e4dd7414d52b57017fbcc3c2d5dd56961f126ae6af6e13bf76": 1.0,
+          "a9b332d8d740ef1f1b3a3a813b1bc5f5e1f4bbe6124f906272a78f8351f483ba": 0.9982411348999087,
+          "dd0189e5c27a449bb678528fef097c86b04f0e3c88f11696790355c92cfca7bc": 0.9976715893895594,
+          "edc897bda8be24e091a7f197bd2a4c78128ba4181b4cd015c2ddfa866f2698ab": 0.9894329487875909,
+          "f3dc9dcf6d5193470d5e435e28aedfa5979ecbf07aaeda4f17aeb875e483b8bb": 1.0
+        },
+        "statuses": {
+          "complete": 26,
+          "deadline": 10
+        },
+        "templates": 12,
+        "wall_s": 36.459300584
+      },
+      "B1-deep-plunge": {
+        "attempts": 36,
+        "mean_F": 0.9939085843394067,
+        "original_F": {
+          "0b03a496455c9acf1528cd667fba3e37de2c1e35ec7cc7c7a79dff7f79b31c8b": 1.0,
+          "1b1983be680bdb56ea7afbcee812ed980a0f6f2511a8d7bc923638ffeb4730b9": 0.9610388599870145,
+          "46a0e36fe87da8e876b017a60bc033edee3082a2d3f87ed465c2a929d4ff8c30": 0.9991975949652967,
+          "54c33f200cd396ce695885bb0d262185f755a3567f836e82a552520dd003f0e3": 0.9960871943131893,
+          "5fa519d50125d7572e0b26548681c2c1dbd725b0282b1c92f6fee18ed1357438": 1.0,
+          "6f5aafc7ab79e7c3d5bb2e3d61738b84a33c66f1a057fd57c443900280418a90": 1.0,
+          "7ff6e9cdd990b93ff6f7f9c97816a484c38d5e4d19ecfaa93d1f5891efe1f52f": 1.0,
+          "a5b0855db49775e4dd7414d52b57017fbcc3c2d5dd56961f126ae6af6e13bf76": 1.0,
+          "a9b332d8d740ef1f1b3a3a813b1bc5f5e1f4bbe6124f906272a78f8351f483ba": 0.9982357076935869,
+          "dd0189e5c27a449bb678528fef097c86b04f0e3c88f11696790355c92cfca7bc": 0.9976715893895594,
+          "edc897bda8be24e091a7f197bd2a4c78128ba4181b4cd015c2ddfa866f2698ab": 0.9746720657242334,
+          "f3dc9dcf6d5193470d5e435e28aedfa5979ecbf07aaeda4f17aeb875e483b8bb": 1.0
+        },
+        "statuses": {
+          "complete": 27,
+          "deadline": 9
+        },
+        "templates": 12,
+        "wall_s": 37.080031086
+      },
+      "B1-freq50": {
+        "attempts": 36,
+        "mean_F": 0.9935284891936861,
+        "original_F": {
+          "0b03a496455c9acf1528cd667fba3e37de2c1e35ec7cc7c7a79dff7f79b31c8b": 1.0,
+          "1b1983be680bdb56ea7afbcee812ed980a0f6f2511a8d7bc923638ffeb4730b9": 0.9600239600681418,
+          "46a0e36fe87da8e876b017a60bc033edee3082a2d3f87ed465c2a929d4ff8c30": 0.9983022036962063,
+          "54c33f200cd396ce695885bb0d262185f755a3567f836e82a552520dd003f0e3": 0.9960871943131893,
+          "5fa519d50125d7572e0b26548681c2c1dbd725b0282b1c92f6fee18ed1357438": 1.0,
+          "6f5aafc7ab79e7c3d5bb2e3d61738b84a33c66f1a057fd57c443900280418a90": 1.0,
+          "7ff6e9cdd990b93ff6f7f9c97816a484c38d5e4d19ecfaa93d1f5891efe1f52f": 1.0,
+          "a5b0855db49775e4dd7414d52b57017fbcc3c2d5dd56961f126ae6af6e13bf76": 1.0,
+          "a9b332d8d740ef1f1b3a3a813b1bc5f5e1f4bbe6124f906272a78f8351f483ba": 0.9982357076935869,
+          "dd0189e5c27a449bb678528fef097c86b04f0e3c88f11696790355c92cfca7bc": 0.9976715893895594,
+          "edc897bda8be24e091a7f197bd2a4c78128ba4181b4cd015c2ddfa866f2698ab": 0.9720212151635499,
+          "f3dc9dcf6d5193470d5e435e28aedfa5979ecbf07aaeda4f17aeb875e483b8bb": 1.0
+        },
+        "statuses": {
+          "complete": 26,
+          "deadline": 10
+        },
+        "templates": 12,
+        "wall_s": 38.1138765
+      },
+      "B1-no-plunge": {
+        "attempts": 36,
+        "mean_F": 0.994420571560613,
+        "original_F": {
+          "0b03a496455c9acf1528cd667fba3e37de2c1e35ec7cc7c7a79dff7f79b31c8b": 1.0,
+          "1b1983be680bdb56ea7afbcee812ed980a0f6f2511a8d7bc923638ffeb4730b9": 0.9662476955944426,
+          "46a0e36fe87da8e876b017a60bc033edee3082a2d3f87ed465c2a929d4ff8c30": 0.9983022036962063,
+          "54c33f200cd396ce695885bb0d262185f755a3567f836e82a552520dd003f0e3": 0.995016617183861,
+          "5fa519d50125d7572e0b26548681c2c1dbd725b0282b1c92f6fee18ed1357438": 1.0,
+          "6f5aafc7ab79e7c3d5bb2e3d61738b84a33c66f1a057fd57c443900280418a90": 1.0,
+          "7ff6e9cdd990b93ff6f7f9c97816a484c38d5e4d19ecfaa93d1f5891efe1f52f": 1.0,
+          "a5b0855db49775e4dd7414d52b57017fbcc3c2d5dd56961f126ae6af6e13bf76": 1.0,
+          "a9b332d8d740ef1f1b3a3a813b1bc5f5e1f4bbe6124f906272a78f8351f483ba": 0.9982357076935869,
+          "dd0189e5c27a449bb678528fef097c86b04f0e3c88f11696790355c92cfca7bc": 0.9957375535579261,
+          "edc897bda8be24e091a7f197bd2a4c78128ba4181b4cd015c2ddfa866f2698ab": 0.9795070810013338,
+          "f3dc9dcf6d5193470d5e435e28aedfa5979ecbf07aaeda4f17aeb875e483b8bb": 1.0
+        },
+        "statuses": {
+          "complete": 25,
+          "deadline": 11
+        },
+        "templates": 12,
+        "wall_s": 36.802192379
+      },
+      "B1-quot01": {
+        "attempts": 36,
+        "mean_F": 0.9935203128438227,
+        "original_F": {
+          "0b03a496455c9acf1528cd667fba3e37de2c1e35ec7cc7c7a79dff7f79b31c8b": 1.0,
+          "1b1983be680bdb56ea7afbcee812ed980a0f6f2511a8d7bc923638ffeb4730b9": 0.960247939313155,
+          "46a0e36fe87da8e876b017a60bc033edee3082a2d3f87ed465c2a929d4ff8c30": 0.9983022036962063,
+          "54c33f200cd396ce695885bb0d262185f755a3567f836e82a552520dd003f0e3": 0.9960871943131893,
+          "5fa519d50125d7572e0b26548681c2c1dbd725b0282b1c92f6fee18ed1357438": 1.0,
+          "6f5aafc7ab79e7c3d5bb2e3d61738b84a33c66f1a057fd57c443900280418a90": 1.0,
+          "7ff6e9cdd990b93ff6f7f9c97816a484c38d5e4d19ecfaa93d1f5891efe1f52f": 1.0,
+          "a5b0855db49775e4dd7414d52b57017fbcc3c2d5dd56961f126ae6af6e13bf76": 1.0,
+          "a9b332d8d740ef1f1b3a3a813b1bc5f5e1f4bbe6124f906272a78f8351f483ba": 0.9982357076935869,
+          "dd0189e5c27a449bb678528fef097c86b04f0e3c88f11696790355c92cfca7bc": 0.9973494939461854,
+          "edc897bda8be24e091a7f197bd2a4c78128ba4181b4cd015c2ddfa866f2698ab": 0.9720212151635499,
+          "f3dc9dcf6d5193470d5e435e28aedfa5979ecbf07aaeda4f17aeb875e483b8bb": 1.0
+        },
+        "statuses": {
+          "complete": 26,
+          "deadline": 10
+        },
+        "templates": 12,
+        "wall_s": 37.232540251
+      }
+    },
+    "ranking": [
+      "B0",
+      "B1-no-plunge",
+      "B1-deep-plunge",
+      "B1-freq50",
+      "B1-quot01"
+    ],
+    "scope": "public validation ranking over coordinator-validated original instances; finite candidates, no protected/fitted result",
+    "weights": [
+      0.25,
+      0.5,
+      0.25
+    ]
+  },
+  "population_lock": {
+    "calibration_sha256": "00dfe7d1a58ab33c6b5628ca1eec88366e940cf5e60bd7455484cc24e845f696",
+    "cell_weight": 0.16666666666666666,
+    "decision_sha256": "ece3338f50280d6ac14d0c1da7ca51347e4c354088ab2a1a7c9aa32b58918e71",
+    "family_weights": {
+      "block": 0.3333333333333333,
+      "redundant": 0.3333333333333333,
+      "uniform": 0.3333333333333333
+    },
+    "fits": null,
+    "future_asset_rule": "Mechanically derive only from locked namespaces/cells; final finite cohorts/counts and hashes must freeze in WP06 using measured precision/resources before any protected outcome. Existing12 validation originals are pilot assets, not a promised final sample size.",
+    "future_confirmatory_count": null,
+    "future_train_count": null,
+    "generation_config": {
+      "cells": [
+        {
+          "blocks": null,
+          "bridge_multiplier": 1,
+          "clone_fraction": 0,
+          "columns": 64,
+          "cost_distribution": "uniform",
+          "degree": 8,
+          "family": "uniform",
+          "low_cost_probability": null,
+          "rare_row_proportion": 0.02,
+          "rows": 32
+        },
+        {
+          "blocks": null,
+          "bridge_multiplier": 1,
+          "clone_fraction": 0,
+          "columns": 256,
+          "cost_distribution": "uniform",
+          "degree": 8,
+          "family": "uniform",
+          "low_cost_probability": null,
+          "rare_row_proportion": 0.02,
+          "rows": 512
+        },
+        {
+          "blocks": 2,
+          "bridge_multiplier": 1,
+          "clone_fraction": 0,
+          "columns": 64,
+          "cost_distribution": "uniform",
+          "degree": 8,
+          "family": "block",
+          "low_cost_probability": null,
+          "rare_row_proportion": 0.02,
+          "rows": 32
+        },
+        {
+          "blocks": 2,
+          "bridge_multiplier": 1,
+          "clone_fraction": 0,
+          "columns": 256,
+          "cost_distribution": "uniform",
+          "degree": 8,
+          "family": "block",
+          "low_cost_probability": null,
+          "rare_row_proportion": 0.02,
+          "rows": 512
+        },
+        {
+          "blocks": null,
+          "bridge_multiplier": 3,
+          "clone_fraction": 0.25,
+          "columns": 64,
+          "cost_distribution": "uniform",
+          "degree": 8,
+          "family": "redundant",
+          "low_cost_probability": null,
+          "rare_row_proportion": 0.02,
+          "rows": 32
+        },
+        {
+          "blocks": null,
+          "bridge_multiplier": 3,
+          "clone_fraction": 0.25,
+          "columns": 256,
+          "cost_distribution": "uniform",
+          "degree": 8,
+          "family": "redundant",
+          "low_cost_probability": null,
+          "rare_row_proportion": 0.02,
+          "rows": 512
+        }
+      ],
+      "family_weights": {
+        "block": 1,
+        "redundant": 1,
+        "uniform": 1
+      },
+      "master_seed": "reasoning-allocation-wp03-finite-v1",
+      "purpose": "workload",
+      "schema_version": 1,
+      "templates_per_cell": 2
+    },
+    "generation_config_sha256": "9f0de3b20abe5ca4acd46d4e3822daef5b5bb16b861ef6ead3e3c9df869db127",
+    "namespace_hash_scope": "derivation identities, not finite cohort/instance hashes",
+    "namespaces": {
+      "confirmatory": {
+        "master_seed": "reasoning-allocation-wp03-finite-v1",
+        "namespace_sha256": "8c3ad6ac309fd6381605d098be69febd0da9295565213aa198b0fc2e7dabb7eb",
+        "scheme": "sha256-json-v1",
+        "split": "confirmatory"
+      },
+      "discovery": {
+        "master_seed": "reasoning-allocation-wp03-finite-v1",
+        "namespace_sha256": "b67ad61f8f7dd2f4e0bcbf1a236bde4d86c94f9dead6397c1455e57c0ffd2573",
+        "scheme": "sha256-json-v1",
+        "split": "discovery"
+      },
+      "shift": {
+        "master_seed": "reasoning-allocation-wp03-finite-v1",
+        "namespace_sha256": "81f5bdfecb733525f5ea2d0ff9d0b23209f84f9b90fd6fcd3e6978298fc4b5a9",
+        "scheme": "sha256-json-v1",
+        "split": "shift"
+      },
+      "train": {
+        "master_seed": "reasoning-allocation-wp03-finite-v1",
+        "namespace_sha256": "d4ece203fdf92763402d4cbc5426b5b54596ead40db97d81e90e4c89ea14a246",
+        "scheme": "sha256-json-v1",
+        "split": "train"
+      },
+      "validation": {
+        "master_seed": "reasoning-allocation-wp03-finite-v1",
+        "namespace_sha256": "ef41cdd70bdf9463e004d3735230d1079d7ba102518306179c6059b2de12e9f0",
+        "scheme": "sha256-json-v1",
+        "split": "validation"
+      }
+    },
+    "pilot_asset_manifest_sha256": {
+      "data/pilot/discovery-256/finite-manifest.json": "1760524e4d62e9b669d7a1993e49a59a6e50e70f3a2c5729dadbe05912aa61e1",
+      "data/pilot/discovery-64/finite-manifest.json": "65a02f353534df68700fbcf5bfc48879975ad39a44475b61670242e8ea96813e",
+      "data/pilot/validation/manifest.json": "94159d58e973d8c7c664dbd145d6eeadcaf8b7fcc6299b471d947cb366739a73"
+    },
+    "pilot_templates_per_cell": 2,
+    "protected_assets_generated": false,
+    "protected_outcomes_opened": false,
+    "repeats": null,
+    "schema_version": 1,
+    "selection": "public native-only start64 geometric scaling and measured256 steering; retain easy64 half of each family, all failed/easy discovery outcomes retained separately",
+    "status": "population_cells_weights_and_namespaces_locked_before_training",
+    "validation_original_count": 12
+  },
+  "public_controls": {
+    "budgets_ns": [
+      2106828958
+    ],
+    "methods": {
+      "B0": {
+        "attempts": 12,
+        "mean_F": 0.9969528157754997,
+        "original_F": {
+          "295070920c9ee6178b71a745342f402e4e03b0ea0e33260d5ec48337f77e5bb5": 1.0,
+          "65c36491c4dccc90d1162e53d55d4cfc26ec78cc84b65c5dc9d0736734a21e58": 1.0,
+          "8d8a7af8af0085768d3063119e7f8547bb1d8f7480208b3fd17064415e6173bc": 0.9936501541306134,
+          "a85345f19c28d19580580c13f9657bc5d24a964424a17be73102fecc089bf066": 1.0,
+          "b017a03b32b8432743ed6e6b84bccc0e23f0b4ba5c415497456a4e390897d65c": 1.0,
+          "fbffb1d59539eb35dc1d7e515e1faff1c9d92146a3da6547133057f99a747153": 0.9880667405223845
+        },
+        "statuses": {
+          "complete": 8,
+          "deadline": 4
+        },
+        "templates": 6,
+        "wall_s": 13.1476915
+      },
+      "B1-no-plunge": {
+        "attempts": 12,
+        "mean_F": 0.9981462039829879,
+        "original_F": {
+          "295070920c9ee6178b71a745342f402e4e03b0ea0e33260d5ec48337f77e5bb5": 1.0,
+          "65c36491c4dccc90d1162e53d55d4cfc26ec78cc84b65c5dc9d0736734a21e58": 1.0,
+          "8d8a7af8af0085768d3063119e7f8547bb1d8f7480208b3fd17064415e6173bc": 0.9965030578952886,
+          "a85345f19c28d19580580c13f9657bc5d24a964424a17be73102fecc089bf066": 1.0,
+          "b017a03b32b8432743ed6e6b84bccc0e23f0b4ba5c415497456a4e390897d65c": 1.0,
+          "fbffb1d59539eb35dc1d7e515e1faff1c9d92146a3da6547133057f99a747153": 0.9923741660026391
+        },
+        "statuses": {
+          "complete": 8,
+          "deadline": 4
+        },
+        "templates": 6,
+        "wall_s": 13.862300458
+      },
+      "B1-tuned": {
+        "attempts": 12,
+        "mean_F": 0.9969528157754997,
+        "original_F": {
+          "295070920c9ee6178b71a745342f402e4e03b0ea0e33260d5ec48337f77e5bb5": 1.0,
+          "65c36491c4dccc90d1162e53d55d4cfc26ec78cc84b65c5dc9d0736734a21e58": 1.0,
+          "8d8a7af8af0085768d3063119e7f8547bb1d8f7480208b3fd17064415e6173bc": 0.9936501541306134,
+          "a85345f19c28d19580580c13f9657bc5d24a964424a17be73102fecc089bf066": 1.0,
+          "b017a03b32b8432743ed6e6b84bccc0e23f0b4ba5c415497456a4e390897d65c": 1.0,
+          "fbffb1d59539eb35dc1d7e515e1faff1c9d92146a3da6547133057f99a747153": 0.9880667405223845
+        },
+        "statuses": {
+          "complete": 8,
+          "deadline": 4
+        },
+        "templates": 6,
+        "wall_s": 13.154994751
+      },
+      "B2-bound": {
+        "attempts": 12,
+        "mean_F": 0.9972167661804751,
+        "original_F": {
+          "295070920c9ee6178b71a745342f402e4e03b0ea0e33260d5ec48337f77e5bb5": 1.0,
+          "65c36491c4dccc90d1162e53d55d4cfc26ec78cc84b65c5dc9d0736734a21e58": 0.9998001835278028,
+          "8d8a7af8af0085768d3063119e7f8547bb1d8f7480208b3fd17064415e6173bc": 0.9945387045342734,
+          "a85345f19c28d19580580c13f9657bc5d24a964424a17be73102fecc089bf066": 1.0,
+          "b017a03b32b8432743ed6e6b84bccc0e23f0b4ba5c415497456a4e390897d65c": 1.0,
+          "fbffb1d59539eb35dc1d7e515e1faff1c9d92146a3da6547133057f99a747153": 0.9889617090207744
+        },
+        "statuses": {
+          "complete": 7,
+          "deadline": 5
+        },
+        "templates": 6,
+        "wall_s": 13.995083291
+      },
+      "B2-budget_sensitive": {
+        "attempts": 12,
+        "mean_F": 0.9976682102490098,
+        "original_F": {
+          "295070920c9ee6178b71a745342f402e4e03b0ea0e33260d5ec48337f77e5bb5": 1.0,
+          "65c36491c4dccc90d1162e53d55d4cfc26ec78cc84b65c5dc9d0736734a21e58": 1.0,
+          "8d8a7af8af0085768d3063119e7f8547bb1d8f7480208b3fd17064415e6173bc": 0.9969211962146827,
+          "a85345f19c28d19580580c13f9657bc5d24a964424a17be73102fecc089bf066": 1.0,
+          "b017a03b32b8432743ed6e6b84bccc0e23f0b4ba5c415497456a4e390897d65c": 1.0,
+          "fbffb1d59539eb35dc1d7e515e1faff1c9d92146a3da6547133057f99a747153": 0.9890880652793755
+        },
+        "statuses": {
+          "complete": 7,
+          "deadline": 5
+        },
+        "templates": 6,
+        "wall_s": 14.05345525
+      },
+      "B2-deepest": {
+        "attempts": 12,
+        "mean_F": 0.9963480429800082,
+        "original_F": {
+          "295070920c9ee6178b71a745342f402e4e03b0ea0e33260d5ec48337f77e5bb5": 1.0,
+          "65c36491c4dccc90d1162e53d55d4cfc26ec78cc84b65c5dc9d0736734a21e58": 1.0,
+          "8d8a7af8af0085768d3063119e7f8547bb1d8f7480208b3fd17064415e6173bc": 0.9919977356366625,
+          "a85345f19c28d19580580c13f9657bc5d24a964424a17be73102fecc089bf066": 1.0,
+          "b017a03b32b8432743ed6e6b84bccc0e23f0b4ba5c415497456a4e390897d65c": 1.0,
+          "fbffb1d59539eb35dc1d7e515e1faff1c9d92146a3da6547133057f99a747153": 0.9860905222433868
+        },
+        "statuses": {
+          "complete": 8,
+          "deadline": 4
+        },
+        "templates": 6,
+        "wall_s": 13.327258543
+      },
+      "B2-estimate": {
+        "attempts": 12,
+        "mean_F": 0.9973087515022183,
+        "original_F": {
+          "295070920c9ee6178b71a745342f402e4e03b0ea0e33260d5ec48337f77e5bb5": 1.0,
+          "65c36491c4dccc90d1162e53d55d4cfc26ec78cc84b65c5dc9d0736734a21e58": 1.0,
+          "8d8a7af8af0085768d3063119e7f8547bb1d8f7480208b3fd17064415e6173bc": 0.9955657693676435,
+          "a85345f19c28d19580580c13f9657bc5d24a964424a17be73102fecc089bf066": 1.0,
+          "b017a03b32b8432743ed6e6b84bccc0e23f0b4ba5c415497456a4e390897d65c": 1.0,
+          "fbffb1d59539eb35dc1d7e515e1faff1c9d92146a3da6547133057f99a747153": 0.9882867396456664
+        },
+        "statuses": {
+          "complete": 8,
+          "deadline": 4
+        },
+        "templates": 6,
+        "wall_s": 13.542135335
+      },
+      "B2-fifo": {
+        "attempts": 12,
+        "mean_F": 0.9967977660324154,
+        "original_F": {
+          "295070920c9ee6178b71a745342f402e4e03b0ea0e33260d5ec48337f77e5bb5": 1.0,
+          "65c36491c4dccc90d1162e53d55d4cfc26ec78cc84b65c5dc9d0736734a21e58": 1.0,
+          "8d8a7af8af0085768d3063119e7f8547bb1d8f7480208b3fd17064415e6173bc": 0.9924998565488263,
+          "a85345f19c28d19580580c13f9657bc5d24a964424a17be73102fecc089bf066": 1.0,
+          "b017a03b32b8432743ed6e6b84bccc0e23f0b4ba5c415497456a4e390897d65c": 1.0,
+          "fbffb1d59539eb35dc1d7e515e1faff1c9d92146a3da6547133057f99a747153": 0.9882867396456664
+        },
+        "statuses": {
+          "complete": 8,
+          "deadline": 4
+        },
+        "templates": 6,
+        "wall_s": 13.799146917
+      },
+      "B2-round_robin_parent_groups": {
+        "attempts": 12,
+        "mean_F": 0.9965843825527063,
+        "original_F": {
+          "295070920c9ee6178b71a745342f402e4e03b0ea0e33260d5ec48337f77e5bb5": 1.0,
+          "65c36491c4dccc90d1162e53d55d4cfc26ec78cc84b65c5dc9d0736734a21e58": 1.0,
+          "8d8a7af8af0085768d3063119e7f8547bb1d8f7480208b3fd17064415e6173bc": 0.9919977356366625,
+          "a85345f19c28d19580580c13f9657bc5d24a964424a17be73102fecc089bf066": 1.0,
+          "b017a03b32b8432743ed6e6b84bccc0e23f0b4ba5c415497456a4e390897d65c": 1.0,
+          "fbffb1d59539eb35dc1d7e515e1faff1c9d92146a3da6547133057f99a747153": 0.9875085596795751
+        },
+        "statuses": {
+          "complete": 8,
+          "deadline": 4
+        },
+        "templates": 6,
+        "wall_s": 13.77109275
+      },
+      "B2-uniform": {
+        "attempts": 12,
+        "mean_F": 0.9968770246451961,
+        "original_F": {
+          "295070920c9ee6178b71a745342f402e4e03b0ea0e33260d5ec48337f77e5bb5": 1.0,
+          "65c36491c4dccc90d1162e53d55d4cfc26ec78cc84b65c5dc9d0736734a21e58": 1.0,
+          "8d8a7af8af0085768d3063119e7f8547bb1d8f7480208b3fd17064415e6173bc": 0.9947348068209045,
+          "a85345f19c28d19580580c13f9657bc5d24a964424a17be73102fecc089bf066": 1.0,
+          "b017a03b32b8432743ed6e6b84bccc0e23f0b4ba5c415497456a4e390897d65c": 1.0,
+          "fbffb1d59539eb35dc1d7e515e1faff1c9d92146a3da6547133057f99a747153": 0.9865273410502722
+        },
+        "statuses": {
+          "complete": 8,
+          "deadline": 4
+        },
+        "templates": 6,
+        "wall_s": 13.656673
+      }
+    },
+    "ranking": [
+      "B1-no-plunge",
+      "B2-budget_sensitive",
+      "B2-estimate",
+      "B2-bound",
+      "B1-tuned",
+      "B0",
+      "B2-uniform",
+      "B2-fifo",
+      "B2-round_robin_parent_groups",
+      "B2-deepest"
+    ],
+    "scope": "public validation ranking over coordinator-validated original instances; finite candidates, no protected/fitted result",
+    "weights": [
+      1.0
+    ]
+  },
+  "resources": {
+    "batch_cpu_overlaps_worker_wall": true,
+    "conditional_forecasts": {
+      "fixed_shared": {
+        "admitted_workers": 1,
+        "censored_count": 0,
+        "design": {
+          "available_memory_bytes": 9603399680,
+          "coordinator_bytes": 315080704,
+          "request_count": 100,
+          "reserve_basis": "observed free-memory range across prospective snapshots",
+          "reserve_bytes": 4949721088,
+          "safety_factor": 2,
+          "scenario": "per100 requests at observed pilot mixture; not a planned sample count",
+          "timed": true
+        },
+        "failed_count": 0,
+        "memory_basis": "observed maximum RSS with safety factor; not guaranteed future peak",
+        "missing_overshoot_count": 0,
+        "missing_wall_count": 0,
+        "observations": 112,
+        "overshoot_ns_total": 3471923137,
+        "peak_rss_bytes_observed": 230457344,
+        "request_count": 100,
+        "schema_version": 1,
+        "stage": "fixed_shared",
+        "uncertainty": "Failed, censored and overshooting attempts retained; unobserved scale/training costs unknown.",
+        "upper_bound_available": false,
+        "wall_ns_observed_range": [
+          17892908400,
+          421786533300
+        ]
+      },
+      "native": {
+        "admitted_workers": 1,
+        "censored_count": 1,
+        "design": {
+          "available_memory_bytes": 9603399680,
+          "coordinator_bytes": 315080704,
+          "request_count": 100,
+          "reserve_basis": "observed free-memory range across prospective snapshots",
+          "reserve_bytes": 4949721088,
+          "safety_factor": 2,
+          "scenario": "per100 requests at observed pilot mixture; not a planned sample count",
+          "timed": true
+        },
+        "failed_count": 1,
+        "memory_basis": "observed maximum RSS with safety factor; not guaranteed future peak",
+        "missing_overshoot_count": 0,
+        "missing_wall_count": 0,
+        "observations": 947,
+        "overshoot_ns_total": 8916591955,
+        "peak_rss_bytes_observed": 238190592,
+        "request_count": 100,
+        "schema_version": 1,
+        "stage": "native",
+        "uncertainty": "Failed, censored and overshooting attempts retained; unobserved scale/training costs unknown.",
+        "upper_bound_available": false,
+        "wall_ns_observed_range": [
+          15855108400,
+          847198941700
+        ]
+      }
+    },
+    "desired_useful_precision": null,
+    "final_reporting_tails": "measured reporting.json intervals retained; receipt-own/return tails unavailable, never zero",
+    "future_model_training_inference_cost": "unmeasured; no model exists; observed fixed-control costs are conditional planning inputs, not learned estimates",
+    "generation_cost_scope": "recorded setup_ns/elapsed_ns retain measured generation intervals; earliest preparation-script import/return tails were not separately timed and remain unknown",
+    "known_batch_wall_ns": 1110579336876,
+    "known_coordinator_cpu_ns": 75617544000,
+    "planned_confirmatory_templates": null,
+    "planned_fits": null,
+    "planned_repeats": null,
+    "power_status": "unresolved; requires training/validation paired variance and user-relevant useful precision before WP06 protected freeze",
+    "schema_version": 1,
+    "stage_costs": {
+      "controls": {
+        "attempts": 120,
+        "known_request_wall_ns": 136309831795,
+        "known_worker_cpu_ns": 131935877000,
+        "maximum_overshoot_ns": 146782584,
+        "missing_worker_cpu": 0,
+        "overshoot_ns_total": 1572321434,
+        "peak_worker_rss_bytes": 190955520,
+        "statuses": {
+          "complete": 78,
+          "deadline": 42
+        }
+      },
+      "extended": {
+        "attempts": 12,
+        "known_request_wall_ns": 41063531749,
+        "known_worker_cpu_ns": 40726837000,
+        "maximum_overshoot_ns": 40804291,
+        "missing_worker_cpu": 0,
+        "overshoot_ns_total": 298364331,
+        "peak_worker_rss_bytes": 231981056,
+        "statuses": {
+          "complete": 4,
+          "deadline": 8
+        }
+      },
+      "pool-length": {
+        "attempts": 28,
+        "known_request_wall_ns": 114331871626,
+        "known_worker_cpu_ns": 112183189000,
+        "maximum_overshoot_ns": 213869583,
+        "missing_worker_cpu": 0,
+        "overshoot_ns_total": 2281246416,
+        "peak_worker_rss_bytes": 230457344,
+        "statuses": {
+          "deadline": 28
+        }
+      },
+      "profile": {
+        "attempts": 6,
+        "known_request_wall_ns": 17418773792,
+        "known_worker_cpu_ns": 17247989000,
+        "maximum_overshoot_ns": 36054167,
+        "missing_worker_cpu": 0,
+        "overshoot_ns_total": 67619625,
+        "peak_worker_rss_bytes": 213139456,
+        "statuses": {
+          "complete": 4,
+          "deadline": 2
+        }
+      },
+      "scale-128": {
+        "attempts": 90,
+        "known_request_wall_ns": 29938767165,
+        "known_worker_cpu_ns": 27595648000,
+        "maximum_overshoot_ns": 26205542,
+        "missing_worker_cpu": 0,
+        "overshoot_ns_total": 73482667,
+        "peak_worker_rss_bytes": 133136384,
+        "statuses": {
+          "complete": 87,
+          "deadline": 3
+        }
+      },
+      "scale-256": {
+        "attempts": 90,
+        "known_request_wall_ns": 48941427872,
+        "known_worker_cpu_ns": 46475712000,
+        "maximum_overshoot_ns": 34498333,
+        "missing_worker_cpu": 0,
+        "overshoot_ns_total": 757916582,
+        "peak_worker_rss_bytes": 175489024,
+        "statuses": {
+          "complete": 63,
+          "deadline": 27
+        }
+      },
+      "scale-512": {
+        "attempts": 90,
+        "known_request_wall_ns": 72022828166,
+        "known_worker_cpu_ns": 69560034000,
+        "maximum_overshoot_ns": 49565959,
+        "missing_worker_cpu": 0,
+        "overshoot_ns_total": 2154121413,
+        "peak_worker_rss_bytes": 238190592,
+        "statuses": {
+          "complete": 30,
+          "deadline": 60
+        }
+      },
+      "scale-64": {
+        "attempts": 90,
+        "known_request_wall_ns": 16795650170,
+        "known_worker_cpu_ns": 14607380000,
+        "maximum_overshoot_ns": 0,
+        "missing_worker_cpu": 0,
+        "overshoot_ns_total": 0,
+        "peak_worker_rss_bytes": 88506368,
+        "statuses": {
+          "complete": 90
+        }
+      },
+      "tuning-cached": {
+        "attempts": 180,
+        "known_request_wall_ns": 185687940800,
+        "known_worker_cpu_ns": 180730707000,
+        "maximum_overshoot_ns": 39787752,
+        "missing_worker_cpu": 0,
+        "overshoot_ns_total": 1539224190,
+        "peak_worker_rss_bytes": 223117312,
+        "statuses": {
+          "complete": 130,
+          "deadline": 50
+        }
+      },
+      "tuning-expanded": {
+        "attempts": 144,
+        "known_request_wall_ns": 173736989413,
+        "known_worker_cpu_ns": 169407531000,
+        "maximum_overshoot_ns": 42193210,
+        "missing_worker_cpu": 0,
+        "overshoot_ns_total": 1516031343,
+        "peak_worker_rss_bytes": 222789632,
+        "statuses": {
+          "complete": 96,
+          "deadline": 48
+        }
+      },
+      "tuning-initial": {
+        "attempts": 198,
+        "known_request_wall_ns": 218789492043,
+        "known_worker_cpu_ns": 210802773000,
+        "maximum_overshoot_ns": 37195458,
+        "missing_worker_cpu": 1,
+        "overshoot_ns_total": 1785341711,
+        "peak_worker_rss_bytes": 227737600,
+        "statuses": {
+          "complete": 141,
+          "deadline": 56,
+          "implementation_error": 1
+        }
+      },
+      "tuning-repair": {
+        "attempts": 11,
+        "known_request_wall_ns": 23529264917,
+        "known_worker_cpu_ns": 23167622000,
+        "maximum_overshoot_ns": 32703334,
+        "missing_worker_cpu": 0,
+        "overshoot_ns_total": 342845380,
+        "peak_worker_rss_bytes": 173572096,
+        "statuses": {
+          "deadline": 11
+        }
+      }
+    },
+    "unmeasured_early_command_tails": true
+  },
+  "schema_version": 1,
+  "source_chronology": {
+    "58a49cb": "ENOTCONN terminal-drain correction",
+    "5ca8bcc": "stop-send delivery uncertainty; complete affected11-setting block rerun",
+    "b750602": "initial gates, standard JSON installed bounds; pre-cache discovery/native tuning provisional",
+    "f0c71c6": "per-cold-process installed support cache; matched180 native sensitivity plus final K/length and120 controls"
+  },
+  "stages": {
+    "controls": {
+      "attempts": 120,
+      "known_request_wall_ns": 136309831795,
+      "known_worker_cpu_ns": 131935877000,
+      "maximum_overshoot_ns": 146782584,
+      "missing_worker_cpu": 0,
+      "overshoot_ns_total": 1572321434,
+      "peak_worker_rss_bytes": 190955520,
+      "statuses": {
+        "complete": 78,
+        "deadline": 42
+      }
+    },
+    "extended": {
+      "attempts": 12,
+      "known_request_wall_ns": 41063531749,
+      "known_worker_cpu_ns": 40726837000,
+      "maximum_overshoot_ns": 40804291,
+      "missing_worker_cpu": 0,
+      "overshoot_ns_total": 298364331,
+      "peak_worker_rss_bytes": 231981056,
+      "statuses": {
+        "complete": 4,
+        "deadline": 8
+      }
+    },
+    "pool-length": {
+      "attempts": 28,
+      "known_request_wall_ns": 114331871626,
+      "known_worker_cpu_ns": 112183189000,
+      "maximum_overshoot_ns": 213869583,
+      "missing_worker_cpu": 0,
+      "overshoot_ns_total": 2281246416,
+      "peak_worker_rss_bytes": 230457344,
+      "statuses": {
+        "deadline": 28
+      }
+    },
+    "profile": {
+      "attempts": 6,
+      "known_request_wall_ns": 17418773792,
+      "known_worker_cpu_ns": 17247989000,
+      "maximum_overshoot_ns": 36054167,
+      "missing_worker_cpu": 0,
+      "overshoot_ns_total": 67619625,
+      "peak_worker_rss_bytes": 213139456,
+      "statuses": {
+        "complete": 4,
+        "deadline": 2
+      }
+    },
+    "scale-128": {
+      "attempts": 90,
+      "known_request_wall_ns": 29938767165,
+      "known_worker_cpu_ns": 27595648000,
+      "maximum_overshoot_ns": 26205542,
+      "missing_worker_cpu": 0,
+      "overshoot_ns_total": 73482667,
+      "peak_worker_rss_bytes": 133136384,
+      "statuses": {
+        "complete": 87,
+        "deadline": 3
+      }
+    },
+    "scale-256": {
+      "attempts": 90,
+      "known_request_wall_ns": 48941427872,
+      "known_worker_cpu_ns": 46475712000,
+      "maximum_overshoot_ns": 34498333,
+      "missing_worker_cpu": 0,
+      "overshoot_ns_total": 757916582,
+      "peak_worker_rss_bytes": 175489024,
+      "statuses": {
+        "complete": 63,
+        "deadline": 27
+      }
+    },
+    "scale-512": {
+      "attempts": 90,
+      "known_request_wall_ns": 72022828166,
+      "known_worker_cpu_ns": 69560034000,
+      "maximum_overshoot_ns": 49565959,
+      "missing_worker_cpu": 0,
+      "overshoot_ns_total": 2154121413,
+      "peak_worker_rss_bytes": 238190592,
+      "statuses": {
+        "complete": 30,
+        "deadline": 60
+      }
+    },
+    "scale-64": {
+      "attempts": 90,
+      "known_request_wall_ns": 16795650170,
+      "known_worker_cpu_ns": 14607380000,
+      "maximum_overshoot_ns": 0,
+      "missing_worker_cpu": 0,
+      "overshoot_ns_total": 0,
+      "peak_worker_rss_bytes": 88506368,
+      "statuses": {
+        "complete": 90
+      }
+    },
+    "tuning-cached": {
+      "attempts": 180,
+      "known_request_wall_ns": 185687940800,
+      "known_worker_cpu_ns": 180730707000,
+      "maximum_overshoot_ns": 39787752,
+      "missing_worker_cpu": 0,
+      "overshoot_ns_total": 1539224190,
+      "peak_worker_rss_bytes": 223117312,
+      "statuses": {
+        "complete": 130,
+        "deadline": 50
+      }
+    },
+    "tuning-expanded": {
+      "attempts": 144,
+      "known_request_wall_ns": 173736989413,
+      "known_worker_cpu_ns": 169407531000,
+      "maximum_overshoot_ns": 42193210,
+      "missing_worker_cpu": 0,
+      "overshoot_ns_total": 1516031343,
+      "peak_worker_rss_bytes": 222789632,
+      "statuses": {
+        "complete": 96,
+        "deadline": 48
+      }
+    },
+    "tuning-initial": {
+      "attempts": 198,
+      "known_request_wall_ns": 218789492043,
+      "known_worker_cpu_ns": 210802773000,
+      "maximum_overshoot_ns": 37195458,
+      "missing_worker_cpu": 1,
+      "overshoot_ns_total": 1785341711,
+      "peak_worker_rss_bytes": 227737600,
+      "statuses": {
+        "complete": 141,
+        "deadline": 56,
+        "implementation_error": 1
+      }
+    },
+    "tuning-repair": {
+      "attempts": 11,
+      "known_request_wall_ns": 23529264917,
+      "known_worker_cpu_ns": 23167622000,
+      "maximum_overshoot_ns": 32703334,
+      "missing_worker_cpu": 0,
+      "overshoot_ns_total": 342845380,
+      "peak_worker_rss_bytes": 173572096,
+      "statuses": {
+        "deadline": 11
+      }
+    }
+  },
+  "status": "locally complete; independent WP03 review pending",
+  "statuses": {
+    "complete": 723,
+    "deadline": 335,
+    "implementation_error": 1
+  },
+  "tails": {
+    "missing_safe_return_count": 1,
+    "reason": "Retain conservative2s grace; compare measured maximum safe-return/release debt and finite-support uncertainty. Not a hard upper bound.",
+    "release_overshoot_ns": {
+      "maximum": 213869583,
+      "median": 0,
+      "p95": 38887125
+    },
+    "retained_duration_censored_count": 1,
+    "safe_return_debt_ns": {
+      "maximum": 10572875,
+      "median": 0,
+      "p95": 2254959
+    },
+    "watchdog_grace_ns": 2000000000
+  },
+  "task": 9,
+  "verification": {
+    "cache_focused": "60 passed in4.39s",
+    "closure_focused": "32 passed in0.24s",
+    "initial_full": "416 passed in26.52s",
+    "original_identity_red": "1 failed in0.04s; unavailable worker template creates no extra independent unit",
+    "retained_attempt_audit": "1059 immutable attempts reconstructed with _read_attempt hashes before final aggregation",
+    "socket_fix_focused": "97 passed in13.49s"
+  }
+}

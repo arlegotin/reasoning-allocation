@@ -2,7 +2,8 @@
   "schema_version": 1,
   "purpose": "exploratory",
   "input_manifests": [
-    "../../data/discovery/manifest.json"
+    "../../data/pilot/discovery-64/finite-manifest.json",
+    "../../data/pilot/discovery-256/finite-manifest.json"
   ],
   "solver_seeds": [
     0,
@@ -10,14 +11,19 @@
   ],
   "run_order_seed": 20261014,
   "budgets_ns": [
-    1000000000
+    526707240,
+    2106828958,
+    8427315832
   ],
   "watchdog_grace_ns": 2000000000,
   "lease_lengths": [
     1,
     2,
     4,
-    8
+    8,
+    16,
+    32,
+    64
   ],
   "threads": 1,
   "integrality_tolerance": 1e-06,

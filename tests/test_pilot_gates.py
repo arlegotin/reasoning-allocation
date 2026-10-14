@@ -113,3 +113,19 @@ assert len(calls)==1, f'harvested installed support {len(calls)} times'
 '''
     p=subprocess.run([sys.executable,'-c',code],capture_output=True,text=True)
     assert p.returncode==0,p.stderr
+
+
+def test_ranking_missing_worker_identity_uses_validated_original_without_new_unit():
+    from checks.pilot_tuning_summary import summarize_records
+    from dataclasses import asdict
+    records=[]
+    for identity,values in [('first',[.8,.9,1.]),('second',[1.,1.,1.])]:
+        for budget,value in zip([100,200,400],values):
+            a=asdict(attempt(phase='validation'))
+            a['request'].update(instance_hash=identity,budget_ns=budget)
+            a['available']['utility']=value
+            a['template_id']=None if budget==200 else identity
+            records.append(a)
+    result=summarize_records(records)['methods']['B0']
+    assert result['templates']==2 and result['attempts']==6
+    assert result['mean_F']==pytest.approx(.95)

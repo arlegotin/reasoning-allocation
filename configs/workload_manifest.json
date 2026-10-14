@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "purpose": "workload",
+  "master_seed": "reasoning-allocation-wp03-finite-v1",
+  "templates_per_cell": 2,
+  "cells": [
+    {
+      "blocks": null,
+      "bridge_multiplier": 1,
+      "clone_fraction": 0,
+      "columns": 64,
+      "cost_distribution": "uniform",
+      "degree": 8,
+      "family": "uniform",
+      "low_cost_probability": null,
+      "rare_row_proportion": 0.02,
+      "rows": 32
+    },
+    {
+      "blocks": null,
+      "bridge_multiplier": 1,
+      "clone_fraction": 0,
+      "columns": 256,
+      "cost_distribution": "uniform",
+      "degree": 8,
+      "family": "uniform",
+      "low_cost_probability": null,
+      "rare_row_proportion": 0.02,
+      "rows": 512
+    },
+    {
+      "blocks": 2,
+      "bridge_multiplier": 1,
+      "clone_fraction": 0,
+      "columns": 64,
+      "cost_distribution": "uniform",
+      "degree": 8,
+      "family": "block",
+      "low_cost_probability": null,
+      "rare_row_proportion": 0.02,
+      "rows": 32
+    },
+    {
+      "blocks": 2,
+      "bridge_multiplier": 1,
+      "clone_fraction": 0,
+      "columns": 256,
+      "cost_distribution": "uniform",
+      "degree": 8,
+      "family": "block",
+      "low_cost_probability": null,
+      "rare_row_proportion": 0.02,
+      "rows": 512
+    },
+    {
+      "blocks": null,
+      "bridge_multiplier": 3,
+      "clone_fraction": 0.25,
+      "columns": 64,
+      "cost_distribution": "uniform",
+      "degree": 8,
+      "family": "redundant",
+      "low_cost_probability": null,
+      "rare_row_proportion": 0.02,
+      "rows": 32
+    },
+    {
+      "blocks": null,
+      "bridge_multiplier": 3,
+      "clone_fraction": 0.25,
+      "columns": 256,
+      "cost_distribution": "uniform",
+      "degree": 8,
+      "family": "redundant",
+      "low_cost_probability": null,
+      "rare_row_proportion": 0.02,
+      "rows": 512
+    }
+  ],
+  "family_weights": {
+    "uniform": 1,
+    "block": 1,
+    "redundant": 1
+  }
+}
