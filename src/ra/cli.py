@@ -40,9 +40,17 @@ def main(argv: list[str] | None = None) -> int:
     train.add_argument('--trace-root',type=Path,default=Path('data/traces/train'))
     train.add_argument('--output',type=Path,required=True)
     train.add_argument('--dry-run',action='store_true')
+    reproduce = subcommands.add_parser('reproduce', help='Reproduce only an installed, permitted, pinned literature port')
+    reproduce.add_argument('--baseline', required=True)
+    reproduce.add_argument('--config', type=Path, required=True, help='Mandatory baseline register')
+    reproduce.add_argument('--out', type=Path, required=True)
+    reproduce.add_argument('--dry-run', action='store_true')
     args = parser.parse_args(argv)
     try:
-        if args.command == 'train':
+        if args.command == 'reproduce':
+            from ra.baselines.register import reproduce_baseline
+            report = reproduce_baseline(args.baseline, args.config, args.out, dry_run=args.dry_run)
+        elif args.command == 'train':
             from ra.train import fit_models
             report = fit_models(args.config,args.trace_root,args.output,dry_run=args.dry_run)
         elif args.command == 'collect':

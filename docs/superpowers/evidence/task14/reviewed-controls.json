@@ -1,0 +1,233 @@
+{
+  "alias": "B3/B4-L1 logical policy shares physical outcomes; B5 hist7; B6 pooled ridge on6564 rows",
+  "base_commit": "d7e46fd",
+  "reviewed_task13_fix": "6211f0d",
+  "runtime_source_sha256": "6db9b03817e441d5bd13e33ac3f4c175f8db5726e43c0d2afac411617cfee8e5",
+  "scope": "public-only exploratory; no protected cohort/freeze/confirmation",
+  "selected": {
+    "B0": {
+      "kind": "native",
+      "name": "B0",
+      "overrides": {}
+    },
+    "B1": {
+      "kind": "native",
+      "name": "B1-no-plunge",
+      "overrides": {
+        "nodeselection/estimate/maxplungedepth": 0
+      }
+    },
+    "B2": {
+      "allocator": {
+        "length": 1,
+        "policy": "estimate"
+      },
+      "kind": "shared",
+      "name": "B2-estimate-L1",
+      "pool_size": 128
+    },
+    "B3": {
+      "allocator": {
+        "c_min": 4.2e-08,
+        "control_id": "B3",
+        "fallback_length": 4,
+        "model_hash": "d89a46164b6393b294f154286ec45ee7bf0393d56d7f57ae2387c379142c9cd1",
+        "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/models/B3/ridge1-seed17.json",
+        "policy": "local",
+        "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+        "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+      },
+      "kind": "shared",
+      "learned": {
+        "behavior_seed": 17,
+        "compact_logging": true,
+        "epsilon": 0.2,
+        "max_decisions": 512,
+        "pool_seed": 17,
+        "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+        "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+      },
+      "name": "fix1-L1-ridge1",
+      "pool_size": 128
+    },
+    "B4": {
+      "allocator": {
+        "c_min": 4.2e-08,
+        "control_id": "B4",
+        "fallback_length": 4,
+        "fixed_length": 1,
+        "model_hash": "d89a46164b6393b294f154286ec45ee7bf0393d56d7f57ae2387c379142c9cd1",
+        "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/models/B3/ridge1-seed17.json",
+        "policy": "local",
+        "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+        "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+      },
+      "kind": "shared",
+      "learned": {
+        "behavior_seed": 17,
+        "compact_logging": true,
+        "epsilon": 0.2,
+        "max_decisions": 512,
+        "pool_seed": 17,
+        "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+        "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+      },
+      "name": "fix1-B4-L1-ridge1",
+      "pool_size": 128
+    },
+    "B5": {
+      "allocator": {
+        "c_min": 4.2e-08,
+        "control_id": "B5",
+        "fallback_length": 4,
+        "model_hash": "21582df36842f18ba009d5023ba47fff1cbff7a54f84b8ebcfa4367b4d6d98eb",
+        "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/models/local-capacity/hist7-seed17.json",
+        "policy": "local",
+        "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+        "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+      },
+      "kind": "shared",
+      "learned": {
+        "behavior_seed": 17,
+        "compact_logging": true,
+        "epsilon": 0.2,
+        "max_decisions": 512,
+        "pool_seed": 17,
+        "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+        "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+      },
+      "name": "fix1-B5-hist7",
+      "pool_size": 128
+    },
+    "B6": {
+      "allocator": {
+        "c_min": 4.2e-08,
+        "control_id": "B6",
+        "fallback_length": 4,
+        "model_hash": "7099323057239d4cafa9eb8417b2a06a076e1b18d1b9e6a4d9b2b52505a3d8e2",
+        "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/models/B6/ridge1-seed17.json",
+        "policy": "local",
+        "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+        "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+      },
+      "kind": "shared",
+      "learned": {
+        "behavior_seed": 17,
+        "compact_logging": true,
+        "epsilon": 0.2,
+        "max_decisions": 512,
+        "pool_seed": 17,
+        "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+        "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+      },
+      "name": "B6-ridge1-seed17",
+      "pool_size": 128
+    },
+    "B6-matched": {
+      "allocator": {
+        "c_min": 4.2e-08,
+        "control_id": "B6",
+        "fallback_length": 4,
+        "model_hash": "7099323057239d4cafa9eb8417b2a06a076e1b18d1b9e6a4d9b2b52505a3d8e2",
+        "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/models/B6/ridge1-seed17.json",
+        "policy": "local",
+        "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+        "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+      },
+      "kind": "shared",
+      "learned": {
+        "behavior_seed": 17,
+        "compact_logging": true,
+        "epsilon": 0.2,
+        "max_decisions": 512,
+        "pool_seed": 17,
+        "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+        "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+      },
+      "name": "B6-ridge1-seed17",
+      "pool_size": 128
+    },
+    "historical_local": {
+      "allocator": {
+        "c_min": 4.2e-08,
+        "fallback_length": 4,
+        "model_hash": "861f04c9e7c9c91342833668d2d6765ddc6df914f1363450ff839da1d22fbe47",
+        "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/models/final/ridge1-seed17.json",
+        "policy": "local",
+        "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+        "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+      },
+      "kind": "shared",
+      "learned": {
+        "behavior_seed": 17,
+        "compact_logging": true,
+        "epsilon": 0.2,
+        "max_decisions": 512,
+        "pool_seed": 17,
+        "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+        "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+      },
+      "name": "local-historical-asset",
+      "pool_size": 128
+    },
+    "local": {
+      "allocator": {
+        "c_min": 4.2e-08,
+        "fallback_length": 4,
+        "model_hash": "8aca421ab3a648b5555e0eee826094e2b073bf9cec1856bb22321f2a0b519d58",
+        "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/models/B5/ridge1-seed17.json",
+        "policy": "local",
+        "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+        "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+      },
+      "kind": "shared",
+      "learned": {
+        "behavior_seed": 17,
+        "compact_logging": true,
+        "epsilon": 0.2,
+        "max_decisions": 512,
+        "pool_seed": 17,
+        "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+        "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+      },
+      "name": "local-matched-ridge1-seed17",
+      "pool_size": 128
+    },
+    "local-matched": {
+      "allocator": {
+        "c_min": 4.2e-08,
+        "fallback_length": 4,
+        "model_hash": "8aca421ab3a648b5555e0eee826094e2b073bf9cec1856bb22321f2a0b519d58",
+        "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/task13/models/B5/ridge1-seed17.json",
+        "policy": "local",
+        "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+        "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+      },
+      "kind": "shared",
+      "learned": {
+        "behavior_seed": 17,
+        "compact_logging": true,
+        "epsilon": 0.2,
+        "max_decisions": 512,
+        "pool_seed": 17,
+        "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+        "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+      },
+      "name": "local-matched-ridge1-seed17",
+      "pool_size": 128
+    }
+  },
+  "selected_pins": {
+    "B0": "2c52f774b65963fdce1a52b6a822622bf399e5b78895347c7f58ffe5cd5055e2",
+    "B1": "940c6fb07ee9835767bbb36adba44132e76a677f6bb107201283b9d94b12ce39",
+    "B2": "5842640f737527e49fdd41721050720882be77f21dc53d821a3bdceffd57600d",
+    "B3": "b1ad86cf64dee759e60efff579910109510cb5916cac5c00acf6c13cffd92ad9",
+    "B4": "fda145dd97f7b2b34ec7c01265637e35c552c4ed8643f47d0f2ea9164890e400",
+    "B5": "8a0143c8ccbbeaaf19617c88a644e123914323b616ffaf9a00de20020515a86b",
+    "B6": "e71aa963d3d8d36bd39d46e3fa187651847338cffb9331bab39044c197cb9a38",
+    "B6-matched": "e71aa963d3d8d36bd39d46e3fa187651847338cffb9331bab39044c197cb9a38",
+    "historical_local": "75cf9648e858531044c85b1fe46d4866d22c2b1a8dc5860538ec12c6f959247b",
+    "local": "91497b0a1cb75bb4ade9c2c6228cbb01d1e1885bd4ceae560d5dc4255ab1ecef",
+    "local-matched": "91497b0a1cb75bb4ade9c2c6228cbb01d1e1885bd4ceae560d5dc4255ab1ecef"
+  }
+}

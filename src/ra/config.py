@@ -6,10 +6,17 @@ from functools import lru_cache
 import json
 import math
 from pathlib import Path
+from typing import Sequence
 
 
 class ConfigError(ValueError):
     """A configuration is malformed or outside an implemented schema."""
+
+
+def validate_baseline_register(register: dict[str, object], cards: Sequence[dict[str, object]]) -> None:
+    """Validate control retention, source reuse gates and scientific claim limits."""
+    from ra.baselines.register import validate_register
+    validate_register(register, cards)
 
 
 def _object(pairs):

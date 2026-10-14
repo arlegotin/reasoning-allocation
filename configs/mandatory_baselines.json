@@ -1,5 +1,87 @@
 {
   "all_contenders": "artifacts/task13/contenders.json",
+  "baseline_register": {
+    "allowed_claim_scope": "Exploratory comparison relative to reviewed tuned native and actually implemented local/pooled controls only. No superiority outcome asserted here; contemporary learned-selector superiority unresolved.",
+    "cards": [
+      {
+        "path": "baselines/cards/labassi.md",
+        "sha256": "c5638ca392bbff971feaeff64dbdab5c1577c1de8251db03e55aec9f409ef3e2"
+      },
+      {
+        "path": "baselines/cards/mattick-mutschler.md",
+        "sha256": "6fbbe5da810b5da2c21725ac462d7fdf438d7159294ba60507633449de9296fc"
+      },
+      {
+        "path": "baselines/cards/trgnn.md",
+        "sha256": "76d4205a285906707302b1355f40b9166a3d30f5015f2f437aec7caa91fe657c"
+      },
+      {
+        "path": "baselines/cards/deepbound.md",
+        "sha256": "3757a4e77a1e1c6134a3cd57bef73a2444af5f720ea1ed143cebf72426ba8ad2"
+      },
+      {
+        "path": "baselines/cards/treecl.md",
+        "sha256": "452bf1351f768eff8df3db5d2bedc34621c4e49df65122fb7f8b8a7ace24041d"
+      }
+    ],
+    "claims": [],
+    "comparison_ids": [
+      "B0",
+      "B1",
+      "B2",
+      "B3",
+      "B4",
+      "B5",
+      "B6"
+    ],
+    "control_pins": {
+      "B0": "2c52f774b65963fdce1a52b6a822622bf399e5b78895347c7f58ffe5cd5055e2",
+      "B1": "940c6fb07ee9835767bbb36adba44132e76a677f6bb107201283b9d94b12ce39",
+      "B2": "5842640f737527e49fdd41721050720882be77f21dc53d821a3bdceffd57600d",
+      "B3": "b1ad86cf64dee759e60efff579910109510cb5916cac5c00acf6c13cffd92ad9",
+      "B4": "fda145dd97f7b2b34ec7c01265637e35c552c4ed8643f47d0f2ea9164890e400",
+      "B5": "8a0143c8ccbbeaaf19617c88a644e123914323b616ffaf9a00de20020515a86b",
+      "B6": "e71aa963d3d8d36bd39d46e3fa187651847338cffb9331bab39044c197cb9a38",
+      "B6-matched": "e71aa963d3d8d36bd39d46e3fa187651847338cffb9331bab39044c197cb9a38",
+      "historical_local": "75cf9648e858531044c85b1fe46d4866d22c2b1a8dc5860538ec12c6f959247b",
+      "local": "91497b0a1cb75bb4ade9c2c6228cbb01d1e1885bd4ceae560d5dc4255ab1ecef",
+      "local-matched": "91497b0a1cb75bb4ade9c2c6228cbb01d1e1885bd4ceae560d5dc4255ab1ecef"
+    },
+    "evidence": [
+      {
+        "path": "docs/superpowers/evidence/task14/reviewed-controls.json",
+        "sha256": "f8a044f6d0e161f2247c4a3b68feb9f057fd98694ac892a64f4f50b805bad7b8"
+      },
+      {
+        "path": "docs/superpowers/evidence/task14/baseline-source-audit.md",
+        "sha256": "4e5681cc53231fe0c46aade8faff02cd78b40454237a17862a3a26b9f0e678ef"
+      },
+      {
+        "path": "docs/superpowers/evidence/task14/current-selector-access-audit.md",
+        "sha256": "cf7432b2840dc8f17179c9e21c46ca8f861bc0091d55fa23ed42c76ab5619e60"
+      },
+      {
+        "path": "docs/superpowers/evidence/task13-controls-card.json",
+        "sha256": "35d3c6dfd82b6bfb6d92c6d752eccc7771a73020d88a8bbd5210db7a8ea2b60c"
+      },
+      {
+        "path": "docs/superpowers/evidence/task13-fix1-controls-card.json",
+        "sha256": "5be5356441900549256a599c9ac99f7d4d226c1207e8e4e900ec2eecd2abe88e"
+      },
+      {
+        "path": "docs/superpowers/evidence/task13-fix1.json",
+        "sha256": "e85310bce70d1a056a40a08024fc25760d001f03c923fb54b2fdc01a39c95fdc"
+      }
+    ],
+    "schema_version": 1,
+    "unavailable_named_methods": [
+      "labassi",
+      "mattick-mutschler",
+      "trgnn",
+      "deepbound",
+      "treecl"
+    ]
+  },
   "capacity_configurations": [
     {
       "kind": "native",
