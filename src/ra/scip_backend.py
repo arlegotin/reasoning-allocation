@@ -332,7 +332,8 @@ class ScipBackend:
                 digest = hashlib.sha256('/'.join(f'{k.epoch}:{k.number}' for k in path).encode()).hexdigest()
                 records[key] = NodeRecord(key, self.parents[key], int(node.getDepth()),
                                           float(node.getLowerbound()), float(node.getEstimate()),
-                                          self.first_seen[key], digest, category)
+                                          self.first_seen[key], digest, category,
+                                          int(node.getNParentBranchings()))
         # Ancestors outlive their own processing only while an open descendant needs them.
         self.ancestor_references = dict(references)
         for mapping in (self.parents, self.depths, self.first_seen):

@@ -478,3 +478,21 @@ def test_structured_callback_exception_uses_provenance_fallback(fault_kind, capf
     assert backend.selector.model is None and backend.handler.model is None
     assert 'ERROR' not in capfd.readouterr().err
     assert not recwarn.list
+
+
+def test_frontier_copies_parent_branching_counts_as_primitives():
+    counts = []
+    def choose(records):
+        for record in records:
+            native = backend.resolve_live(record.key)
+            assert type(record.parent_branching_changes) is int
+            assert record.parent_branching_changes == native.getNParentBranchings()
+            if record.depth > 0:
+                counts.append(record.parent_branching_changes)
+        return min(records, key=lambda record: record.key.number).key
+    model, backend = _triangle_backend(choose=choose)
+    try:
+        backend.optimize()
+        assert counts and all(count > 0 for count in counts)
+    finally:
+        model.freeProb()

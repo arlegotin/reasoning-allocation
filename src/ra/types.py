@@ -38,6 +38,31 @@ class NodeRecord:
     first_seen_selection: int
     ancestry_digest: str
     category: str
+    parent_branching_changes: int | None = None
+
+
+@dataclass(frozen=True, slots=True)
+class LineageService:
+    """A completed historical service, never the proposed action's outcome."""
+    completed_work: int
+    gain_original: float
+    end_ns: int
+
+
+@dataclass(frozen=True, slots=True)
+class AncestrySummary:
+    """Optional bounded model history; independent of required adapter paths."""
+    parent_lower_bound: float | None = None
+    parent_estimate: float | None = None
+    history: tuple[LineageService, ...] | None = None
+
+    def __post_init__(self):
+        if self.history is None:
+            return  # A partial parent snapshot says nothing about stored service history.
+        if type(self.history) is not tuple or len(self.history) > 8:
+            raise ValueError('lineage history must be bounded to eight services')
+        if any(type(item) is not LineageService for item in self.history):
+            raise TypeError('lineage history requires primitive service records')
 
 
 @dataclass(frozen=True, slots=True)
@@ -53,6 +78,62 @@ class DecisionContext:
     processed_nodes: int
     frontier_size: int
     feature_schema_hash: str
+    start_ns: int | None = None
+    selection_count: int | None = None
+    original_columns: int | None = None
+    original_rows: int | None = None
+    original_density: float | None = None
+    initial_primal_original: float | None = None
+    initial_dual_original: float | None = None
+    last_verified_improvement_ns: int | None = None
+    native_incumbent_count: int | None = None
+    past_throughput_per_second: float | None = None
+    solver_infinity: float | None = None
+
+
+@dataclass(frozen=True, slots=True)
+class FeatureSpec:
+    name: str
+    unit: str
+    origin: str
+    cap: tuple[float, float]
+    masks: tuple[str, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class FeatureSchema:
+    features: tuple[FeatureSpec, ...]
+    lineage_limit: int
+    max_action_rows: int
+    schema_version: int = 1
+    dtype: str = 'float64'
+    preprocessing: str = 'explicit-masks-no-fitted-imputation'
+
+    @property
+    def names(self) -> tuple[str, ...]:
+        return tuple(name for item in self.features
+                     for name in (item.name, *(f'{item.name}__{mask}' for mask in item.masks)))
+
+    @property
+    def hash(self) -> str:
+        # Standard-library only: primitive imports remain numerically cold.
+        from dataclasses import asdict
+        import hashlib
+        import json
+        return hashlib.sha256(json.dumps(asdict(self), sort_keys=True, separators=(',', ':'),
+                                         allow_nan=False).encode()).hexdigest()
+
+
+@dataclass(frozen=True, slots=True)
+class FeatureBatch:
+    matrix: Any  # Actual float64 ndarray, imported only by feature extraction.
+    action_rows: tuple[tuple[NodeKey, int], ...]
+    schema_hash: str
+    extraction_ns: int
+
+    @property
+    def matrix_bytes(self) -> int:
+        return self.matrix.nbytes
 
 
 @dataclass(frozen=True, slots=True)

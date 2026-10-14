@@ -211,3 +211,27 @@ def validate_run_config(config: dict[str, object]) -> None:
             make_allocator(method['allocator'],0)
             lengths=method['allocator'].get('bin_lengths',[method['allocator'].get('length',1)])
             if any(n not in config['lease_lengths'] for n in lengths): raise ConfigError('method length outside configured support')
+
+
+def load_feature_schema(path: Path):
+    """Load only the declared local pre-allocation feature whitelist."""
+    from ra.features import validate_schema
+    from ra.types import FeatureSchema, FeatureSpec
+    try:
+        config = json.loads(Path(path).read_text(), object_pairs_hook=_object, parse_constant=_nonfinite)
+        required = {'schema_version', 'dtype', 'preprocessing', 'lineage_limit', 'max_action_rows', 'features'}
+        if not isinstance(config, dict) or set(config) != required or not isinstance(config['features'], list):
+            raise ConfigError('invalid feature configuration fields')
+        specs = []
+        for item in config['features']:
+            if not isinstance(item, dict) or set(item) != {'name', 'unit', 'origin', 'cap', 'masks'}:
+                raise ConfigError('invalid feature fields')
+            specs.append(FeatureSpec(item['name'], item['unit'], item['origin'], tuple(item['cap']), tuple(item['masks'])))
+        schema = FeatureSchema(tuple(specs), config['lineage_limit'], config['max_action_rows'],
+                               config['schema_version'], config['dtype'], config['preprocessing'])
+        validate_schema(schema)
+        return schema
+    except (TypeError, ValueError, KeyError, UnicodeError) as exc:
+        if isinstance(exc, ConfigError):
+            raise
+        raise ConfigError(str(exc)) from exc

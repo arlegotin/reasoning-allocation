@@ -1,0 +1,521 @@
+{
+  "schema_version": 1,
+  "dtype": "float64",
+  "preprocessing": "explicit-masks-no-fitted-imputation",
+  "lineage_limit": 8,
+  "max_action_rows": 4096,
+  "features": [
+    {
+      "name": "node_depth",
+      "unit": "nodes",
+      "origin": "node.depth",
+      "cap": [
+        0.0,
+        1000000000.0
+      ],
+      "masks": [
+        "missing",
+        "value_infinite",
+        "lower_infinite",
+        "cutoff_infinite",
+        "out_of_range"
+      ]
+    },
+    {
+      "name": "node_estimate",
+      "unit": "transformed-normalized",
+      "origin": "node.native_estimate",
+      "cap": [
+        -1000000.0,
+        1000000.0
+      ],
+      "masks": [
+        "missing",
+        "value_infinite",
+        "lower_infinite",
+        "cutoff_infinite",
+        "out_of_range"
+      ]
+    },
+    {
+      "name": "node_bound",
+      "unit": "transformed-normalized",
+      "origin": "node.native_lower_bound",
+      "cap": [
+        -1000000.0,
+        1000000.0
+      ],
+      "masks": [
+        "missing",
+        "value_infinite",
+        "lower_infinite",
+        "cutoff_infinite",
+        "out_of_range"
+      ]
+    },
+    {
+      "name": "node_estimate_minus_bound",
+      "unit": "transformed-normalized",
+      "origin": "node.estimate-bound",
+      "cap": [
+        -1000000.0,
+        1000000.0
+      ],
+      "masks": [
+        "missing",
+        "value_infinite",
+        "lower_infinite",
+        "cutoff_infinite",
+        "out_of_range"
+      ]
+    },
+    {
+      "name": "node_age",
+      "unit": "selections",
+      "origin": "context.selection_count-node.first_seen_selection",
+      "cap": [
+        0.0,
+        1000000000.0
+      ],
+      "masks": [
+        "missing",
+        "value_infinite",
+        "lower_infinite",
+        "cutoff_infinite",
+        "out_of_range"
+      ]
+    },
+    {
+      "name": "category_child",
+      "unit": "indicator",
+      "origin": "node.category",
+      "cap": [
+        0.0,
+        1.0
+      ],
+      "masks": [
+        "missing",
+        "value_infinite",
+        "lower_infinite",
+        "cutoff_infinite",
+        "out_of_range"
+      ]
+    },
+    {
+      "name": "category_sibling",
+      "unit": "indicator",
+      "origin": "node.category",
+      "cap": [
+        0.0,
+        1.0
+      ],
+      "masks": [
+        "missing",
+        "value_infinite",
+        "lower_infinite",
+        "cutoff_infinite",
+        "out_of_range"
+      ]
+    },
+    {
+      "name": "category_leaf",
+      "unit": "indicator",
+      "origin": "node.category",
+      "cap": [
+        0.0,
+        1.0
+      ],
+      "masks": [
+        "missing",
+        "value_infinite",
+        "lower_infinite",
+        "cutoff_infinite",
+        "out_of_range"
+      ]
+    },
+    {
+      "name": "parent_branching_changes",
+      "unit": "changes",
+      "origin": "node.parent_branching_changes",
+      "cap": [
+        0.0,
+        1000000000.0
+      ],
+      "masks": [
+        "missing",
+        "value_infinite",
+        "lower_infinite",
+        "cutoff_infinite",
+        "out_of_range"
+      ]
+    },
+    {
+      "name": "parent_estimate",
+      "unit": "transformed-normalized",
+      "origin": "ancestry.parent_estimate",
+      "cap": [
+        -1000000.0,
+        1000000.0
+      ],
+      "masks": [
+        "missing",
+        "value_infinite",
+        "lower_infinite",
+        "cutoff_infinite",
+        "out_of_range"
+      ]
+    },
+    {
+      "name": "parent_bound",
+      "unit": "transformed-normalized",
+      "origin": "ancestry.parent_lower_bound",
+      "cap": [
+        -1000000.0,
+        1000000.0
+      ],
+      "masks": [
+        "missing",
+        "value_infinite",
+        "lower_infinite",
+        "cutoff_infinite",
+        "out_of_range"
+      ]
+    },
+    {
+      "name": "node_minus_parent_estimate",
+      "unit": "transformed-normalized",
+      "origin": "node.estimate-ancestry.parent_estimate",
+      "cap": [
+        -1000000.0,
+        1000000.0
+      ],
+      "masks": [
+        "missing",
+        "value_infinite",
+        "lower_infinite",
+        "cutoff_infinite",
+        "out_of_range"
+      ]
+    },
+    {
+      "name": "node_minus_parent_bound",
+      "unit": "transformed-normalized",
+      "origin": "node.bound-ancestry.parent_lower_bound",
+      "cap": [
+        -1000000.0,
+        1000000.0
+      ],
+      "masks": [
+        "missing",
+        "value_infinite",
+        "lower_infinite",
+        "cutoff_infinite",
+        "out_of_range"
+      ]
+    },
+    {
+      "name": "root_to_node_depth",
+      "unit": "nodes",
+      "origin": "node.depth",
+      "cap": [
+        0.0,
+        1000000000.0
+      ],
+      "masks": [
+        "missing",
+        "value_infinite",
+        "lower_infinite",
+        "cutoff_infinite",
+        "out_of_range"
+      ]
+    },
+    {
+      "name": "lineage_completed_work",
+      "unit": "nodes",
+      "origin": "ancestry.bounded_history.completed_work",
+      "cap": [
+        0.0,
+        1000000000.0
+      ],
+      "masks": [
+        "missing",
+        "value_infinite",
+        "lower_infinite",
+        "cutoff_infinite",
+        "out_of_range"
+      ]
+    },
+    {
+      "name": "lineage_gain_original",
+      "unit": "original-utility",
+      "origin": "ancestry.bounded_history.gain_original",
+      "cap": [
+        -8.0,
+        8.0
+      ],
+      "masks": [
+        "missing",
+        "value_infinite",
+        "lower_infinite",
+        "cutoff_infinite",
+        "out_of_range"
+      ]
+    },
+    {
+      "name": "seconds_since_service",
+      "unit": "seconds",
+      "origin": "context.snapshot_ns-ancestry.last_service_ns",
+      "cap": [
+        0.0,
+        86400.0
+      ],
+      "masks": [
+        "missing",
+        "value_infinite",
+        "lower_infinite",
+        "cutoff_infinite",
+        "out_of_range"
+      ]
+    },
+    {
+      "name": "original_columns",
+      "unit": "columns",
+      "origin": "context.original_columns",
+      "cap": [
+        0.0,
+        1000000000.0
+      ],
+      "masks": [
+        "missing",
+        "value_infinite",
+        "lower_infinite",
+        "cutoff_infinite",
+        "out_of_range"
+      ]
+    },
+    {
+      "name": "original_rows",
+      "unit": "rows",
+      "origin": "context.original_rows",
+      "cap": [
+        0.0,
+        1000000000.0
+      ],
+      "masks": [
+        "missing",
+        "value_infinite",
+        "lower_infinite",
+        "cutoff_infinite",
+        "out_of_range"
+      ]
+    },
+    {
+      "name": "original_density",
+      "unit": "fraction",
+      "origin": "context.original_density",
+      "cap": [
+        0.0,
+        1.0
+      ],
+      "masks": [
+        "missing",
+        "value_infinite",
+        "lower_infinite",
+        "cutoff_infinite",
+        "out_of_range"
+      ]
+    },
+    {
+      "name": "remaining_time_fraction",
+      "unit": "fraction",
+      "origin": "context.start_snapshot_deadline",
+      "cap": [
+        0.0,
+        1.0
+      ],
+      "masks": [
+        "missing",
+        "value_infinite",
+        "lower_infinite",
+        "cutoff_infinite",
+        "out_of_range"
+      ]
+    },
+    {
+      "name": "elapsed_seconds",
+      "unit": "seconds",
+      "origin": "context.snapshot_ns-context.start_ns",
+      "cap": [
+        0.0,
+        86400.0
+      ],
+      "masks": [
+        "missing",
+        "value_infinite",
+        "lower_infinite",
+        "cutoff_infinite",
+        "out_of_range"
+      ]
+    },
+    {
+      "name": "child_local_utility_original",
+      "unit": "original-utility",
+      "origin": "context.utility_local",
+      "cap": [
+        -1.0,
+        2.0
+      ],
+      "masks": [
+        "missing",
+        "value_infinite",
+        "lower_infinite",
+        "cutoff_infinite",
+        "out_of_range"
+      ]
+    },
+    {
+      "name": "primal_progress_original",
+      "unit": "original-normalized",
+      "origin": "context.initial_original_references-primal_original",
+      "cap": [
+        -1000000.0,
+        1000000.0
+      ],
+      "masks": [
+        "missing",
+        "value_infinite",
+        "lower_infinite",
+        "cutoff_infinite",
+        "out_of_range"
+      ]
+    },
+    {
+      "name": "dual_progress_original",
+      "unit": "original-normalized",
+      "origin": "context.dual_original-initial_original_references",
+      "cap": [
+        -1000000.0,
+        1000000.0
+      ],
+      "masks": [
+        "missing",
+        "value_infinite",
+        "lower_infinite",
+        "cutoff_infinite",
+        "out_of_range"
+      ]
+    },
+    {
+      "name": "frontier_size",
+      "unit": "nodes",
+      "origin": "context.frontier_size",
+      "cap": [
+        0.0,
+        1000000000.0
+      ],
+      "masks": [
+        "missing",
+        "value_infinite",
+        "lower_infinite",
+        "cutoff_infinite",
+        "out_of_range"
+      ]
+    },
+    {
+      "name": "completed_nodes",
+      "unit": "nodes",
+      "origin": "context.processed_nodes",
+      "cap": [
+        0.0,
+        1000000000.0
+      ],
+      "masks": [
+        "missing",
+        "value_infinite",
+        "lower_infinite",
+        "cutoff_infinite",
+        "out_of_range"
+      ]
+    },
+    {
+      "name": "seconds_since_verified_improvement",
+      "unit": "seconds",
+      "origin": "context.snapshot_ns-context.last_verified_improvement_ns",
+      "cap": [
+        0.0,
+        86400.0
+      ],
+      "masks": [
+        "missing",
+        "value_infinite",
+        "lower_infinite",
+        "cutoff_infinite",
+        "out_of_range"
+      ]
+    },
+    {
+      "name": "native_incumbent_count",
+      "unit": "solutions",
+      "origin": "context.native_incumbent_count",
+      "cap": [
+        0.0,
+        1000000000.0
+      ],
+      "masks": [
+        "missing",
+        "value_infinite",
+        "lower_infinite",
+        "cutoff_infinite",
+        "out_of_range"
+      ]
+    },
+    {
+      "name": "action_log1p_length",
+      "unit": "log-nodes",
+      "origin": "action.length",
+      "cap": [
+        0.0,
+        1000000000.0
+      ],
+      "masks": [
+        "missing",
+        "value_infinite",
+        "lower_infinite",
+        "cutoff_infinite",
+        "out_of_range"
+      ]
+    },
+    {
+      "name": "available_work",
+      "unit": "nodes",
+      "origin": "context.past_throughput_per_second*remaining_seconds",
+      "cap": [
+        0.0,
+        1000000000.0
+      ],
+      "masks": [
+        "missing",
+        "value_infinite",
+        "lower_infinite",
+        "cutoff_infinite",
+        "out_of_range"
+      ]
+    },
+    {
+      "name": "action_remaining_work_ratio",
+      "unit": "fraction",
+      "origin": "action.length/max(1,available_work)",
+      "cap": [
+        0.0,
+        1000000.0
+      ],
+      "masks": [
+        "missing",
+        "value_infinite",
+        "lower_infinite",
+        "cutoff_infinite",
+        "out_of_range"
+      ]
+    }
+  ]
+}
