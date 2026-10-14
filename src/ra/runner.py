@@ -1,12 +1,17 @@
 """Cold single-request parent with authoritative complete-frame receipt times.
 
-This is a harness primitive. Atomic publication/recovery and the complete disjoint
-cost ledger are intentionally owned by Task 7, general run configuration by Task 8.
+Immutable attempt publication and recovery; general run configuration is Task 8.
 """
 from __future__ import annotations
 
 from dataclasses import asdict, replace
 import json
+import hashlib
+import fcntl
+from uuid import uuid4
+from typing import Sequence
+
+import psutil
 import os
 from pathlib import Path
 import select
@@ -17,7 +22,7 @@ import sys
 import time
 
 from ra.metrics import ProgressStream, progress_at, validate_clock_alignment
-from ra.types import Attempt, AvailableProgress, ProgressRecord, Request
+from ra.types import AttemptStatus, Attempt, AvailableProgress, ProgressRecord, Request
 from ra.worker import Channel, strict_json, validate_request
 
 
@@ -49,9 +54,16 @@ def run_request(request: Request, out: Path) -> Attempt:
     validate_request(request)
     out = Path(out).resolve()
     out.mkdir(parents=True, exist_ok=False)
+    with (out / 'active.lock').open('xb') as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        return _run_request(request, out)
+
+
+def _run_request(request: Request, out: Path) -> Attempt:
     (out / 'solutions').mkdir()
+    attempt_id = uuid4().hex
     request_path = out / 'request.json'
-    request_path.write_text(json.dumps(asdict(request), sort_keys=True, indent=2) + '\n')
+    _atomic_json(request_path, asdict(request))
     parent, child = socket.socketpair()
     env = os.environ.copy()
     env['RA_CHANNEL_FD'] = str(child.fileno())
@@ -59,7 +71,9 @@ def run_request(request: Request, out: Path) -> Attempt:
     records, samples = [], []
     timestamps = {}
     resources = {'clock_samples': samples, 'resource_scope': 'one worker; overlapping parent cost separate',
-                 'timing_partition_complete': False, 'argv': argv}
+                 'timing_partition_complete': False, 'argv': argv,
+                 'timer_resolution_ns': max(1, round(time.get_clock_info('perf_counter').resolution * 1e9)),
+                 'parent_sampling_ns': 0}
     terminal = None
     stream = None
     aligned = False
@@ -76,14 +90,52 @@ def run_request(request: Request, out: Path) -> Attempt:
     process = None
     channel = Channel(parent)
     pending_ping = None
+    monitor = None
+    last_sample = 0
+
+    def checkpoint():
+        now = time.perf_counter_ns()
+        resources['end_to_end_ns'] = now - timestamps.get('launch_ns', now)
+        resources['parent_cpu_ns'] = time.process_time_ns() - parent_cpu
+        resources['parent_observation_ns_overlapping_worker'] = observation_ns
+        resources['trace_bytes'] = sum((out / name).stat().st_size for name in
+            ('wire.jsonl', 'progress.jsonl', 'stdout.log', 'stderr.log') if (out / name).exists())
+        available = (progress_at(records, request.deadline_ns, request.p0, bound_tolerance=request.bound_tolerance)
+                     if aligned and records else AvailableProgress(False, 0., None, 0., None))
+        _atomic_json(out / 'partial.json', {'schema_version': 1, 'attempt_id': attempt_id,
+                     'request_id': request.request_id, 'request': asdict(request),
+                     'timestamps': {**timestamps, 'checkpoint_ns': now}, 'resources': resources,
+                     'available': asdict(available), 'clock_aligned': aligned,
+                     'duration_censored': True, 'quarantined': terminal is not None and terminal['status'] == 'numerical_alarm'})
+
+    def sample():
+        nonlocal last_sample
+        started = time.perf_counter_ns()
+        if monitor is not None:
+            try:
+                with monitor.oneshot():
+                    cpu = monitor.cpu_times()
+                    rss = monitor.memory_info().rss
+                resources['worker_sampled_cpu_ns_lower_bound'] = max(resources.get('worker_sampled_cpu_ns_lower_bound', 0), round((cpu.user + cpu.system) * 1e9))
+                resources['worker_sampled_peak_rss_bytes'] = max(resources.get('worker_sampled_peak_rss_bytes', 0), rss)
+                resources['worker_last_sample_ns'] = time.perf_counter_ns()
+            except (psutil.NoSuchProcess, psutil.AccessDenied) as exc:
+                resources['sampling_unavailable'] = type(exc).__name__
+        resources['parent_sampling_ns'] += time.perf_counter_ns() - started
+        last_sample = started
+
+    checkpoint()
     with (out / 'stdout.log').open('wb') as stdout, (out / 'stderr.log').open('wb') as stderr, \
             (out / 'wire.jsonl').open('w') as wire, (out / 'progress.jsonl').open('w') as progress_file:
         try:
             launch_ns = time.perf_counter_ns()
             request = replace(request, launch_ns=launch_ns, deadline_ns=launch_ns + request.budget_ns)
             timestamps.update(launch_ns=launch_ns, deadline_ns=request.deadline_ns)
+            checkpoint()
             process = subprocess.Popen(argv, env=env, pass_fds=(child.fileno(),), stdout=stdout, stderr=stderr)
             timestamps['launched_ns'] = time.perf_counter_ns()
+            monitor = psutil.Process(process.pid)
+            sample()
             child.close()
             channel.send({'kind': 'launch', 'launch_ns': launch_ns, 'deadline_ns': request.deadline_ns})
 
@@ -96,6 +148,9 @@ def run_request(request: Request, out: Path) -> Attempt:
             eof = False
             while not eof:
                 now = time.perf_counter_ns()
+                if now - last_sample >= 50_000_000:
+                    sample()
+                    checkpoint()
                 # Finish bootstrap first: the child checks the absolute deadline
                 # before imports. A stop frame cannot be mistaken for a clock ping.
                 if aligned and now >= request.deadline_ns and not stop_sent:
@@ -138,6 +193,7 @@ def run_request(request: Request, out: Path) -> Attempt:
                     packet = strict_json(line.decode())
                     receipt = time.perf_counter_ns()
                     wire.write(json.dumps({'receipt_ns': receipt, 'packet': packet}, allow_nan=False) + '\n')
+                    wire.flush()
                     kind = packet['kind']
                     if kind == 'pong':
                         if len(samples) >= 3 or packet['parent_send_ns'] != pending_ping:
@@ -148,6 +204,7 @@ def run_request(request: Request, out: Path) -> Attempt:
                         else:
                             aligned = validate_clock_alignment(samples)
                             channel.send({'kind': 'aligned', 'ok': aligned})
+                            checkpoint()
                             if not aligned:
                                 error = 'clock alignment failed; label reconstruction blocked'
                     elif kind == 'ready':
@@ -175,11 +232,15 @@ def run_request(request: Request, out: Path) -> Attempt:
                                     or assignment['objective'] != record.primal_original
                                     or any(type(v) is not int or v not in (0, 1) for v in assignment['binary'])):
                                 raise ValueError('invalid published assignment identity')
-                            path.write_text(json.dumps(assignment, sort_keys=True) + '\n')
+                            if not path.exists():
+                                _atomic_json(path, assignment, immutable=True)
                         elif record.assignment_available and not path.exists():
                             raise ValueError('published assignment array missing')
                         records.append(record)
                         progress_file.write(json.dumps(asdict(record), allow_nan=False) + '\n')
+                        progress_file.flush()
+                        os.fsync(progress_file.fileno())
+                        checkpoint()
                     elif kind == 'terminal':
                         if terminal is not None:
                             raise ValueError('duplicate terminal record')
@@ -187,6 +248,7 @@ def run_request(request: Request, out: Path) -> Attempt:
                         timestamps.update(packet['timestamps'])
                         timestamps['terminal_receipt_ns'] = receipt
                         resources.update(packet['resources'])
+                        checkpoint()
                     else:
                         raise ValueError(f'unknown worker packet: {kind}')
                 observation_ns += time.perf_counter_ns() - started
@@ -240,6 +302,7 @@ def run_request(request: Request, out: Path) -> Attempt:
         error = error or f'worker exited with status {process.returncode}'
     if parent_interrupted:
         status = 'external_interrupt'
+    resources['resource_release_confirmed'] = process is not None and process.returncode is not None
     resources['returncode'] = process.returncode if process is not None else None
     if terminal is not None:
         resources['worker_terminal_status'] = terminal['status']
@@ -256,9 +319,266 @@ def run_request(request: Request, out: Path) -> Attempt:
     resources['parent_observation_ns_overlapping_worker'] = observation_ns
     resources['trace_bytes'] = sum((out / name).stat().st_size for name in ('wire.jsonl', 'progress.jsonl', 'stdout.log', 'stderr.log'))
     resources['clock_max_bracket_ns'] = max((end - start for start, _, end in samples), default=None)
+    # Flush trace/log data before the final accounting boundary.
+    for path in out.rglob('*'):
+        if path.is_file():
+            with path.open('rb') as stream_file:
+                os.fsync(stream_file.fileno())
     timestamps['parent_finalize_ns'] = time.perf_counter_ns()
+    end = timestamps['parent_finalize_ns']
+    start = timestamps['launch_ns']
+    release = timestamps['parent_release_ns']
+    resources['end_to_end_ns'] = end - start
+    resources['duration_lower_bound_ns'] = release - start
+    worker_start, worker_end = timestamps.get('worker_entry_ns'), timestamps.get('worker_release_ns')
+    totals = resources.get('worker_exclusive_ns')
+    if aligned and totals is not None and start <= worker_start <= worker_end <= release:
+        resources['timing_partition_complete'] = sum(totals.values()) == worker_end - worker_start
+        resources['elapsed_partition_ns'] = {'parent_launch': worker_start - start,
+            'worker_accounted': worker_end - worker_start, 'release_residual': release - worker_end,
+            'parent_finalization': end - release}
+    else:
+        resources['worker_exclusive_ns'] = None
+        resources['elapsed_partition_ns'] = {'launch_through_release_unclassified': release - start,
+                                             'parent_finalization': end - release}
+    resources['elapsed_scope'] = 'launch through flushed traces and pre-manifest finalization; publication receipt adds its measured cost'
+    resources['fallback_count'] = 0
+    resources['cpu_tail_unmeasured'] = True
+    resources['parent_cpu_ns'] = time.process_time_ns() - parent_cpu
+
+    finalization_cpu = time.process_time_ns()
+    if status == 'complete' and end > request.deadline_ns:
+        status = 'deadline'
+    censored = censored or status == 'external_interrupt'
     deadline = request.deadline_ns or timestamps['parent_finalize_ns']
     attempt = Attempt(request.request_id, status, available, aligned, timestamps, resources,
-                      max(0, timestamps['parent_release_ns'] - deadline), censored, error, request)
-    (out / 'attempt.json').write_text(json.dumps(asdict(attempt), sort_keys=True, indent=2, allow_nan=False) + '\n')
+                      max(0, timestamps['parent_release_ns'] - deadline), censored, error, request,
+                      attempt_id=attempt_id,
+                      prior_attempt_id=request.prior_attempt_ids[-1] if request.prior_attempt_ids else None,
+                      cumulative_prior_costs=dict(request.prior_costs), quarantined=status == 'numerical_alarm')
+    _atomic_json(out / 'partial.json', asdict(attempt))
+    publication_start = time.perf_counter_ns()
+    publish_attempt(attempt, out)
+    collection_end = time.perf_counter_ns()
+    _atomic_json(out / 'accounting.json', {'schema_version': 1, 'attempt_id': attempt_id,
+        'manifest_sha256': hashlib.sha256((out / 'attempt.json').read_bytes()).hexdigest(),
+        'publication_ns': collection_end - end,
+        'publish_call_ns': collection_end - publication_start,
+        'parent_cpu_ns': time.process_time_ns() - finalization_cpu,
+        'collection_end_ns': collection_end, 'total_observed_ns': collection_end - start,
+        'audit_write_tail_ns': None,
+        'scope': 'nonoverlapping continuation from manifest accounting endpoint through publish and receipt; this audit write is report-generation overhead'}, immutable=True)
     return attempt
+
+
+def _json_bytes(value) -> bytes:
+    return (json.dumps(value, sort_keys=True, indent=2, allow_nan=False) + '\n').encode()
+
+
+def _sync_directory(directory: Path) -> None:
+    fd = os.open(directory, os.O_RDONLY)
+    try:
+        os.fsync(fd)
+    finally:
+        os.close(fd)
+
+
+def _atomic_json(path: Path, value, *, immutable=False) -> None:
+    """Flush a same-directory temporary inode, then publish without truncation."""
+    temporary = path.with_name(path.name + '.' + uuid4().hex + '.tmp')
+    with temporary.open('xb') as stream:
+        stream.write(_json_bytes(value))
+        stream.flush()
+        os.fsync(stream.fileno())
+    if immutable:
+        os.link(temporary, path)  # Atomic create-if-absent; never overwrite an attempt.
+        temporary.unlink()
+    else:
+        os.replace(temporary, path)
+    _sync_directory(path.parent)
+
+
+def publish_attempt(attempt: Attempt, directory: Path) -> Path:
+    """Publish a final manifest after flushing all data; partials remain on failure.
+
+    The digest seals the exact manifest bytes. The manifest is the commit point;
+    its presence alone is insufficient unless every content hash also verifies.
+    """
+    publication_start = time.perf_counter_ns()
+    publication_cpu = time.process_time_ns()
+    directory = Path(directory)
+    target = directory / 'attempt.json'
+    if target.exists():
+        raise FileExistsError(target)
+    files = {}
+    for path in sorted(directory.rglob('*')):
+        if path.is_file() and path.name not in ('attempt.sha256', 'publication.json', 'accounting.json', 'partial.json', 'active.lock') and not path.name.endswith('.tmp'):
+            with path.open('rb') as stream:
+                os.fsync(stream.fileno())
+            files[str(path.relative_to(directory))] = hashlib.sha256(path.read_bytes()).hexdigest()
+    _sync_directory(directory / 'solutions') if (directory / 'solutions').exists() else None
+    payload = {**asdict(attempt), 'files_sha256': files}
+    _atomic_json(directory / 'attempt.sha256', {'sha256': hashlib.sha256(_json_bytes(payload)).hexdigest()}, immutable=True)
+    _atomic_json(target, payload, immutable=True)
+    _atomic_json(directory / 'publication.json', {'schema_version': 1, 'attempt_id': attempt.attempt_id,
+        'manifest_sha256': hashlib.sha256(_json_bytes(payload)).hexdigest(),
+        'publication_ns': time.perf_counter_ns() - publication_start,
+        'parent_cpu_ns': time.process_time_ns() - publication_cpu,
+        'scope': 'manifest flush/commit; receipt writing tail measured by outer caller'}, immutable=True)
+    return target
+
+
+def _request_identity(value: dict) -> dict:
+    return {key: item for key, item in value.items()
+            if key not in ('launch_ns', 'deadline_ns', 'prior_attempt_ids', 'prior_costs')}
+
+
+def _read_attempt(directory: Path) -> tuple[dict, bool]:
+    final = directory / 'attempt.json'
+    if final.exists():
+        raw = final.read_bytes()
+        expected = strict_json((directory / 'attempt.sha256').read_text())['sha256']
+        if hashlib.sha256(raw).hexdigest() != expected:
+            raise ValueError(f'manifest hash mismatch: {final}')
+        payload = strict_json(raw.decode())
+        for name, digest in payload['files_sha256'].items():
+            path = directory / name
+            if not path.resolve().is_relative_to(directory.resolve()) or not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+                raise ValueError(f'artifact hash mismatch: {path}')
+        AttemptStatus(payload['status'])
+        return payload, True
+    payload = strict_json((directory / 'partial.json').read_text())
+    # The durable progress journal may be ahead of the last atomic checkpoint.
+    # Reconstruct only complete records; an unfinished last write earns no utility.
+    progress_path = directory / 'progress.jsonl'
+    if progress_path.exists() and payload.get('clock_aligned'):
+        raw = progress_path.read_bytes()
+        complete = raw[:raw.rfind(b'\n') + 1]
+        records = [ProgressRecord(**strict_json(line.decode())) for line in complete.splitlines()]
+        from ra.worker import load_instance
+        from ra.exact import verify_cover
+        instance = load_instance(Request(**payload['request'])) if records else None
+        verified = {}
+        for record in records:
+            if record.assignment_available:
+                identity = record.incumbent_hash
+                if not isinstance(identity, str) or len(identity) != 64 or any(c not in '0123456789abcdef' for c in identity):
+                    raise ValueError('invalid partial assignment hash')
+                assignment = strict_json((directory / 'solutions' / f'{identity}.json').read_text())
+                if identity not in verified:
+                    try:
+                        verified[identity] = verify_cover(instance, assignment['binary'], 0.)
+                    except ValueError as exc:
+                        raise ValueError(f'invalid partial assignment: {exc}') from None
+                checked = verified[identity]
+                if (checked.content_hash != identity or assignment['content_hash'] != identity
+                        or checked.objective != record.primal_original or assignment['objective'] != record.primal_original):
+                    raise ValueError('partial assignment hash mismatch')
+        request = payload['request']
+        if records:
+            resources = payload['resources']
+            resources['end_to_end_ns'] = max(resources.get('end_to_end_ns', 0), records[-1].receipt_ns - request['launch_ns'])
+        payload['available'] = asdict(progress_at(records, request['deadline_ns'], request['p0'],
+                                                 bound_tolerance=request['bound_tolerance']))
+    payload['resources']['trace_bytes'] = sum((directory / name).stat().st_size for name in
+        ('wire.jsonl', 'progress.jsonl', 'stdout.log', 'stderr.log') if (directory / name).exists())
+    payload['duration_censored'] = True
+    return payload, False
+
+
+def _prior_costs(attempts: list[dict]) -> dict[str, object]:
+    """Sum each physical attempt once, never its already cumulative totals."""
+    result = {'attempt_count': len(attempts), 'end_to_end_ns': 0, 'parent_cpu_ns': 0,
+              'worker_cpu_ns_lower_bound': 0, 'unknown_worker_cpu_attempts': 0,
+              'trace_bytes': 0, 'duration_censored_attempts': 0,
+              'publication_ns': 0, 'unknown_publication_attempts': 0}
+    additive = ('native_nodes', 'native_lps', 'model_bytes', 'input_bytes',
+                'parent_sampling_ns', 'parent_observation_ns_overlapping_worker', 'fallback_count')
+    result.update(dict.fromkeys(additive, 0))
+    result['unavailable_counts'] = dict.fromkeys(additive, 0)
+    result['worker_peak_rss_bytes_lower_bound'] = None
+    result['unknown_worker_rss_attempts'] = 0
+    for attempt in attempts:
+        resources = attempt['resources']
+        result['unknown_publication_attempts'] += not resources.get('publication_accounting_complete', False)
+        for name in additive:
+            if name in resources:
+                result[name] += resources[name]
+            else:
+                result['unavailable_counts'][name] += 1
+        peaks = [resources[name] for name in ('worker_peak_rss_bytes', 'worker_sampled_peak_rss_bytes') if name in resources]
+        if peaks:
+            result['worker_peak_rss_bytes_lower_bound'] = max(result['worker_peak_rss_bytes_lower_bound'] or 0, *peaks)
+        else:
+            result['unknown_worker_rss_attempts'] += 1
+        for name in ('end_to_end_ns', 'parent_cpu_ns', 'trace_bytes', 'publication_ns'):
+            result[name] += resources.get(name, 0)
+        observed = [resources[name] for name in ('worker_cpu_ns', 'worker_sampled_cpu_ns_lower_bound') if name in resources]
+        cpu = max(observed) if observed else None
+        if cpu is None:
+            result['unknown_worker_cpu_attempts'] += 1
+        else:
+            result['worker_cpu_ns_lower_bound'] += cpu
+        result['duration_censored_attempts'] += bool(attempt.get('duration_censored', True))
+    result['total_observed_ns'] = result['end_to_end_ns'] + result['publication_ns']
+    return result
+
+
+def resume_requests(requests: Sequence[Request], root: Path) -> list[Request]:
+    """Schedule missing/interrupted requests only; never erase fault outcomes.
+
+    Partial attempts preserve lower bounds, not invented finished durations.
+    Correctness alarms quarantine the configuration even across request IDs.
+    """
+    by_request = {}
+    quarantined = set()
+    ids = set()
+    for path in sorted(Path(root).rglob('request.json')):
+        directory = path.parent
+        lock_path = directory / 'active.lock'
+        if lock_path.exists():
+            with lock_path.open('rb') as lock:
+                try:
+                    fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                except BlockingIOError:
+                    raise ValueError(f'attempt still running: {directory}') from None
+                payload, final = _read_attempt(directory)
+        else:
+            payload, final = _read_attempt(directory)
+        identity = payload['attempt_id']
+        if identity in ids:
+            raise ValueError('duplicate immutable attempt ID')
+        ids.add(identity)
+        if payload.get('quarantined') or payload.get('status') == 'numerical_alarm':
+            quarantined.add(payload['request']['config_hash'])
+        receipt = directory / 'accounting.json'
+        if not receipt.exists():
+            receipt = directory / 'publication.json'
+        if receipt.exists():
+            publication = strict_json(receipt.read_text())
+            if publication['attempt_id'] != identity:
+                raise ValueError('publication identity mismatch')
+            if not final or publication['manifest_sha256'] != hashlib.sha256((directory / 'attempt.json').read_bytes()).hexdigest():
+                raise ValueError('publication manifest hash mismatch')
+            payload['resources']['publication_accounting_complete'] = receipt.name == 'accounting.json'
+            payload['resources']['publication_ns'] = publication['publication_ns']
+            payload['resources']['parent_cpu_ns'] += publication['parent_cpu_ns']
+        by_request.setdefault(payload['request_id'], []).append((payload, final))
+    pending = []
+    seen = set()
+    for request in requests:
+        if request.request_id in seen:
+            raise ValueError('duplicate request ID')
+        seen.add(request.request_id)
+        prior = by_request.get(request.request_id, [])
+        identity = _request_identity(asdict(request))
+        if any(_request_identity(item['request']) != identity for item, _ in prior):
+            raise ValueError(f'request/hash mismatch for {request.request_id}')
+        if request.config_hash in quarantined:
+            raise ValueError(f'configuration quarantined: {request.config_hash}')
+        if any(final and item['status'] != 'external_interrupt' for item, final in prior):
+            continue
+        prior.sort(key=lambda pair: (pair[0]['timestamps'].get('launch_ns', 0), pair[0]['attempt_id']))
+        pending.append(replace(request, prior_attempt_ids=tuple(item['attempt_id'] for item, _ in prior),
+                               prior_costs=_prior_costs([item for item, _ in prior])))
+    return pending

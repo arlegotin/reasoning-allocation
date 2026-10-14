@@ -6,6 +6,7 @@ import time
 from typing import Callable, Sequence
 
 from ra.exact import CoverValidationError, canonical_cover, normalized_utility, verify_cover
+from ra.ledger import timed
 from ra.types import CoverInstance, ProgressRecord, VerifiedAssignment
 
 
@@ -81,6 +82,7 @@ class Observer:
             return math.inf, self.dual, 0.
         return float(self.primal), self.dual, self._check(self.primal, self.dual)
 
+    @timed('observation')
     def poll(self, model, variable_names: Sequence[str], event_ns: int) -> None:
         """Event + terminal fallback, using only call-local original native wrappers.
 

@@ -18,6 +18,7 @@ import sys
 import time
 
 from ra.types import Request
+from ra.ledger import TimeLedger
 
 THREAD_SETTINGS = {name: '1' for name in (
     'OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS',
@@ -161,6 +162,8 @@ def execute_request(request_path: Path) -> int:
     entry = time.perf_counter_ns()
     cpu_start = time.process_time_ns()
     channel = Channel(socket.socket(fileno=int(os.environ['RA_CHANNEL_FD'])))
+    ledger = TimeLedger(entry)
+    ledger.enter('startup', entry)
     timestamps = {'worker_entry_ns': entry}
     resources = {}
     backend = model = observer = None
@@ -224,9 +227,12 @@ def execute_request(request_path: Path) -> int:
             backend = ScipBackend(model, costs=instance.costs, rows=rows, observer=observer,
                                   install_selector=request.method == 'depth', deadline_ns=request.deadline_ns,
                                   stop_poll=channel.stop_pending)
+            observer.time_ledger = backend.time_ledger = ledger
+            ledger.enter('observation', time.perf_counter_ns())
             timestamps['anchor_validation_start_ns'] = time.perf_counter_ns()
             anchor = observer.validate_incumbent((1,) * len(instance.costs), time.perf_counter_ns())
             timestamps['anchor_validation_end_ns'] = time.perf_counter_ns()
+            ledger.leave(time.perf_counter_ns())
             timestamps['anchor_submission_start_ns'] = time.perf_counter_ns()
             sol = model.createSol()
             for variable in variables:
@@ -247,16 +253,22 @@ def execute_request(request_path: Path) -> int:
                 published.add(record.incumbent_hash)
 
             observer.publish = publish
+            ledger.enter('observation', time.perf_counter_ns())
             timestamps['anchor_emission_start_ns'] = time.perf_counter_ns()
             publish(anchor)
             timestamps['anchor_emission_end_ns'] = time.perf_counter_ns()
+            ledger.leave(time.perf_counter_ns())
             timestamps['anchor_ns'] = time.perf_counter_ns()
             timestamps['startup_complete_ns'] = time.perf_counter_ns()
             channel.send({'kind': 'ready', 'child_ns': timestamps['startup_complete_ns']})
             remaining = max(0., (request.deadline_ns - time.perf_counter_ns()) / 1e9)
             model.setRealParam('limits/time', remaining)
             timestamps['solve_start_ns'] = time.perf_counter_ns()
-            backend.optimize()
+            ledger.enter('native', time.perf_counter_ns())
+            try:
+                backend.optimize()
+            finally:
+                ledger.leave(time.perf_counter_ns())
             timestamps['solve_end_ns'] = time.perf_counter_ns()
             resources['native_status'] = str(model.getStatus())
             status = ('deadline' if time.perf_counter_ns() >= request.deadline_ns or backend.stop_requested
@@ -270,6 +282,7 @@ def execute_request(request_path: Path) -> int:
         resources['callback_fault'] = getattr(exc, 'callback_fault', None)
     finally:
         timestamps['finalization_start_ns'] = time.perf_counter_ns()
+        ledger.enter('finalization', timestamps['finalization_start_ns'])
         if backend is not None:
             timestamps['safe_return_ns'] = backend.safe_return_ns
             resources['native_overshoot_ns'] = max(0, (backend.safe_return_ns or request.deadline_ns) - request.deadline_ns)
@@ -305,6 +318,8 @@ def execute_request(request_path: Path) -> int:
         resources['worker_cpu_scope'] = 'process start through pre-terminal cleanup; parent wait covers later release'
         resources['worker_peak_rss_bytes'] = int(usage.ru_maxrss) * (1 if sys.platform == 'darwin' else 1024)
         timestamps['worker_release_ns'] = time.perf_counter_ns()
+        resources['worker_exclusive_ns'] = ledger.summary(timestamps['worker_release_ns'])
+        resources['worker_timing_scope'] = 'worker entry through pre-terminal cleanup; interpreter tail is parent residual'
         channel.send({'kind': 'terminal', 'status': status, 'error': error,
                       'timestamps': timestamps, 'resources': resources})
         channel.connection.close()

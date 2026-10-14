@@ -1,6 +1,8 @@
 """Immutable primitive records at the allocator/native boundary."""
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any
+from enum import StrEnum
+from uuid import uuid4
 
 
 @dataclass(frozen=True, slots=True)
@@ -115,6 +117,16 @@ class AvailableProgress:
     sequence: int | None = None
 
 
+class AttemptStatus(StrEnum):
+    COMPLETE = 'complete'
+    DEADLINE = 'deadline'
+    STARTUP_TIMEOUT = 'startup_timeout'
+    OOM = 'oom'
+    EXTERNAL_INTERRUPT = 'external_interrupt'
+    NUMERICAL_ALARM = 'numerical_alarm'
+    IMPLEMENTATION_ERROR = 'implementation_error'
+
+
 @dataclass(frozen=True, slots=True)
 class Request:
     request_id: str
@@ -135,6 +147,9 @@ class Request:
     bound_tolerance: float = 1e-6
     model_path: str | None = None
     model_hash: str | None = None
+    build_hash: str | None = None
+    prior_attempt_ids: tuple[str, ...] = ()
+    prior_costs: dict[str, object] = field(default_factory=dict)
     launch_ns: int | None = None
     deadline_ns: int | None = None
     schema_version: int = 1
@@ -153,3 +168,14 @@ class Attempt:
     error: str | None
     request: Request
     schema_version: int = 1
+    attempt_id: str = field(default_factory=lambda: uuid4().hex)
+    prior_attempt_id: str | None = None
+    cumulative_prior_costs: dict[str, object] = field(default_factory=dict)
+    quarantined: bool = False
+
+    def __post_init__(self):
+        object.__setattr__(self, 'status', AttemptStatus(self.status))
+        if self.request_id != self.request.request_id:
+            raise ValueError('attempt/request identity mismatch')
+        if not self.attempt_id or any(c not in '0123456789abcdef' for c in self.attempt_id) or len(self.attempt_id) != 32:
+            raise ValueError('invalid attempt ID')

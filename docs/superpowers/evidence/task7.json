@@ -1,0 +1,60 @@
+{
+  "attempt_statuses": [
+    "complete",
+    "deadline",
+    "startup_timeout",
+    "oom",
+    "external_interrupt",
+    "numerical_alarm",
+    "implementation_error"
+  ],
+  "base_commit": "778c64462ea1ac1928bfaa00fae7a7abc3e10136",
+  "drill": {
+    "integer_partitions_exact": true,
+    "receipt_replay_equal": true,
+    "request_and_publication_total_ns": 621313500,
+    "rerun_prior_costs_retained": true,
+    "scope": "public tiny harness validation; no allocation comparison",
+    "statuses": [
+      "external_interrupt",
+      "external_interrupt",
+      "complete",
+      "complete"
+    ]
+  },
+  "evidence": {
+    "artifacts/checks/task7/artifact-inventory-final.json": "419697c1c1a83037946e887f4ffef3f1dfe47e29262dc8f97240324669b30fb0",
+    "artifacts/checks/task7/drill-final/summary.json": "1c6d43e8304fe0c260e1de00f20db1e694508489f3dc7abc4afc34130860e3c5",
+    "artifacts/checks/task7/final-covering.stdout": "76f65fda771e108f0c8ae9dd8b20598f0c3903e9758aab973e60fac012453256",
+    "artifacts/checks/task7/full-suite.stdout": "75f10aeea04a59172b29656b2683efec6ebf5e0129104d1a103233c0140b6b18"
+  },
+  "final_covering": {
+    "command": ".venv/bin/python -m pytest tests/test_resource_ledger.py tests/test_recovery.py tests/test_deadlines.py tests/test_worker.py -q",
+    "exit_code": 0,
+    "result": "84 passed in 12.07s"
+  },
+  "full_suite": {
+    "command": ".venv/bin/python -m pytest -q",
+    "exit_code": 0,
+    "result": "341 passed in 19.19s",
+    "scope": "initial integrated implementation, before final prior-resource correction"
+  },
+  "limits": [
+    "WP02 remains running for Task8 controls and observer effects.",
+    "Native CPU after last measurement is unmeasured; abrupt worker categories may be unavailable.",
+    "Outer accounting serialization is report-generation overhead with an unmeasured tail.",
+    "Model artifact loading and general scientific run/resume CLI remain later tasks."
+  ],
+  "package": "WP02",
+  "schema_version": 1,
+  "status": "locally_verified_awaiting_review",
+  "task": 7,
+  "timing_categories": [
+    "startup",
+    "native",
+    "administration",
+    "observation",
+    "finalization",
+    "residual"
+  ]
+}

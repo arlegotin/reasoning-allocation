@@ -263,7 +263,7 @@ def test_resource_markers_include_anchor_observation_and_process_cpu(cold_reques
     assert t['anchor_validation_start_ns'] <= t['anchor_validation_end_ns'] <= t['anchor_submission_end_ns'] <= t['anchor_emission_start_ns'] <= t['anchor_emission_end_ns'] <= t['solve_start_ns']
     assert result.resources['worker_cpu_ns'] >= result.resources['worker_cpu_since_entry_ns'] > 0
     assert result.resources['native_overshoot_ns'] == 0
-    assert result.resources['timing_partition_complete'] is False
+    assert result.resources['timing_partition_complete'] is True
 
 
 def test_corrupt_assignment_identity_cannot_escape_solution_directory(cold_request, tmp_path, monkeypatch):

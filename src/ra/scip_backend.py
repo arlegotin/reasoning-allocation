@@ -40,9 +40,13 @@ class CallbackError(AdapterError):
     """A nonstandard callback exception, with its original primitive provenance."""
 
 
+from ra.ledger import timed
+
+
 def _contain_callback(method):
     """Never propagate Python exceptions through PySCIPOpt's noexcept boundary."""
     @wraps(method)
+    @timed('callback')
     def contained(plugin, *args):
         try:
             return method(plugin, *args)
@@ -194,6 +198,7 @@ class ScipBackend:
         error.callback_fault = dict(fault)
         raise error from None
 
+    @timed('administration')
     def optimize(self) -> None:
         """Solve through this boundary to preserve callback faults after safe return.
 
@@ -203,7 +208,14 @@ class ScipBackend:
         """
         self.raise_if_failed()
         try:
-            self.model.optimize()
+            ledger = getattr(self, 'time_ledger', None)
+            if ledger is not None:
+                ledger.enter('native', time.perf_counter_ns())
+            try:
+                self.model.optimize()
+            finally:
+                if ledger is not None:
+                    ledger.leave(time.perf_counter_ns())
         except BaseException:
             self.raise_if_failed()
             raise
@@ -432,6 +444,7 @@ class _Selector(Nodesel):
     def nodecomp(self, left, right):
         return compare_nodes(left, right)
 
+    @timed('administration')
     def nodeselect(self):
         b = self.backend
         b.last_callback_entry_ns = time.perf_counter_ns()
@@ -537,6 +550,7 @@ class _Selector(Nodesel):
 
 class _ProgressEvents(Eventhdlr):
     """Identical lightweight observer on both routes; no node/frontier access."""
+    timing_category = 'observation'
     mask = E.BESTSOLFOUND | E.DUALBOUNDIMPROVED | E.NODESOLVED | E.PRESOLVEROUND
 
     def __init__(self, backend):
