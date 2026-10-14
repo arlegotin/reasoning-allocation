@@ -129,10 +129,10 @@ def scientific(tmp_path,monkeypatch):
         features=[freeze.reference(Path('configs/features.json'))],baseline_register=freeze.reference(Path('configs/mandatory_baselines.json')),
         sample=dict(original_templates=12,templates_per_cell=2,timing_repeats=1,fit_runs=1),
         deadlines_ns=d['deadlines'],weights=[.25,.5,.25],bootstrap={'B':6,'alpha':.05,'repetitions':128},contrasts=d['contrasts'],
-        watchdog={'workers':1,'grace_ns':2000000000},exclusions={'fault':'abort'},guardrails={'primal':'exploratory'},
+        watchdog={'workers':1,'grace_ns':2000000000},exclusions=freeze.ordinary_fault_policy(),capacity={'storage_envelope_bytes':100000,'worker_peak_envelope_bytes':40,'coordinator_reserve_bytes':100,'os_reserve_bytes':100,'physical_memory_bytes':1000,'free_storage_bytes':1000000},guardrails={'primal':'exploratory'},
         resources=write(tmp_path/'power.json',calibrate_design(rows,d)),
         protocol=write(tmp_path/'protocol.json',{'fixture':'no scientific evidence'}),
-        access_ledger=write(tmp_path/'access.json',{'schema_version':1,'events':[]}),outcome_directory=str(tmp_path/'outcomes'),
+        execution_access_journal=str(tmp_path/'outcomes.access.json'),access_ledger=write(tmp_path/'access.json',{'schema_version':1,'events':[]}),outcome_directory=str(tmp_path/'outcomes'),
         candidate='local-matched',telemetry={'max_decisions':512},fit_ids=d['fit_ids'],physical_methods=methods,aliases={'B4':'B3'},gates={'WP04':'reviewed','WP05':'reviewed'},
         amendment={'number':0,'previous':None},population=population,planning=d,
         protected_manifests=[freeze.reference(protected/'manifest.json')])
@@ -249,3 +249,64 @@ def test_missing_transitive_preflight_asset_blocks_freeze(scientific):
     pre['attempts']=[{'path':str(p.parent/'missing-attempt.json'),'sha256':'0'*64}]
     c['preflight']=write(p,pre);write(path,c)
     with pytest.raises(ValueError,match='hash'):freeze_protocol(path,out)
+
+
+def successor(c, previous, base, number):
+    from ra.freeze import make_queue,reference
+    new=copy.deepcopy(c);new['experiment_id']=f'test-successor-{number}'
+    new['amendment']={'number':number,'previous':reference(previous),'reason':'prospective correction'}
+    new['outcome_directory']=str(base/f'outcomes-{number}')
+    new['execution_access_journal']=str(base/f'outcomes-{number}.access.json')
+    new['access_ledger']=write(base/f'access-{number}.json',{'schema_version':1,'events':[]})
+    inputs=json.loads(Path(c['protected_manifests'][0]['path']).read_text())['instances']
+    new['queue']=write(base/f'queue-{number}.json',make_queue(new,inputs))
+    p=base/f'config-{number}.json';write(p,new)
+    return p,new,base/f'freeze-{number}.sha256'
+
+
+@pytest.mark.parametrize('observed',['none','immediate-outcome','earlier-outcome','earlier-journal'])
+def test_successor_reused_inputs_require_unopened_entire_ancestry(scientific,observed):
+    from ra.freeze import freeze_protocol,verify_envelope
+    path,c,out=scientific;freeze_protocol(path,out)
+    p1,c1,o1=successor(c,out,out.parent,1);freeze_protocol(p1,o1)
+    p2,c2,o2=successor(c1,o1,out.parent,2)
+    if observed.endswith('outcome'):
+        ancestor=c1 if observed=='immediate-outcome' else c
+        directory=Path(ancestor['outcome_directory']);directory.mkdir();(directory/'attempt.json').write_text('Do not open protected outcomes')
+    elif observed=='earlier-journal':
+        write(Path(c['outcome_directory']).with_suffix('.access.json'),{'schema_version':1,'events':[{'kind':'protected_input_opened'}]})
+    if observed=='none':assert freeze_protocol(p2,o2)
+    else:
+        with pytest.raises(ValueError,match='reused|ancestor|protected'):freeze_protocol(p2,o2)
+        assert not o2.exists()
+    assert verify_envelope(out)['success'] and verify_envelope(o1)['success']
+
+
+def test_zeroing_ordinary_fault_policy_is_rejected_before_freeze(scientific):
+    from ra.freeze import freeze_protocol
+    path,c,out=scientific
+    c['exclusions']['method_fault']={'score':'zero','flag':'retain','action':'halt_and_diagnose'}
+    write(path,c)
+    with pytest.raises(ValueError,match='fault.*policy|fault.*score'):freeze_protocol(path,out)
+
+
+def test_enlarged_trace_capacity_requires_conservative_resource_envelope(scientific):
+    from ra.freeze import freeze_protocol
+    path,c,out=scientific
+    c['capacity']['storage_envelope_bytes']=0
+    write(path,c)
+    with pytest.raises(ValueError,match='capacity|envelope'):freeze_protocol(path,out)
+
+
+def test_fresh_templates_do_not_inherit_observed_ancestor_reuse_ban(scientific):
+    from ra.freeze import freeze_protocol,check_reused_ancestry
+    path,c,out=scientific;freeze_protocol(path,out)
+    _,new,_=successor(c,out,out.parent,1)
+    directory=Path(c['outcome_directory']);directory.mkdir();(directory/'outcome.json').write_text('Do not read')
+    check_reused_ancestry(new,[{'template_id':'fresh-template','instance_id':'fresh-instance'}])
+
+
+def test_execution_access_journal_cannot_be_redirected(scientific):
+    from ra.freeze import freeze_protocol
+    path,c,out=scientific;c['execution_access_journal']=str(out.parent/'unrelated-empty.json');write(path,c)
+    with pytest.raises(ValueError,match='journal'):freeze_protocol(path,out)

@@ -531,3 +531,25 @@ Channel.send=send
     else:
         assert result.status=='implementation_error'
         assert 'injected stop-send OS error' in result.error
+
+
+@pytest.mark.parametrize('alarm',[False,True])
+def test_failure_after_nonzero_valid_progress_keeps_available_score_and_fault(cold_request,tmp_path,monkeypatch,alarm):
+    driver(monkeypatch,tmp_path, '''
+from ra.worker import Channel, execute_request
+from ra.observer import NumericalAlarm
+original=Channel.send
+failed=False
+def send(self,packet):
+    global failed
+    original(self,packet)
+    if packet['kind']=='progress' and packet['record']['primal_original'] < 4 and not failed:
+        failed=True
+        raise ERROR('fault after valid progress')
+Channel.send=send
+'''.replace('raise ERROR','raise NumericalAlarm' if alarm else 'raise RuntimeError'))
+    result=run_request(cold_request,tmp_path/'fault-after-progress')
+    assert result.status==('numerical_alarm' if alarm else 'implementation_error'),result.error
+    assert result.available.utility>0
+    assert result.available.assignment_available
+    assert result.error

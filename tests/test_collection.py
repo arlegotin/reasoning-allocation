@@ -316,4 +316,17 @@ def test_expanded_public_trace_limit_retains_every_decision_and_still_bounds(tmp
     for _ in range(513):writer.decision(np.zeros(len(schema.names)),{'public_limit_regression':True})
     assert writer.count==513
     assert (tmp_path/'expanded/decision-000512.json').exists()
-    with pytest.raises(ValueError):TraceWriter(tmp_path/'too-large',schema,max_decisions=1025)
+    with pytest.raises(ValueError):TraceWriter(tmp_path/'too-large',schema,max_decisions=4097)
+
+
+def test_larger_bounded_telemetry_writes_past_1024_and_rejects_overflow(tmp_path):
+    from ra.collect import validate_collection_method
+    schema=load_feature_schema(Path('configs/features.json'))
+    opts=dict(epsilon=.2,pool_seed=17,behavior_seed=17,schema_path=str(Path('configs/features.json').resolve()),schema_hash=schema.hash,max_decisions=4096,compact_logging=True)
+    validate_collection_method(opts)
+    writer=TraceWriter(tmp_path/'larger',schema,max_decisions=4096)
+    for _ in range(4096):writer.decision(np.zeros(len(schema.names)),{'limit_regression':True})
+    assert (tmp_path/'larger/decision-001024.json').exists()
+    assert (tmp_path/'larger/decision-004095.json').exists()
+    with pytest.raises(ValueError,match='limit'):writer.decision(np.zeros(len(schema.names)),{})
+    with pytest.raises(ValueError):TraceWriter(tmp_path/'invalid',schema,max_decisions=4097)

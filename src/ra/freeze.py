@@ -21,7 +21,7 @@ from ra.metrics import log_budget_weights
 REQUIRED_FIELDS = frozenset(('schema_version experiment_id source_commit hardware environment models features '
     'baseline_register sample deadlines_ns weights bootstrap contrasts watchdog exclusions resources preflight '
     'queue protected_manifests protocol access_ledger outcome_directory execution candidate fit_ids physical_methods '
-    'aliases gates guardrails amendment population planning telemetry').split())
+    'aliases gates guardrails amendment population planning telemetry capacity execution_access_journal').split())
 
 
 def canonical(value) -> bytes:
@@ -75,6 +75,67 @@ def check_unopened(ledger: Path, outcome_directory: Path):
         raise ValueError('protected outcome namespace already contains artifacts')
 
 
+def ordinary_fault_policy():
+    """Binding endpoint: faults preserve validated progress; alarms quarantine claims."""
+    return {
+        'method_fault': {'score': 'last_valid_available_by_deadline', 'flag': 'retain',
+                         'action': 'halt_and_diagnose'},
+        'startup_timeout': {'score': 'zero_if_no_valid_progress'},
+        'numerical_alarm': {'action': 'quarantine_scientific_claims', 'retain_evidence': True},
+    }
+
+
+def execution_access_path(config):
+    # Historical freezes predate the explicit field. Their deterministic namespace
+    # remains monitored; successors cannot redirect an ancestor's access record.
+    expected=Path(config['outcome_directory']).with_suffix('.access.json').resolve()
+    if 'execution_access_journal' in config and Path(config['execution_access_journal']).resolve()!=expected:
+        raise ValueError('execution access journal must use the experiment namespace')
+    return expected
+
+
+def check_execution_unopened(config):
+    check_unopened(check_reference(config['access_ledger']),Path(config['outcome_directory']))
+    journal=execution_access_path(config)
+    if journal.exists():
+        data=read(journal)
+        if not isinstance(data,dict) or data.get('schema_version')!=1 or data.get('events')!=[]:
+            raise ValueError('protected execution access already recorded or unresolved')
+
+
+def check_reused_ancestry(config, inputs):
+    """Inspect only frozen inputs/access metadata and namespace existence, never outcomes."""
+    templates={x['template_id'] for x in inputs}
+    instances={x['instance_id'] for x in inputs}
+    link=config['amendment'].get('previous');seen=set()
+    while link is not None:
+        key=str(check_reference(link).resolve())
+        if key in seen:raise ValueError('cyclic amendment ancestry')
+        seen.add(key)
+        ancestor=verify_envelope(Path(key))['manifest']['scientific_config']
+        old_inputs=[x for ref in ancestor['protected_manifests']
+                    for x in read(check_reference(ref))['instances']]
+        if any(x['template_id'] in templates or x['instance_id'] in instances for x in old_inputs):
+            try:check_execution_unopened(ancestor)
+            except (ValueError,OSError) as exc:
+                raise ValueError('reused protected inputs have observed or unresolved ancestor access') from exc
+        link=ancestor['amendment'].get('previous')
+
+
+def check_capacity(config, forecast):
+    cap=config['capacity'];keys=('storage_envelope_bytes','worker_peak_envelope_bytes',
+        'coordinator_reserve_bytes','os_reserve_bytes','physical_memory_bytes','free_storage_bytes')
+    if not isinstance(cap,dict) or any(type(cap.get(k)) is not int or cap[k]<=0 for k in keys):
+        raise ValueError('positive integer capacity envelope required')
+    multiplier=max(1,config['telemetry']['max_decisions']/1024)
+    if (cap['storage_envelope_bytes']<multiplier*forecast['storage_bytes_with_reserve'] or
+            cap['worker_peak_envelope_bytes']<multiplier*forecast['peak_rss_bytes_observed']):
+        raise ValueError('capacity envelope below telemetry sensitivity reserve')
+    if (cap['storage_envelope_bytes']>cap['free_storage_bytes'] or
+        sum(cap[k] for k in ('worker_peak_envelope_bytes','coordinator_reserve_bytes','os_reserve_bytes'))>cap['physical_memory_bytes']):
+        raise ValueError('capacity envelope exceeds available hardware')
+
+
 def make_queue(config, instances):
     identities=[r['template_id'] for r in instances]
     if not identities or len(set(identities))!=len(identities) or len({r['instance_id'] for r in instances})!=len(instances):
@@ -101,7 +162,7 @@ def make_queue(config, instances):
 
 def deployment_methods(register, max_decisions):
     """Explicit common telemetry overlay; selected policy/model fields stay intact."""
-    if type(max_decisions) is not int or not 1<=max_decisions<=1024:
+    if type(max_decisions) is not int or not 1<=max_decisions<=4096:
         raise ValueError('bounded common telemetry limit required')
     selected=register['selected']
     methods=copy.deepcopy({'A':selected['local-matched'],**{k:selected[k] for k in ('B0','B1','B2','B3','B5','B6')}})
@@ -170,7 +231,10 @@ def resolve_protocol(config_path: Path, *, require_unopened=True):
     if not c['exclusions'] or not c['guardrails'] or not c['models'] or not c['features']:
         raise ValueError('unresolved failure/guardrail/model/feature policy')
     for ref in _references(c):check_reference(ref)
-    if require_unopened:check_unopened(check_reference(c['access_ledger']),Path(c['outcome_directory']))
+    execution_access_path(c)
+    if require_unopened:check_execution_unopened(c)
+    if any(c['exclusions'].get(k)!=v for k,v in ordinary_fault_policy().items()):
+        raise ValueError('ordinary fault score policy or correctness quarantine mismatch')
     actual=_runtime_identity(); source,environment,build,inventory=actual
     if c['environment']!={'source_hash':source,'environment_hash':environment,'build_hash':build}:
         raise ValueError('current executable source/environment/build hash drift')
@@ -232,6 +296,7 @@ def resolve_protocol(config_path: Path, *, require_unopened=True):
     calibrated=calibrate_design(rows,planning)
     forecast=read(check_reference(c['resources']))
     if forecast!=calibrated:raise ValueError('resource/precision calibration drift')
+    check_capacity(c,calibrated['resources'])
     if not all(r['quantile_stable'] for r in calibrated['contrasts']):raise ValueError('bootstrap quantile Monte Carlo stability unresolved')
     inputs,assets=_protected_inputs(c)
     if read(check_reference(c['queue']))!=make_queue(c,inputs):raise ValueError('missing/duplicate/incomplete or changed frozen queue')
@@ -244,6 +309,7 @@ def resolve_protocol(config_path: Path, *, require_unopened=True):
         old=previous['scientific_config']
         if (amendment['number']!=old['amendment']['number']+1 or c['experiment_id']==old['experiment_id']
                 or not amendment.get('reason')):raise ValueError('numbered amendment and new experiment identity required')
+    check_reused_ancestry(c,inputs)
     assets += list(_references(c)) + list(_references(preflight)) + list(_references(rows)) + [reference(config_path)]
     # Register transitive evidence and statuses as independently verified frozen assets.
     assets += list(_references(register))

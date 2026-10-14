@@ -119,8 +119,8 @@ class TraceWriter:
         self.directory, self.schema = Path(directory), schema
         self.directory.mkdir(parents=True, exist_ok=True)
         self.maximum, self.count = max_decisions, 0
-        if type(max_decisions) is not int or not 1 <= max_decisions <= 1024:
-            raise ValueError('trace limit must be in 1..1024')
+        if type(max_decisions) is not int or not 1 <= max_decisions <= 4096:
+            raise ValueError('trace limit must be in 1..4096')
         _atomic_json(self.directory / 'schema.json', {'schema': asdict(schema), 'hash': schema.hash,
                      'max_decisions': max_decisions, 'rows_per_shard': 1}, immutable=True)
 
@@ -251,7 +251,7 @@ def validate_collection_method(config):
         raise ValueError('epsilon is locked at .2 pending support evidence')
     if any(type(config[k]) is not int or config[k] < 0 for k in ('pool_seed', 'behavior_seed')):
         raise ValueError('dedicated RNG seeds required')
-    if type(config['max_decisions']) is not int or not 1 <= config['max_decisions'] <= 1024:
+    if type(config['max_decisions']) is not int or not 1 <= config['max_decisions'] <= 4096:
         raise ValueError('invalid bounded trace limit')
     if not isinstance(config['schema_path'], str) or not Path(config['schema_path']).is_absolute():
         raise ValueError('resolved feature schema path required')

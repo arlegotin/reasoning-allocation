@@ -15,7 +15,7 @@ import sys
 import time
 
 ROOT=Path(__file__).resolve().parents[1]
-OUT=ROOT/'artifacts/task15/generation2'
+OUT=ROOT/'artifacts/task15/generation3'
 BUDGETS=[526707240,2106828958,8427315832]
 FIT='task13-matched-fit1'
 
@@ -31,7 +31,7 @@ def write(p,value):
 
 def methods():
     from ra.freeze import deployment_methods
-    return deployment_methods(read(ROOT/'configs/mandatory_baselines.json'),1024)
+    return deployment_methods(read(ROOT/'configs/mandatory_baselines.json'),4096)
 
 
 def merge_owners(destination):
@@ -72,13 +72,13 @@ def prepare():
         source=reference(Path(__file__)),request_count=504,deadlines_ns=BUDGETS,
         useful_precision=.001,resource_budget_seconds=3600,resource_budget_storage_bytes=20*1024**3,
         design_options_templates_per_cell=[2,4,10,20,40,100],
-        telemetry_limit=1024,prior_generation=reference(ROOT/'artifacts/task15/preflight.json'),
-        telemetry_rationale='Two retained B3 failures at512 decisions in7.227s/18.52MB/162.40MB RSS;1024 doubles bounded capacity for all learned methods, projected~670 decisions by8.427s. Measure fresh full cohort; no fallback.',
+        telemetry_limit=4096,prior_generation=reference(ROOT/'artifacts/task15/generation2/preflight.json'),
+        telemetry_rationale='Ruling8:841 observed decisions;32–34kB trace/decision;4096 gives4.87x observed headroom. Fourfold artifact/worker sensitivity envelopes separate from actual measurements; no identified RSS slope or guarantee. All learned methods share the bounded cap; no fallback',
         planning_assumptions='One hour and20GiB are initial operational assumptions, not user hard limits. Inspect larger alternatives and actual capacity before freeze.',
         rationale='0.001 normalized frontier half-width resolves approximately half the earlier native shortfall; sensitivity only, not a success threshold',
         candidate_rationale='Matched-data adaptive ridge preserves primary allocation hypothesis and locality attribution against B6; fixed winner is not promoted',
         fit_scope='one existing complete matched-data fitted procedure; fit seed exports are aliases; no across-fit precision claim',
-        stopping='fixed public collection; no protected tuning; select largest finite design within predeclared resource reserve; explicit inconclusive if sensitivity insufficient'))
+        stopping='fixed504 public requests; binding N60/2timings/1fit from Ruling7; no protected tuning or significance stopping'))
     print('prepared public pilot 504 physical requests',flush=True)
 
 
@@ -145,9 +145,9 @@ def summarize():
     cells={r['cell_id']:1/6 for r in rows}
     design=dict(deadlines=BUDGETS,cells=cells,methods=list(methods()),native_methods=['B0','B1'],fit_ids=[FIT],
         contrasts=[['A',k] for k in ('B0','B1','B2','B3','B5','B6')],sample_per_cell=2,timing_repeats=2,
-        bootstrap_repetitions=4096,seed=2026101502,alpha=.05,useful_precision=prospective['useful_precision'])
+        bootstrap_repetitions=65536,seed=2026101502,alpha=.05,useful_precision=prospective['useful_precision'])
     stability=[]
-    for n in (4096,16384,65536):
+    for n in (65536,):
         design['bootstrap_repetitions']=n;result=calibrate_design(rows,design)
         stability.append(dict(repetitions=n,spreads=[r['quantile_batch_spread'] for r in result['contrasts']],
                               stable=all(r['quantile_stable'] for r in result['contrasts'])))
@@ -161,12 +161,10 @@ def summarize():
             storage_bytes_with_reserve=r['resources']['storage_bytes_with_reserve'],
             empirical_half_widths=[(x['planned_interval_empirical'][1]-x['planned_interval_empirical'][0])/2 for x in r['contrasts']],
             conservative_half_width=r['conservative_half_width']))
-    affordable=[o for o in options if o['wall_seconds_with_reserve']<=prospective['resource_budget_seconds'] and o['storage_bytes_with_reserve']<=prospective['resource_budget_storage_bytes']]
-    if not affordable:raise ValueError('no affordable finite design')
-    chosen=affordable[-1];design['sample_per_cell']=chosen['templates_per_cell']
+    chosen=next(o for o in options if o['original_templates']==60);design['sample_per_cell']=10
     result=calibrate_design(rows,design)
     write(OUT/'design.json',design)
-    write(ROOT/'artifacts/pilot/power_design.json',result)
+    write(OUT/'power-design.json',result)
     write(OUT/'design-selection.json',dict(prospective=reference(OUT/'prospective.json'),options=options,selected=chosen,
         monte_carlo_stability=stability,deadline_calibration=reference(OUT/'deadline-calibration.json'),
         decision='limited conditional-on-fit evaluation; no reliable across-fit power; empirical two-per-cell extrapolation cannot certify population precision',
@@ -176,53 +174,35 @@ def summarize():
 
 
 def package():
-    from ra.freeze import reference,make_queue
-    from ra.data import generate_indexed_workload
-    from ra.worker import THREAD_SETTINGS
-    design=read(OUT/'design.json');prospective=read(OUT/'prospective.json')
-    experiment='ra-wp06-e001'
-    protected=ROOT/'data/confirmatory'/experiment
-    merge_owners(protected.parent/'split_ownership.json')
-    population=read(ROOT/'configs/workload_manifest.json')
-    generated=generate_indexed_workload(population,'confirmatory',protected,templates_per_cell=design['sample_per_cell'])
-    write(OUT/'protected-access-at-freeze.json',{'schema_version':1,'events':[]})
-    execution=read(OUT/'public-run.json');execution['input_manifests']=[str(protected/'manifest.json')]
-    physical=methods()
-    c=dict(schema_version=1,experiment_id=experiment,source_commit=prospective['source_commit'],
-        hardware=reference(OUT/'hardware.json'),environment=prospective['environment'],
-        models=[reference(Path(p)) for p in sorted({m['allocator']['model_path'] for m in physical.values() if 'model_path' in m.get('allocator',{})})],
-        features=[reference(ROOT/'configs/features.json')],baseline_register=reference(ROOT/'configs/mandatory_baselines.json'),
-        sample=dict(original_templates=6*design['sample_per_cell'],templates_per_cell=design['sample_per_cell'],timing_repeats=2,fit_runs=1,train_originals=12),
-        deadlines_ns=BUDGETS,weights=[.25,.5,.25],
-        bootstrap=dict(B=6,alpha=.05,repetitions=design['bootstrap_repetitions'],seed=design['seed'],
-            algorithm='stratified original-template bootstrap, all paired methods/budgets/repeats kept together; complete fit runs independently crossed',
-            ordinary='two-sided percentile .025/.975 conditional on frozen fit',simultaneous='two-sided Bonferroni alpha/(2B), B=6 unique contrasts; B3/B4 same outcome/contrast',
-            few_fit='one genuine fit; across-fit interval unavailable, no seed-alias resampling',monte_carlo=reference(OUT/'design-selection.json')),
-        contrasts=design['contrasts'],watchdog=dict(workers=1,grace_ns=execution['watchdog_grace_ns'],native_threads=1,numerical_threads=THREAD_SETTINGS,
-            policy='cooperative absolute deadline; parent grace then termination; only independently validated parent receipts by deadline score'),
-        exclusions=dict(startup_timeout='zero utility retained',deadline='available utility retained; overshoot fully costed',
-            method_fault='retained zero utility, halt and diagnose; any scientific fix requires numbered amendment and fresh untouched confirmation where needed',
-            numerical_alarm='quarantine configuration; no superiority claim; halt',external_interrupt='only same immutable request retry allowed; preserve all prior attempts and costs',
-            missing='no complete primary analysis until every queue key has one authoritative effective outcome',
-            censoring='cost lower bounds and unknown tails retained, no deletion',stopping='one fixed queue, no significance stopping, no protected tuning'),
-        guardrails=dict(status='secondary exploratory; no simultaneous secondary improvement claim',
-            budgets='primal-only, dual-only, absolute objectives, raw gap, solved fraction, first verified improvement/optimality, gap-time area',
-            resources='failures, overshoot/release/publication, wall/CPU/RSS/storage, native work/admin fraction and supported action calibration',
-            primal_regression='frontier win with primal regression is a tradeoff; never unqualified improvement',
-            interpretation='tight negative, tight-null, wide inconclusive reported distinctly; no fixed-control result rebranded adaptive',
-            training='separate sunk training/tuning/failure costs; no wall-time subtraction or invented amortization'),
-        resources=reference(ROOT/'artifacts/pilot/power_design.json'),preflight=reference(OUT/'preflight.json'),
-        protected_manifests=[reference(protected/'manifest.json')],protocol=reference(ROOT/'protocol/confirmatory.md'),
-        access_ledger=reference(OUT/'protected-access-at-freeze.json'),outcome_directory=str(ROOT/'artifacts/runs'/experiment),
-        telemetry={'max_decisions':1024,'scope':'common learned trace bound, charged in every applicable method','evidence':reference(OUT/'prospective.json')},
-        execution=execution,candidate='local-matched',fit_ids=[FIT],physical_methods=physical,aliases={'B4':'B3'},
-        gates={'WP04':'reviewed','WP05':'reviewed'},amendment={'number':0,'previous':None},population=population,planning=design,
-        evidence=[reference(ROOT/p) for p in ('docs/superpowers/evidence/task13-fix1.json','docs/superpowers/evidence/task13-fix1-controls-card.json',
-            'artifacts/environment/doctor.json','artifacts/environment/wheel-manifest.json','artifacts/environment/scip-parameters.json')])
-    write(OUT/'protected-queue.json',make_queue(c,generated['instances']))
-    c['queue']=reference(OUT/'protected-queue.json')
-    write(ROOT/'configs/confirmatory.json',c)
-    print('packaged untouched inputs and queue',len(generated['instances']),len(read(OUT/'protected-queue.json')),flush=True)
+    """Prepare only the declared successor; never rewrite prior scientific assets."""
+    from ra.freeze import reference,make_queue,ordinary_fault_policy,check_reused_ancestry
+    c=read(ROOT/'configs/confirmatory-A002.json');previous=reference(ROOT/'protocol/freeze-A002.sha256')
+    prospective=read(OUT/'prospective.json');design=read(OUT/'design.json');resources=read(OUT/'power-design.json')['resources']
+    experiment='ra-wp06-e004'
+    inputs=[r for ref in c['protected_manifests'] for r in read(ref['path'])['instances']]
+    c.update(experiment_id=experiment,source_commit=prospective['source_commit'],environment=prospective['environment'],
+        hardware=reference(OUT/'hardware.json'),planning=design,physical_methods=methods(),
+        preflight=reference(OUT/'preflight.json'),resources=reference(OUT/'power-design.json'),
+        outcome_directory=str(ROOT/'artifacts/runs'/experiment),
+        execution_access_journal=str(ROOT/'artifacts/runs'/f'{experiment}.access.json'),
+        protocol=reference(ROOT/'protocol/confirmatory-A003.md'),
+        amendment=dict(number=3,previous=previous,reason='Correct ordinary fault scoring and ancestry reuse gate; Ruling8 common4096 telemetry with current-source calibration',
+            input_reuse_basis='All60 e003 inputs remain unopened; entire predecessor ancestry checked; preserve all original manifests/registries and attempts.'))
+    c['execution']['methods']=list(methods().values());c['exclusions'].update(ordinary_fault_policy())
+    c['bootstrap']['monte_carlo']=reference(OUT/'planned-monte-carlo.json')
+    c['telemetry']=dict(max_decisions=4096,scope='common bounded learned telemetry, charged in every applicable method',evidence=reference(OUT/'prospective.json'))
+    c['capacity']=dict(storage_envelope_bytes=max(4*resources['storage_bytes_with_reserve'],4*8394067200),
+        worker_peak_envelope_bytes=max(4*resources['peak_rss_bytes_observed'],4*265863168),
+        coordinator_reserve_bytes=20*1024**3,os_reserve_bytes=4*1024**3,
+        physical_memory_bytes=read(OUT/'hardware.json')['physical_memory_bytes'],free_storage_bytes=shutil.disk_usage(ROOT).free,
+        basis='Separate conservative4x artifact/worker envelopes; no identified RSS slope, no guaranteed bound')
+    write(OUT/'protected-access-at-freeze.json',dict(schema_version=1,events=[]))
+    c['access_ledger']=reference(OUT/'protected-access-at-freeze.json')
+    c['evidence']+=[reference(OUT/'planned-monte-carlo.json'),reference(OUT/'design-selection.json')]
+    check_reused_ancestry(c,inputs)
+    write(OUT/'protected-queue.json',make_queue(c,inputs));c['queue']=reference(OUT/'protected-queue.json')
+    write(ROOT/'configs/confirmatory-A003.json',c)
+    print('prepared unopened successor queue',len(read(OUT/'protected-queue.json')),flush=True)
 
 
 if __name__=='__main__':
