@@ -1,0 +1,6 @@
+independent CSV mean contrast 4.0 -0.0001476595240620012
+independent CSV mean contrast 10.0 -0.00031759288089489024
+exact source/environment/build and all prospective file hashes unchanged
+initial protocol preserved byte-for-byte
+primary tracked outputs/config byte-identical to Task18 base 25
+artifact index hashes, 36 CSV rows, six original cells, descriptive paired effects: PASS

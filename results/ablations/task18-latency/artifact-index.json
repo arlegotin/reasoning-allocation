@@ -1,0 +1,8 @@
+{
+  "artifacts/task18/latency/accounting.json": "4f02360ab25d5cf3abb4c4779766d3ac8f0bef3021781e9f9f317513397871c0",
+  "artifacts/task18/latency/protocol-receipt.json": "92da60e091ce394db30e4419ed605e0fb20538ac07f1403888cb6446894ba5ef",
+  "artifacts/task18/latency/reporting.json": "ce9b14ab12a163a2f22d04b8b409dfb5bbfbfbfd7857ba108756b8af8da61859",
+  "artifacts/task18/latency/status.json": "f14a5a44977ab0260a940af48fa971b2d90fb86f918430d5df0f7cc0c2dbf010",
+  "results/ablations/task18-latency/requests.csv": "ce23a9c67e2b2bbec7f3712c7029574ee715b32618db42d257054f157822680a",
+  "results/ablations/task18-latency/summary.json": "0672bfdc927c884d6a4bba446659d0ecacbfc0405532b00bfb66a44079c06f81"
+}

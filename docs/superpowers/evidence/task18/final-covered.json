@@ -1,0 +1,7 @@
+{
+  "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 LOKY_MAX_CPU_COUNT=1 .venv/bin/python -m pytest tests/test_robustness.py tests/test_equivalence.py tests/test_worker.py tests/test_deadlines.py -q",
+  "returncode": 0,
+  "elapsed_ns": 14588226459,
+  "child_cpu_seconds": 11.490019,
+  "child_peak_rss_bytes": 224575488
+}
