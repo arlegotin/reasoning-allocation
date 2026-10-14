@@ -15,7 +15,7 @@ import sys
 import time
 
 ROOT=Path(__file__).resolve().parents[1]
-OUT=ROOT/'artifacts/task15/generation3'
+OUT=ROOT/'artifacts/task15/generation4'
 BUDGETS=[526707240,2106828958,8427315832]
 FIT='task13-matched-fit1'
 
@@ -72,7 +72,8 @@ def prepare():
         source=reference(Path(__file__)),request_count=504,deadlines_ns=BUDGETS,
         useful_precision=.001,resource_budget_seconds=3600,resource_budget_storage_bytes=20*1024**3,
         design_options_templates_per_cell=[2,4,10,20,40,100],
-        telemetry_limit=4096,prior_generation=reference(ROOT/'artifacts/task15/generation2/preflight.json'),
+        telemetry_limit=4096,prior_generation=reference(ROOT/'artifacts/task15/generation3/preflight.json'),
+        transport_policy='Common linear receive buffering with128MiB frame bound; same complete-frame receipt semantics and2s grace; generation3 B2 faults retained; engineering improvement is not allocator evidence',
         telemetry_rationale='Ruling8:841 observed decisions;32–34kB trace/decision;4096 gives4.87x observed headroom. Fourfold artifact/worker sensitivity envelopes separate from actual measurements; no identified RSS slope or guarantee. All learned methods share the bounded cap; no fallback',
         planning_assumptions='One hour and20GiB are initial operational assumptions, not user hard limits. Inspect larger alternatives and actual capacity before freeze.',
         rationale='0.001 normalized frontier half-width resolves approximately half the earlier native shortfall; sensitivity only, not a success threshold',

@@ -553,3 +553,77 @@ Channel.send=send
     assert result.available.utility>0
     assert result.available.assignment_available
     assert result.error
+
+
+def test_large_terminal_frame_drains_within_existing_watchdog_grace(cold_request,tmp_path,monkeypatch):
+    """Large native action inventories must not trigger quadratic receive overhead."""
+    driver(monkeypatch,tmp_path, '''
+from ra.worker import Channel, execute_request
+original=Channel.send
+def send(self,packet):
+    if packet['kind']=='terminal':packet['resources']['large_inventory']='x'*(32*1024*1024)
+    original(self,packet)
+Channel.send=send
+''')
+    result=run_request(replace(cold_request,budget_ns=1_000_000_000),tmp_path/'large-terminal')
+    assert result.status in ('complete','deadline'),result.error
+    assert len(result.resources['large_inventory'])==32*1024*1024
+    assert result.resources['resource_release_confirmed']
+    assert result.available.utility==1
+
+
+@pytest.mark.parametrize('wire',['malformed','invalid_utf8','truncated'])
+def test_incomplete_or_malformed_terminal_never_replaces_valid_progress(cold_request,tmp_path,monkeypatch,wire):
+    payload={'malformed':b'{not-json}\n','invalid_utf8':b'\xff\n','truncated':b'{"kind":"terminal"'}[wire]
+    driver(monkeypatch,tmp_path, '''
+from ra.worker import Channel, execute_request
+original=Channel.send
+def send(self,packet):
+    if packet['kind']=='terminal':self.connection.sendall(PAYLOAD)
+    else:original(self,packet)
+Channel.send=send
+'''.replace('PAYLOAD',repr(payload)))
+    result=run_request(cold_request,tmp_path/'bad-terminal')
+    assert result.status=='implementation_error'
+    assert result.error
+    assert result.available.utility==1
+
+
+def test_multiple_frames_and_split_utf8_preserve_exact_terminal(cold_request,tmp_path,monkeypatch):
+    driver(monkeypatch,tmp_path, '''
+from ra.worker import Channel, execute_request
+import json
+original=Channel.send
+pending=b''
+def send(self,packet):
+    global pending
+    if packet['kind']=='progress':
+        pending+=(json.dumps(packet)+'\\n').encode()
+    elif packet['kind']=='terminal':
+        packet['resources']['unicode_inventory']='λ漢'
+        raw=pending+(json.dumps(packet,ensure_ascii=False)+'\\n').encode()
+        for i in range(0,len(raw),127):self.connection.sendall(raw[i:i+127])
+    else:original(self,packet)
+Channel.send=send
+''')
+    result=run_request(cold_request,tmp_path/'joined-split')
+    assert result.status=='complete',result.error
+    assert result.available.utility==1
+    assert result.resources['unicode_inventory']=='λ漢'
+
+
+def test_oversized_worker_frame_fails_closed_with_valid_prefix(cold_request,tmp_path,monkeypatch):
+    from ra import runner
+    monkeypatch.setattr(runner,'MAX_WORKER_FRAME_BYTES',4096,raising=False)
+    driver(monkeypatch,tmp_path, '''
+from ra.worker import Channel, execute_request
+original=Channel.send
+def send(self,packet):
+    if packet['kind']=='terminal':packet['resources']['inventory']='x'*65536
+    original(self,packet)
+Channel.send=send
+''')
+    result=run_request(cold_request,tmp_path/'oversized')
+    assert result.status=='implementation_error'
+    assert 'frame limit' in result.error
+    assert result.available.utility==1

@@ -26,6 +26,10 @@ from ra.types import AttemptStatus, Attempt, AvailableProgress, ProgressRecord, 
 from ra.worker import Channel, strict_json, validate_request
 
 
+# Common transport bound: above4x observed19.3MB terminal inventory;
+# incomplete/oversized frames remain method faults, never valid progress.
+MAX_WORKER_FRAME_BYTES = 128 * 1024**2
+
 def _worker_argv(request_path: Path) -> list[str]:
     return [sys.executable, '-m', 'ra.worker', str(request_path)]
 
@@ -82,7 +86,7 @@ def _run_request(request: Request, out: Path) -> Attempt:
     resources = {'clock_samples': samples, 'resource_scope': 'one worker; overlapping parent cost separate',
                  'timing_partition_complete': False, 'argv': argv,
                  'timer_resolution_ns': max(1, round(time.get_clock_info('perf_counter').resolution * 1e9)),
-                 'parent_sampling_ns': 0}
+                 'parent_sampling_ns': 0, 'worker_frame_limit_bytes': MAX_WORKER_FRAME_BYTES}
     terminal = None
     stream = None
     aligned = False
@@ -97,7 +101,8 @@ def _run_request(request: Request, out: Path) -> Attempt:
     resources['initialization_cpu_ns'] = parent_cpu - bootstrap_cpu
     resources['initialization_ns'] = time.perf_counter_ns() - bootstrap_start
     observation_ns = 0
-    buffer = b''
+    buffer = bytearray()
+    searched_bytes = 0
     process = None
     pending_ping = None
     monitor = None
@@ -215,9 +220,17 @@ def _run_request(request: Request, out: Path) -> Attempt:
                     if buffer:
                         raise ValueError('truncated worker frame')
                     continue
-                buffer += chunk
-                while b'\n' in buffer:
-                    line, buffer = buffer.split(b'\n', 1)
+                buffer.extend(chunk)
+                while True:
+                    newline = buffer.find(b'\n', searched_bytes)
+                    if (newline < 0 and len(buffer) > MAX_WORKER_FRAME_BYTES) or newline > MAX_WORKER_FRAME_BYTES:
+                        raise ValueError('worker frame limit exceeded')
+                    if newline < 0:
+                        searched_bytes = len(buffer)
+                        break
+                    line = bytes(buffer[:newline])
+                    del buffer[:newline + 1]
+                    searched_bytes = 0
                     packet = strict_json(line.decode())
                     receipt = time.perf_counter_ns()
                     wire.write(json.dumps({'receipt_ns': receipt, 'packet': packet}, allow_nan=False) + '\n')
