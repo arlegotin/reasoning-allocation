@@ -313,3 +313,91 @@ def test_artificial_frozen_cohort_is_disjoint_from_registered_protected_inputs(f
     artificial=[item for ref in c['protected_manifests'] for item in json.loads(Path(ref['path']).read_text())['instances']]
     assert not ({i['instance_id'] for i in registered} & {i['instance_id'] for i in artificial})
     assert not ({i['template_id'] for i in registered} & {i['template_id'] for i in artificial})
+
+
+@pytest.fixture
+def storage_execution(frozen):
+    """Small orchestration-only queue; real admission, artifacts and stop handling.
+
+    This deliberately calls the already-verified internal boundary. Public entry
+    verification and full scientific queue enforcement have separate tests above.
+    """
+    import copy
+    import time
+    _,c,digest,out = frozen
+    manifest=copy.deepcopy(json.loads(digest.with_suffix('.manifest.json').read_text()))
+    config=manifest['scientific_config']
+    rows=json.loads(Path(c['queue']['path']).read_text())
+    config['capacity']['storage_envelope_bytes']=100_000
+    def run(count=2, *, resume=False):
+        config['queue']=write(out.parent/'storage-queue.json',rows[:count])
+        return runner._execute_verified(manifest,'artificial-storage-freeze',out,resume,
+            time.perf_counter_ns(),time.process_time_ns(),0)
+    return run,out
+
+
+def assert_storage_halt(out, count):
+    assert json.loads((out/'halt.json').read_text())['reason']=='resource_alarm'
+    assert not (out/'execution-seal.json').exists()
+    assert not runner.schedule_succeeded(out)
+    batch=next(out.glob('batch-*'))
+    assert json.loads((batch/'accounting.json').read_text())['physical_attempt_count']==count
+    attempts=[json.loads(p.read_text()) for p in out.rglob('attempt.json')]
+    assert len(attempts)==count
+    assert all(a['available']['utility']==.25 for a in attempts)
+    assert sum(a['resources']['end_to_end_ns'] for a in attempts)==20*count
+
+
+@pytest.mark.parametrize('crossing_request',[1,2])
+def test_storage_attempt_crossing_stops_before_next_launch_or_seal(storage_execution,artificial_worker,monkeypatch,crossing_request):
+    run,out=storage_execution
+    solver=runner.run_request
+    def large_attempt(request,directory):
+        result=solver(request,directory)
+        if len(artificial_worker[0])==crossing_request:
+            (directory/'retained-extra-output.bin').write_bytes(b'x'*200_000)
+        return result
+    monkeypatch.setattr(runner,'run_request',large_attempt)
+    run()
+    assert len(artificial_worker[0])==crossing_request
+    assert_storage_halt(out,crossing_request)
+    with pytest.raises(ValueError,match='halt|quarantin'):run(resume=True)
+    assert len(artificial_worker[0])==crossing_request
+
+
+@pytest.mark.parametrize('stage,count,expected',[
+    ('generation',2,0),('call',2,1),('progress',2,2),('progress',14,7)])
+def test_storage_operational_metadata_counts_before_launch_or_seal(storage_execution,artificial_worker,monkeypatch,stage,count,expected):
+    run,out=storage_execution
+    publish=runner._atomic_json
+    def large_metadata(path,value,**kwargs):
+        match=(stage=='generation' and path.name.startswith('generation-') and not path.name.endswith('.closed.json')
+            or stage=='call' and 'call_start_ns' in value
+            or stage=='progress' and path.name.startswith('progress-'))
+        if match:value={**value,'artificial_retained_metadata':'x'*200_000}
+        return publish(path,value,**kwargs)
+    monkeypatch.setattr(runner,'_atomic_json',large_metadata)
+    run(count)
+    assert len(artificial_worker[0])==expected
+    assert_storage_halt(out,expected)
+
+
+@pytest.mark.parametrize('stage',['accounting','seal'])
+def test_storage_finalization_space_is_checked_before_success(storage_execution,artificial_worker,monkeypatch,stage):
+    run,out=storage_execution
+    if stage=='accounting':
+        conditions=runner._execution_conditions;observations=[]
+        def final_conditions():
+            observations.append(None)
+            value=conditions()
+            return {**value,'artificial_sensor_detail':'x'*200_000} if len(observations)==2 else value
+        monkeypatch.setattr(runner,'_execution_conditions',final_conditions)
+    else:
+        costs=runner._prior_costs
+        def final_costs(attempts):
+            value=costs(attempts)
+            return {**value,'artificial_cost_detail':'x'*200_000} if len(attempts)==2 else value
+        monkeypatch.setattr(runner,'_prior_costs',final_costs)
+    run()
+    assert len(artificial_worker[0])==2
+    assert_storage_halt(out,2)

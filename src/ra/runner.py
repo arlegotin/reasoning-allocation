@@ -1073,7 +1073,18 @@ def _execute_verified(manifest, freeze_digest, out, resume, started, cpu, guard_
     _atomic_json(batch/'start.json', {'entry_monotonic_ns':started, 'entry_cpu_ns':cpu,
         'admitted_ns':time.perf_counter_ns(), 'strict_guard_ns':guard_ns,
         'scope':'interrupted batches retain lower bounds; absent final accounting means unknown tail'}, immutable=True)
-    stop_reason = None; live_guard_ns = 0; storage_bytes = sum(p.stat().st_size for p in out.rglob('*') if p.is_file())
+    stop_reason = None; live_guard_ns = 0
+    # Each closed attempt is counted once; coordinator writes update their own
+    # size delta. Avoid rescanning every historical trace before every launch.
+    storage_bytes = sum(p.stat().st_size for p in out.rglob('*') if p.is_file()) + journal_path.stat().st_size
+    def output_size(path):
+        return path.stat().st_size if path.exists() else 0
+    def write_output(path, value, *, immutable=False):
+        nonlocal storage_bytes
+        previous = output_size(path)
+        _atomic_json(path, value, immutable=immutable)
+        storage_bytes += output_size(path) - previous
+    cap = config['capacity']; policy = config['exclusions']['execution_resource']
     guard_refs = [r for r in manifest['assets'] if r['path'] in
         {manifest['config_path'], config['queue']['path'], *(m['path'] for m in config['models']),
          *(f['path'] for f in config['features']), *(m['path'] for m in config['protected_manifests'])}]
@@ -1081,7 +1092,6 @@ def _execute_verified(manifest, freeze_digest, out, resume, started, cpu, guard_
         block_id = _digest(key)
         if block_id in effective: continue
         conditions = _execution_conditions()
-        cap = config['capacity']; policy = config['exclusions']['execution_resource']
         if (conditions['free_storage_bytes'] < policy['minimum_free_storage_bytes'] or
                 conditions['available_memory_bytes'] < policy['minimum_available_memory_bytes'] or
                 conditions['coordinator_rss_bytes'] > cap['coordinator_reserve_bytes'] or storage_bytes > cap['storage_envelope_bytes']):
@@ -1091,9 +1101,11 @@ def _execute_verified(manifest, freeze_digest, out, resume, started, cpu, guard_
         generation = {'generation_id':generation_id, 'block_key':key, 'freeze_digest':freeze_digest,
             'conditions':conditions, 'requests':entries, 'prior_generation_ids':[g['generation_id'] for g,_,_ in histories[block_id]]}
         path = block_root/block_id/f'generation-{len(histories[block_id]):06d}.json'
-        _atomic_json(path,generation,immutable=True)
+        write_output(path,generation,immutable=True)
         observed = []
         for entry,row in zip(entries,rows):
+            if storage_bytes > cap['storage_envelope_bytes']:
+                stop_reason = 'resource_alarm'; break
             check_start = time.perf_counter_ns()
             source, environment, build, _ = _runtime_identity()
             try:
@@ -1116,14 +1128,15 @@ def _execute_verified(manifest, freeze_digest, out, resume, started, cpu, guard_
             observed.append(item); all_attempts.append(item)
             results.append(replace(attempt, resources=item['resources']))
             storage_bytes += sum(p.stat().st_size for p in attempt_dir.rglob('*') if p.is_file())
-            _atomic_json(batch/(attempt.attempt_id+'.json'), {'attempt_id':attempt.attempt_id,
+            write_output(batch/(attempt.attempt_id+'.json'), {'attempt_id':attempt.attempt_id,
                 'request_id':request.request_id, 'queue_metadata':row, 'metadata_provenance':'verified frozen queue; raw worker provenance unchanged',
                 'call_start_ns':call_start,'call_end_ns':time.perf_counter_ns(),
                 'coordinator_cpu_ns_lower_bound':time.process_time_ns()-cpu,
                 'batch_elapsed_ns_lower_bound':time.perf_counter_ns()-started,
                 'generation_id':generation_id,'status':str(attempt.status)}, immutable=True)
             resources = item['resources']
-            if (max(resources.get('worker_peak_rss_bytes',0),resources.get('worker_sampled_peak_rss_bytes',0)) > cap['worker_peak_envelope_bytes'] or
+            if (storage_bytes > cap['storage_envelope_bytes'] or
+                    max(resources.get('worker_peak_rss_bytes',0),resources.get('worker_sampled_peak_rss_bytes',0)) > cap['worker_peak_envelope_bytes'] or
                     not resources.get('resource_release_confirmed',False)):
                 stop_reason = 'resource_alarm'; break
             if attempt.status in ('oom','numerical_alarm','implementation_error'):
@@ -1131,17 +1144,18 @@ def _execute_verified(manifest, freeze_digest, out, resume, started, cpu, guard_
             if attempt.status == 'external_interrupt':
                 stop_reason = 'external_interrupt'; break
         status = 'halted' if stop_reason and stop_reason!='external_interrupt' else 'interrupted' if stop_reason else 'complete'
-        _atomic_json(path.with_suffix('.closed.json'), {'generation_id':generation_id,'status':status,
+        write_output(path.with_suffix('.closed.json'), {'generation_id':generation_id,'status':status,
             'attempt_ids':[a['attempt_id'] for a in observed],'manifest_sha256':[a['manifest_sha256'] for a in observed]}, immutable=True)
         if status=='complete': effective[block_id]=observed
-        _atomic_json(batch/f'progress-{len(effective):04d}-{generation_id}.json',
+        write_output(batch/f'progress-{len(effective):04d}-{generation_id}.json',
             {'effective_logical_requests':sum(len(x) for x in effective.values()),'physical_attempts':len(all_attempts),
              'block_status':status,'stop_reason':stop_reason,'utc_ns':time.time_ns()},immutable=True)
+        if storage_bytes > cap['storage_envelope_bytes']:
+            stop_reason = 'resource_alarm'
         if stop_reason: break
-    if stop_reason and stop_reason!='external_interrupt':
-        _atomic_json(out/'halt.json', {'reason':stop_reason,'freeze_digest':freeze_digest,'utc_ns':time.time_ns()},immutable=True)
     effective_attempts = [a for key,_ in blocks for a in effective.get(_digest(key),[])]
-    sealed = len(effective_attempts)==len(queue)
+    sealed = stop_reason is None and len(effective_attempts)==len(queue)
+    seal_path = out/'execution-seal.json'
     if sealed:
         seal = {'schema_version':1,'freeze_digest':freeze_digest,'queue_sha256':config['queue']['sha256'],
             'logical_request_count':len(queue),'physical_attempt_count':len(all_attempts),
@@ -1149,15 +1163,33 @@ def _execute_verified(manifest, freeze_digest, out, resume, started, cpu, guard_
             'effective_attempts':[{'request_id':a['request_id'],'attempt_id':a['attempt_id'],
                 'manifest_sha256':a['manifest_sha256'],'directory':str(Path(a['directory']).relative_to(out))} for a in effective_attempts],
             'effective_selection':external_interruption_policy()['effective']}
-        if (out/'execution-seal.json').exists():
-            if strict_json((out/'execution-seal.json').read_text()) != seal: raise ValueError('execution seal drift')
-        else: _atomic_json(out/'execution-seal.json',seal,immutable=True)
+        if seal_path.exists() and strict_json(seal_path.read_text()) != seal:
+            raise ValueError('execution seal drift')
     status = {'schema_version':1,'success':sealed,'phase':'confirmatory','request_count':len(queue),
         'physical_attempt_count':len(all_attempts),'stop_reason':stop_reason,'freeze_digest':freeze_digest}
-    _atomic_json(batch/'status.json',status,immutable=True)
-    _atomic_json(out/'schedule-status.json',{'schema_version':1,'path':str((batch/'status.json').relative_to(out)),'sha256':_digest(status)})
-    _atomic_json(batch/'accounting.json',{'strict_guard_ns':guard_ns,'live_guard_ns':live_guard_ns,
+    pointer = {'schema_version':1,'path':str((batch/'status.json').relative_to(out)),'sha256':_digest(status)}
+    conditions_end = _execution_conditions()
+    accounting = {'strict_guard_ns':guard_ns,'live_guard_ns':live_guard_ns,
         'total_observed_ns':time.perf_counter_ns()-started,'coordinator_cpu_ns':time.process_time_ns()-cpu,
-        'physical_attempt_count':len(results),'conditions_end':_execution_conditions(),
-        'scope':'entry through strict verification, recovery, guards, serial calls, audits and status publication; final accounting write tail unmeasured'},immutable=True)
+        'physical_attempt_count':len(results),'conditions_end':conditions_end,
+        'scope':'entry through strict verification, recovery, guards, serial calls, audits and finalization preparation; final envelope projection and status/seal/accounting writes unmeasured'}
+    # Plan exact serialized sizes before publishing success, including pointer
+    # replacement and the final accounting payload. Stop receipts are never lost
+    # merely because retaining them takes the output beyond its envelope.
+    final_outputs = [(batch/'status.json',status),(out/'schedule-status.json',pointer),(batch/'accounting.json',accounting)]
+    if sealed and not seal_path.exists(): final_outputs.append((seal_path,seal))
+    projected_bytes = storage_bytes + sum(len(_json_bytes(value))-output_size(path) for path,value in final_outputs)
+    if projected_bytes > cap['storage_envelope_bytes']:
+        stop_reason = 'resource_alarm'; sealed = False
+        status.update(success=False,stop_reason=stop_reason)
+        pointer['sha256'] = _digest(status)
+    if stop_reason and stop_reason!='external_interrupt':
+        # Stop evidence is retained even when it itself exceeds the envelope.
+        write_output(out/'halt.json', {'reason':stop_reason,'freeze_digest':freeze_digest,'utc_ns':time.time_ns(),
+            'observed_storage_bytes':storage_bytes,'projected_final_storage_bytes':projected_bytes,
+            'storage_envelope_bytes':cap['storage_envelope_bytes']},immutable=True)
+    if sealed and not seal_path.exists(): write_output(seal_path,seal,immutable=True)
+    write_output(batch/'status.json',status,immutable=True)
+    write_output(out/'schedule-status.json',pointer)
+    write_output(batch/'accounting.json',accounting,immutable=True)
     return results

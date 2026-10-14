@@ -1,0 +1,45 @@
+{
+  "base_commit": "6f63788bbfb3fe5b571820ac23b4900bbf9559e1",
+  "historical_source_commit": "5acc206a8482710578f21ee90bb80ecd8a092828",
+  "historical_source_hash": "a550040a87910fb4aa710ae9d33578dfd623a0b98b8fda0163dd3fb863557a05",
+  "prospective_source_hash": "ca2495a7124367afd45761cbd6d6091dbe6fe30a8ad4c70be1c2ce3b4ea34de7",
+  "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+  "build_hash": "090e514d7d7581d68bdd17d6880096b12008861c21e34fa31d3d2fa18803cbaf",
+  "historical_envelope_digest": "72aba9929daa98bb48c64237ebba47e2c6d66e75d65165bf78a0355a53455457",
+  "historical_committed_source_files_checked": 27,
+  "strict_historical_launch_rejected": "current executable source/environment/build hash drift",
+  "unchanged_historical_refs": [
+    {
+      "path": "protocol/freeze-A004.sha256",
+      "sha256": "c46380a6349f1b77c725d429610a0554eb0335babe66ed78b7ad3f4bf65eaa5b"
+    },
+    {
+      "path": "protocol/freeze-A004.manifest.json",
+      "sha256": "11a97cd737a5f7d43d0bdf6359d665b4b1fbfce563b4a131237ffa17d5a1a5a9"
+    },
+    {
+      "path": "protocol/confirmatory-A004.md",
+      "sha256": "c0ccb2f5b91ef9be522be4909f636ff956fac2fce51dfe3958dea71f7e230a15"
+    },
+    {
+      "path": "configs/confirmatory-A004.json",
+      "sha256": "e13f31a7b098f372e12d653e46513d9f2d52fd587cb5841aff36ffbd8f36bffe"
+    },
+    {
+      "path": "artifacts/runs/ra-wp07-e005/execution-seal.json",
+      "sha256": "fa816d59deb649dafa1a00c5ecb59cb865bcd489a992963f956d986b809645c4"
+    },
+    {
+      "path": "artifacts/runs/ra-wp07-e005.access.json",
+      "sha256": "e9263cfc04ca10c2e14cb33b911998c7b219b08cfe64ee50a2205b14eedb4886"
+    },
+    {
+      "path": "docs/superpowers/evidence/task16/execution-audit.json",
+      "sha256": "83cf330827f68bc9b736ad0e8e240189193e0a927fe4bc6c99ab99435c116809"
+    }
+  ],
+  "new_protected_requests": 0,
+  "new_public_calibration_requests": 0,
+  "verification_wall_ns": 914769042,
+  "verification_cpu_ns": 479436000
+}

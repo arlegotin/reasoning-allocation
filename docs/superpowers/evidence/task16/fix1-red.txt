@@ -1,0 +1,312 @@
+FFFFFFFF                                                                 [100%]
+=================================== FAILURES ===================================
+______ test_storage_attempt_crossing_stops_before_next_launch_or_seal[1] _______
+
+storage_execution = (<function storage_execution.<locals>.run at 0x10a70fa60>, PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1781/test_storage_attempt_crossing_0/outcomes'))
+artificial_worker = ([Request(request_id='930fc88499c7d0255ed3b21d1d9e68f08f31f79dc721be1c1dddf9bf90a00ce9', instance_path='/private/var/f... 'overrides': {}, 'lease_lengths': [1, 2, 4, 8, 16, 32, 64]}, launch_ns=None, deadline_ns=None, schema_version=1)], {})
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x108e47ec0>
+crossing_request = 1
+
+    @pytest.mark.parametrize('crossing_request',[1,2])
+    def test_storage_attempt_crossing_stops_before_next_launch_or_seal(storage_execution,artificial_worker,monkeypatch,crossing_request):
+        run,out=storage_execution
+        solver=runner.run_request
+        def large_attempt(request,directory):
+            result=solver(request,directory)
+            if len(artificial_worker[0])==crossing_request:
+                (directory/'retained-extra-output.bin').write_bytes(b'x'*200_000)
+            return result
+        monkeypatch.setattr(runner,'run_request',large_attempt)
+        run()
+>       assert len(artificial_worker[0])==crossing_request
+E       AssertionError: assert 2 == 1
+E        +  where 2 = len([Request(request_id='930fc88499c7d0255ed3b21d1d9e68f08f31f79dc721be1c1dddf9bf90a00ce9', instance_path='/private/var/fo...'B0', 'overrides': {}, 'lease_lengths': [1, 2, 4, 8, 16, 32, 64]}, launch_ns=None, deadline_ns=None, schema_version=1)])
+
+tests/test_confirmatory_execution.py:362: AssertionError
+______ test_storage_attempt_crossing_stops_before_next_launch_or_seal[2] _______
+
+storage_execution = (<function storage_execution.<locals>.run at 0x10a74cae0>, PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1781/test_storage_attempt_crossing_1/outcomes'))
+artificial_worker = ([Request(request_id='930fc88499c7d0255ed3b21d1d9e68f08f31f79dc721be1c1dddf9bf90a00ce9', instance_path='/private/var/f... 'overrides': {}, 'lease_lengths': [1, 2, 4, 8, 16, 32, 64]}, launch_ns=None, deadline_ns=None, schema_version=1)], {})
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10a748860>
+crossing_request = 2
+
+    @pytest.mark.parametrize('crossing_request',[1,2])
+    def test_storage_attempt_crossing_stops_before_next_launch_or_seal(storage_execution,artificial_worker,monkeypatch,crossing_request):
+        run,out=storage_execution
+        solver=runner.run_request
+        def large_attempt(request,directory):
+            result=solver(request,directory)
+            if len(artificial_worker[0])==crossing_request:
+                (directory/'retained-extra-output.bin').write_bytes(b'x'*200_000)
+            return result
+        monkeypatch.setattr(runner,'run_request',large_attempt)
+        run()
+        assert len(artificial_worker[0])==crossing_request
+>       assert_storage_halt(out,crossing_request)
+
+tests/test_confirmatory_execution.py:363: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_confirmatory_execution.py:340: in assert_storage_halt
+    assert json.loads((out/'halt.json').read_text())['reason']=='resource_alarm'
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/homebrew/Cellar/python@3.12/3.12.9/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1781/test_storage_attempt_crossing_1/outcomes/halt.json')
+mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1781/test_storage_attempt_crossing_1/outcomes/halt.json'
+
+/opt/homebrew/Cellar/python@3.12/3.12.9/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_storage_operational_metadata_counts_before_launch_or_seal[generation-2-0] _
+
+storage_execution = (<function storage_execution.<locals>.run at 0x10a81a160>, PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1781/test_storage_operational_metad0/outcomes'))
+artificial_worker = ([Request(request_id='930fc88499c7d0255ed3b21d1d9e68f08f31f79dc721be1c1dddf9bf90a00ce9', instance_path='/private/var/f... 'overrides': {}, 'lease_lengths': [1, 2, 4, 8, 16, 32, 64]}, launch_ns=None, deadline_ns=None, schema_version=1)], {})
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10a8cd460>
+stage = 'generation', count = 2, expected = 0
+
+    @pytest.mark.parametrize('stage,count,expected',[
+        ('generation',2,0),('call',2,1),('progress',2,2),('progress',14,7)])
+    def test_storage_operational_metadata_counts_before_launch_or_seal(storage_execution,artificial_worker,monkeypatch,stage,count,expected):
+        run,out=storage_execution
+        publish=runner._atomic_json
+        def large_metadata(path,value,**kwargs):
+            match=(stage=='generation' and path.name.startswith('generation-') and not path.name.endswith('.closed.json')
+                or stage=='call' and 'call_start_ns' in value
+                or stage=='progress' and path.name.startswith('progress-'))
+            if match:value={**value,'artificial_retained_metadata':'x'*200_000}
+            return publish(path,value,**kwargs)
+        monkeypatch.setattr(runner,'_atomic_json',large_metadata)
+        run(count)
+>       assert len(artificial_worker[0])==expected
+E       AssertionError: assert 2 == 0
+E        +  where 2 = len([Request(request_id='930fc88499c7d0255ed3b21d1d9e68f08f31f79dc721be1c1dddf9bf90a00ce9', instance_path='/private/var/fo...'B0', 'overrides': {}, 'lease_lengths': [1, 2, 4, 8, 16, 32, 64]}, launch_ns=None, deadline_ns=None, schema_version=1)])
+
+tests/test_confirmatory_execution.py:381: AssertionError
+___ test_storage_operational_metadata_counts_before_launch_or_seal[call-2-1] ___
+
+storage_execution = (<function storage_execution.<locals>.run at 0x10a819b20>, PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1781/test_storage_operational_metad1/outcomes'))
+artificial_worker = ([Request(request_id='930fc88499c7d0255ed3b21d1d9e68f08f31f79dc721be1c1dddf9bf90a00ce9', instance_path='/private/var/f... 'overrides': {}, 'lease_lengths': [1, 2, 4, 8, 16, 32, 64]}, launch_ns=None, deadline_ns=None, schema_version=1)], {})
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10a85ce30>
+stage = 'call', count = 2, expected = 1
+
+    @pytest.mark.parametrize('stage,count,expected',[
+        ('generation',2,0),('call',2,1),('progress',2,2),('progress',14,7)])
+    def test_storage_operational_metadata_counts_before_launch_or_seal(storage_execution,artificial_worker,monkeypatch,stage,count,expected):
+        run,out=storage_execution
+        publish=runner._atomic_json
+        def large_metadata(path,value,**kwargs):
+            match=(stage=='generation' and path.name.startswith('generation-') and not path.name.endswith('.closed.json')
+                or stage=='call' and 'call_start_ns' in value
+                or stage=='progress' and path.name.startswith('progress-'))
+            if match:value={**value,'artificial_retained_metadata':'x'*200_000}
+            return publish(path,value,**kwargs)
+        monkeypatch.setattr(runner,'_atomic_json',large_metadata)
+        run(count)
+>       assert len(artificial_worker[0])==expected
+E       AssertionError: assert 2 == 1
+E        +  where 2 = len([Request(request_id='930fc88499c7d0255ed3b21d1d9e68f08f31f79dc721be1c1dddf9bf90a00ce9', instance_path='/private/var/fo...'B0', 'overrides': {}, 'lease_lengths': [1, 2, 4, 8, 16, 32, 64]}, launch_ns=None, deadline_ns=None, schema_version=1)])
+
+tests/test_confirmatory_execution.py:381: AssertionError
+_ test_storage_operational_metadata_counts_before_launch_or_seal[progress-2-2] _
+
+storage_execution = (<function storage_execution.<locals>.run at 0x10a81b6a0>, PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1781/test_storage_operational_metad2/outcomes'))
+artificial_worker = ([Request(request_id='930fc88499c7d0255ed3b21d1d9e68f08f31f79dc721be1c1dddf9bf90a00ce9', instance_path='/private/var/f... 'overrides': {}, 'lease_lengths': [1, 2, 4, 8, 16, 32, 64]}, launch_ns=None, deadline_ns=None, schema_version=1)], {})
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10a85da30>
+stage = 'progress', count = 2, expected = 2
+
+    @pytest.mark.parametrize('stage,count,expected',[
+        ('generation',2,0),('call',2,1),('progress',2,2),('progress',14,7)])
+    def test_storage_operational_metadata_counts_before_launch_or_seal(storage_execution,artificial_worker,monkeypatch,stage,count,expected):
+        run,out=storage_execution
+        publish=runner._atomic_json
+        def large_metadata(path,value,**kwargs):
+            match=(stage=='generation' and path.name.startswith('generation-') and not path.name.endswith('.closed.json')
+                or stage=='call' and 'call_start_ns' in value
+                or stage=='progress' and path.name.startswith('progress-'))
+            if match:value={**value,'artificial_retained_metadata':'x'*200_000}
+            return publish(path,value,**kwargs)
+        monkeypatch.setattr(runner,'_atomic_json',large_metadata)
+        run(count)
+        assert len(artificial_worker[0])==expected
+>       assert_storage_halt(out,expected)
+
+tests/test_confirmatory_execution.py:382: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_confirmatory_execution.py:340: in assert_storage_halt
+    assert json.loads((out/'halt.json').read_text())['reason']=='resource_alarm'
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/homebrew/Cellar/python@3.12/3.12.9/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1781/test_storage_operational_metad2/outcomes/halt.json')
+mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1781/test_storage_operational_metad2/outcomes/halt.json'
+
+/opt/homebrew/Cellar/python@3.12/3.12.9/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_storage_operational_metadata_counts_before_launch_or_seal[progress-14-7] _
+
+storage_execution = (<function storage_execution.<locals>.run at 0x10a74ff60>, PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1781/test_storage_operational_metad3/outcomes'))
+artificial_worker = ([Request(request_id='930fc88499c7d0255ed3b21d1d9e68f08f31f79dc721be1c1dddf9bf90a00ce9', instance_path='/private/var/f...edepth': 0}, 'lease_lengths': [1, 2, 4, 8, 16, 32, 64]}, launch_ns=None, deadline_ns=None, schema_version=1), ...], {})
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10aa6fd40>
+stage = 'progress', count = 14, expected = 7
+
+    @pytest.mark.parametrize('stage,count,expected',[
+        ('generation',2,0),('call',2,1),('progress',2,2),('progress',14,7)])
+    def test_storage_operational_metadata_counts_before_launch_or_seal(storage_execution,artificial_worker,monkeypatch,stage,count,expected):
+        run,out=storage_execution
+        publish=runner._atomic_json
+        def large_metadata(path,value,**kwargs):
+            match=(stage=='generation' and path.name.startswith('generation-') and not path.name.endswith('.closed.json')
+                or stage=='call' and 'call_start_ns' in value
+                or stage=='progress' and path.name.startswith('progress-'))
+            if match:value={**value,'artificial_retained_metadata':'x'*200_000}
+            return publish(path,value,**kwargs)
+        monkeypatch.setattr(runner,'_atomic_json',large_metadata)
+        run(count)
+>       assert len(artificial_worker[0])==expected
+E       AssertionError: assert 14 == 7
+E        +  where 14 = len([Request(request_id='930fc88499c7d0255ed3b21d1d9e68f08f31f79dc721be1c1dddf9bf90a00ce9', instance_path='/private/var/fo...plungedepth': 0}, 'lease_lengths': [1, 2, 4, 8, 16, 32, 64]}, launch_ns=None, deadline_ns=None, schema_version=1), ...])
+
+tests/test_confirmatory_execution.py:381: AssertionError
+____ test_storage_finalization_space_is_checked_before_success[accounting] _____
+
+storage_execution = (<function storage_execution.<locals>.run at 0x10a70e520>, PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1781/test_storage_finalization_spac0/outcomes'))
+artificial_worker = ([Request(request_id='930fc88499c7d0255ed3b21d1d9e68f08f31f79dc721be1c1dddf9bf90a00ce9', instance_path='/private/var/f... 'overrides': {}, 'lease_lengths': [1, 2, 4, 8, 16, 32, 64]}, launch_ns=None, deadline_ns=None, schema_version=1)], {})
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10a8cf830>
+stage = 'accounting'
+
+    @pytest.mark.parametrize('stage',['accounting','seal'])
+    def test_storage_finalization_space_is_checked_before_success(storage_execution,artificial_worker,monkeypatch,stage):
+        run,out=storage_execution
+        if stage=='accounting':
+            conditions=runner._execution_conditions;observations=[]
+            def final_conditions():
+                observations.append(None)
+                value=conditions()
+                return {**value,'artificial_sensor_detail':'x'*200_000} if len(observations)==2 else value
+            monkeypatch.setattr(runner,'_execution_conditions',final_conditions)
+        else:
+            costs=runner._prior_costs
+            def final_costs(attempts):
+                value=costs(attempts)
+                return {**value,'artificial_cost_detail':'x'*200_000} if len(attempts)==2 else value
+            monkeypatch.setattr(runner,'_prior_costs',final_costs)
+        run()
+        assert len(artificial_worker[0])==2
+>       assert_storage_halt(out,2)
+
+tests/test_confirmatory_execution.py:403: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_confirmatory_execution.py:340: in assert_storage_halt
+    assert json.loads((out/'halt.json').read_text())['reason']=='resource_alarm'
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/homebrew/Cellar/python@3.12/3.12.9/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1781/test_storage_finalization_spac0/outcomes/halt.json')
+mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1781/test_storage_finalization_spac0/outcomes/halt.json'
+
+/opt/homebrew/Cellar/python@3.12/3.12.9/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_______ test_storage_finalization_space_is_checked_before_success[seal] ________
+
+storage_execution = (<function storage_execution.<locals>.run at 0x10a90a840>, PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1781/test_storage_finalization_spac1/outcomes'))
+artificial_worker = ([Request(request_id='930fc88499c7d0255ed3b21d1d9e68f08f31f79dc721be1c1dddf9bf90a00ce9', instance_path='/private/var/f... 'overrides': {}, 'lease_lengths': [1, 2, 4, 8, 16, 32, 64]}, launch_ns=None, deadline_ns=None, schema_version=1)], {})
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10a7cfc50>
+stage = 'seal'
+
+    @pytest.mark.parametrize('stage',['accounting','seal'])
+    def test_storage_finalization_space_is_checked_before_success(storage_execution,artificial_worker,monkeypatch,stage):
+        run,out=storage_execution
+        if stage=='accounting':
+            conditions=runner._execution_conditions;observations=[]
+            def final_conditions():
+                observations.append(None)
+                value=conditions()
+                return {**value,'artificial_sensor_detail':'x'*200_000} if len(observations)==2 else value
+            monkeypatch.setattr(runner,'_execution_conditions',final_conditions)
+        else:
+            costs=runner._prior_costs
+            def final_costs(attempts):
+                value=costs(attempts)
+                return {**value,'artificial_cost_detail':'x'*200_000} if len(attempts)==2 else value
+            monkeypatch.setattr(runner,'_prior_costs',final_costs)
+        run()
+        assert len(artificial_worker[0])==2
+>       assert_storage_halt(out,2)
+
+tests/test_confirmatory_execution.py:403: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_confirmatory_execution.py:340: in assert_storage_halt
+    assert json.loads((out/'halt.json').read_text())['reason']=='resource_alarm'
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/homebrew/Cellar/python@3.12/3.12.9/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1781/test_storage_finalization_spac1/outcomes/halt.json')
+mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/private/var/folders/q3/tm7kkng56417wgzydc4q8p8r0000gn/T/pytest-of-artemlegotin/pytest-1781/test_storage_finalization_spac1/outcomes/halt.json'
+
+/opt/homebrew/Cellar/python@3.12/3.12.9/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1013: FileNotFoundError
+=========================== short test summary info ============================
+FAILED tests/test_confirmatory_execution.py::test_storage_attempt_crossing_stops_before_next_launch_or_seal[1]
+FAILED tests/test_confirmatory_execution.py::test_storage_attempt_crossing_stops_before_next_launch_or_seal[2]
+FAILED tests/test_confirmatory_execution.py::test_storage_operational_metadata_counts_before_launch_or_seal[generation-2-0]
+FAILED tests/test_confirmatory_execution.py::test_storage_operational_metadata_counts_before_launch_or_seal[call-2-1]
+FAILED tests/test_confirmatory_execution.py::test_storage_operational_metadata_counts_before_launch_or_seal[progress-2-2]
+FAILED tests/test_confirmatory_execution.py::test_storage_operational_metadata_counts_before_launch_or_seal[progress-14-7]
+FAILED tests/test_confirmatory_execution.py::test_storage_finalization_space_is_checked_before_success[accounting]
+FAILED tests/test_confirmatory_execution.py::test_storage_finalization_space_is_checked_before_success[seal]
+8 failed, 19 deselected in 4.15s
