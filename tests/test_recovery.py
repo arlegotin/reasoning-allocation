@@ -296,3 +296,39 @@ def test_prior_costs_retain_counts_peaks_and_unknowns_without_summing_rss():
     assert cost['parent_sampling_ns'] == 3
     assert cost['trace_bytes'] == 50
     assert cost['worker_cpu_ns_lower_bound'] == 9
+
+
+@pytest.mark.parametrize('boundary', ['request.json', 'partial.json'])
+def test_first_partial_interruption_is_recoverable_without_worker_launch(cold_request, tmp_path, monkeypatch, boundary):
+    original = runner._atomic_json
+    def interrupt_initial_partial(path, value, **kwargs):
+        if path.name == boundary:
+            raise KeyboardInterrupt('bootstrap publication boundary')
+        original(path, value, **kwargs)
+    def forbidden_launch(*args, **kwargs):
+        pytest.fail('bootstrap interruption must precede worker launch')
+    monkeypatch.setattr(runner, '_atomic_json', interrupt_initial_partial)
+    monkeypatch.setattr(runner.subprocess, 'Popen', forbidden_launch)
+    with pytest.raises(KeyboardInterrupt):
+        run_request(cold_request, tmp_path / 'one')
+    pending, = runner.resume_requests([cold_request], tmp_path)
+    assert len(pending.prior_attempt_ids) == 1
+    saved, final = runner._read_attempt(tmp_path / 'one')
+    assert not final and saved['attempt_id'] == pending.prior_attempt_ids[0]
+    assert not saved['available']['assignment_available']
+    assert 'worker_cpu_ns' not in saved['resources']
+    assert saved['resources']['bootstrap_costs_unavailable']
+    assert pending.prior_costs['initialization_ns'] == saved['resources']['initialization_ns']
+    assert runner.resume_requests([cold_request], tmp_path)[0].prior_attempt_ids == pending.prior_attempt_ids
+
+
+@pytest.mark.parametrize('loaded', [True, False])
+def test_manifest_stores_validated_instance_provenance(cold_request, tmp_path, loaded):
+    request = cold_request if loaded else replace(cold_request, budget_ns=1)
+    attempt = run_request(request, tmp_path / 'one')
+    manifest = json.loads((tmp_path / 'one' / 'attempt.json').read_text())
+    assert manifest['template_id'] == ('public-tiny' if loaded else None)
+    assert manifest['cell_id'] == ('tiny' if loaded else None)
+    assert manifest['lineage'] == ({'split': 'discovery'} if loaded else None)
+    assert manifest['instance_provenance_available'] is loaded
+    assert attempt.instance_provenance_available is loaded

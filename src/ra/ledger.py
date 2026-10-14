@@ -69,6 +69,7 @@ class TimeLedger:
 
     def __init__(self, start_ns: int = 0):
         _units(start_ns)
+        self.failed = False
         self._last = start_ns
         self._stack: list[tuple[str, int]] = []
         self._totals = dict.fromkeys(self.categories, 0)
@@ -89,6 +90,8 @@ class TimeLedger:
         self._last = now_ns
 
     def enter(self, category: str, now_ns: int) -> None:
+        if self.failed:
+            return
         if category not in self.categories and not (isinstance(category, str)
                 and category.startswith('diagnostic:') and category[11:]):
             raise ValueError('unknown timing category')
@@ -96,6 +99,8 @@ class TimeLedger:
         self._stack.append((category, now_ns))
 
     def leave(self, now_ns: int) -> None:
+        if self.failed:
+            return
         if not self._stack:
             raise ValueError('no timing scope to leave')
         self._tick(now_ns)
@@ -105,6 +110,8 @@ class TimeLedger:
             self.diagnostics[name] = self.diagnostics.get(name, 0) + now_ns - start
 
     def summary(self, end_ns: int) -> dict[str, int]:
+        if self.failed:
+            raise ValueError('timing ledger failed; exclusive partition unavailable')
         self._check(end_ns)
         result = dict(self._totals)
         result[self._category()] += end_ns - self._last
@@ -119,13 +126,28 @@ def timed(category):
         @wraps(method)
         def call(owner, *args, **kwargs):
             ledger = getattr(getattr(owner, 'backend', owner), 'time_ledger', None)
-            if ledger is None:
+            if ledger is None or ledger.failed:
                 return method(owner, *args, **kwargs)
-            ledger.enter(getattr(owner, 'timing_category', 'administration') if category == 'callback' else category,
-                         time.perf_counter_ns())
             try:
-                return method(owner, *args, **kwargs)
-            finally:
+                ledger.enter(getattr(owner, 'timing_category', 'administration') if category == 'callback' else category,
+                             time.perf_counter_ns())
+            except BaseException:
+                ledger.failed = True
+                raise
+            try:
+                result = method(owner, *args, **kwargs)
+            except BaseException:
+                # Preserve the first method fault if timer teardown also fails.
+                try:
+                    ledger.leave(time.perf_counter_ns())
+                except BaseException:
+                    ledger.failed = True
+                raise
+            try:
                 ledger.leave(time.perf_counter_ns())
+            except BaseException:
+                ledger.failed = True
+                raise
+            return result
         return call
     return decorate

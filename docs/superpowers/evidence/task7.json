@@ -46,6 +46,22 @@
     "Model artifact loading and general scientific run/resume CLI remain later tasks."
   ],
   "package": "WP02",
+  "review_fix1": {
+    "evidence": {
+      "artifacts/checks/task7/fix1/inventory.json": "705d649a41795ab1363937499a1e9dca12e0642118650bbe2f8f257a868b35db",
+      "artifacts/checks/task7/fix1/provenance-fixture/summary.json": "a73b21eceb026610864e4409fa2225abb70ee7014b85d7deeb5a3b3171fdc2ce"
+    },
+    "findings": [
+      "I1",
+      "I2",
+      "I3"
+    ],
+    "status": "locally_verified_awaiting_scoped_rereview",
+    "tests": [
+      "41 passed in 6.45s",
+      "11 passed, 24 deselected in 0.10s"
+    ]
+  },
   "schema_version": 1,
   "status": "locally_verified_awaiting_review",
   "task": 7,

@@ -172,6 +172,10 @@ class Attempt:
     prior_attempt_id: str | None = None
     cumulative_prior_costs: dict[str, object] = field(default_factory=dict)
     quarantined: bool = False
+    template_id: str | None = None
+    cell_id: str | None = None
+    lineage: dict[str, object] | None = None
+    instance_provenance_available: bool = False
 
     def __post_init__(self):
         object.__setattr__(self, 'status', AttemptStatus(self.status))

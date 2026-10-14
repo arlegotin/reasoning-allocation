@@ -318,7 +318,8 @@ def execute_request(request_path: Path) -> int:
         resources['worker_cpu_scope'] = 'process start through pre-terminal cleanup; parent wait covers later release'
         resources['worker_peak_rss_bytes'] = int(usage.ru_maxrss) * (1 if sys.platform == 'darwin' else 1024)
         timestamps['worker_release_ns'] = time.perf_counter_ns()
-        resources['worker_exclusive_ns'] = ledger.summary(timestamps['worker_release_ns'])
+        resources['worker_exclusive_ns'] = None if ledger.failed else ledger.summary(timestamps['worker_release_ns'])
+        resources['timing_instrumentation_failed'] = ledger.failed
         resources['worker_timing_scope'] = 'worker entry through pre-terminal cleanup; interpreter tail is parent residual'
         channel.send({'kind': 'terminal', 'status': status, 'error': error,
                       'timestamps': timestamps, 'resources': resources})

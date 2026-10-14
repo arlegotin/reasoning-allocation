@@ -45,14 +45,26 @@ from ra.ledger import timed
 
 def _contain_callback(method):
     """Never propagate Python exceptions through PySCIPOpt's noexcept boundary."""
+    measured = timed('callback')(method)
     @wraps(method)
-    @timed('callback')
     def contained(plugin, *args):
         try:
-            return method(plugin, *args)
+            return measured(plugin, *args)
         except BaseException as exc:
             plugin.backend._capture_fault(exc, method.__name__)
-            # Non-selection native callbacks have no required Python return value.
+            if method.__name__ == 'nodeselect':
+                # Timing can fail before the selector body or after its return.
+                # Native still needs an open node while the stop request unwinds.
+                legal_node = None
+                try:
+                    for nodes in plugin.backend.model.getOpenNodes():
+                        if nodes:
+                            legal_node = nodes[0]
+                            break
+                except BaseException as secondary:
+                    plugin.backend._capture_fault(secondary, 'nodeselect_unwind')
+                return {'selnode': legal_node}
+            # Comparison still needs a legal equality result on fault.
             return 0 if method.__name__ == 'nodecomp' else None
     return contained
 
@@ -444,7 +456,7 @@ class _Selector(Nodesel):
     def nodecomp(self, left, right):
         return compare_nodes(left, right)
 
-    @timed('administration')
+    @_contain_callback
     def nodeselect(self):
         b = self.backend
         b.last_callback_entry_ns = time.perf_counter_ns()

@@ -70,3 +70,72 @@ def test_progress_callback_cost_belongs_to_mandatory_observation():
     totals = clock.summary(time.perf_counter_ns())
     assert totals['observation'] > 0
     assert totals['administration'] == 0
+
+
+@pytest.mark.parametrize('operation', ['enter', 'leave'])
+def test_callback_timer_fault_is_contained_and_invalidates_partition(operation):
+    from pyscipopt import Model
+    from ra.scip_backend import ScipBackend, _contain_callback
+    model = Model()
+    model.hideOutput()
+    backend = ScipBackend(model, costs=(1,), rows=((0,),))
+    clock = ledger.TimeLedger(0)
+    backend.time_ledger = clock
+    def fail(*args): raise MemoryError('injected timer ' + operation)
+    setattr(clock, operation, fail)
+    class Callback:
+        def __init__(self): self.backend = backend
+        @_contain_callback
+        def eventexec(self): return None
+    try:
+        assert Callback().eventexec() is None
+        assert backend.callback_fault['status'] == 'oom'
+        assert backend.stop_requested
+        assert clock.failed
+    finally:
+        backend.time_ledger = None
+        model.freeProb()
+
+
+@pytest.mark.parametrize('operation', ['enter', 'leave'])
+@pytest.mark.parametrize('callback', ['nodeinit', 'nodecomp', 'nodeselect', 'eventexec'])
+def test_native_callback_timer_oom_returns_safely(cold_request, tmp_path, monkeypatch, operation, callback):
+    from test_recovery import branching_request
+    from test_worker import driver
+    request = branching_request(cold_request, tmp_path)
+    driver(monkeypatch, tmp_path, '''
+from ra.worker import execute_request, THREAD_SETTINGS
+import os, sys
+os.environ.update(THREAD_SETTINGS)
+from ra.ledger import TimeLedger
+from ra.scip_backend import ScipBackend
+from pyscipopt import SCIP_PARAMSETTING as P
+original_init = ScipBackend.__init__
+def init(self, model, **kwargs):
+    original_init(self, model, **kwargs)
+    model.setPresolve(P.OFF)
+    model.setHeuristics(P.OFF)
+    model.setSeparating(P.OFF)
+ScipBackend.__init__ = init
+original = getattr(TimeLedger, OPERATION)
+fired = False
+def timer(self, *args):
+    global fired
+    context = sys._getframe(1).f_locals
+    method = context.get('method')
+    owner = context.get('owner')
+    if not fired and method is not None and method.__name__ == CALLBACK and hasattr(owner, 'backend'):
+        fired = True
+        raise MemoryError('injected native callback timer ' + OPERATION)
+    return original(self, *args)
+setattr(TimeLedger, OPERATION, timer)
+'''.replace('OPERATION', repr(operation)).replace('CALLBACK', repr(callback)))
+    attempt = run_request(request, tmp_path / 'one')
+    assert attempt.status == 'oom', attempt.error
+    assert attempt.resources['callback_fault']['status'] == 'oom'
+    assert attempt.resources['callback_fault']['callback'] == callback
+    assert attempt.resources['resource_release_confirmed']
+    assert attempt.resources['native_released']
+    assert not attempt.resources['timing_partition_complete']
+    assert attempt.resources['worker_exclusive_ns'] is None
+    assert attempt.available.assignment_available

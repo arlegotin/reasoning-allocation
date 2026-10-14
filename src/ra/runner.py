@@ -60,13 +60,22 @@ def run_request(request: Request, out: Path) -> Attempt:
 
 
 def _run_request(request: Request, out: Path) -> Attempt:
+    bootstrap_start, bootstrap_cpu = time.perf_counter_ns(), time.process_time_ns()
     (out / 'solutions').mkdir()
     attempt_id = uuid4().hex
+    # Publish identity before request discovery or any process/socket allocation.
+    # This immutable lower-bound checkpoint survives a failed first partial write.
+    _atomic_json(out / 'bootstrap.json', {'schema_version': 1, 'attempt_id': attempt_id,
+        'request_id': request.request_id, 'request': asdict(request),
+        'timestamps': {'bootstrap_ns': bootstrap_start},
+        'resources': {'end_to_end_ns': 0, 'parent_cpu_ns': time.process_time_ns() - bootstrap_cpu,
+                      'initialization_ns': time.perf_counter_ns() - bootstrap_start,
+                      'bootstrap_costs_unavailable': True, 'resource_release_confirmed': False},
+        'available': asdict(AvailableProgress(False, 0., None, 0., None)),
+        'clock_aligned': False, 'duration_censored': True, 'quarantined': False,
+        'template_id': None, 'cell_id': None, 'lineage': None, 'instance_provenance_available': False}, immutable=True)
     request_path = out / 'request.json'
     _atomic_json(request_path, asdict(request))
-    parent, child = socket.socketpair()
-    env = os.environ.copy()
-    env['RA_CHANNEL_FD'] = str(child.fileno())
     argv = _worker_argv(request_path)
     records, samples = [], []
     timestamps = {}
@@ -85,10 +94,11 @@ def _run_request(request: Request, out: Path) -> Attempt:
     censored = False
     stop_sent = False
     parent_cpu = time.process_time_ns()
+    resources['initialization_cpu_ns'] = parent_cpu - bootstrap_cpu
+    resources['initialization_ns'] = time.perf_counter_ns() - bootstrap_start
     observation_ns = 0
     buffer = b''
     process = None
-    channel = Channel(parent)
     pending_ping = None
     monitor = None
     last_sample = 0
@@ -106,6 +116,10 @@ def _run_request(request: Request, out: Path) -> Attempt:
                      'request_id': request.request_id, 'request': asdict(request),
                      'timestamps': {**timestamps, 'checkpoint_ns': now}, 'resources': resources,
                      'available': asdict(available), 'clock_aligned': aligned,
+                     'template_id': resources.get('instance', {}).get('template_id'),
+                     'cell_id': resources.get('instance', {}).get('cell_id'),
+                     'lineage': resources.get('instance', {}).get('lineage'),
+                     'instance_provenance_available': 'instance' in resources,
                      'duration_censored': True, 'quarantined': terminal is not None and terminal['status'] == 'numerical_alarm'})
 
     def sample():
@@ -125,10 +139,15 @@ def _run_request(request: Request, out: Path) -> Attempt:
         last_sample = started
 
     checkpoint()
+    parent, child = socket.socketpair()
+    env = os.environ.copy()
+    env['RA_CHANNEL_FD'] = str(child.fileno())
+    channel = Channel(parent)
     with (out / 'stdout.log').open('wb') as stdout, (out / 'stderr.log').open('wb') as stderr, \
             (out / 'wire.jsonl').open('w') as wire, (out / 'progress.jsonl').open('w') as progress_file:
         try:
             launch_ns = time.perf_counter_ns()
+            resources['initialization_ns'] = launch_ns - bootstrap_start
             request = replace(request, launch_ns=launch_ns, deadline_ns=launch_ns + request.budget_ns)
             timestamps.update(launch_ns=launch_ns, deadline_ns=request.deadline_ns)
             checkpoint()
@@ -351,11 +370,14 @@ def _run_request(request: Request, out: Path) -> Attempt:
         status = 'deadline'
     censored = censored or status == 'external_interrupt'
     deadline = request.deadline_ns or timestamps['parent_finalize_ns']
+    provenance = resources.get('instance', {})
     attempt = Attempt(request.request_id, status, available, aligned, timestamps, resources,
                       max(0, timestamps['parent_release_ns'] - deadline), censored, error, request,
                       attempt_id=attempt_id,
                       prior_attempt_id=request.prior_attempt_ids[-1] if request.prior_attempt_ids else None,
-                      cumulative_prior_costs=dict(request.prior_costs), quarantined=status == 'numerical_alarm')
+                      cumulative_prior_costs=dict(request.prior_costs), quarantined=status == 'numerical_alarm',
+                      template_id=provenance.get('template_id'), cell_id=provenance.get('cell_id'),
+                      lineage=provenance.get('lineage'), instance_provenance_available=bool(provenance))
     _atomic_json(out / 'partial.json', asdict(attempt))
     publication_start = time.perf_counter_ns()
     publish_attempt(attempt, out)
@@ -447,7 +469,10 @@ def _read_attempt(directory: Path) -> tuple[dict, bool]:
                 raise ValueError(f'artifact hash mismatch: {path}')
         AttemptStatus(payload['status'])
         return payload, True
-    payload = strict_json((directory / 'partial.json').read_text())
+    checkpoint_path = directory / 'partial.json'
+    if not checkpoint_path.exists():
+        checkpoint_path = directory / 'bootstrap.json'
+    payload = strict_json(checkpoint_path.read_text())
     # The durable progress journal may be ahead of the last atomic checkpoint.
     # Reconstruct only complete records; an unfinished last write earns no utility.
     progress_path = directory / 'progress.jsonl'
@@ -492,7 +517,7 @@ def _prior_costs(attempts: list[dict]) -> dict[str, object]:
               'worker_cpu_ns_lower_bound': 0, 'unknown_worker_cpu_attempts': 0,
               'trace_bytes': 0, 'duration_censored_attempts': 0,
               'publication_ns': 0, 'unknown_publication_attempts': 0}
-    additive = ('native_nodes', 'native_lps', 'model_bytes', 'input_bytes',
+    additive = ('initialization_ns', 'initialization_cpu_ns', 'native_nodes', 'native_lps', 'model_bytes', 'input_bytes',
                 'parent_sampling_ns', 'parent_observation_ns_overlapping_worker', 'fallback_count')
     result.update(dict.fromkeys(additive, 0))
     result['unavailable_counts'] = dict.fromkeys(additive, 0)
@@ -533,8 +558,8 @@ def resume_requests(requests: Sequence[Request], root: Path) -> list[Request]:
     by_request = {}
     quarantined = set()
     ids = set()
-    for path in sorted(Path(root).rglob('request.json')):
-        directory = path.parent
+    directories = {p.parent for name in ('request.json', 'bootstrap.json') for p in Path(root).rglob(name)}
+    for directory in sorted(directories):
         lock_path = directory / 'active.lock'
         if lock_path.exists():
             with lock_path.open('rb') as lock:
