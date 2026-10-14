@@ -1,0 +1,45 @@
+{
+  "cold_request_boundary": "new worker process; imports/model loading/native setup/observation/finalization/publication charged",
+  "environment": {
+    "build": {
+      "libgcc_s.1.1.dylib": "c616af1deb109f5092b1ea909d18e148eb18d42ecac6fd8511173fe66c9bfd5f",
+      "libgfortran.5.dylib": "c07a8e5be88342a0f58ce1c44eb087997e66eb8f509e4e0677bb4be67a1a5398",
+      "libquadmath.0.dylib": "9de838c46c0690b2694d6d5855b5914aeb0abcaf3eaf31611222c22e2901afd7",
+      "libscip.10.0.dylib": "8a72aec2ded10be7d8384fae2f49a6f2da4fc4d05e7f7d0527fccc9aae893f4d",
+      "scip.cpython-312-darwin.so": "8a09b2382315c55891d27e755f9b64a09e0314a22ada291bb08893e274e68db8"
+    },
+    "executable": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/.venv/bin/python",
+    "machine": "arm64",
+    "packages": {
+      "PySCIPOpt": "6.3.0",
+      "Pygments": "2.21.0",
+      "cloudpickle": "3.1.2",
+      "iniconfig": "2.3.1",
+      "joblib": "1.6.0",
+      "narwhals": "2.27.1",
+      "numpy": "2.5.4",
+      "packaging": "26.3",
+      "pip": "26.2.1",
+      "pluggy": "1.6.0",
+      "psutil": "7.2.2",
+      "pytest": "9.1.1",
+      "ra": "0.1.0",
+      "scikit-learn": "1.9.1",
+      "scipy": "1.18.1",
+      "threadpoolctl": "3.7.0"
+    },
+    "platform": "macOS-26.7.1-arm64-arm-64bit",
+    "python": "3.12.9 (main, Feb  4 2025, 14:38:38) [Clang 16.0.0 (clang-1600.0.26.6)]"
+  },
+  "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+  "hardware": "Previously discovered Apple M3 Max,36GiB; same host as Task1/9; native ARM64",
+  "native_threads": 1,
+  "worker_thread_environment": {
+    "BLIS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1"
+  }
+}

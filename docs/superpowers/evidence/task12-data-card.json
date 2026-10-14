@@ -1,0 +1,710 @@
+{
+  "body_mse_unit": "seconds squared; unscaled",
+  "correction_sha256": "582ef2e113e0bec48017c5ab9dbe59a9dfaece8e75cf969f584bf010f9775b78",
+  "data_inventory_sha256": "75e25e9d27cec9c43aa331876c4cfa3deccec342cebaa751f4fa96a51c5204c0",
+  "gain_mse_unit": "squared original utility fraction; unscaled",
+  "in_sample_diagnostics": {
+    "all": {
+      "body_mse": 0.005728062128599998,
+      "body_rows": 1455,
+      "gain_mse": 0.05007942176807926,
+      "originals": 12,
+      "q90_observed_coverage": null,
+      "rows": 1455,
+      "zero_gains": 1184
+    },
+    "budgets": {
+      "2106828958": {
+        "body_mse": 0.12093789035100745,
+        "body_rows": 78,
+        "gain_mse": 0.0507512243147124,
+        "originals": 12,
+        "q90_observed_coverage": null,
+        "rows": 78,
+        "zero_gains": 55
+      },
+      "4213657916": {
+        "body_mse": 0.0040395885122933035,
+        "body_rows": 788,
+        "gain_mse": 0.0501599173275015,
+        "originals": 12,
+        "q90_observed_coverage": null,
+        "rows": 788,
+        "zero_gains": 602
+      },
+      "526707240": {
+        "body_mse": 0.11975978099083244,
+        "body_rows": 12,
+        "gain_mse": 0.05163772277136686,
+        "originals": 12,
+        "q90_observed_coverage": null,
+        "rows": 12,
+        "zero_gains": 0
+      },
+      "8427315832": {
+        "body_mse": 0.0386843486800273,
+        "body_rows": 577,
+        "gain_mse": 0.05039463259709472,
+        "originals": 12,
+        "q90_observed_coverage": null,
+        "rows": 577,
+        "zero_gains": 527
+      }
+    },
+    "censoring": {
+      "deadline": {
+        "body_mse": 0.15358237421552653,
+        "body_rows": 14,
+        "gain_mse": 0.0037401004656576866,
+        "originals": 6,
+        "q90_observed_coverage": null,
+        "rows": 14,
+        "zero_gains": 5
+      },
+      "natural_known": {
+        "body_mse": 0.005506288352869926,
+        "body_rows": 1423,
+        "gain_mse": 0.030794360690713424,
+        "originals": 10,
+        "q90_observed_coverage": null,
+        "rows": 1423,
+        "zero_gains": 1179
+      },
+      "natural_unknown": {
+        "body_mse": 0.030984174802497464,
+        "body_rows": 18,
+        "gain_mse": 0.07493707920031538,
+        "originals": 4,
+        "q90_observed_coverage": null,
+        "rows": 18,
+        "zero_gains": 0
+      }
+    },
+    "eligible": {
+      "True": {
+        "body_mse": 0.005728062128599998,
+        "body_rows": 1455,
+        "gain_mse": 0.05007942176807926,
+        "originals": 12,
+        "q90_observed_coverage": null,
+        "rows": 1455,
+        "zero_gains": 1184
+      }
+    },
+    "families": {
+      "block": {
+        "body_mse": 0.006547034437539837,
+        "body_rows": 478,
+        "gain_mse": 0.04158000556336974,
+        "originals": 4,
+        "q90_observed_coverage": null,
+        "rows": 478,
+        "zero_gains": 393
+      },
+      "redundant": {
+        "body_mse": 0.0034557539566180137,
+        "body_rows": 427,
+        "gain_mse": 0.06792745937208845,
+        "originals": 4,
+        "q90_observed_coverage": null,
+        "rows": 427,
+        "zero_gains": 311
+      },
+      "uniform": {
+        "body_mse": 0.007181397991642146,
+        "body_rows": 550,
+        "gain_mse": 0.04073080036877961,
+        "originals": 4,
+        "q90_observed_coverage": null,
+        "rows": 550,
+        "zero_gains": 480
+      }
+    },
+    "length_support": {
+      "1": 465,
+      "16": 196,
+      "2": 99,
+      "32": 79,
+      "4": 350,
+      "64": 171,
+      "8": 95
+    }
+  },
+  "original_weight_rule": "N_rows/(N_originals * rows_of_this_original), separately within eligible gain and body subsets",
+  "originals": 12,
+  "pooled_fields_used": false,
+  "preprocessing": "train only unweighted medians; any missing/value/reference-infinity mask excludes observation; all-missing median zero; mean/std after imputation; constant scale one; masks retained unscaled; identical ridge/boosted path",
+  "rows": 1455,
+  "schema": {
+    "dtype": "float64",
+    "features": [
+      {
+        "cap": [
+          0.0,
+          1000000000.0
+        ],
+        "masks": [
+          "missing",
+          "value_infinite",
+          "lower_infinite",
+          "cutoff_infinite",
+          "out_of_range"
+        ],
+        "name": "node_depth",
+        "origin": "node.depth",
+        "unit": "nodes"
+      },
+      {
+        "cap": [
+          -1000000.0,
+          1000000.0
+        ],
+        "masks": [
+          "missing",
+          "value_infinite",
+          "lower_infinite",
+          "cutoff_infinite",
+          "out_of_range"
+        ],
+        "name": "node_estimate",
+        "origin": "node.native_estimate",
+        "unit": "transformed-normalized"
+      },
+      {
+        "cap": [
+          -1000000.0,
+          1000000.0
+        ],
+        "masks": [
+          "missing",
+          "value_infinite",
+          "lower_infinite",
+          "cutoff_infinite",
+          "out_of_range"
+        ],
+        "name": "node_bound",
+        "origin": "node.native_lower_bound",
+        "unit": "transformed-normalized"
+      },
+      {
+        "cap": [
+          -1000000.0,
+          1000000.0
+        ],
+        "masks": [
+          "missing",
+          "value_infinite",
+          "lower_infinite",
+          "cutoff_infinite",
+          "out_of_range"
+        ],
+        "name": "node_estimate_minus_bound",
+        "origin": "node.estimate-bound",
+        "unit": "transformed-normalized"
+      },
+      {
+        "cap": [
+          0.0,
+          1000000000.0
+        ],
+        "masks": [
+          "missing",
+          "value_infinite",
+          "lower_infinite",
+          "cutoff_infinite",
+          "out_of_range"
+        ],
+        "name": "node_age",
+        "origin": "context.selection_count-node.first_seen_selection",
+        "unit": "selections"
+      },
+      {
+        "cap": [
+          0.0,
+          1.0
+        ],
+        "masks": [
+          "missing",
+          "value_infinite",
+          "lower_infinite",
+          "cutoff_infinite",
+          "out_of_range"
+        ],
+        "name": "category_child",
+        "origin": "node.category",
+        "unit": "indicator"
+      },
+      {
+        "cap": [
+          0.0,
+          1.0
+        ],
+        "masks": [
+          "missing",
+          "value_infinite",
+          "lower_infinite",
+          "cutoff_infinite",
+          "out_of_range"
+        ],
+        "name": "category_sibling",
+        "origin": "node.category",
+        "unit": "indicator"
+      },
+      {
+        "cap": [
+          0.0,
+          1.0
+        ],
+        "masks": [
+          "missing",
+          "value_infinite",
+          "lower_infinite",
+          "cutoff_infinite",
+          "out_of_range"
+        ],
+        "name": "category_leaf",
+        "origin": "node.category",
+        "unit": "indicator"
+      },
+      {
+        "cap": [
+          0.0,
+          1000000000.0
+        ],
+        "masks": [
+          "missing",
+          "value_infinite",
+          "lower_infinite",
+          "cutoff_infinite",
+          "out_of_range"
+        ],
+        "name": "parent_branching_changes",
+        "origin": "node.parent_branching_changes",
+        "unit": "changes"
+      },
+      {
+        "cap": [
+          -1000000.0,
+          1000000.0
+        ],
+        "masks": [
+          "missing",
+          "value_infinite",
+          "lower_infinite",
+          "cutoff_infinite",
+          "out_of_range"
+        ],
+        "name": "parent_estimate",
+        "origin": "ancestry.parent_estimate",
+        "unit": "transformed-normalized"
+      },
+      {
+        "cap": [
+          -1000000.0,
+          1000000.0
+        ],
+        "masks": [
+          "missing",
+          "value_infinite",
+          "lower_infinite",
+          "cutoff_infinite",
+          "out_of_range"
+        ],
+        "name": "parent_bound",
+        "origin": "ancestry.parent_lower_bound",
+        "unit": "transformed-normalized"
+      },
+      {
+        "cap": [
+          -1000000.0,
+          1000000.0
+        ],
+        "masks": [
+          "missing",
+          "value_infinite",
+          "lower_infinite",
+          "cutoff_infinite",
+          "out_of_range"
+        ],
+        "name": "node_minus_parent_estimate",
+        "origin": "node.estimate-ancestry.parent_estimate",
+        "unit": "transformed-normalized"
+      },
+      {
+        "cap": [
+          -1000000.0,
+          1000000.0
+        ],
+        "masks": [
+          "missing",
+          "value_infinite",
+          "lower_infinite",
+          "cutoff_infinite",
+          "out_of_range"
+        ],
+        "name": "node_minus_parent_bound",
+        "origin": "node.bound-ancestry.parent_lower_bound",
+        "unit": "transformed-normalized"
+      },
+      {
+        "cap": [
+          0.0,
+          1000000000.0
+        ],
+        "masks": [
+          "missing",
+          "value_infinite",
+          "lower_infinite",
+          "cutoff_infinite",
+          "out_of_range"
+        ],
+        "name": "root_to_node_depth",
+        "origin": "node.depth",
+        "unit": "nodes"
+      },
+      {
+        "cap": [
+          0.0,
+          1000000000.0
+        ],
+        "masks": [
+          "missing",
+          "value_infinite",
+          "lower_infinite",
+          "cutoff_infinite",
+          "out_of_range"
+        ],
+        "name": "lineage_completed_work",
+        "origin": "ancestry.bounded_history.completed_work",
+        "unit": "nodes"
+      },
+      {
+        "cap": [
+          -8.0,
+          8.0
+        ],
+        "masks": [
+          "missing",
+          "value_infinite",
+          "lower_infinite",
+          "cutoff_infinite",
+          "out_of_range"
+        ],
+        "name": "lineage_gain_original",
+        "origin": "ancestry.bounded_history.gain_original",
+        "unit": "original-utility"
+      },
+      {
+        "cap": [
+          0.0,
+          86400.0
+        ],
+        "masks": [
+          "missing",
+          "value_infinite",
+          "lower_infinite",
+          "cutoff_infinite",
+          "out_of_range"
+        ],
+        "name": "seconds_since_service",
+        "origin": "context.snapshot_ns-ancestry.last_service_ns",
+        "unit": "seconds"
+      },
+      {
+        "cap": [
+          0.0,
+          1000000000.0
+        ],
+        "masks": [
+          "missing",
+          "value_infinite",
+          "lower_infinite",
+          "cutoff_infinite",
+          "out_of_range"
+        ],
+        "name": "original_columns",
+        "origin": "context.original_columns",
+        "unit": "columns"
+      },
+      {
+        "cap": [
+          0.0,
+          1000000000.0
+        ],
+        "masks": [
+          "missing",
+          "value_infinite",
+          "lower_infinite",
+          "cutoff_infinite",
+          "out_of_range"
+        ],
+        "name": "original_rows",
+        "origin": "context.original_rows",
+        "unit": "rows"
+      },
+      {
+        "cap": [
+          0.0,
+          1.0
+        ],
+        "masks": [
+          "missing",
+          "value_infinite",
+          "lower_infinite",
+          "cutoff_infinite",
+          "out_of_range"
+        ],
+        "name": "original_density",
+        "origin": "context.original_density",
+        "unit": "fraction"
+      },
+      {
+        "cap": [
+          0.0,
+          1.0
+        ],
+        "masks": [
+          "missing",
+          "value_infinite",
+          "lower_infinite",
+          "cutoff_infinite",
+          "out_of_range"
+        ],
+        "name": "remaining_time_fraction",
+        "origin": "context.start_snapshot_deadline",
+        "unit": "fraction"
+      },
+      {
+        "cap": [
+          0.0,
+          86400.0
+        ],
+        "masks": [
+          "missing",
+          "value_infinite",
+          "lower_infinite",
+          "cutoff_infinite",
+          "out_of_range"
+        ],
+        "name": "elapsed_seconds",
+        "origin": "context.snapshot_ns-context.start_ns",
+        "unit": "seconds"
+      },
+      {
+        "cap": [
+          -1.0,
+          2.0
+        ],
+        "masks": [
+          "missing",
+          "value_infinite",
+          "lower_infinite",
+          "cutoff_infinite",
+          "out_of_range"
+        ],
+        "name": "child_local_utility_original",
+        "origin": "context.utility_local",
+        "unit": "original-utility"
+      },
+      {
+        "cap": [
+          -1000000.0,
+          1000000.0
+        ],
+        "masks": [
+          "missing",
+          "value_infinite",
+          "lower_infinite",
+          "cutoff_infinite",
+          "out_of_range"
+        ],
+        "name": "primal_progress_original",
+        "origin": "context.initial_original_references-primal_original",
+        "unit": "original-normalized"
+      },
+      {
+        "cap": [
+          -1000000.0,
+          1000000.0
+        ],
+        "masks": [
+          "missing",
+          "value_infinite",
+          "lower_infinite",
+          "cutoff_infinite",
+          "out_of_range"
+        ],
+        "name": "dual_progress_original",
+        "origin": "context.dual_original-initial_original_references",
+        "unit": "original-normalized"
+      },
+      {
+        "cap": [
+          0.0,
+          1000000000.0
+        ],
+        "masks": [
+          "missing",
+          "value_infinite",
+          "lower_infinite",
+          "cutoff_infinite",
+          "out_of_range"
+        ],
+        "name": "frontier_size",
+        "origin": "context.frontier_size",
+        "unit": "nodes"
+      },
+      {
+        "cap": [
+          0.0,
+          1000000000.0
+        ],
+        "masks": [
+          "missing",
+          "value_infinite",
+          "lower_infinite",
+          "cutoff_infinite",
+          "out_of_range"
+        ],
+        "name": "completed_nodes",
+        "origin": "context.processed_nodes",
+        "unit": "nodes"
+      },
+      {
+        "cap": [
+          0.0,
+          86400.0
+        ],
+        "masks": [
+          "missing",
+          "value_infinite",
+          "lower_infinite",
+          "cutoff_infinite",
+          "out_of_range"
+        ],
+        "name": "seconds_since_verified_improvement",
+        "origin": "context.snapshot_ns-context.last_verified_improvement_ns",
+        "unit": "seconds"
+      },
+      {
+        "cap": [
+          0.0,
+          1000000000.0
+        ],
+        "masks": [
+          "missing",
+          "value_infinite",
+          "lower_infinite",
+          "cutoff_infinite",
+          "out_of_range"
+        ],
+        "name": "native_incumbent_count",
+        "origin": "context.native_incumbent_count",
+        "unit": "solutions"
+      },
+      {
+        "cap": [
+          0.0,
+          1000000000.0
+        ],
+        "masks": [
+          "missing",
+          "value_infinite",
+          "lower_infinite",
+          "cutoff_infinite",
+          "out_of_range"
+        ],
+        "name": "action_log1p_length",
+        "origin": "action.length",
+        "unit": "log-nodes"
+      },
+      {
+        "cap": [
+          0.0,
+          1000000000.0
+        ],
+        "masks": [
+          "missing",
+          "value_infinite",
+          "lower_infinite",
+          "cutoff_infinite",
+          "out_of_range"
+        ],
+        "name": "available_work",
+        "origin": "context.past_throughput_per_second*remaining_seconds",
+        "unit": "nodes"
+      },
+      {
+        "cap": [
+          0.0,
+          1000000.0
+        ],
+        "masks": [
+          "missing",
+          "value_infinite",
+          "lower_infinite",
+          "cutoff_infinite",
+          "out_of_range"
+        ],
+        "name": "action_remaining_work_ratio",
+        "origin": "action.length/max(1,available_work)",
+        "unit": "fraction"
+      }
+    ],
+    "lineage_limit": 8,
+    "max_action_rows": 4096,
+    "preprocessing": "explicit-masks-no-fitted-imputation",
+    "schema_version": 1
+  },
+  "schema_file": {
+    "path": "configs/features.json",
+    "sha256": "0c7eb90f2cc76d6b29a918446be3cd0702a300b03230964d0d516dd0e5a5df93"
+  },
+  "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+  "state_shift_evidence": {
+    "path": "artifacts/checks/task12/learned-state-shift.json",
+    "sha256": "02b7d00a5557188822dad70fb4e223f48d7c22c30b3b9178b98e7fe2b6e37395"
+  },
+  "support_by_budget": {
+    "2106828958": 78,
+    "4213657916": 788,
+    "526707240": 12,
+    "8427315832": 577
+  },
+  "support_by_length": {
+    "1": 465,
+    "16": 196,
+    "2": 99,
+    "32": 79,
+    "4": 350,
+    "64": 171,
+    "8": 95
+  },
+  "tail_state_shift": {
+    "path": "artifacts/checks/task12/tail-state-shift.json",
+    "sha256": "5abd91fff23bd1ab3f1c984c826e7e88369fa6be63ef6c098909bd4a62d5b145"
+  },
+  "target_sensitivity": {
+    "all_labels": 1455,
+    "body_ineligible": 0,
+    "deadline_censored": 14,
+    "duration_lower_bounds": 0,
+    "excluded_gain_rows": 0,
+    "natural_unknown": 32
+  },
+  "training_originals": [
+    "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+    "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+    "1c2575aefab733f05d3b2ef39ac56f3754f0766706f714f2cdced95bf15ca04d",
+    "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+    "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828",
+    "95d71499eaf4123b535d76472ff208394bcaa3a424f212717276873d4e4ee054",
+    "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1",
+    "b9580559c7fd7ab08442a3be706731529c936ef1a334a492bb1f83977886cdce",
+    "c1d0659a0c3ad8bb28a56be1f4fcb145b3e9b81d48cecf13684ce3b77be5b132",
+    "c2b86a0d8996a88b8af6b391a3b29503fcf44e954989caa2ad1b5181a8096c48",
+    "f9df660b7e66bea59f8bfaafadf4c4015aa8ba055cff487af8cc85080cf0baf9",
+    "fc2c81a53bbd9721534240869adba77e091cd9bb30ea18c87e543b707b351dca"
+  ],
+  "zero_gains": 1184
+}

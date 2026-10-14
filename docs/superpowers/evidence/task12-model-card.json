@@ -1,0 +1,5523 @@
+{
+  "all_attempt_costs": {
+    "expanded": {
+      "attempts": 132,
+      "end_to_end_ns_or_lower_bound": 158329122789,
+      "full_request_ns_or_lower_bound": 160464126795,
+      "max_worker_rss_bytes": 219086848,
+      "missing_publication_receipts": 0,
+      "model_bytes_loaded": 9350880,
+      "overshoot_ns": 1238156968,
+      "partial_attempts": 0,
+      "publication_ns": 2135004006,
+      "status_counts": {
+        "complete": 103,
+        "deadline": 29
+      },
+      "trace_bytes": 59480284,
+      "worker_cpu_ns_or_lower_bound": 152188735872
+    },
+    "export-diagnostic": {
+      "attempts": 4,
+      "end_to_end_ns_or_lower_bound": 3098813875,
+      "full_request_ns_or_lower_bound": 3133107000,
+      "max_worker_rss_bytes": 175390720,
+      "missing_publication_receipts": 0,
+      "model_bytes_loaded": 29860,
+      "overshoot_ns": 68913469,
+      "partial_attempts": 0,
+      "publication_ns": 34293125,
+      "status_counts": {
+        "complete": 2,
+        "deadline": 2
+      },
+      "trace_bytes": 744674,
+      "worker_cpu_ns_or_lower_bound": 2956195000
+    },
+    "final": {
+      "attempts": 180,
+      "end_to_end_ns_or_lower_bound": 212098456998,
+      "full_request_ns_or_lower_bound": 219675953748,
+      "max_worker_rss_bytes": 259293184,
+      "missing_publication_receipts": 0,
+      "model_bytes_loaded": 949284,
+      "overshoot_ns": 4220093063,
+      "partial_attempts": 0,
+      "publication_ns": 7577496750,
+      "status_counts": {
+        "complete": 123,
+        "deadline": 57
+      },
+      "trace_bytes": 211638112,
+      "worker_cpu_ns_or_lower_bound": 195672546452
+    },
+    "first-corrected-interrupted": {
+      "attempts": 43,
+      "end_to_end_ns_or_lower_bound": 73586278833,
+      "full_request_ns_or_lower_bound": 74338064127,
+      "max_worker_rss_bytes": 300269568,
+      "missing_publication_receipts": 1,
+      "model_bytes_loaded": 5229750,
+      "overshoot_ns": 913875674,
+      "partial_attempts": 1,
+      "publication_ns": 751785294,
+      "status_counts": {
+        "complete": 8,
+        "deadline": 2,
+        "external_interrupt": 1,
+        "implementation_error": 31,
+        "unfinished": 1
+      },
+      "trace_bytes": 23307853,
+      "worker_cpu_ns_or_lower_bound": 70968531296
+    },
+    "first-valid": {
+      "attempts": 132,
+      "end_to_end_ns_or_lower_bound": 169675885210,
+      "full_request_ns_or_lower_bound": 172920314836,
+      "max_worker_rss_bytes": 223772672,
+      "missing_publication_receipts": 0,
+      "model_bytes_loaded": 9376800,
+      "overshoot_ns": 1533493095,
+      "partial_attempts": 0,
+      "publication_ns": 3244429626,
+      "status_counts": {
+        "complete": 101,
+        "deadline": 31
+      },
+      "trace_bytes": 91564863,
+      "worker_cpu_ns_or_lower_bound": 161873052028
+    },
+    "initial-failed-fit": {
+      "attempts": 36,
+      "end_to_end_ns_or_lower_bound": 37081600583,
+      "full_request_ns_or_lower_bound": 37249430955,
+      "max_worker_rss_bytes": 190300160,
+      "missing_publication_receipts": 0,
+      "model_bytes_loaded": 0,
+      "overshoot_ns": 129930918,
+      "partial_attempts": 0,
+      "publication_ns": 167830372,
+      "status_counts": {
+        "complete": 32,
+        "deadline": 4
+      },
+      "trace_bytes": 1441270,
+      "worker_cpu_ns_or_lower_bound": 36170661340
+    },
+    "learned-round": {
+      "attempts": 36,
+      "end_to_end_ns_or_lower_bound": 50322396200,
+      "full_request_ns_or_lower_bound": 51875301996,
+      "max_worker_rss_bytes": 239435776,
+      "missing_publication_receipts": 0,
+      "model_bytes_loaded": 271440,
+      "overshoot_ns": 973818854,
+      "partial_attempts": 0,
+      "publication_ns": 1552905796,
+      "status_counts": {
+        "complete": 24,
+        "deadline": 12
+      },
+      "trace_bytes": 48984781,
+      "worker_cpu_ns_or_lower_bound": 47402847108
+    },
+    "odd-collection": {
+      "attempts": 18,
+      "end_to_end_ns_or_lower_bound": 35923128462,
+      "full_request_ns_or_lower_bound": 36268555214,
+      "max_worker_rss_bytes": 232194048,
+      "missing_publication_receipts": 0,
+      "model_bytes_loaded": 0,
+      "overshoot_ns": 243129255,
+      "partial_attempts": 0,
+      "publication_ns": 345426752,
+      "status_counts": {
+        "complete": 12,
+        "deadline": 6
+      },
+      "trace_bytes": 28958864,
+      "worker_cpu_ns_or_lower_bound": 34541846420
+    },
+    "pickle-diagnostic": {
+      "attempts": 4,
+      "end_to_end_ns_or_lower_bound": 4228641584,
+      "full_request_ns_or_lower_bound": 4249813750,
+      "max_worker_rss_bytes": 228556800,
+      "missing_publication_receipts": 0,
+      "model_bytes_loaded": 35204,
+      "overshoot_ns": 361792396,
+      "partial_attempts": 0,
+      "publication_ns": 21172166,
+      "status_counts": {
+        "complete": 1,
+        "deadline": 1,
+        "startup_timeout": 2
+      },
+      "trace_bytes": 332024,
+      "worker_cpu_ns_or_lower_bound": 4017272000
+    }
+  },
+  "budget_weights": {
+    "2106828958": 0.5,
+    "526707240": 0.25,
+    "8427315832": 0.25
+  },
+  "comparison": [
+    {
+      "baseline": "B0",
+      "budget_ns": 526707240,
+      "mean_dual_cost_difference": -0.055838716776861475,
+      "mean_primal_cost_difference": 0,
+      "mean_utility_difference": -3.618137547919028e-06,
+      "originals": 6,
+      "paired_available_assignments": 6
+    },
+    {
+      "baseline": "B1-tuned",
+      "budget_ns": 526707240,
+      "mean_dual_cost_difference": -0.055838716776861475,
+      "mean_primal_cost_difference": 0,
+      "mean_utility_difference": -3.618137547919028e-06,
+      "originals": 6,
+      "paired_available_assignments": 6
+    },
+    {
+      "baseline": "B1-no-plunge",
+      "budget_ns": 526707240,
+      "mean_dual_cost_difference": 0.0,
+      "mean_primal_cost_difference": 0,
+      "mean_utility_difference": 0.0,
+      "originals": 6,
+      "paired_available_assignments": 6
+    },
+    {
+      "baseline": "pre-refit-ridge1",
+      "budget_ns": 526707240,
+      "mean_dual_cost_difference": -0.055838716776861475,
+      "mean_primal_cost_difference": 0,
+      "mean_utility_difference": -3.618137547919028e-06,
+      "originals": 6,
+      "paired_available_assignments": 6
+    },
+    {
+      "baseline": "B0",
+      "budget_ns": 2106828958,
+      "mean_dual_cost_difference": -8.072458326327478,
+      "mean_primal_cost_difference": -1.6666666666666667,
+      "mean_utility_difference": -0.0003069047136452137,
+      "originals": 6,
+      "paired_available_assignments": 6
+    },
+    {
+      "baseline": "B1-tuned",
+      "budget_ns": 2106828958,
+      "mean_dual_cost_difference": -8.072458326327478,
+      "mean_primal_cost_difference": -1.6666666666666667,
+      "mean_utility_difference": -0.0003069047136452137,
+      "originals": 6,
+      "paired_available_assignments": 6
+    },
+    {
+      "baseline": "B1-no-plunge",
+      "budget_ns": 2106828958,
+      "mean_dual_cost_difference": -9.646552091995622,
+      "mean_primal_cost_difference": 13.833333333333334,
+      "mean_utility_difference": -0.0016084766173674974,
+      "originals": 6,
+      "paired_available_assignments": 6
+    },
+    {
+      "baseline": "pre-refit-ridge1",
+      "budget_ns": 2106828958,
+      "mean_dual_cost_difference": 0.634721324769051,
+      "mean_primal_cost_difference": -3.1666666666666665,
+      "mean_utility_difference": 0.00047472951571083294,
+      "originals": 6,
+      "paired_available_assignments": 6
+    },
+    {
+      "baseline": "B0",
+      "budget_ns": 8427315832,
+      "mean_dual_cost_difference": -2.7612629915062143,
+      "mean_primal_cost_difference": 4.166666666666667,
+      "mean_utility_difference": -0.0005284865098919012,
+      "originals": 6,
+      "paired_available_assignments": 6
+    },
+    {
+      "baseline": "B1-tuned",
+      "budget_ns": 8427315832,
+      "mean_dual_cost_difference": -2.7612629915062143,
+      "mean_primal_cost_difference": 4.166666666666667,
+      "mean_utility_difference": -0.0005284865098919012,
+      "originals": 6,
+      "paired_available_assignments": 6
+    },
+    {
+      "baseline": "B1-no-plunge",
+      "budget_ns": 8427315832,
+      "mean_dual_cost_difference": -2.761262991506328,
+      "mean_primal_cost_difference": 4.166666666666667,
+      "mean_utility_difference": -0.0005284865098919012,
+      "originals": 6,
+      "paired_available_assignments": 6
+    },
+    {
+      "baseline": "pre-refit-ridge1",
+      "budget_ns": 8427315832,
+      "mean_dual_cost_difference": -2.7612629915062143,
+      "mean_primal_cost_difference": 4.166666666666667,
+      "mean_utility_difference": -0.0005284865098919012,
+      "originals": 6,
+      "paired_available_assignments": 6
+    }
+  ],
+  "deployment_costs": {
+    "decisions": 933,
+    "end_to_end_ns": {
+      "max": 9687962625,
+      "median": 384762500.0,
+      "min": 179050292,
+      "n": 18
+    },
+    "expired_scoring": 1,
+    "feature_extraction_ns": {
+      "max": 17722417,
+      "median": 1370958,
+      "min": 305291,
+      "n": 933
+    },
+    "full_observed_ns": {
+      "max": 10562129041,
+      "median": 390144979.0,
+      "min": 184109125,
+      "n": 18
+    },
+    "model_loading_ns": {
+      "max": 1637083,
+      "median": 1414229.5,
+      "min": 1335791,
+      "n": 18
+    },
+    "prediction_ns": {
+      "max": 1075208,
+      "median": 196083,
+      "min": 111500,
+      "n": 933
+    },
+    "publication_ns": {
+      "max": 874166416,
+      "median": 5474062.5,
+      "min": 4618542,
+      "n": 18
+    },
+    "raw_negative_body_predictions": 1340,
+    "raw_negative_gain_predictions": 159588,
+    "status_counts": {
+      "complete": 11,
+      "deadline": 7
+    },
+    "trace_bytes": {
+      "max": 17268666,
+      "median": 76540.0,
+      "min": 58668,
+      "n": 18
+    },
+    "worker_cpu_ns": {
+      "max": 8421661000,
+      "median": 348816000.0,
+      "min": 153675000,
+      "n": 18
+    },
+    "worker_peak_rss_bytes": {
+      "max": 244383744,
+      "median": 107151360.0,
+      "min": 66650112,
+      "n": 18
+    },
+    "zero_bid_fallbacks": 67
+  },
+  "fit_cpu_ns": 17058926000,
+  "fit_wall_ns": 17082026710,
+  "fits": [
+    {
+      "asset_sha256": null,
+      "candidate": {
+        "kind": "histogram",
+        "name": "hist15",
+        "parameters": {
+          "max_iter": 80,
+          "max_leaf_nodes": 15,
+          "min_samples_leaf": 10
+        },
+        "quantile": true
+      },
+      "counts": null,
+      "curves": [],
+      "error": "ValueError: model action alignment/support mismatch",
+      "fit_cpu_ns": 115982000,
+      "fit_wall_ns": 116055375,
+      "name": "hist15-seed17",
+      "original_asset_sha256": null,
+      "path": "artifacts/models/hist15-seed17.fit.json",
+      "seed": 17,
+      "sha256": "e669dc49dc7da863b8f6243d64d0d8ba0fc4697c470f5fa927aafaa53ae39dce",
+      "status": "failed"
+    },
+    {
+      "asset_sha256": null,
+      "candidate": {
+        "kind": "histogram",
+        "name": "hist15",
+        "parameters": {
+          "max_iter": 80,
+          "max_leaf_nodes": 15,
+          "min_samples_leaf": 10
+        },
+        "quantile": true
+      },
+      "counts": null,
+      "curves": [],
+      "error": "ValueError: model action alignment/support mismatch",
+      "fit_cpu_ns": 115650000,
+      "fit_wall_ns": 115693666,
+      "name": "hist15-seed43",
+      "original_asset_sha256": null,
+      "path": "artifacts/models/hist15-seed43.fit.json",
+      "seed": 43,
+      "sha256": "9659fd5c9d3a285d46086a0c2731c4e1221c02512be41e3b432651d691e9a5ed",
+      "status": "failed"
+    },
+    {
+      "asset_sha256": null,
+      "candidate": {
+        "kind": "histogram",
+        "name": "hist7",
+        "parameters": {
+          "max_iter": 30,
+          "max_leaf_nodes": 7,
+          "min_samples_leaf": 10
+        },
+        "quantile": true
+      },
+      "counts": null,
+      "curves": [],
+      "error": "ValueError: model action alignment/support mismatch",
+      "fit_cpu_ns": 54029000,
+      "fit_wall_ns": 54518584,
+      "name": "hist7-seed17",
+      "original_asset_sha256": null,
+      "path": "artifacts/models/hist7-seed17.fit.json",
+      "seed": 17,
+      "sha256": "9ad331a72fede30f4a44450e5080277d87d0fec471d44f7b46c1b7973a03f767",
+      "status": "failed"
+    },
+    {
+      "asset_sha256": null,
+      "candidate": {
+        "kind": "histogram",
+        "name": "hist7",
+        "parameters": {
+          "max_iter": 30,
+          "max_leaf_nodes": 7,
+          "min_samples_leaf": 10
+        },
+        "quantile": true
+      },
+      "counts": null,
+      "curves": [],
+      "error": "ValueError: model action alignment/support mismatch",
+      "fit_cpu_ns": 53821000,
+      "fit_wall_ns": 53859792,
+      "name": "hist7-seed43",
+      "original_asset_sha256": null,
+      "path": "artifacts/models/hist7-seed43.fit.json",
+      "seed": 43,
+      "sha256": "838b971164e7d17e88a7f50944facf858527deb34be9e61e84a800cc7c7fd973",
+      "status": "failed"
+    },
+    {
+      "asset_sha256": null,
+      "candidate": {
+        "kind": "ridge",
+        "name": "ridge1",
+        "parameters": {
+          "alpha": 1.0
+        }
+      },
+      "counts": null,
+      "curves": [],
+      "error": "ValueError: model action alignment/support mismatch",
+      "fit_cpu_ns": 591763000,
+      "fit_wall_ns": 594806458,
+      "name": "ridge1-seed17",
+      "original_asset_sha256": null,
+      "path": "artifacts/models/ridge1-seed17.fit.json",
+      "seed": 17,
+      "sha256": "122cfb4ac4f3632503e5b31567bde58150157826479290729aa88dec166d3cd6",
+      "status": "failed"
+    },
+    {
+      "asset_sha256": null,
+      "candidate": {
+        "kind": "ridge",
+        "name": "ridge1",
+        "parameters": {
+          "alpha": 1.0
+        }
+      },
+      "counts": null,
+      "curves": [],
+      "error": "ValueError: model action alignment/support mismatch",
+      "fit_cpu_ns": 2618000,
+      "fit_wall_ns": 2618084,
+      "name": "ridge1-seed43",
+      "original_asset_sha256": null,
+      "path": "artifacts/models/ridge1-seed43.fit.json",
+      "seed": 43,
+      "sha256": "e9e05c015628c81483aa4eb64f6d694191567a3ce03898db10811377a2b9b661",
+      "status": "failed"
+    },
+    {
+      "asset_sha256": null,
+      "candidate": {
+        "kind": "ridge",
+        "name": "ridge10",
+        "parameters": {
+          "alpha": 10.0
+        }
+      },
+      "counts": null,
+      "curves": [],
+      "error": "ValueError: model action alignment/support mismatch",
+      "fit_cpu_ns": 2568000,
+      "fit_wall_ns": 2567750,
+      "name": "ridge10-seed17",
+      "original_asset_sha256": null,
+      "path": "artifacts/models/ridge10-seed17.fit.json",
+      "seed": 17,
+      "sha256": "764a869c0ef686bc1214a6cbea44a8c18670e456e337bec117cb75a26bcc5781",
+      "status": "failed"
+    },
+    {
+      "asset_sha256": null,
+      "candidate": {
+        "kind": "ridge",
+        "name": "ridge10",
+        "parameters": {
+          "alpha": 10.0
+        }
+      },
+      "counts": null,
+      "curves": [],
+      "error": "ValueError: model action alignment/support mismatch",
+      "fit_cpu_ns": 2828000,
+      "fit_wall_ns": 2827833,
+      "name": "ridge10-seed43",
+      "original_asset_sha256": null,
+      "path": "artifacts/models/ridge10-seed43.fit.json",
+      "seed": 43,
+      "sha256": "14727fed62422ff9ffacb6a1cb13047916906e9ddd5da77addcbb4475e887a1b",
+      "status": "failed"
+    },
+    {
+      "asset_sha256": "e9e54051d7ba54e3a04ea3a6aa8b528eadd60cc26ff2250ce3e640ee7f38921b",
+      "candidate": {
+        "kind": "histogram",
+        "name": "hist15",
+        "parameters": {
+          "max_iter": 80,
+          "max_leaf_nodes": 15,
+          "min_samples_leaf": 10
+        },
+        "quantile": true
+      },
+      "counts": {
+        "body_rows": 306,
+        "excluded_body_rows": 0,
+        "gain_rows": 306,
+        "originals": 6,
+        "zero_gains": 231
+      },
+      "curves": [
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.03494261829742749,
+              "body_rows": 223,
+              "gain_mse": 0.021513698132017353,
+              "originals": 2,
+              "q90_observed_coverage": 0.746360628618693,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 0.03494261829742749,
+                "body_rows": 223,
+                "gain_mse": 0.021513698132017353,
+                "originals": 2,
+                "q90_observed_coverage": 0.746360628618693,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.03494261829742749,
+                "body_rows": 223,
+                "gain_mse": 0.021513698132017353,
+                "originals": 2,
+                "q90_observed_coverage": 0.746360628618693,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.028181154165461453,
+                "body_rows": 93,
+                "gain_mse": 0.025298468596688637,
+                "originals": 1,
+                "q90_observed_coverage": 0.7311827956989247,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.04170408242939353,
+                "body_rows": 130,
+                "gain_mse": 0.01772892766734608,
+                "originals": 1,
+                "q90_observed_coverage": 0.7615384615384615,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 116215083,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4"
+          ]
+        },
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.025209095160299455,
+              "body_rows": 223,
+              "gain_mse": 0.007467387103211302,
+              "originals": 2,
+              "q90_observed_coverage": 0.7325475599669148,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 0.025209095160299455,
+                "body_rows": 223,
+                "gain_mse": 0.007467387103211302,
+                "originals": 2,
+                "q90_observed_coverage": 0.7325475599669148,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.025209095160299455,
+                "body_rows": 223,
+                "gain_mse": 0.007467387103211302,
+                "originals": 2,
+                "q90_observed_coverage": 0.7325475599669148,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.01538753810307476,
+                "body_rows": 93,
+                "gain_mse": 0.006190427897172993,
+                "originals": 1,
+                "q90_observed_coverage": 0.6881720430107527,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.03503065221752416,
+                "body_rows": 130,
+                "gain_mse": 0.008744346309249612,
+                "originals": 1,
+                "q90_observed_coverage": 0.7769230769230769,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 128138042,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1",
+            "b9580559c7fd7ab08442a3be706731529c936ef1a334a492bb1f83977886cdce"
+          ]
+        }
+      ],
+      "error": null,
+      "fit_cpu_ns": 929152000,
+      "fit_wall_ns": 930215125,
+      "name": "hist15-seed17",
+      "original_asset_sha256": null,
+      "path": "artifacts/models/first-corrected/hist15-seed17.fit.json",
+      "seed": 17,
+      "sha256": "b565021c43dc7f507a059921d26dcdfc0859d78ad92838417efc483701c84db7",
+      "status": "fitted"
+    },
+    {
+      "asset_sha256": "dd556ad30c6b220eb34a1a605e1b7787bd83bafd188443475e584ec3053ed2da",
+      "candidate": {
+        "kind": "histogram",
+        "name": "hist15",
+        "parameters": {
+          "max_iter": 80,
+          "max_leaf_nodes": 15,
+          "min_samples_leaf": 10
+        },
+        "quantile": true
+      },
+      "counts": {
+        "body_rows": 306,
+        "excluded_body_rows": 0,
+        "gain_rows": 306,
+        "originals": 6,
+        "zero_gains": 231
+      },
+      "curves": [
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.03494261829742749,
+              "body_rows": 223,
+              "gain_mse": 0.021513698132017353,
+              "originals": 2,
+              "q90_observed_coverage": 0.746360628618693,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 0.03494261829742749,
+                "body_rows": 223,
+                "gain_mse": 0.021513698132017353,
+                "originals": 2,
+                "q90_observed_coverage": 0.746360628618693,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.03494261829742749,
+                "body_rows": 223,
+                "gain_mse": 0.021513698132017353,
+                "originals": 2,
+                "q90_observed_coverage": 0.746360628618693,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.028181154165461453,
+                "body_rows": 93,
+                "gain_mse": 0.025298468596688637,
+                "originals": 1,
+                "q90_observed_coverage": 0.7311827956989247,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.04170408242939353,
+                "body_rows": 130,
+                "gain_mse": 0.01772892766734608,
+                "originals": 1,
+                "q90_observed_coverage": 0.7615384615384615,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 114849375,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4"
+          ]
+        },
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.025209095160299455,
+              "body_rows": 223,
+              "gain_mse": 0.007467387103211302,
+              "originals": 2,
+              "q90_observed_coverage": 0.7325475599669148,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 0.025209095160299455,
+                "body_rows": 223,
+                "gain_mse": 0.007467387103211302,
+                "originals": 2,
+                "q90_observed_coverage": 0.7325475599669148,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.025209095160299455,
+                "body_rows": 223,
+                "gain_mse": 0.007467387103211302,
+                "originals": 2,
+                "q90_observed_coverage": 0.7325475599669148,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.01538753810307476,
+                "body_rows": 93,
+                "gain_mse": 0.006190427897172993,
+                "originals": 1,
+                "q90_observed_coverage": 0.6881720430107527,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.03503065221752416,
+                "body_rows": 130,
+                "gain_mse": 0.008744346309249612,
+                "originals": 1,
+                "q90_observed_coverage": 0.7769230769230769,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 127349250,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1",
+            "b9580559c7fd7ab08442a3be706731529c936ef1a334a492bb1f83977886cdce"
+          ]
+        }
+      ],
+      "error": null,
+      "fit_cpu_ns": 922582000,
+      "fit_wall_ns": 933333000,
+      "name": "hist15-seed43",
+      "original_asset_sha256": null,
+      "path": "artifacts/models/first-corrected/hist15-seed43.fit.json",
+      "seed": 43,
+      "sha256": "d43c54cbef64d6299421323b36559c8fc1f279d2fa9f5359db2a75cd947fd04d",
+      "status": "fitted"
+    },
+    {
+      "asset_sha256": "3fda305888a98d9fdab3d6b02dca2a759af0b0e105966d0c6d728a69c9ac94f8",
+      "candidate": {
+        "kind": "histogram",
+        "name": "hist7",
+        "parameters": {
+          "max_iter": 30,
+          "max_leaf_nodes": 7,
+          "min_samples_leaf": 10
+        },
+        "quantile": true
+      },
+      "counts": {
+        "body_rows": 306,
+        "excluded_body_rows": 0,
+        "gain_rows": 306,
+        "originals": 6,
+        "zero_gains": 231
+      },
+      "curves": [
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.03445000647804538,
+              "body_rows": 223,
+              "gain_mse": 0.021696875526867127,
+              "originals": 2,
+              "q90_observed_coverage": 0.7855665839536806,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 0.03445000647804538,
+                "body_rows": 223,
+                "gain_mse": 0.021696875526867127,
+                "originals": 2,
+                "q90_observed_coverage": 0.7855665839536806,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.03445000647804538,
+                "body_rows": 223,
+                "gain_mse": 0.021696875526867127,
+                "originals": 2,
+                "q90_observed_coverage": 0.7855665839536806,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.027806274558343072,
+                "body_rows": 93,
+                "gain_mse": 0.0255214750904544,
+                "originals": 1,
+                "q90_observed_coverage": 0.7634408602150538,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.041093738397747694,
+                "body_rows": 130,
+                "gain_mse": 0.01787227596327987,
+                "originals": 1,
+                "q90_observed_coverage": 0.8076923076923077,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 53802500,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4"
+          ]
+        },
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.030612616873875773,
+              "body_rows": 223,
+              "gain_mse": 0.009902560755094823,
+              "originals": 2,
+              "q90_observed_coverage": 0.7909429280397022,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 0.030612616873875773,
+                "body_rows": 223,
+                "gain_mse": 0.009902560755094823,
+                "originals": 2,
+                "q90_observed_coverage": 0.7909429280397022,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.030612616873875773,
+                "body_rows": 223,
+                "gain_mse": 0.009902560755094823,
+                "originals": 2,
+                "q90_observed_coverage": 0.7909429280397022,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.02120327283965037,
+                "body_rows": 93,
+                "gain_mse": 0.009930784939471563,
+                "originals": 1,
+                "q90_observed_coverage": 0.7741935483870968,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.040021960908101194,
+                "body_rows": 130,
+                "gain_mse": 0.009874336570718085,
+                "originals": 1,
+                "q90_observed_coverage": 0.8076923076923077,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 58034417,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1",
+            "b9580559c7fd7ab08442a3be706731529c936ef1a334a492bb1f83977886cdce"
+          ]
+        }
+      ],
+      "error": null,
+      "fit_cpu_ns": 541798000,
+      "fit_wall_ns": 542169500,
+      "name": "hist7-seed17",
+      "original_asset_sha256": null,
+      "path": "artifacts/models/first-corrected/hist7-seed17.fit.json",
+      "seed": 17,
+      "sha256": "d287b7a913acc63aeabd026ce0e93c5e6354e98fb49ea781f45a616c15a541d7",
+      "status": "fitted"
+    },
+    {
+      "asset_sha256": "6197037b4b16d9001a6cfe62a43b4a5d1f22cb82e8f4813129baa3fd7d72ed5c",
+      "candidate": {
+        "kind": "histogram",
+        "name": "hist7",
+        "parameters": {
+          "max_iter": 30,
+          "max_leaf_nodes": 7,
+          "min_samples_leaf": 10
+        },
+        "quantile": true
+      },
+      "counts": {
+        "body_rows": 306,
+        "excluded_body_rows": 0,
+        "gain_rows": 306,
+        "originals": 6,
+        "zero_gains": 231
+      },
+      "curves": [
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.03445000647804538,
+              "body_rows": 223,
+              "gain_mse": 0.021696875526867127,
+              "originals": 2,
+              "q90_observed_coverage": 0.7855665839536806,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 0.03445000647804538,
+                "body_rows": 223,
+                "gain_mse": 0.021696875526867127,
+                "originals": 2,
+                "q90_observed_coverage": 0.7855665839536806,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.03445000647804538,
+                "body_rows": 223,
+                "gain_mse": 0.021696875526867127,
+                "originals": 2,
+                "q90_observed_coverage": 0.7855665839536806,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.027806274558343072,
+                "body_rows": 93,
+                "gain_mse": 0.0255214750904544,
+                "originals": 1,
+                "q90_observed_coverage": 0.7634408602150538,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.041093738397747694,
+                "body_rows": 130,
+                "gain_mse": 0.01787227596327987,
+                "originals": 1,
+                "q90_observed_coverage": 0.8076923076923077,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 53134083,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4"
+          ]
+        },
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.030612616873875773,
+              "body_rows": 223,
+              "gain_mse": 0.009902560755094823,
+              "originals": 2,
+              "q90_observed_coverage": 0.7909429280397022,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 0.030612616873875773,
+                "body_rows": 223,
+                "gain_mse": 0.009902560755094823,
+                "originals": 2,
+                "q90_observed_coverage": 0.7909429280397022,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.030612616873875773,
+                "body_rows": 223,
+                "gain_mse": 0.009902560755094823,
+                "originals": 2,
+                "q90_observed_coverage": 0.7909429280397022,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.02120327283965037,
+                "body_rows": 93,
+                "gain_mse": 0.009930784939471563,
+                "originals": 1,
+                "q90_observed_coverage": 0.7741935483870968,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.040021960908101194,
+                "body_rows": 130,
+                "gain_mse": 0.009874336570718085,
+                "originals": 1,
+                "q90_observed_coverage": 0.8076923076923077,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 56789500,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1",
+            "b9580559c7fd7ab08442a3be706731529c936ef1a334a492bb1f83977886cdce"
+          ]
+        }
+      ],
+      "error": null,
+      "fit_cpu_ns": 538992000,
+      "fit_wall_ns": 539067333,
+      "name": "hist7-seed43",
+      "original_asset_sha256": null,
+      "path": "artifacts/models/first-corrected/hist7-seed43.fit.json",
+      "seed": 43,
+      "sha256": "510d7779b00ccf27111dab97c1bccadfeac2e66028a7ca52718642ca168221db",
+      "status": "fitted"
+    },
+    {
+      "asset_sha256": "85e62e31a9915a9f6c650f63582b38aff30bc62e25ab2536b3027209f3823f03",
+      "candidate": {
+        "kind": "ridge",
+        "name": "ridge1",
+        "parameters": {
+          "alpha": 1.0
+        }
+      },
+      "counts": {
+        "body_rows": 306,
+        "excluded_body_rows": 0,
+        "gain_rows": 306,
+        "originals": 6,
+        "zero_gains": 231
+      },
+      "curves": [
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 5.702384470469605,
+              "body_rows": 223,
+              "gain_mse": 1.8532089131895204,
+              "originals": 2,
+              "q90_observed_coverage": null,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 5.702384470469605,
+                "body_rows": 223,
+                "gain_mse": 1.8532089131895204,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 5.702384470469605,
+                "body_rows": 223,
+                "gain_mse": 1.8532089131895204,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 8.051179071602949,
+                "body_rows": 93,
+                "gain_mse": 2.7033859557373017,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 3.3535898693362656,
+                "body_rows": 130,
+                "gain_mse": 1.0030318706417405,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 583940291,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4"
+          ]
+        },
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 19.736277174569793,
+              "body_rows": 223,
+              "gain_mse": 4.293279947424336,
+              "originals": 2,
+              "q90_observed_coverage": null,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 19.736277174569793,
+                "body_rows": 223,
+                "gain_mse": 4.293279947424336,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 19.736277174569793,
+                "body_rows": 223,
+                "gain_mse": 4.293279947424336,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 28.21847610322299,
+                "body_rows": 93,
+                "gain_mse": 6.237505866177455,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 11.254078245916602,
+                "body_rows": 130,
+                "gain_mse": 2.349054028671221,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 2563333,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1",
+            "b9580559c7fd7ab08442a3be706731529c936ef1a334a492bb1f83977886cdce"
+          ]
+        }
+      ],
+      "error": null,
+      "fit_cpu_ns": 593259000,
+      "fit_wall_ns": 593825583,
+      "name": "ridge1-seed17",
+      "original_asset_sha256": null,
+      "path": "artifacts/models/first-corrected/ridge1-seed17.fit.json",
+      "seed": 17,
+      "sha256": "50805c1f98b417c924a91bdb1b8c803664ce6e40cdb539fb899dc78c02ce6fb6",
+      "status": "fitted"
+    },
+    {
+      "asset_sha256": "f289199db4dd5492fa9c350ca574e2bbf8939511c4575aac689fe3191d49afee",
+      "candidate": {
+        "kind": "ridge",
+        "name": "ridge1",
+        "parameters": {
+          "alpha": 1.0
+        }
+      },
+      "counts": {
+        "body_rows": 306,
+        "excluded_body_rows": 0,
+        "gain_rows": 306,
+        "originals": 6,
+        "zero_gains": 231
+      },
+      "curves": [
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 5.702384470469605,
+              "body_rows": 223,
+              "gain_mse": 1.8532089131895204,
+              "originals": 2,
+              "q90_observed_coverage": null,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 5.702384470469605,
+                "body_rows": 223,
+                "gain_mse": 1.8532089131895204,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 5.702384470469605,
+                "body_rows": 223,
+                "gain_mse": 1.8532089131895204,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 8.051179071602949,
+                "body_rows": 93,
+                "gain_mse": 2.7033859557373017,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 3.3535898693362656,
+                "body_rows": 130,
+                "gain_mse": 1.0030318706417405,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 2524792,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4"
+          ]
+        },
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 19.736277174569793,
+              "body_rows": 223,
+              "gain_mse": 4.293279947424336,
+              "originals": 2,
+              "q90_observed_coverage": null,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 19.736277174569793,
+                "body_rows": 223,
+                "gain_mse": 4.293279947424336,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 19.736277174569793,
+                "body_rows": 223,
+                "gain_mse": 4.293279947424336,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 28.21847610322299,
+                "body_rows": 93,
+                "gain_mse": 6.237505866177455,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 11.254078245916602,
+                "body_rows": 130,
+                "gain_mse": 2.349054028671221,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 2471916,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1",
+            "b9580559c7fd7ab08442a3be706731529c936ef1a334a492bb1f83977886cdce"
+          ]
+        }
+      ],
+      "error": null,
+      "fit_cpu_ns": 11537000,
+      "fit_wall_ns": 11537750,
+      "name": "ridge1-seed43",
+      "original_asset_sha256": null,
+      "path": "artifacts/models/first-corrected/ridge1-seed43.fit.json",
+      "seed": 43,
+      "sha256": "2aaca98a2c195b6ea7ca1983186d634e726396e07954662556100b95e4871cc4",
+      "status": "fitted"
+    },
+    {
+      "asset_sha256": "234fc07a18b067989d22984774cb204560b593451926c681e09c84775e48b9ee",
+      "candidate": {
+        "kind": "ridge",
+        "name": "ridge10",
+        "parameters": {
+          "alpha": 10.0
+        }
+      },
+      "counts": {
+        "body_rows": 306,
+        "excluded_body_rows": 0,
+        "gain_rows": 306,
+        "originals": 6,
+        "zero_gains": 231
+      },
+      "curves": [
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 36.269207699269714,
+              "body_rows": 223,
+              "gain_mse": 1.5639761144494013,
+              "originals": 2,
+              "q90_observed_coverage": null,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 36.269207699269714,
+                "body_rows": 223,
+                "gain_mse": 1.5639761144494013,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 36.269207699269714,
+                "body_rows": 223,
+                "gain_mse": 1.5639761144494013,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 51.9129187574133,
+                "body_rows": 93,
+                "gain_mse": 2.2855068287757754,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 20.62549664112612,
+                "body_rows": 130,
+                "gain_mse": 0.8424454001230282,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 2375958,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4"
+          ]
+        },
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 61.4369786657356,
+              "body_rows": 223,
+              "gain_mse": 1.2711312603413982,
+              "originals": 2,
+              "q90_observed_coverage": null,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 61.4369786657356,
+                "body_rows": 223,
+                "gain_mse": 1.2711312603413982,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 61.4369786657356,
+                "body_rows": 223,
+                "gain_mse": 1.2711312603413982,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 88.29462462608727,
+                "body_rows": 93,
+                "gain_mse": 1.8894018452741508,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 34.57933270538398,
+                "body_rows": 130,
+                "gain_mse": 0.6528606754086459,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 2434667,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1",
+            "b9580559c7fd7ab08442a3be706731529c936ef1a334a492bb1f83977886cdce"
+          ]
+        }
+      ],
+      "error": null,
+      "fit_cpu_ns": 11629000,
+      "fit_wall_ns": 11627875,
+      "name": "ridge10-seed17",
+      "original_asset_sha256": null,
+      "path": "artifacts/models/first-corrected/ridge10-seed17.fit.json",
+      "seed": 17,
+      "sha256": "aa06dde203273ad639a6a632301fb397337d38c066da9ab0ae263bf8919685d9",
+      "status": "fitted"
+    },
+    {
+      "asset_sha256": "c8e43cfcc24d4761988bdad91bd45bf290de3d42f96cfc546e4fe96916abf215",
+      "candidate": {
+        "kind": "ridge",
+        "name": "ridge10",
+        "parameters": {
+          "alpha": 10.0
+        }
+      },
+      "counts": {
+        "body_rows": 306,
+        "excluded_body_rows": 0,
+        "gain_rows": 306,
+        "originals": 6,
+        "zero_gains": 231
+      },
+      "curves": [
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 36.269207699269714,
+              "body_rows": 223,
+              "gain_mse": 1.5639761144494013,
+              "originals": 2,
+              "q90_observed_coverage": null,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 36.269207699269714,
+                "body_rows": 223,
+                "gain_mse": 1.5639761144494013,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 36.269207699269714,
+                "body_rows": 223,
+                "gain_mse": 1.5639761144494013,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 51.9129187574133,
+                "body_rows": 93,
+                "gain_mse": 2.2855068287757754,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 20.62549664112612,
+                "body_rows": 130,
+                "gain_mse": 0.8424454001230282,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 2628666,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4"
+          ]
+        },
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 61.4369786657356,
+              "body_rows": 223,
+              "gain_mse": 1.2711312603413982,
+              "originals": 2,
+              "q90_observed_coverage": null,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 61.4369786657356,
+                "body_rows": 223,
+                "gain_mse": 1.2711312603413982,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 61.4369786657356,
+                "body_rows": 223,
+                "gain_mse": 1.2711312603413982,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 88.29462462608727,
+                "body_rows": 93,
+                "gain_mse": 1.8894018452741508,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 34.57933270538398,
+                "body_rows": 130,
+                "gain_mse": 0.6528606754086459,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 2668667,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1",
+            "b9580559c7fd7ab08442a3be706731529c936ef1a334a492bb1f83977886cdce"
+          ]
+        }
+      ],
+      "error": null,
+      "fit_cpu_ns": 12463000,
+      "fit_wall_ns": 12463125,
+      "name": "ridge10-seed43",
+      "original_asset_sha256": null,
+      "path": "artifacts/models/first-corrected/ridge10-seed43.fit.json",
+      "seed": 43,
+      "sha256": "055148c95b4a273901cba7afa9c69d8d90beead3710b08817457ac07670bbd97",
+      "status": "fitted"
+    },
+    {
+      "asset_sha256": "207180d79f27ea31d8963ba34200fd598211d9b6c8a183557ad47beb8eeb1de2",
+      "candidate": {
+        "kind": "histogram",
+        "name": "hist15",
+        "parameters": {
+          "max_iter": 80,
+          "max_leaf_nodes": 15,
+          "min_samples_leaf": 10
+        },
+        "quantile": true
+      },
+      "counts": {
+        "body_rows": 306,
+        "excluded_body_rows": 0,
+        "gain_rows": 306,
+        "originals": 6,
+        "zero_gains": 231
+      },
+      "curves": [
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.03494261829742749,
+              "body_rows": 223,
+              "gain_mse": 0.021513698132017353,
+              "originals": 2,
+              "q90_observed_coverage": 0.746360628618693,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 0.03494261829742749,
+                "body_rows": 223,
+                "gain_mse": 0.021513698132017353,
+                "originals": 2,
+                "q90_observed_coverage": 0.746360628618693,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.03494261829742749,
+                "body_rows": 223,
+                "gain_mse": 0.021513698132017353,
+                "originals": 2,
+                "q90_observed_coverage": 0.746360628618693,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.028181154165461453,
+                "body_rows": 93,
+                "gain_mse": 0.025298468596688637,
+                "originals": 1,
+                "q90_observed_coverage": 0.7311827956989247,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.04170408242939353,
+                "body_rows": 130,
+                "gain_mse": 0.01772892766734608,
+                "originals": 1,
+                "q90_observed_coverage": 0.7615384615384615,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 115310500,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4"
+          ]
+        },
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.025209095160299455,
+              "body_rows": 223,
+              "gain_mse": 0.007467387103211302,
+              "originals": 2,
+              "q90_observed_coverage": 0.7325475599669148,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 0.025209095160299455,
+                "body_rows": 223,
+                "gain_mse": 0.007467387103211302,
+                "originals": 2,
+                "q90_observed_coverage": 0.7325475599669148,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.025209095160299455,
+                "body_rows": 223,
+                "gain_mse": 0.007467387103211302,
+                "originals": 2,
+                "q90_observed_coverage": 0.7325475599669148,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.01538753810307476,
+                "body_rows": 93,
+                "gain_mse": 0.006190427897172993,
+                "originals": 1,
+                "q90_observed_coverage": 0.6881720430107527,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.03503065221752416,
+                "body_rows": 130,
+                "gain_mse": 0.008744346309249612,
+                "originals": 1,
+                "q90_observed_coverage": 0.7769230769230769,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 128130125,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1",
+            "b9580559c7fd7ab08442a3be706731529c936ef1a334a492bb1f83977886cdce"
+          ]
+        }
+      ],
+      "error": null,
+      "fit_cpu_ns": 955575000,
+      "fit_wall_ns": 956773792,
+      "name": "hist15-seed17",
+      "original_asset_sha256": "e9e54051d7ba54e3a04ea3a6aa8b528eadd60cc26ff2250ce3e640ee7f38921b",
+      "path": "artifacts/models/first-valid/hist15-seed17.fit.json",
+      "seed": 17,
+      "sha256": "378da1de62f8356166ccd20b4bd9ad705d3d9e21283337692b0c0544016f3d27",
+      "status": "fitted"
+    },
+    {
+      "asset_sha256": "d5b8a24186d796dee1fcd3595cfb43e6c1e51a632773d8875bbd5dbeaab2e8c1",
+      "candidate": {
+        "kind": "histogram",
+        "name": "hist15",
+        "parameters": {
+          "max_iter": 80,
+          "max_leaf_nodes": 15,
+          "min_samples_leaf": 10
+        },
+        "quantile": true
+      },
+      "counts": {
+        "body_rows": 306,
+        "excluded_body_rows": 0,
+        "gain_rows": 306,
+        "originals": 6,
+        "zero_gains": 231
+      },
+      "curves": [
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.03494261829742749,
+              "body_rows": 223,
+              "gain_mse": 0.021513698132017353,
+              "originals": 2,
+              "q90_observed_coverage": 0.746360628618693,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 0.03494261829742749,
+                "body_rows": 223,
+                "gain_mse": 0.021513698132017353,
+                "originals": 2,
+                "q90_observed_coverage": 0.746360628618693,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.03494261829742749,
+                "body_rows": 223,
+                "gain_mse": 0.021513698132017353,
+                "originals": 2,
+                "q90_observed_coverage": 0.746360628618693,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.028181154165461453,
+                "body_rows": 93,
+                "gain_mse": 0.025298468596688637,
+                "originals": 1,
+                "q90_observed_coverage": 0.7311827956989247,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.04170408242939353,
+                "body_rows": 130,
+                "gain_mse": 0.01772892766734608,
+                "originals": 1,
+                "q90_observed_coverage": 0.7615384615384615,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 114480875,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4"
+          ]
+        },
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.025209095160299455,
+              "body_rows": 223,
+              "gain_mse": 0.007467387103211302,
+              "originals": 2,
+              "q90_observed_coverage": 0.7325475599669148,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 0.025209095160299455,
+                "body_rows": 223,
+                "gain_mse": 0.007467387103211302,
+                "originals": 2,
+                "q90_observed_coverage": 0.7325475599669148,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.025209095160299455,
+                "body_rows": 223,
+                "gain_mse": 0.007467387103211302,
+                "originals": 2,
+                "q90_observed_coverage": 0.7325475599669148,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.01538753810307476,
+                "body_rows": 93,
+                "gain_mse": 0.006190427897172993,
+                "originals": 1,
+                "q90_observed_coverage": 0.6881720430107527,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.03503065221752416,
+                "body_rows": 130,
+                "gain_mse": 0.008744346309249612,
+                "originals": 1,
+                "q90_observed_coverage": 0.7769230769230769,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 127888708,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1",
+            "b9580559c7fd7ab08442a3be706731529c936ef1a334a492bb1f83977886cdce"
+          ]
+        }
+      ],
+      "error": null,
+      "fit_cpu_ns": 956025000,
+      "fit_wall_ns": 956431250,
+      "name": "hist15-seed43",
+      "original_asset_sha256": "dd556ad30c6b220eb34a1a605e1b7787bd83bafd188443475e584ec3053ed2da",
+      "path": "artifacts/models/first-valid/hist15-seed43.fit.json",
+      "seed": 43,
+      "sha256": "9fa54a0587d86c8bc34dfa105ee07ea464bc22776273c9c9e232891091584b91",
+      "status": "fitted"
+    },
+    {
+      "asset_sha256": "72d3494315147369683b392d1370dda3ca21ac94e5d9ea513e0fdbc8635f2230",
+      "candidate": {
+        "kind": "histogram",
+        "name": "hist7",
+        "parameters": {
+          "max_iter": 30,
+          "max_leaf_nodes": 7,
+          "min_samples_leaf": 10
+        },
+        "quantile": true
+      },
+      "counts": {
+        "body_rows": 306,
+        "excluded_body_rows": 0,
+        "gain_rows": 306,
+        "originals": 6,
+        "zero_gains": 231
+      },
+      "curves": [
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.03445000647804538,
+              "body_rows": 223,
+              "gain_mse": 0.021696875526867127,
+              "originals": 2,
+              "q90_observed_coverage": 0.7855665839536806,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 0.03445000647804538,
+                "body_rows": 223,
+                "gain_mse": 0.021696875526867127,
+                "originals": 2,
+                "q90_observed_coverage": 0.7855665839536806,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.03445000647804538,
+                "body_rows": 223,
+                "gain_mse": 0.021696875526867127,
+                "originals": 2,
+                "q90_observed_coverage": 0.7855665839536806,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.027806274558343072,
+                "body_rows": 93,
+                "gain_mse": 0.0255214750904544,
+                "originals": 1,
+                "q90_observed_coverage": 0.7634408602150538,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.041093738397747694,
+                "body_rows": 130,
+                "gain_mse": 0.01787227596327987,
+                "originals": 1,
+                "q90_observed_coverage": 0.8076923076923077,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 53574250,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4"
+          ]
+        },
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.030612616873875773,
+              "body_rows": 223,
+              "gain_mse": 0.009902560755094823,
+              "originals": 2,
+              "q90_observed_coverage": 0.7909429280397022,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 0.030612616873875773,
+                "body_rows": 223,
+                "gain_mse": 0.009902560755094823,
+                "originals": 2,
+                "q90_observed_coverage": 0.7909429280397022,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.030612616873875773,
+                "body_rows": 223,
+                "gain_mse": 0.009902560755094823,
+                "originals": 2,
+                "q90_observed_coverage": 0.7909429280397022,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.02120327283965037,
+                "body_rows": 93,
+                "gain_mse": 0.009930784939471563,
+                "originals": 1,
+                "q90_observed_coverage": 0.7741935483870968,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.040021960908101194,
+                "body_rows": 130,
+                "gain_mse": 0.009874336570718085,
+                "originals": 1,
+                "q90_observed_coverage": 0.8076923076923077,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 58871417,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1",
+            "b9580559c7fd7ab08442a3be706731529c936ef1a334a492bb1f83977886cdce"
+          ]
+        }
+      ],
+      "error": null,
+      "fit_cpu_ns": 547064000,
+      "fit_wall_ns": 547111250,
+      "name": "hist7-seed17",
+      "original_asset_sha256": "3fda305888a98d9fdab3d6b02dca2a759af0b0e105966d0c6d728a69c9ac94f8",
+      "path": "artifacts/models/first-valid/hist7-seed17.fit.json",
+      "seed": 17,
+      "sha256": "643fb6ef0a5e69289ec95d40d38f5839cb197fba37eb032f394ee1ced33cfc82",
+      "status": "fitted"
+    },
+    {
+      "asset_sha256": "6126f74a40f6ca1f4513e373f943351e164f3098bf83b42718baed69a5d9a9d7",
+      "candidate": {
+        "kind": "histogram",
+        "name": "hist7",
+        "parameters": {
+          "max_iter": 30,
+          "max_leaf_nodes": 7,
+          "min_samples_leaf": 10
+        },
+        "quantile": true
+      },
+      "counts": {
+        "body_rows": 306,
+        "excluded_body_rows": 0,
+        "gain_rows": 306,
+        "originals": 6,
+        "zero_gains": 231
+      },
+      "curves": [
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.03445000647804538,
+              "body_rows": 223,
+              "gain_mse": 0.021696875526867127,
+              "originals": 2,
+              "q90_observed_coverage": 0.7855665839536806,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 0.03445000647804538,
+                "body_rows": 223,
+                "gain_mse": 0.021696875526867127,
+                "originals": 2,
+                "q90_observed_coverage": 0.7855665839536806,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.03445000647804538,
+                "body_rows": 223,
+                "gain_mse": 0.021696875526867127,
+                "originals": 2,
+                "q90_observed_coverage": 0.7855665839536806,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.027806274558343072,
+                "body_rows": 93,
+                "gain_mse": 0.0255214750904544,
+                "originals": 1,
+                "q90_observed_coverage": 0.7634408602150538,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.041093738397747694,
+                "body_rows": 130,
+                "gain_mse": 0.01787227596327987,
+                "originals": 1,
+                "q90_observed_coverage": 0.8076923076923077,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 53064208,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4"
+          ]
+        },
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.030612616873875773,
+              "body_rows": 223,
+              "gain_mse": 0.009902560755094823,
+              "originals": 2,
+              "q90_observed_coverage": 0.7909429280397022,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 0.030612616873875773,
+                "body_rows": 223,
+                "gain_mse": 0.009902560755094823,
+                "originals": 2,
+                "q90_observed_coverage": 0.7909429280397022,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.030612616873875773,
+                "body_rows": 223,
+                "gain_mse": 0.009902560755094823,
+                "originals": 2,
+                "q90_observed_coverage": 0.7909429280397022,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.02120327283965037,
+                "body_rows": 93,
+                "gain_mse": 0.009930784939471563,
+                "originals": 1,
+                "q90_observed_coverage": 0.7741935483870968,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.040021960908101194,
+                "body_rows": 130,
+                "gain_mse": 0.009874336570718085,
+                "originals": 1,
+                "q90_observed_coverage": 0.8076923076923077,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 56921583,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1",
+            "b9580559c7fd7ab08442a3be706731529c936ef1a334a492bb1f83977886cdce"
+          ]
+        }
+      ],
+      "error": null,
+      "fit_cpu_ns": 547260000,
+      "fit_wall_ns": 548318292,
+      "name": "hist7-seed43",
+      "original_asset_sha256": "6197037b4b16d9001a6cfe62a43b4a5d1f22cb82e8f4813129baa3fd7d72ed5c",
+      "path": "artifacts/models/first-valid/hist7-seed43.fit.json",
+      "seed": 43,
+      "sha256": "c0ffb8f7f58ae92ae817bcf00dbacac6b8c5a87b1aa50cb5fa94fd86107dc1da",
+      "status": "fitted"
+    },
+    {
+      "asset_sha256": "195e1a5603f37137df9c999dcbbe2b1e41a25cb2df2841d5352377d9d8672f42",
+      "candidate": {
+        "kind": "ridge",
+        "name": "ridge1",
+        "parameters": {
+          "alpha": 1.0
+        }
+      },
+      "counts": {
+        "body_rows": 306,
+        "excluded_body_rows": 0,
+        "gain_rows": 306,
+        "originals": 6,
+        "zero_gains": 231
+      },
+      "curves": [
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 5.702384470469605,
+              "body_rows": 223,
+              "gain_mse": 1.8532089131895204,
+              "originals": 2,
+              "q90_observed_coverage": null,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 5.702384470469605,
+                "body_rows": 223,
+                "gain_mse": 1.8532089131895204,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 5.702384470469605,
+                "body_rows": 223,
+                "gain_mse": 1.8532089131895204,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 8.051179071602949,
+                "body_rows": 93,
+                "gain_mse": 2.7033859557373017,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 3.3535898693362656,
+                "body_rows": 130,
+                "gain_mse": 1.0030318706417405,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 600688833,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4"
+          ]
+        },
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 19.736277174569793,
+              "body_rows": 223,
+              "gain_mse": 4.293279947424336,
+              "originals": 2,
+              "q90_observed_coverage": null,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 19.736277174569793,
+                "body_rows": 223,
+                "gain_mse": 4.293279947424336,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 19.736277174569793,
+                "body_rows": 223,
+                "gain_mse": 4.293279947424336,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 28.21847610322299,
+                "body_rows": 93,
+                "gain_mse": 6.237505866177455,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 11.254078245916602,
+                "body_rows": 130,
+                "gain_mse": 2.349054028671221,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 2536541,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1",
+            "b9580559c7fd7ab08442a3be706731529c936ef1a334a492bb1f83977886cdce"
+          ]
+        }
+      ],
+      "error": null,
+      "fit_cpu_ns": 611729000,
+      "fit_wall_ns": 611843709,
+      "name": "ridge1-seed17",
+      "original_asset_sha256": "85e62e31a9915a9f6c650f63582b38aff30bc62e25ab2536b3027209f3823f03",
+      "path": "artifacts/models/first-valid/ridge1-seed17.fit.json",
+      "seed": 17,
+      "sha256": "9f0c4a55fdfac543c5842d49131a2621278ad6959866fa96b931d49642e52870",
+      "status": "fitted"
+    },
+    {
+      "asset_sha256": "8c8e499979bf0882a00f6ac6cd8e068c26d55e0c2c9a6e551c33900e2b8b0b5a",
+      "candidate": {
+        "kind": "ridge",
+        "name": "ridge1",
+        "parameters": {
+          "alpha": 1.0
+        }
+      },
+      "counts": {
+        "body_rows": 306,
+        "excluded_body_rows": 0,
+        "gain_rows": 306,
+        "originals": 6,
+        "zero_gains": 231
+      },
+      "curves": [
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 5.702384470469605,
+              "body_rows": 223,
+              "gain_mse": 1.8532089131895204,
+              "originals": 2,
+              "q90_observed_coverage": null,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 5.702384470469605,
+                "body_rows": 223,
+                "gain_mse": 1.8532089131895204,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 5.702384470469605,
+                "body_rows": 223,
+                "gain_mse": 1.8532089131895204,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 8.051179071602949,
+                "body_rows": 93,
+                "gain_mse": 2.7033859557373017,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 3.3535898693362656,
+                "body_rows": 130,
+                "gain_mse": 1.0030318706417405,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 2746333,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4"
+          ]
+        },
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 19.736277174569793,
+              "body_rows": 223,
+              "gain_mse": 4.293279947424336,
+              "originals": 2,
+              "q90_observed_coverage": null,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 19.736277174569793,
+                "body_rows": 223,
+                "gain_mse": 4.293279947424336,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 19.736277174569793,
+                "body_rows": 223,
+                "gain_mse": 4.293279947424336,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 28.21847610322299,
+                "body_rows": 93,
+                "gain_mse": 6.237505866177455,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 11.254078245916602,
+                "body_rows": 130,
+                "gain_mse": 2.349054028671221,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 2555916,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1",
+            "b9580559c7fd7ab08442a3be706731529c936ef1a334a492bb1f83977886cdce"
+          ]
+        }
+      ],
+      "error": null,
+      "fit_cpu_ns": 13507000,
+      "fit_wall_ns": 13507209,
+      "name": "ridge1-seed43",
+      "original_asset_sha256": "f289199db4dd5492fa9c350ca574e2bbf8939511c4575aac689fe3191d49afee",
+      "path": "artifacts/models/first-valid/ridge1-seed43.fit.json",
+      "seed": 43,
+      "sha256": "6bee4898a9a668c874ce69f98c7348e22411ba28fb3a23126eb39010fdda51a2",
+      "status": "fitted"
+    },
+    {
+      "asset_sha256": "07d1eca4cfd65d37552ff6a7a241de3cb07cddd62105eb0f8ad6fe6be94e964f",
+      "candidate": {
+        "kind": "ridge",
+        "name": "ridge10",
+        "parameters": {
+          "alpha": 10.0
+        }
+      },
+      "counts": {
+        "body_rows": 306,
+        "excluded_body_rows": 0,
+        "gain_rows": 306,
+        "originals": 6,
+        "zero_gains": 231
+      },
+      "curves": [
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 36.269207699269714,
+              "body_rows": 223,
+              "gain_mse": 1.5639761144494013,
+              "originals": 2,
+              "q90_observed_coverage": null,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 36.269207699269714,
+                "body_rows": 223,
+                "gain_mse": 1.5639761144494013,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 36.269207699269714,
+                "body_rows": 223,
+                "gain_mse": 1.5639761144494013,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 51.9129187574133,
+                "body_rows": 93,
+                "gain_mse": 2.2855068287757754,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 20.62549664112612,
+                "body_rows": 130,
+                "gain_mse": 0.8424454001230282,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 2416458,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4"
+          ]
+        },
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 61.4369786657356,
+              "body_rows": 223,
+              "gain_mse": 1.2711312603413982,
+              "originals": 2,
+              "q90_observed_coverage": null,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 61.4369786657356,
+                "body_rows": 223,
+                "gain_mse": 1.2711312603413982,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 61.4369786657356,
+                "body_rows": 223,
+                "gain_mse": 1.2711312603413982,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 88.29462462608727,
+                "body_rows": 93,
+                "gain_mse": 1.8894018452741508,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 34.57933270538398,
+                "body_rows": 130,
+                "gain_mse": 0.6528606754086459,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 2397250,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1",
+            "b9580559c7fd7ab08442a3be706731529c936ef1a334a492bb1f83977886cdce"
+          ]
+        }
+      ],
+      "error": null,
+      "fit_cpu_ns": 12668000,
+      "fit_wall_ns": 12667209,
+      "name": "ridge10-seed17",
+      "original_asset_sha256": "234fc07a18b067989d22984774cb204560b593451926c681e09c84775e48b9ee",
+      "path": "artifacts/models/first-valid/ridge10-seed17.fit.json",
+      "seed": 17,
+      "sha256": "452fd29711880800657070311f22a273bff8ef9fd0df6c9e7856a951820b3b78",
+      "status": "fitted"
+    },
+    {
+      "asset_sha256": "aa6b3f8483e5f3bdf512a1c0bc2dbba928860b607a2f7519b552a68bc7714602",
+      "candidate": {
+        "kind": "ridge",
+        "name": "ridge10",
+        "parameters": {
+          "alpha": 10.0
+        }
+      },
+      "counts": {
+        "body_rows": 306,
+        "excluded_body_rows": 0,
+        "gain_rows": 306,
+        "originals": 6,
+        "zero_gains": 231
+      },
+      "curves": [
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 36.269207699269714,
+              "body_rows": 223,
+              "gain_mse": 1.5639761144494013,
+              "originals": 2,
+              "q90_observed_coverage": null,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 36.269207699269714,
+                "body_rows": 223,
+                "gain_mse": 1.5639761144494013,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 36.269207699269714,
+                "body_rows": 223,
+                "gain_mse": 1.5639761144494013,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 51.9129187574133,
+                "body_rows": 93,
+                "gain_mse": 2.2855068287757754,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 20.62549664112612,
+                "body_rows": 130,
+                "gain_mse": 0.8424454001230282,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 2400875,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4"
+          ]
+        },
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 61.4369786657356,
+              "body_rows": 223,
+              "gain_mse": 1.2711312603413982,
+              "originals": 2,
+              "q90_observed_coverage": null,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 61.4369786657356,
+                "body_rows": 223,
+                "gain_mse": 1.2711312603413982,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 61.4369786657356,
+                "body_rows": 223,
+                "gain_mse": 1.2711312603413982,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 88.29462462608727,
+                "body_rows": 93,
+                "gain_mse": 1.8894018452741508,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 34.57933270538398,
+                "body_rows": 130,
+                "gain_mse": 0.6528606754086459,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 2557500,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1",
+            "b9580559c7fd7ab08442a3be706731529c936ef1a334a492bb1f83977886cdce"
+          ]
+        }
+      ],
+      "error": null,
+      "fit_cpu_ns": 13631000,
+      "fit_wall_ns": 13635916,
+      "name": "ridge10-seed43",
+      "original_asset_sha256": "c8e43cfcc24d4761988bdad91bd45bf290de3d42f96cfc546e4fe96916abf215",
+      "path": "artifacts/models/first-valid/ridge10-seed43.fit.json",
+      "seed": 43,
+      "sha256": "215879cdf4bad7e818ce595bbe9b9ba1524dc595edfc2498f4d4c0fa077c23e9",
+      "status": "fitted"
+    },
+    {
+      "asset_sha256": "116098a0433fa5d8da867a2cab926160e4b1f6f929cde5639c44b1be982eb6f8",
+      "candidate": {
+        "kind": "histogram",
+        "name": "hist15",
+        "parameters": {
+          "max_iter": 80,
+          "max_leaf_nodes": 15,
+          "min_samples_leaf": 10
+        },
+        "quantile": true
+      },
+      "counts": {
+        "body_rows": 788,
+        "excluded_body_rows": 0,
+        "gain_rows": 788,
+        "originals": 12,
+        "zero_gains": 602
+      },
+      "curves": [
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.015231637716039899,
+              "body_rows": 223,
+              "gain_mse": 0.0012565679708662896,
+              "originals": 2,
+              "q90_observed_coverage": 0.8677419354838708,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 0.015231637716039899,
+                "body_rows": 223,
+                "gain_mse": 0.0012565679708662896,
+                "originals": 2,
+                "q90_observed_coverage": 0.8677419354838708,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.015231637716039899,
+                "body_rows": 223,
+                "gain_mse": 0.0012565679708662896,
+                "originals": 2,
+                "q90_observed_coverage": 0.8677419354838708,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.00816378794473996,
+                "body_rows": 93,
+                "gain_mse": 0.0010448403571073912,
+                "originals": 1,
+                "q90_observed_coverage": 0.9354838709677419,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.02229948748733985,
+                "body_rows": 130,
+                "gain_mse": 0.0014682955846251889,
+                "originals": 1,
+                "q90_observed_coverage": 0.8,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 442057667,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "1c2575aefab733f05d3b2ef39ac56f3754f0766706f714f2cdced95bf15ca04d",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "95d71499eaf4123b535d76472ff208394bcaa3a424f212717276873d4e4ee054",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1"
+          ]
+        },
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.00770744331985682,
+              "body_rows": 223,
+              "gain_mse": 0.0022628808061168717,
+              "originals": 2,
+              "q90_observed_coverage": 0.8669561621174523,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 0.00770744331985682,
+                "body_rows": 223,
+                "gain_mse": 0.0022628808061168717,
+                "originals": 2,
+                "q90_observed_coverage": 0.8669561621174523,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.00770744331985682,
+                "body_rows": 223,
+                "gain_mse": 0.0022628808061168717,
+                "originals": 2,
+                "q90_observed_coverage": 0.8669561621174523,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.010153077104427184,
+                "body_rows": 93,
+                "gain_mse": 0.0024615821151795702,
+                "originals": 1,
+                "q90_observed_coverage": 0.956989247311828,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.005261809535286457,
+                "body_rows": 130,
+                "gain_mse": 0.002064179497054176,
+                "originals": 1,
+                "q90_observed_coverage": 0.7769230769230769,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 787536334,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "1c2575aefab733f05d3b2ef39ac56f3754f0766706f714f2cdced95bf15ca04d",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "95d71499eaf4123b535d76472ff208394bcaa3a424f212717276873d4e4ee054",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1",
+            "b9580559c7fd7ab08442a3be706731529c936ef1a334a492bb1f83977886cdce",
+            "c1d0659a0c3ad8bb28a56be1f4fcb145b3e9b81d48cecf13684ce3b77be5b132",
+            "c2b86a0d8996a88b8af6b391a3b29503fcf44e954989caa2ad1b5181a8096c48",
+            "f9df660b7e66bea59f8bfaafadf4c4015aa8ba055cff487af8cc85080cf0baf9",
+            "fc2c81a53bbd9721534240869adba77e091cd9bb30ea18c87e543b707b351dca"
+          ]
+        }
+      ],
+      "error": null,
+      "fit_cpu_ns": 2340671000,
+      "fit_wall_ns": 2342947417,
+      "name": "hist15-seed17",
+      "original_asset_sha256": "8f06dbe8b8d15d131223eb226bea44c3d7a0ba18891296fa9b6ed9fcbb401ef3",
+      "path": "artifacts/models/expanded/hist15-seed17.fit.json",
+      "seed": 17,
+      "sha256": "41f70e0abf801828bb5d4bfd66b854df6ae389a73f039dd572728dd846c32bf7",
+      "status": "fitted"
+    },
+    {
+      "asset_sha256": "18ebbb40761f2c06c89c4eefa0d11a8322f08ef722df87e5b1b5c5510f4d3071",
+      "candidate": {
+        "kind": "histogram",
+        "name": "hist15",
+        "parameters": {
+          "max_iter": 80,
+          "max_leaf_nodes": 15,
+          "min_samples_leaf": 10
+        },
+        "quantile": true
+      },
+      "counts": {
+        "body_rows": 788,
+        "excluded_body_rows": 0,
+        "gain_rows": 788,
+        "originals": 12,
+        "zero_gains": 602
+      },
+      "curves": [
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.015231637716039899,
+              "body_rows": 223,
+              "gain_mse": 0.0012565679708662896,
+              "originals": 2,
+              "q90_observed_coverage": 0.8677419354838708,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 0.015231637716039899,
+                "body_rows": 223,
+                "gain_mse": 0.0012565679708662896,
+                "originals": 2,
+                "q90_observed_coverage": 0.8677419354838708,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.015231637716039899,
+                "body_rows": 223,
+                "gain_mse": 0.0012565679708662896,
+                "originals": 2,
+                "q90_observed_coverage": 0.8677419354838708,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.00816378794473996,
+                "body_rows": 93,
+                "gain_mse": 0.0010448403571073912,
+                "originals": 1,
+                "q90_observed_coverage": 0.9354838709677419,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.02229948748733985,
+                "body_rows": 130,
+                "gain_mse": 0.0014682955846251889,
+                "originals": 1,
+                "q90_observed_coverage": 0.8,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 442355625,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "1c2575aefab733f05d3b2ef39ac56f3754f0766706f714f2cdced95bf15ca04d",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "95d71499eaf4123b535d76472ff208394bcaa3a424f212717276873d4e4ee054",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1"
+          ]
+        },
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.00770744331985682,
+              "body_rows": 223,
+              "gain_mse": 0.0022628808061168717,
+              "originals": 2,
+              "q90_observed_coverage": 0.8669561621174523,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 0.00770744331985682,
+                "body_rows": 223,
+                "gain_mse": 0.0022628808061168717,
+                "originals": 2,
+                "q90_observed_coverage": 0.8669561621174523,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.00770744331985682,
+                "body_rows": 223,
+                "gain_mse": 0.0022628808061168717,
+                "originals": 2,
+                "q90_observed_coverage": 0.8669561621174523,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.010153077104427184,
+                "body_rows": 93,
+                "gain_mse": 0.0024615821151795702,
+                "originals": 1,
+                "q90_observed_coverage": 0.956989247311828,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.005261809535286457,
+                "body_rows": 130,
+                "gain_mse": 0.002064179497054176,
+                "originals": 1,
+                "q90_observed_coverage": 0.7769230769230769,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 792715750,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "1c2575aefab733f05d3b2ef39ac56f3754f0766706f714f2cdced95bf15ca04d",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "95d71499eaf4123b535d76472ff208394bcaa3a424f212717276873d4e4ee054",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1",
+            "b9580559c7fd7ab08442a3be706731529c936ef1a334a492bb1f83977886cdce",
+            "c1d0659a0c3ad8bb28a56be1f4fcb145b3e9b81d48cecf13684ce3b77be5b132",
+            "c2b86a0d8996a88b8af6b391a3b29503fcf44e954989caa2ad1b5181a8096c48",
+            "f9df660b7e66bea59f8bfaafadf4c4015aa8ba055cff487af8cc85080cf0baf9",
+            "fc2c81a53bbd9721534240869adba77e091cd9bb30ea18c87e543b707b351dca"
+          ]
+        }
+      ],
+      "error": null,
+      "fit_cpu_ns": 2340322000,
+      "fit_wall_ns": 2341289959,
+      "name": "hist15-seed43",
+      "original_asset_sha256": "31d159720167614efc3de7330f1904977839337c29e2f938c469e4ceae5ee513",
+      "path": "artifacts/models/expanded/hist15-seed43.fit.json",
+      "seed": 43,
+      "sha256": "910218e90392bd175faa4fbadee31467809df529c791e62ed0a52dc7a34e11d6",
+      "status": "fitted"
+    },
+    {
+      "asset_sha256": "114c2d63afbe2ae1cc9cc50d68d2981b2455e3ff1cf324ed7070609ca841c3b3",
+      "candidate": {
+        "kind": "histogram",
+        "name": "hist7",
+        "parameters": {
+          "max_iter": 30,
+          "max_leaf_nodes": 7,
+          "min_samples_leaf": 10
+        },
+        "quantile": true
+      },
+      "counts": {
+        "body_rows": 788,
+        "excluded_body_rows": 0,
+        "gain_rows": 788,
+        "originals": 12,
+        "zero_gains": 602
+      },
+      "curves": [
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.020164983661446156,
+              "body_rows": 223,
+              "gain_mse": 0.00954971760082209,
+              "originals": 2,
+              "q90_observed_coverage": 0.8577750206782465,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 0.020164983661446156,
+                "body_rows": 223,
+                "gain_mse": 0.00954971760082209,
+                "originals": 2,
+                "q90_observed_coverage": 0.8577750206782465,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.020164983661446156,
+                "body_rows": 223,
+                "gain_mse": 0.00954971760082209,
+                "originals": 2,
+                "q90_observed_coverage": 0.8577750206782465,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.014831803012636889,
+                "body_rows": 93,
+                "gain_mse": 0.013994634420439045,
+                "originals": 1,
+                "q90_observed_coverage": 0.8924731182795699,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.02549816431025544,
+                "body_rows": 130,
+                "gain_mse": 0.005104800781205128,
+                "originals": 1,
+                "q90_observed_coverage": 0.823076923076923,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 207920833,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "1c2575aefab733f05d3b2ef39ac56f3754f0766706f714f2cdced95bf15ca04d",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "95d71499eaf4123b535d76472ff208394bcaa3a424f212717276873d4e4ee054",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1"
+          ]
+        },
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.006688464450679464,
+              "body_rows": 223,
+              "gain_mse": 0.005902346011003823,
+              "originals": 2,
+              "q90_observed_coverage": 0.9039288668320924,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 0.006688464450679464,
+                "body_rows": 223,
+                "gain_mse": 0.005902346011003823,
+                "originals": 2,
+                "q90_observed_coverage": 0.9039288668320924,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.006688464450679464,
+                "body_rows": 223,
+                "gain_mse": 0.005902346011003823,
+                "originals": 2,
+                "q90_observed_coverage": 0.9039288668320924,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.006094729595859705,
+                "body_rows": 93,
+                "gain_mse": 0.007285280576457527,
+                "originals": 1,
+                "q90_observed_coverage": 0.8924731182795699,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.007282199305499228,
+                "body_rows": 130,
+                "gain_mse": 0.004519411445550118,
+                "originals": 1,
+                "q90_observed_coverage": 0.9153846153846154,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 502633792,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "1c2575aefab733f05d3b2ef39ac56f3754f0766706f714f2cdced95bf15ca04d",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "95d71499eaf4123b535d76472ff208394bcaa3a424f212717276873d4e4ee054",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1",
+            "b9580559c7fd7ab08442a3be706731529c936ef1a334a492bb1f83977886cdce",
+            "c1d0659a0c3ad8bb28a56be1f4fcb145b3e9b81d48cecf13684ce3b77be5b132",
+            "c2b86a0d8996a88b8af6b391a3b29503fcf44e954989caa2ad1b5181a8096c48",
+            "f9df660b7e66bea59f8bfaafadf4c4015aa8ba055cff487af8cc85080cf0baf9",
+            "fc2c81a53bbd9721534240869adba77e091cd9bb30ea18c87e543b707b351dca"
+          ]
+        }
+      ],
+      "error": null,
+      "fit_cpu_ns": 1464661000,
+      "fit_wall_ns": 1464795167,
+      "name": "hist7-seed17",
+      "original_asset_sha256": "364016a052b23c4d1b39510c05b407c36566f77896022e8b8dfe7b39ef13a555",
+      "path": "artifacts/models/expanded/hist7-seed17.fit.json",
+      "seed": 17,
+      "sha256": "ac950f28b9904a7c978a62e7ae3287f89ebff549223fdd2b884a91c4ea6990fa",
+      "status": "fitted"
+    },
+    {
+      "asset_sha256": "2668a3032d13a807e323c54675c7907493f9f3eaa090bc6860f4037147cc795b",
+      "candidate": {
+        "kind": "histogram",
+        "name": "hist7",
+        "parameters": {
+          "max_iter": 30,
+          "max_leaf_nodes": 7,
+          "min_samples_leaf": 10
+        },
+        "quantile": true
+      },
+      "counts": {
+        "body_rows": 788,
+        "excluded_body_rows": 0,
+        "gain_rows": 788,
+        "originals": 12,
+        "zero_gains": 602
+      },
+      "curves": [
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.020164983661446156,
+              "body_rows": 223,
+              "gain_mse": 0.00954971760082209,
+              "originals": 2,
+              "q90_observed_coverage": 0.8577750206782465,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 0.020164983661446156,
+                "body_rows": 223,
+                "gain_mse": 0.00954971760082209,
+                "originals": 2,
+                "q90_observed_coverage": 0.8577750206782465,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.020164983661446156,
+                "body_rows": 223,
+                "gain_mse": 0.00954971760082209,
+                "originals": 2,
+                "q90_observed_coverage": 0.8577750206782465,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.014831803012636889,
+                "body_rows": 93,
+                "gain_mse": 0.013994634420439045,
+                "originals": 1,
+                "q90_observed_coverage": 0.8924731182795699,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.02549816431025544,
+                "body_rows": 130,
+                "gain_mse": 0.005104800781205128,
+                "originals": 1,
+                "q90_observed_coverage": 0.823076923076923,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 205269708,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "1c2575aefab733f05d3b2ef39ac56f3754f0766706f714f2cdced95bf15ca04d",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "95d71499eaf4123b535d76472ff208394bcaa3a424f212717276873d4e4ee054",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1"
+          ]
+        },
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.006688464450679464,
+              "body_rows": 223,
+              "gain_mse": 0.005902346011003823,
+              "originals": 2,
+              "q90_observed_coverage": 0.9039288668320924,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 0.006688464450679464,
+                "body_rows": 223,
+                "gain_mse": 0.005902346011003823,
+                "originals": 2,
+                "q90_observed_coverage": 0.9039288668320924,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.006688464450679464,
+                "body_rows": 223,
+                "gain_mse": 0.005902346011003823,
+                "originals": 2,
+                "q90_observed_coverage": 0.9039288668320924,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.006094729595859705,
+                "body_rows": 93,
+                "gain_mse": 0.007285280576457527,
+                "originals": 1,
+                "q90_observed_coverage": 0.8924731182795699,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.007282199305499228,
+                "body_rows": 130,
+                "gain_mse": 0.004519411445550118,
+                "originals": 1,
+                "q90_observed_coverage": 0.9153846153846154,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 504812709,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "1c2575aefab733f05d3b2ef39ac56f3754f0766706f714f2cdced95bf15ca04d",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "95d71499eaf4123b535d76472ff208394bcaa3a424f212717276873d4e4ee054",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1",
+            "b9580559c7fd7ab08442a3be706731529c936ef1a334a492bb1f83977886cdce",
+            "c1d0659a0c3ad8bb28a56be1f4fcb145b3e9b81d48cecf13684ce3b77be5b132",
+            "c2b86a0d8996a88b8af6b391a3b29503fcf44e954989caa2ad1b5181a8096c48",
+            "f9df660b7e66bea59f8bfaafadf4c4015aa8ba055cff487af8cc85080cf0baf9",
+            "fc2c81a53bbd9721534240869adba77e091cd9bb30ea18c87e543b707b351dca"
+          ]
+        }
+      ],
+      "error": null,
+      "fit_cpu_ns": 1455385000,
+      "fit_wall_ns": 1455564458,
+      "name": "hist7-seed43",
+      "original_asset_sha256": "bf01b1c00d1e0b4f13cf01efd0562e2d5509e011a39ea0cbe6554e3b44c346b0",
+      "path": "artifacts/models/expanded/hist7-seed43.fit.json",
+      "seed": 43,
+      "sha256": "e6cc011b276830ce4079b8fe09f3b0bfef3aae865819585aaabf1f84933d2337",
+      "status": "fitted"
+    },
+    {
+      "asset_sha256": "be4cc089a3827b1831ea51d9fd3fcf84d1d792fe097ee5e0455b9d30c8f5eba0",
+      "candidate": {
+        "kind": "ridge",
+        "name": "ridge1",
+        "parameters": {
+          "alpha": 1.0
+        }
+      },
+      "counts": {
+        "body_rows": 788,
+        "excluded_body_rows": 0,
+        "gain_rows": 788,
+        "originals": 12,
+        "zero_gains": 602
+      },
+      "curves": [
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.010393268474409077,
+              "body_rows": 223,
+              "gain_mse": 0.0024520226907495165,
+              "originals": 2,
+              "q90_observed_coverage": null,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 0.010393268474409077,
+                "body_rows": 223,
+                "gain_mse": 0.0024520226907495165,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.010393268474409077,
+                "body_rows": 223,
+                "gain_mse": 0.0024520226907495165,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.009004350261109548,
+                "body_rows": 93,
+                "gain_mse": 0.0014661925490084575,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.011782186687708612,
+                "body_rows": 130,
+                "gain_mse": 0.003437852832490578,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 589378041,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "1c2575aefab733f05d3b2ef39ac56f3754f0766706f714f2cdced95bf15ca04d",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "95d71499eaf4123b535d76472ff208394bcaa3a424f212717276873d4e4ee054",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1"
+          ]
+        },
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.008649405508291496,
+              "body_rows": 223,
+              "gain_mse": 0.0008400892137459734,
+              "originals": 2,
+              "q90_observed_coverage": null,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 0.008649405508291496,
+                "body_rows": 223,
+                "gain_mse": 0.0008400892137459734,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.008649405508291496,
+                "body_rows": 223,
+                "gain_mse": 0.0008400892137459734,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.007907868798989118,
+                "body_rows": 93,
+                "gain_mse": 0.0008761363490336781,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.009390942217593881,
+                "body_rows": 130,
+                "gain_mse": 0.000804042078458269,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 4345292,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "1c2575aefab733f05d3b2ef39ac56f3754f0766706f714f2cdced95bf15ca04d",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "95d71499eaf4123b535d76472ff208394bcaa3a424f212717276873d4e4ee054",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1",
+            "b9580559c7fd7ab08442a3be706731529c936ef1a334a492bb1f83977886cdce",
+            "c1d0659a0c3ad8bb28a56be1f4fcb145b3e9b81d48cecf13684ce3b77be5b132",
+            "c2b86a0d8996a88b8af6b391a3b29503fcf44e954989caa2ad1b5181a8096c48",
+            "f9df660b7e66bea59f8bfaafadf4c4015aa8ba055cff487af8cc85080cf0baf9",
+            "fc2c81a53bbd9721534240869adba77e091cd9bb30ea18c87e543b707b351dca"
+          ]
+        }
+      ],
+      "error": null,
+      "fit_cpu_ns": 606528000,
+      "fit_wall_ns": 606614125,
+      "name": "ridge1-seed17",
+      "original_asset_sha256": "55232357bc5aecb5ff4e218ef81aca36e08804fe55b5a1dda7bddf07a78ee92d",
+      "path": "artifacts/models/expanded/ridge1-seed17.fit.json",
+      "seed": 17,
+      "sha256": "47addc03016684bf496072fc2939524456adb35140d29159fe193a40d5faebcc",
+      "status": "fitted"
+    },
+    {
+      "asset_sha256": "01ae5070b2d2f63c461dc02d1ddd3784233d781c5a601f6829fb23e62542d6c1",
+      "candidate": {
+        "kind": "ridge",
+        "name": "ridge1",
+        "parameters": {
+          "alpha": 1.0
+        }
+      },
+      "counts": {
+        "body_rows": 788,
+        "excluded_body_rows": 0,
+        "gain_rows": 788,
+        "originals": 12,
+        "zero_gains": 602
+      },
+      "curves": [
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.010393268474409077,
+              "body_rows": 223,
+              "gain_mse": 0.0024520226907495165,
+              "originals": 2,
+              "q90_observed_coverage": null,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 0.010393268474409077,
+                "body_rows": 223,
+                "gain_mse": 0.0024520226907495165,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.010393268474409077,
+                "body_rows": 223,
+                "gain_mse": 0.0024520226907495165,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.009004350261109548,
+                "body_rows": 93,
+                "gain_mse": 0.0014661925490084575,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.011782186687708612,
+                "body_rows": 130,
+                "gain_mse": 0.003437852832490578,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 3368375,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "1c2575aefab733f05d3b2ef39ac56f3754f0766706f714f2cdced95bf15ca04d",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "95d71499eaf4123b535d76472ff208394bcaa3a424f212717276873d4e4ee054",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1"
+          ]
+        },
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.008649405508291496,
+              "body_rows": 223,
+              "gain_mse": 0.0008400892137459734,
+              "originals": 2,
+              "q90_observed_coverage": null,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 0.008649405508291496,
+                "body_rows": 223,
+                "gain_mse": 0.0008400892137459734,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.008649405508291496,
+                "body_rows": 223,
+                "gain_mse": 0.0008400892137459734,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.007907868798989118,
+                "body_rows": 93,
+                "gain_mse": 0.0008761363490336781,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.009390942217593881,
+                "body_rows": 130,
+                "gain_mse": 0.000804042078458269,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 4039500,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "1c2575aefab733f05d3b2ef39ac56f3754f0766706f714f2cdced95bf15ca04d",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "95d71499eaf4123b535d76472ff208394bcaa3a424f212717276873d4e4ee054",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1",
+            "b9580559c7fd7ab08442a3be706731529c936ef1a334a492bb1f83977886cdce",
+            "c1d0659a0c3ad8bb28a56be1f4fcb145b3e9b81d48cecf13684ce3b77be5b132",
+            "c2b86a0d8996a88b8af6b391a3b29503fcf44e954989caa2ad1b5181a8096c48",
+            "f9df660b7e66bea59f8bfaafadf4c4015aa8ba055cff487af8cc85080cf0baf9",
+            "fc2c81a53bbd9721534240869adba77e091cd9bb30ea18c87e543b707b351dca"
+          ]
+        }
+      ],
+      "error": null,
+      "fit_cpu_ns": 19213000,
+      "fit_wall_ns": 19217208,
+      "name": "ridge1-seed43",
+      "original_asset_sha256": "105a50ac7937a32195c3080e0117086de42fb4fe6cf0d070927fbb6ac9f76e9b",
+      "path": "artifacts/models/expanded/ridge1-seed43.fit.json",
+      "seed": 43,
+      "sha256": "dce07e07bc41780577ef3ac7f8d513631f62527a73e65ee04462e8e3152a0e0c",
+      "status": "fitted"
+    },
+    {
+      "asset_sha256": "f255ced30e8fa470e095b81fa7fa21ceb8ecbc91639ae801c79dca4402421b4e",
+      "candidate": {
+        "kind": "ridge",
+        "name": "ridge10",
+        "parameters": {
+          "alpha": 10.0
+        }
+      },
+      "counts": {
+        "body_rows": 788,
+        "excluded_body_rows": 0,
+        "gain_rows": 788,
+        "originals": 12,
+        "zero_gains": 602
+      },
+      "curves": [
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.010540231798466408,
+              "body_rows": 223,
+              "gain_mse": 0.013097555091744357,
+              "originals": 2,
+              "q90_observed_coverage": null,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 0.010540231798466408,
+                "body_rows": 223,
+                "gain_mse": 0.013097555091744357,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.010540231798466408,
+                "body_rows": 223,
+                "gain_mse": 0.013097555091744357,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.008620130998951496,
+                "body_rows": 93,
+                "gain_mse": 0.004588173556084289,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.01246033259798133,
+                "body_rows": 130,
+                "gain_mse": 0.02160693662740443,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 3508583,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "1c2575aefab733f05d3b2ef39ac56f3754f0766706f714f2cdced95bf15ca04d",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "95d71499eaf4123b535d76472ff208394bcaa3a424f212717276873d4e4ee054",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1"
+          ]
+        },
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.008596790590118569,
+              "body_rows": 223,
+              "gain_mse": 0.0012316359885657653,
+              "originals": 2,
+              "q90_observed_coverage": null,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 0.008596790590118569,
+                "body_rows": 223,
+                "gain_mse": 0.0012316359885657653,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.008596790590118569,
+                "body_rows": 223,
+                "gain_mse": 0.0012316359885657653,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.00751694053907585,
+                "body_rows": 93,
+                "gain_mse": 0.0014428060760007767,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.009676640641161294,
+                "body_rows": 130,
+                "gain_mse": 0.001020465901130755,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 4106333,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "1c2575aefab733f05d3b2ef39ac56f3754f0766706f714f2cdced95bf15ca04d",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "95d71499eaf4123b535d76472ff208394bcaa3a424f212717276873d4e4ee054",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1",
+            "b9580559c7fd7ab08442a3be706731529c936ef1a334a492bb1f83977886cdce",
+            "c1d0659a0c3ad8bb28a56be1f4fcb145b3e9b81d48cecf13684ce3b77be5b132",
+            "c2b86a0d8996a88b8af6b391a3b29503fcf44e954989caa2ad1b5181a8096c48",
+            "f9df660b7e66bea59f8bfaafadf4c4015aa8ba055cff487af8cc85080cf0baf9",
+            "fc2c81a53bbd9721534240869adba77e091cd9bb30ea18c87e543b707b351dca"
+          ]
+        }
+      ],
+      "error": null,
+      "fit_cpu_ns": 19343000,
+      "fit_wall_ns": 19342666,
+      "name": "ridge10-seed17",
+      "original_asset_sha256": "dd1c7c1eaa87b98802b092fddea6e776d926f2c1247055ba8f0f2361c9b2a37d",
+      "path": "artifacts/models/expanded/ridge10-seed17.fit.json",
+      "seed": 17,
+      "sha256": "70d0904b9d2fbf15ba213c2b67e81f2e1c26225117fdee9b8c493fc868fd630b",
+      "status": "fitted"
+    },
+    {
+      "asset_sha256": "72a66c28046fc6464481c61a2d7c5408b6c91e8e279ea9776b9a5f0ec74a3544",
+      "candidate": {
+        "kind": "ridge",
+        "name": "ridge10",
+        "parameters": {
+          "alpha": 10.0
+        }
+      },
+      "counts": {
+        "body_rows": 788,
+        "excluded_body_rows": 0,
+        "gain_rows": 788,
+        "originals": 12,
+        "zero_gains": 602
+      },
+      "curves": [
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.010540231798466408,
+              "body_rows": 223,
+              "gain_mse": 0.013097555091744357,
+              "originals": 2,
+              "q90_observed_coverage": null,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 0.010540231798466408,
+                "body_rows": 223,
+                "gain_mse": 0.013097555091744357,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.010540231798466408,
+                "body_rows": 223,
+                "gain_mse": 0.013097555091744357,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.008620130998951496,
+                "body_rows": 93,
+                "gain_mse": 0.004588173556084289,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.01246033259798133,
+                "body_rows": 130,
+                "gain_mse": 0.02160693662740443,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 3308917,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "1c2575aefab733f05d3b2ef39ac56f3754f0766706f714f2cdced95bf15ca04d",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "95d71499eaf4123b535d76472ff208394bcaa3a424f212717276873d4e4ee054",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1"
+          ]
+        },
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.008596790590118569,
+              "body_rows": 223,
+              "gain_mse": 0.0012316359885657653,
+              "originals": 2,
+              "q90_observed_coverage": null,
+              "rows": 223,
+              "zero_gains": 184
+            },
+            "budgets": {
+              "4213657916": {
+                "body_mse": 0.008596790590118569,
+                "body_rows": 223,
+                "gain_mse": 0.0012316359885657653,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.008596790590118569,
+                "body_rows": 223,
+                "gain_mse": 0.0012316359885657653,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.00751694053907585,
+                "body_rows": 93,
+                "gain_mse": 0.0014428060760007767,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 93,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.009676640641161294,
+                "body_rows": 130,
+                "gain_mse": 0.001020465901130755,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 130,
+                "zero_gains": 114
+              }
+            },
+            "length_support": {
+              "1": 114,
+              "16": 17,
+              "2": 4,
+              "32": 4,
+              "4": 74,
+              "64": 6,
+              "8": 4
+            }
+          },
+          "fit_ns": 3947125,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "1c2575aefab733f05d3b2ef39ac56f3754f0766706f714f2cdced95bf15ca04d",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "95d71499eaf4123b535d76472ff208394bcaa3a424f212717276873d4e4ee054",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1",
+            "b9580559c7fd7ab08442a3be706731529c936ef1a334a492bb1f83977886cdce",
+            "c1d0659a0c3ad8bb28a56be1f4fcb145b3e9b81d48cecf13684ce3b77be5b132",
+            "c2b86a0d8996a88b8af6b391a3b29503fcf44e954989caa2ad1b5181a8096c48",
+            "f9df660b7e66bea59f8bfaafadf4c4015aa8ba055cff487af8cc85080cf0baf9",
+            "fc2c81a53bbd9721534240869adba77e091cd9bb30ea18c87e543b707b351dca"
+          ]
+        }
+      ],
+      "error": null,
+      "fit_cpu_ns": 19107000,
+      "fit_wall_ns": 19105916,
+      "name": "ridge10-seed43",
+      "original_asset_sha256": "f4f3885f49c21c436b62c8f859e4212f49b1856a702a51520e61e088979b47e0",
+      "path": "artifacts/models/expanded/ridge10-seed43.fit.json",
+      "seed": 43,
+      "sha256": "e5dfc498a4e218eddb0897b9cbe11b562a1ee8d88e95e9d7a2621b5cca1b261b",
+      "status": "fitted"
+    },
+    {
+      "asset_sha256": "861f04c9e7c9c91342833668d2d6765ddc6df914f1363450ff839da1d22fbe47",
+      "candidate": {
+        "kind": "ridge",
+        "name": "ridge1",
+        "parameters": {
+          "alpha": 1.0
+        }
+      },
+      "counts": {
+        "body_rows": 1455,
+        "excluded_body_rows": 0,
+        "gain_rows": 1455,
+        "originals": 12,
+        "zero_gains": 1184
+      },
+      "curves": [
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.023520707363116948,
+              "body_rows": 390,
+              "gain_mse": 0.0021980647551330546,
+              "originals": 2,
+              "q90_observed_coverage": null,
+              "rows": 390,
+              "zero_gains": 337
+            },
+            "budgets": {
+              "2106828958": {
+                "body_mse": 0.8905451288765338,
+                "body_rows": 3,
+                "gain_mse": 0.029861254811969176,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 3,
+                "zero_gains": 1
+              },
+              "4213657916": {
+                "body_mse": 0.010360594130228669,
+                "body_rows": 223,
+                "gain_mse": 0.002116284408422792,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              },
+              "526707240": {
+                "body_mse": 0.061370884562699624,
+                "body_rows": 2,
+                "gain_mse": 0.0357159717136805,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 2,
+                "zero_gains": 0
+              },
+              "8427315832": {
+                "body_mse": 0.423979140419784,
+                "body_rows": 162,
+                "gain_mse": 0.020639936928640468,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 162,
+                "zero_gains": 152
+              }
+            },
+            "censoring": {
+              "deadline": {
+                "body_mse": 0.04522961171930502,
+                "body_rows": 5,
+                "gain_mse": 0.023430608630464252,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 5,
+                "zero_gains": 2
+              },
+              "natural_known": {
+                "body_mse": 0.023332046790486196,
+                "body_rows": 384,
+                "gain_mse": 0.0019655601363509495,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 384,
+                "zero_gains": 335
+              },
+              "natural_unknown": {
+                "body_mse": 0.0002592815682253114,
+                "body_rows": 1,
+                "gain_mse": 0.000430944370940824,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 1,
+                "zero_gains": 0
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.023520707363116948,
+                "body_rows": 390,
+                "gain_mse": 0.0021980647551330546,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 390,
+                "zero_gains": 337
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.026899111451417667,
+                "body_rows": 96,
+                "gain_mse": 0.0025454991181456618,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 96,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.02014230327481624,
+                "body_rows": 294,
+                "gain_mse": 0.0018506303921204486,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 294,
+                "zero_gains": 267
+              }
+            },
+            "length_support": {
+              "1": 164,
+              "16": 37,
+              "2": 21,
+              "32": 32,
+              "4": 90,
+              "64": 24,
+              "8": 22
+            }
+          },
+          "fit_ns": 581398375,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "1c2575aefab733f05d3b2ef39ac56f3754f0766706f714f2cdced95bf15ca04d",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "95d71499eaf4123b535d76472ff208394bcaa3a424f212717276873d4e4ee054",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1"
+          ]
+        },
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.019241174579731294,
+              "body_rows": 390,
+              "gain_mse": 0.0009059511688912469,
+              "originals": 2,
+              "q90_observed_coverage": null,
+              "rows": 390,
+              "zero_gains": 337
+            },
+            "budgets": {
+              "2106828958": {
+                "body_mse": 0.7191523468165987,
+                "body_rows": 3,
+                "gain_mse": 0.007956888203750435,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 3,
+                "zero_gains": 1
+              },
+              "4213657916": {
+                "body_mse": 0.008293182380519792,
+                "body_rows": 223,
+                "gain_mse": 0.0009343696249950107,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              },
+              "526707240": {
+                "body_mse": 0.12710031277258058,
+                "body_rows": 2,
+                "gain_mse": 0.00774717674429906,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 2,
+                "zero_gains": 0
+              },
+              "8427315832": {
+                "body_mse": 0.32479406399534694,
+                "body_rows": 162,
+                "gain_mse": 0.0057989192983222615,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 162,
+                "zero_gains": 152
+              }
+            },
+            "censoring": {
+              "deadline": {
+                "body_mse": 0.08838076942243986,
+                "body_rows": 5,
+                "gain_mse": 0.0056115903116931674,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 5,
+                "zero_gains": 2
+              },
+              "natural_known": {
+                "body_mse": 0.01851406571592102,
+                "body_rows": 384,
+                "gain_mse": 0.0008536293787037324,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 384,
+                "zero_gains": 335
+              },
+              "natural_unknown": {
+                "body_mse": 0.00018833127148311525,
+                "body_rows": 1,
+                "gain_mse": 0.0003964111406337054,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 1,
+                "zero_gains": 0
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.019241174579731294,
+                "body_rows": 390,
+                "gain_mse": 0.0009059511688912469,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 390,
+                "zero_gains": 337
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.02230569114197482,
+                "body_rows": 96,
+                "gain_mse": 0.0012055142254838588,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 96,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.01617665801748778,
+                "body_rows": 294,
+                "gain_mse": 0.0006063881122986353,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 294,
+                "zero_gains": 267
+              }
+            },
+            "length_support": {
+              "1": 164,
+              "16": 37,
+              "2": 21,
+              "32": 32,
+              "4": 90,
+              "64": 24,
+              "8": 22
+            }
+          },
+          "fit_ns": 5643500,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "1c2575aefab733f05d3b2ef39ac56f3754f0766706f714f2cdced95bf15ca04d",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "95d71499eaf4123b535d76472ff208394bcaa3a424f212717276873d4e4ee054",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1",
+            "b9580559c7fd7ab08442a3be706731529c936ef1a334a492bb1f83977886cdce",
+            "c1d0659a0c3ad8bb28a56be1f4fcb145b3e9b81d48cecf13684ce3b77be5b132",
+            "c2b86a0d8996a88b8af6b391a3b29503fcf44e954989caa2ad1b5181a8096c48",
+            "f9df660b7e66bea59f8bfaafadf4c4015aa8ba055cff487af8cc85080cf0baf9",
+            "fc2c81a53bbd9721534240869adba77e091cd9bb30ea18c87e543b707b351dca"
+          ]
+        }
+      ],
+      "error": null,
+      "fit_cpu_ns": 607606000,
+      "fit_wall_ns": 607715667,
+      "name": "ridge1-seed17",
+      "original_asset_sha256": "4fd2b730454af8e5151177cfcacee0a85e503fed07fabc2edb9b618f1b963e84",
+      "path": "artifacts/models/final/ridge1-seed17.fit.json",
+      "seed": 17,
+      "sha256": "b2e76a13807fd76822ceef2200320debbd11f8571961fe724fb614d8b9d73c9d",
+      "status": "fitted"
+    },
+    {
+      "asset_sha256": "36bd0c4a9b4d78f9432c4f5ba56a73f16e5df5201eb71e776fe427a35682571a",
+      "candidate": {
+        "kind": "ridge",
+        "name": "ridge1",
+        "parameters": {
+          "alpha": 1.0
+        }
+      },
+      "counts": {
+        "body_rows": 1455,
+        "excluded_body_rows": 0,
+        "gain_rows": 1455,
+        "originals": 12,
+        "zero_gains": 1184
+      },
+      "curves": [
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.023520707363116948,
+              "body_rows": 390,
+              "gain_mse": 0.0021980647551330546,
+              "originals": 2,
+              "q90_observed_coverage": null,
+              "rows": 390,
+              "zero_gains": 337
+            },
+            "budgets": {
+              "2106828958": {
+                "body_mse": 0.8905451288765338,
+                "body_rows": 3,
+                "gain_mse": 0.029861254811969176,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 3,
+                "zero_gains": 1
+              },
+              "4213657916": {
+                "body_mse": 0.010360594130228669,
+                "body_rows": 223,
+                "gain_mse": 0.002116284408422792,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              },
+              "526707240": {
+                "body_mse": 0.061370884562699624,
+                "body_rows": 2,
+                "gain_mse": 0.0357159717136805,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 2,
+                "zero_gains": 0
+              },
+              "8427315832": {
+                "body_mse": 0.423979140419784,
+                "body_rows": 162,
+                "gain_mse": 0.020639936928640468,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 162,
+                "zero_gains": 152
+              }
+            },
+            "censoring": {
+              "deadline": {
+                "body_mse": 0.04522961171930502,
+                "body_rows": 5,
+                "gain_mse": 0.023430608630464252,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 5,
+                "zero_gains": 2
+              },
+              "natural_known": {
+                "body_mse": 0.023332046790486196,
+                "body_rows": 384,
+                "gain_mse": 0.0019655601363509495,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 384,
+                "zero_gains": 335
+              },
+              "natural_unknown": {
+                "body_mse": 0.0002592815682253114,
+                "body_rows": 1,
+                "gain_mse": 0.000430944370940824,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 1,
+                "zero_gains": 0
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.023520707363116948,
+                "body_rows": 390,
+                "gain_mse": 0.0021980647551330546,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 390,
+                "zero_gains": 337
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.026899111451417667,
+                "body_rows": 96,
+                "gain_mse": 0.0025454991181456618,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 96,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.02014230327481624,
+                "body_rows": 294,
+                "gain_mse": 0.0018506303921204486,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 294,
+                "zero_gains": 267
+              }
+            },
+            "length_support": {
+              "1": 164,
+              "16": 37,
+              "2": 21,
+              "32": 32,
+              "4": 90,
+              "64": 24,
+              "8": 22
+            }
+          },
+          "fit_ns": 3885125,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "1c2575aefab733f05d3b2ef39ac56f3754f0766706f714f2cdced95bf15ca04d",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "95d71499eaf4123b535d76472ff208394bcaa3a424f212717276873d4e4ee054",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1"
+          ]
+        },
+        {
+          "diagnostics": {
+            "all": {
+              "body_mse": 0.019241174579731294,
+              "body_rows": 390,
+              "gain_mse": 0.0009059511688912469,
+              "originals": 2,
+              "q90_observed_coverage": null,
+              "rows": 390,
+              "zero_gains": 337
+            },
+            "budgets": {
+              "2106828958": {
+                "body_mse": 0.7191523468165987,
+                "body_rows": 3,
+                "gain_mse": 0.007956888203750435,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 3,
+                "zero_gains": 1
+              },
+              "4213657916": {
+                "body_mse": 0.008293182380519792,
+                "body_rows": 223,
+                "gain_mse": 0.0009343696249950107,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 223,
+                "zero_gains": 184
+              },
+              "526707240": {
+                "body_mse": 0.12710031277258058,
+                "body_rows": 2,
+                "gain_mse": 0.00774717674429906,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 2,
+                "zero_gains": 0
+              },
+              "8427315832": {
+                "body_mse": 0.32479406399534694,
+                "body_rows": 162,
+                "gain_mse": 0.0057989192983222615,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 162,
+                "zero_gains": 152
+              }
+            },
+            "censoring": {
+              "deadline": {
+                "body_mse": 0.08838076942243986,
+                "body_rows": 5,
+                "gain_mse": 0.0056115903116931674,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 5,
+                "zero_gains": 2
+              },
+              "natural_known": {
+                "body_mse": 0.01851406571592102,
+                "body_rows": 384,
+                "gain_mse": 0.0008536293787037324,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 384,
+                "zero_gains": 335
+              },
+              "natural_unknown": {
+                "body_mse": 0.00018833127148311525,
+                "body_rows": 1,
+                "gain_mse": 0.0003964111406337054,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 1,
+                "zero_gains": 0
+              }
+            },
+            "eligible": {
+              "True": {
+                "body_mse": 0.019241174579731294,
+                "body_rows": 390,
+                "gain_mse": 0.0009059511688912469,
+                "originals": 2,
+                "q90_observed_coverage": null,
+                "rows": 390,
+                "zero_gains": 337
+              }
+            },
+            "families": {
+              "block": {
+                "body_mse": 0.02230569114197482,
+                "body_rows": 96,
+                "gain_mse": 0.0012055142254838588,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 96,
+                "zero_gains": 70
+              },
+              "uniform": {
+                "body_mse": 0.01617665801748778,
+                "body_rows": 294,
+                "gain_mse": 0.0006063881122986353,
+                "originals": 1,
+                "q90_observed_coverage": null,
+                "rows": 294,
+                "zero_gains": 267
+              }
+            },
+            "length_support": {
+              "1": 164,
+              "16": 37,
+              "2": 21,
+              "32": 32,
+              "4": 90,
+              "64": 24,
+              "8": 22
+            }
+          },
+          "fit_ns": 5239084,
+          "held_originals": [
+            "01c05ac4738c9f7b1b0dfa9b095700d7c3810d757a98ac19aba790a0c90ce6b6",
+            "5550423d7a5df6c1c0ff1fb292f9e0ded2baa00b50ef3c8b7934b605daced828"
+          ],
+          "train_originals": [
+            "0cbd8a29c04d2615e2e02f00516b227f1f229cc74c8e42a47763e050fdb9e71a",
+            "1c2575aefab733f05d3b2ef39ac56f3754f0766706f714f2cdced95bf15ca04d",
+            "320d85020aa5278944c0779ddade3f796e9edc4ba2c1fdd43e5c076bf461c7a4",
+            "95d71499eaf4123b535d76472ff208394bcaa3a424f212717276873d4e4ee054",
+            "977c8f008941bce4072ceee168c177fe82826186709338868aac118e98ca97e1",
+            "b9580559c7fd7ab08442a3be706731529c936ef1a334a492bb1f83977886cdce",
+            "c1d0659a0c3ad8bb28a56be1f4fcb145b3e9b81d48cecf13684ce3b77be5b132",
+            "c2b86a0d8996a88b8af6b391a3b29503fcf44e954989caa2ad1b5181a8096c48",
+            "f9df660b7e66bea59f8bfaafadf4c4015aa8ba055cff487af8cc85080cf0baf9",
+            "fc2c81a53bbd9721534240869adba77e091cd9bb30ea18c87e543b707b351dca"
+          ]
+        }
+      ],
+      "error": null,
+      "fit_cpu_ns": 27960000,
+      "fit_wall_ns": 27958667,
+      "name": "ridge1-seed43",
+      "original_asset_sha256": "e0f9541790a0b6ddd93cd273ba4cff5b51e46355840fc8343b589e67d747cd56",
+      "path": "artifacts/models/final/ridge1-seed43.fit.json",
+      "seed": 43,
+      "sha256": "77ba23c9874cbced4a3b610ec3b70e918ca8a44b584f0c9f429e1af153544849",
+      "status": "fitted"
+    }
+  ],
+  "fitted_seed_interpretation": "seeds17/43 are separate executions of deterministic estimators on the same data; they do not estimate independent training-distribution variance",
+  "format": "numeric-threshold-v1; export version1; parity-validated scikit-learn1.9.1; exact masks/preprocessing retained",
+  "independent_originals": 12,
+  "inference_and_extraction_are_nested_not_additive_to_request_wall": true,
+  "limits": "Exploratory finite grid, single host/solver seed and six validation originals; no learned advantage; Task13 controls,14 access/literature and15 freeze pending",
+  "model_bytes": 7533,
+  "selected": {
+    "allocator": {
+      "c_min": 4.2e-08,
+      "fallback_length": 4,
+      "model_hash": "861f04c9e7c9c91342833668d2d6765ddc6df914f1363450ff839da1d22fbe47",
+      "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/models/final/ridge1-seed17.json",
+      "policy": "local",
+      "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+      "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+    },
+    "kind": "shared",
+    "learned": {
+      "behavior_seed": 2026101413,
+      "epsilon": 0.2,
+      "max_decisions": 512,
+      "pool_seed": 2026101412,
+      "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+      "schema_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/configs/features.json"
+    },
+    "name": "ridge1-seed17-fallback4",
+    "pool_size": 128
+  },
+  "selected_model_sha256": "861f04c9e7c9c91342833668d2d6765ddc6df914f1363450ff839da1d22fbe47",
+  "targets": "receipt-endpoint gain; exact consumed dispatch-to-next-entry/safe-terminal seconds; duration lower bounds excluded",
+  "validation_cohort": [
+    {
+      "instance_hash": "0b03a496455c9acf1528cd667fba3e37de2c1e35ec7cc7c7a79dff7f79b31c8b",
+      "solver_seed": 17
+    },
+    {
+      "instance_hash": "54c33f200cd396ce695885bb0d262185f755a3567f836e82a552520dd003f0e3",
+      "solver_seed": 17
+    },
+    {
+      "instance_hash": "6f5aafc7ab79e7c3d5bb2e3d61738b84a33c66f1a057fd57c443900280418a90",
+      "solver_seed": 17
+    },
+    {
+      "instance_hash": "a9b332d8d740ef1f1b3a3a813b1bc5f5e1f4bbe6124f906272a78f8351f483ba",
+      "solver_seed": 17
+    },
+    {
+      "instance_hash": "edc897bda8be24e091a7f197bd2a4c78128ba4181b4cd015c2ddfa866f2698ab",
+      "solver_seed": 17
+    },
+    {
+      "instance_hash": "f3dc9dcf6d5193470d5e435e28aedfa5979ecbf07aaeda4f17aeb875e483b8bb",
+      "solver_seed": 17
+    }
+  ],
+  "validation_originals": 6,
+  "validation_solver_seeds": [
+    17
+  ],
+  "validation_weighted_scores": {
+    "B0": 0.9972935463334481,
+    "B1-no-plunge": 0.9979434277509224,
+    "B1-tuned": 0.9972935463334481,
+    "pre-refit-ridge1": 0.9969027292187702,
+    "ridge1-seed17-fallback1": 0.996373091464983,
+    "ridge1-seed17-fallback16": 0.9967811067052644,
+    "ridge1-seed17-fallback4": 0.9970070678147657,
+    "ridge1-seed43-fallback1": 0.9965813401445528,
+    "ridge1-seed43-fallback16": 0.9967811067052644,
+    "ridge1-seed43-fallback4": 0.9969689260800795
+  }
+}
