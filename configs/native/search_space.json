@@ -31,7 +31,7 @@
     "nodeselection/estimate/maxplungequot": {
       "type": "real",
       "minimum": 0.0,
-      "maximum": Infinity,
+      "maximum": null,
       "default": 0.25
     },
     "nodeselection/estimate/bestnodefreq": {
@@ -79,7 +79,7 @@
     "nodeselection/bfs/maxplungequot": {
       "type": "real",
       "minimum": 0.0,
-      "maximum": Infinity,
+      "maximum": null,
       "default": 0.25
     },
     "nodeselection/hybridestim/stdpriority": {
@@ -109,7 +109,7 @@
     "nodeselection/hybridestim/maxplungequot": {
       "type": "real",
       "minimum": 0.0,
-      "maximum": Infinity,
+      "maximum": null,
       "default": 0.25
     },
     "nodeselection/hybridestim/bestnodefreq": {
@@ -273,5 +273,6 @@
     ]
   },
   "nonallocation_settings": "installed defaults except common thread, seed, tolerance and request time; enhancements remain enabled",
-  "expansion_and_stopping": "Task9 records costs, failures, expansions and saturation before validation selection"
+  "expansion_and_stopping": "Task9 records costs, failures, expansions and saturation before validation selection",
+  "bound_encoding": "null minimum/maximum means unbounded in that direction; finite installed endpoints are unchanged"
 }

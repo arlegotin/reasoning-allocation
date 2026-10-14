@@ -107,6 +107,7 @@ def native_parameter_support() -> dict[str, dict[str, object]]:
     """Read names, types and ranges from this linked build's commented dump.
 
     Nothing here comes from remembered/web defaults. No solving is performed.
+    A null minimum/maximum denotes an unbounded endpoint in standard JSON.
     """
     import re
     import tempfile
@@ -122,7 +123,8 @@ def native_parameter_support() -> dict[str, dict[str, object]]:
         pattern = r'# \[type: (\w+), advanced: \w+, range: \[([^,]+),([^\]]+)\], default: ([^\]]+)\]\n(nodeselection/[^\s]+) = ([^\n]+)'
         params = model.getParams()
         for typ, low, high, default, name, value in re.findall(pattern, dump):
-            result[name] = {'type': typ, 'minimum': float(low), 'maximum': float(high), 'default': params[name]}
+            result[name] = {'type': typ, 'minimum': float(low) if math.isfinite(float(low)) else None,
+                            'maximum': float(high) if math.isfinite(float(high)) else None, 'default': params[name]}
         choice_pattern = r'# \[type: (bool|char), advanced: \w+, range: \{([^}]+)\}, default: [^\]]+\]\n(nodeselection/[^\s]+) = [^\n]+'
         for typ, choices, name in re.findall(choice_pattern, dump):
             result[name] = {'type':typ,'choices': [False,True] if typ=='bool' else list(choices), 'default':params[name]}
@@ -149,7 +151,10 @@ def resolve_native_overrides(params: dict[str, object], overrides: dict[str, obj
             result[name] = value
             continue
         valid_type = type(value) is int if meta['type'] in ('int','longint') else type(value) in (int,float)
-        if (not valid_type or not meta['minimum'] <= value <= meta['maximum'] or not math.isfinite(value)):
+        if (not valid_type
+                or meta['minimum'] is not None and value < meta['minimum']
+                or meta['maximum'] is not None and value > meta['maximum']
+                or abs(value) > 1.7976931348623157e308 or not math.isfinite(value)):
             raise ConfigError(f'invalid installed type/range: {name}')
         result[name] = value
     return result

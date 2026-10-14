@@ -1,0 +1,91 @@
+"""Scientific pilot guards: no outcome deletion, leakage, or universal oracle."""
+from dataclasses import replace
+import json
+from pathlib import Path
+import pytest
+from ra.types import Attempt, AvailableProgress, Request
+from ra import pilot
+from ra.config import native_parameter_support, resolve_native_overrides
+
+
+def attempt(status='complete', nodes=1, method='B0', kind='native', phase='pilot'):
+    req = Request('r', '/input', 'h', 'i', 'c', 's', 'e', method, phase, 0, 100, 20, 10,
+                  method_config={'name':method,'kind':kind,'overrides':{}})
+    return Attempt('r', status, AvailableProgress(True, 1., 2, 2., 'h'), True,
+                   {'launch_ns':0,'parent_release_ns':120},
+                   {'native_nodes':nodes,'native_lps':nodes,'end_to_end_ns':130,'worker_peak_rss_bytes':100},
+                   20, status != 'complete', None, req, template_id='t', cell_id='c',
+                   lineage={'cell':{'family':'uniform'}},instance_provenance_available=True)
+
+
+def test_root_only_is_proxy_insufficiency_not_h1_falsification():
+    summary=pilot.summarize_headroom([attempt()])
+    assert summary['root_only_count']==1
+    assert summary['interpretation']=='proxy_insufficiency'
+    assert summary['h1_falsified'] is False
+
+
+def test_finite_envelope_retains_easy_failed_oom_and_raw_utility():
+    attempts=[attempt(),attempt('oom',None),attempt('implementation_error',None),attempt('deadline',20)]
+    attempts[0]=replace(attempts[0],available=replace(attempts[0].available,utility=1.00000001))
+    result=pilot.summarize_headroom(attempts)
+    assert len(result['records'])==4
+    assert result['status_counts']['oom']==1
+    assert result['records'][0]['utility']==1.00000001
+    assert result['envelope_scope']=='finite-tested schedules; not a universal oracle'
+    assert result['missing_native_work_count']==2
+
+
+@pytest.mark.parametrize('change',[{'phase':'confirmatory'},{'kind':'learned'},{'model_hash':'fitted'}])
+def test_learned_outcome_cannot_select_population(change):
+    row=pilot.summarize_headroom([attempt()])
+    row['records'][0].update(change)
+    with pytest.raises(ValueError,match='native'):
+        pilot.recommend_population(row)
+
+
+def test_recommendation_never_automatically_filters_easy_cells():
+    summary=pilot.summarize_headroom([attempt(),replace(attempt(nodes=30),cell_id='other')])
+    result=pilot.recommend_population(summary)
+    assert result['cell_ids']==['c','other']
+    assert result['requires_recorded_judgment'] is True
+
+
+def test_memory_admission_and_forecast_keep_failed_overshoot():
+    costs=[{'wall_ns':100,'overshoot_ns':0,'peak_rss_bytes':10,'status':'complete'},
+           {'wall_ns':500,'overshoot_ns':200,'peak_rss_bytes':50,'status':'oom','censored':True}]
+    result=pilot.forecast('pilot',costs,{'request_count':10,'available_memory_bytes':10000,'reserve_bytes':100,'coordinator_bytes':100,'safety_factor':2,'timed':True})
+    assert result['admitted_workers']==1
+    assert result['wall_ns_observed_range']==[1000,5000]
+    assert result['failed_count']==1 and result['censored_count']==1
+    assert result['overshoot_ns_total']==200
+    assert result['upper_bound_available'] is False
+
+
+def test_unknown_cost_is_missing_not_zero():
+    result=pilot.forecast('pilot',[{'status':'oom'}],{'request_count':2,'timed':True})
+    assert result['wall_ns_observed_range'] is None
+    assert result['missing_wall_count']==1
+    assert result['admitted_workers']==0
+
+
+def test_native_support_is_strict_json_with_unbounded_null_preserving_bounds():
+    support=native_parameter_support()
+    encoded=json.dumps(support,allow_nan=False)
+    assert json.loads(encoded)['nodeselection/estimate/maxplungequot']['maximum'] is None
+    params={name:meta['default'] for name,meta in support.items()}
+    assert resolve_native_overrides(params,{'nodeselection/estimate/maxplungequot':1e100})['nodeselection/estimate/maxplungequot']==1e100
+    with pytest.raises(ValueError):resolve_native_overrides(params,{'nodeselection/estimate/maxplungequot':-1})
+    json.loads(Path('configs/native/search_space.json').read_text(),parse_constant=lambda value:pytest.fail(value))
+
+
+def test_finite_envelope_pairs_same_instance_seed_and_deadline():
+    baseline=attempt(nodes=20)
+    alternate=replace(attempt(nodes=10,method='B1'),available=replace(baseline.available,utility=.9))
+    baseline=replace(baseline,available=replace(baseline.available,utility=.8))
+    other_seed=replace(alternate,request=replace(alternate.request,solver_seed=17),available=replace(alternate.available,utility=1.))
+    summary=pilot.summarize_headroom([baseline,alternate,other_seed])
+    pairs=summary['finite_envelope']
+    paired=next(x for x in pairs if x['solver_seed']==0)
+    assert paired['gain_over_B0']==pytest.approx(.1)
+    assert next(x for x in pairs if x['solver_seed']==17)['gain_over_B0'] is None
