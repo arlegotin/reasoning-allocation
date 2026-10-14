@@ -247,7 +247,7 @@ def test_learned_outcome_cannot_select_population(learned_discovery_summary):
 
 **Interfaces:** Produces `FeatureSchema` with ordered names/units/origins/caps/masks/hash; `FeatureBatch` with float64 matrix, `(NodeKey,length)` action rows, and schema hash; `features.build_features(context: DecisionContext, candidates: Sequence[NodeRecord], lengths: Sequence[int], ancestry: Mapping[NodeKey, object], schema: FeatureSchema) -> FeatureBatch`. `features.normalize_transformed(value: float, lower: float, cutoff: float, is_infinity: Callable[[float], bool]) -> tuple[float, dict[str, bool]]` returns model data only.
 
-- [ ] **Step 1: Write failing feature tests.** Solver sentinel `1e20` reported infinite is masked even though IEEE-finite; neither finite reference gives scale 1; negative/zero references and offset/scaling preserve semantic differences. Feature clipping adds an out-of-range flag and never edits native records. Post-action/teacher/optimum fields reject; schema ordering/hash are stable; missing ancestry masks only optional stored summaries, while required path absence remains an adapter error. Actual matrix dtype is float64 and dimensions are recorded.
+- [x] **Step 1: Write failing feature tests.** Solver sentinel `1e20` reported infinite is masked even though IEEE-finite; neither finite reference gives scale 1; negative/zero references and offset/scaling preserve semantic differences. Feature clipping adds an out-of-range flag and never edits native records. Post-action/teacher/optimum fields reject; schema ordering/hash are stable; missing ancestry masks only optional stored summaries, while required path absence remains an adapter error. Actual matrix dtype is float64 and dimensions are recorded.
 
 ```python
 def test_solver_infinity_is_not_ieee_finiteness():
@@ -256,10 +256,10 @@ def test_solver_infinity_is_not_ieee_finiteness():
     assert masks["value_infinite"] is True
     assert math.isfinite(value)  # finite model placeholder; native data unchanged
 ```
-- [ ] **Step 2: Run red.** `python -m pytest tests/test_features.py -q`; expected missing feature interfaces.
-- [ ] **Step 3: Implement only spec §6 fields.** Bound lineage history; use child-local pre-allocation utility under its explicit field name. Action rows cover exactly pool × supported lengths. Implement SCIP-infinity-aware masks and training-range caps; leave learned imputation/scales for Task 12. Time extraction separately and keep feature buffers bounded.
-- [ ] **Step 4: Verify.** Run feature/objective/native-lifecycle tests; inspect a discovery feature shard against the whitelist and native objective-space conversions. Expected no privileged inputs, correct infinity behavior, and recorded matrix dimension/bytes/extraction cost.
-- [ ] **Step 5: Commit.** Stage features/schema/tests/types/config; commit `feat: add bounded local allocation features`.
+- [x] **Step 2: Run red.** `python -m pytest tests/test_features.py -q`; expected missing feature interfaces.
+- [x] **Step 3: Implement only spec §6 fields.** Bound lineage history; use child-local pre-allocation utility under its explicit field name. Action rows cover exactly pool × supported lengths. Implement SCIP-infinity-aware masks and training-range caps; leave learned imputation/scales for Task 12. Time extraction separately and keep feature buffers bounded.
+- [x] **Step 4: Verify.** Run feature/objective/native-lifecycle tests; inspect a discovery feature shard against the whitelist and native objective-space conversions. Expected no privileged inputs, correct infinity behavior, and recorded matrix dimension/bytes/extraction cost.
+- [x] **Step 5: Commit.** Stage features/schema/tests/types/config; commit `feat: add bounded local allocation features`.
 
 ## Task 11: Randomized leases and authoritative observed targets (WP04)
 

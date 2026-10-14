@@ -1,0 +1,105 @@
+{
+  "base_commit": "aaac6f9",
+  "cell_id": "22889bc185bac36ab0df269046bb4b42d1ad3f954fcad7d3effa1c4c04a37f05",
+  "diagnostic_attempts": 2,
+  "diagnostic_external_wall_ns": [
+    1230897542,
+    1229732125
+  ],
+  "diagnostic_repeat_reason": "partial parent summaries initially represented unrecorded service history as empty; final snapshot masks absent history after focused RED/GREEN correction",
+  "dimension": [
+    14,
+    192
+  ],
+  "feature_count": 32,
+  "feature_extraction_ns": 543666,
+  "float64_columns": 192,
+  "future_model_training_inference_cost": "unmeasured; no predictor exists",
+  "implementation_commit": "9489e67",
+  "input_sha256": "ad30d28a812aacd78dfac4fc85c22825178b38ae84ea12c0a49cff07ca4027db",
+  "inspection_checks": [
+    "ordered whitelist matches matrix",
+    "float64 finite model data",
+    "all7 source hashes match",
+    "matrix hash/bytes match",
+    "parent/branching summaries present",
+    "unavailable history explicitly masked",
+    "original objective independently validated",
+    "presolve active",
+    "no enhancement overrides"
+  ],
+  "instance_id": "d118599106346f6d8bea11399bed56aa4a5dc5b250564546b608b3f4036b8eef",
+  "inventory": {
+    "entries": 35,
+    "path": "artifacts/checks/task10/inventory.json",
+    "sha256": "cd911af2f8207629157f65c6d1a929bbc99fbc9b49e9011068d03abda73f58e3"
+  },
+  "lineage_limit": 8,
+  "manifest_sha256": "8e8f2e8e5ce75ea2028410d8c49b544aa1118b2abf830f72c6532ea3d8f1a2d4",
+  "masks": [
+    "missing",
+    "value_infinite",
+    "lower_infinite",
+    "cutoff_infinite",
+    "out_of_range"
+  ],
+  "matrix_bytes": 21504,
+  "matrix_file_bytes": 21632,
+  "matrix_sha256": "56cea0ef694c7ad4f6cc13823a4c07cf9d4150c9fcb7eed3ca6ebc69d7c9ae68",
+  "max_action_rows": 4096,
+  "max_matrix_bytes": 6291456,
+  "native_and_snapshot_ns": 1043496292,
+  "objective_offset": 7,
+  "objective_scale": 3,
+  "original_dimensions": [
+    512,
+    256
+  ],
+  "original_objective": 1402.0,
+  "original_offset": 7.0,
+  "process_cpu_ns": 1210575000,
+  "pyscipopt_version": "6.3.0",
+  "schema_hash": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+  "schema_version": 1,
+  "scope": "public discovery diagnostic, not comparative performance or training collection; no fitted model or protected outcomes",
+  "setup_imports_ns": 144826208,
+  "solver_infinity": 1e+20,
+  "solver_infinity_convention": "model.isInfinity(abs(value)); installed threshold abs(value)>=model.infinity(), IEEE infinity flagged, NaN rejected",
+  "solver_version": [
+    10,
+    0,
+    2
+  ],
+  "source_hashes": {
+    "checks/task10_features.py": "fbbd99772bcfac7134b7e9d0ff1d33b99aae7e2a7c105b900806f70fd9a49705",
+    "configs/exploratory.json": "65087ee5e3c2ae6835f72c1dae6fb3af8ba771c93c86e573c424974d9a3e7505",
+    "configs/features.json": "0c7eb90f2cc76d6b29a918446be3cd0702a300b03230964d0d516dd0e5a5df93",
+    "src/ra/config.py": "db76d0419dde74ea737545af6ff58395413364eb93605e4a92e3d51ea969a098",
+    "src/ra/features.py": "b9aaac9fb82147e75a96f03ceef4bed2953f6ed96980021d380655eaf6d27434",
+    "src/ra/scip_backend.py": "5d0a922e2e990357a180848f1ee6944aaf5f84bea976afcf892adb755add4145",
+    "src/ra/types.py": "4dbad14f120fa9b9995b47e5d0a549892ca55513f76a5a20ab8f0db3d99e88ef"
+  },
+  "source_split": "discovery",
+  "status": "implementation complete; independent review pending",
+  "task": 10,
+  "template_id": "2f8c9749c4d63f79c865fbbf94d868c1e8f114d8aba87c3ea33621a1da26ee53",
+  "through_native_release_ns": 1194967417,
+  "transformed_dimensions": [
+    540,
+    182
+  ],
+  "transformed_objective": 465.0,
+  "transformed_offset": 0.0,
+  "verification": {
+    "branching_red": "1 failed in0.11s",
+    "final_focused": "90 passed in0.45s",
+    "full": "455 passed in26.77s",
+    "initial_green": "19 passed in0.10s",
+    "initial_red": "missing load_feature_schema; 1 collection error in0.09s",
+    "missing_red": "3 failed,31 passed in0.15s",
+    "nan_red": "5 failed,26 passed in0.15s",
+    "validation_red": "3 failed,22 passed in0.16s"
+  },
+  "verified_unscaled_original_objective": 465,
+  "whole_snapshot_extraction_ns": 901417
+}
