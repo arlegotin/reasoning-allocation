@@ -1,0 +1,72 @@
+{
+  "cards": [
+    {
+      "path": "baselines/cards/labassi.md",
+      "sha256": "c5638ca392bbff971feaeff64dbdab5c1577c1de8251db03e55aec9f409ef3e2"
+    },
+    {
+      "path": "baselines/cards/mattick-mutschler.md",
+      "sha256": "6fbbe5da810b5da2c21725ac462d7fdf438d7159294ba60507633449de9296fc"
+    },
+    {
+      "path": "baselines/cards/trgnn.md",
+      "sha256": "76d4205a285906707302b1355f40b9166a3d30f5015f2f437aec7caa91fe657c"
+    },
+    {
+      "path": "baselines/cards/deepbound.md",
+      "sha256": "3757a4e77a1e1c6134a3cd57bef73a2444af5f720ea1ed143cebf72426ba8ad2"
+    },
+    {
+      "path": "baselines/cards/treecl.md",
+      "sha256": "452bf1351f768eff8df3db5d2bedc34621c4e49df65122fb7f8b8a7ace24041d"
+    }
+  ],
+  "child_peak_rss_bytes": 37519360,
+  "final_focused_batch": {
+    "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 .venv/bin/python -m pytest tests/test_baseline_register.py tests/test_attribution_controls.py tests/test_bidder.py tests/test_models.py tests/test_pooled_features.py tests/test_collection.py tests/test_harness_controls.py -q",
+    "passed": 159,
+    "pytest_wall_seconds": 7.54
+  },
+  "hashes": {
+    "configs/mandatory_baselines.json": "bdbb7b7793d5c80513733ab7e929b5dae99d130639f068be75366642e969d9d6",
+    "src/ra/baselines/register.py": "b79a53155ab85bc2cb4c5304717b0f6f376ce0508ea79bc115bef9869f2af313",
+    "src/ra/cli.py": "48d7a089a1fb7b2b0dfa8f0f337f7b3e798d841c1198ca39dc14ee8e164273cf",
+    "src/ra/config.py": "12874ccbedfa5930a9b8f2ba43506b49ba99465392d59c5f1721933f0f6a325d",
+    "tests/test_baseline_register.py": "6209b9798afb4935f053e2d741e71f0937027708ded4c572fdf42199cf94b8aa"
+  },
+  "implementation_commit": "4ad4778c8c24010692414eb081075aa6a7fe7bb2",
+  "interpreter": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/.venv/bin/python",
+  "platform": "macOS-26.7.1-arm64-arm-64bit",
+  "prior_config_fields_unchanged": true,
+  "python": "3.12.9 (main, Feb  4 2025, 14:38:38) [Clang 16.0.0 (clang-1600.0.26.6)]",
+  "register_test_command": [
+    "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/.venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/test_baseline_register.py",
+    "-q"
+  ],
+  "register_test_exit": 0,
+  "register_test_stderr": "",
+  "register_test_stdout": "..............................................                           [100%]\n46 passed in 0.24s\n",
+  "required_controls": {
+    "B0": "2c52f774b65963fdce1a52b6a822622bf399e5b78895347c7f58ffe5cd5055e2",
+    "B1": "940c6fb07ee9835767bbb36adba44132e76a677f6bb107201283b9d94b12ce39",
+    "B2": "5842640f737527e49fdd41721050720882be77f21dc53d821a3bdceffd57600d",
+    "B3": "b1ad86cf64dee759e60efff579910109510cb5916cac5c00acf6c13cffd92ad9",
+    "B4": "fda145dd97f7b2b34ec7c01265637e35c552c4ed8643f47d0f2ea9164890e400",
+    "B5": "8a0143c8ccbbeaaf19617c88a644e123914323b616ffaf9a00de20020515a86b",
+    "B6": "e71aa963d3d8d36bd39d46e3fa187651847338cffb9331bab39044c197cb9a38"
+  },
+  "scope": "validation tests and source/access register only; no baseline model CPU costs, reproduction or protected outcomes measured",
+  "statuses": {
+    "deepbound": "blocked",
+    "labassi": "blocked",
+    "mattick-mutschler": "blocked",
+    "treecl": "blocked",
+    "trgnn": "blocked"
+  },
+  "test_child_cpu_ns": 344249000,
+  "utc": "2026-10-14T05:58:53.622982+00:00",
+  "verification_process_wall_ns": 376681958
+}
