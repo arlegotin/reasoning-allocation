@@ -371,7 +371,7 @@ def test_log_budget_weights_and_invalid_grid():
 
 **Interfaces:** Consumes verified Task 15 manifest and Task 8 `run_schedule`. Produces `runner.execute_frozen(digest_path: Path, out: Path, *, resume: bool = False, dry_run: bool = False) -> list[Attempt]`. It verifies scientific hashes before launch and records actual operational attempts without mutating the protocol. Confirmation requests are independent runs for each deadline.
 
-- [ ] **Step 1: Write failing execution tests.** One worker at a time; order matches frozen block seed; every method/deadline/template/repeat/fit request is scheduled as registered, without multiplying shared native runs by fit count. A short-budget request loads its own conditioned config rather than truncating the long run. Resume rejects changed hashes; unfavorable/timeout/OOM records remain; simulated significance cannot change queue size/order. External interruption reruns an entire affected paired block only under frozen rules, with prior costs visible.
+- [x] **Step 1: Write failing execution tests.** One worker at a time; order matches frozen block seed; every method/deadline/template/repeat/fit request is scheduled as registered, without multiplying shared native runs by fit count. A short-budget request loads its own conditioned config rather than truncating the long run. Resume rejects changed hashes; unfavorable/timeout/OOM records remain; simulated significance cannot change queue size/order. External interruption reruns an entire affected paired block only under frozen rules, with prior costs visible.
 
 ```python
 def test_frozen_execution_rejects_changed_model(changed_frozen_model, tmp_path):
@@ -379,11 +379,11 @@ def test_frozen_execution_rejects_changed_model(changed_frozen_model, tmp_path):
         execute_frozen(changed_frozen_model, tmp_path)
     assert not list(tmp_path.glob("*/manifest.json"))
 ```
-- [ ] **Step 2: Run red.** `python -m pytest tests/test_confirmatory_execution.py -q`; expected absent frozen execution path.
-- [ ] **Step 3: Implement protected run enforcement.** Validate gates/digest, instantiate fresh workers/configs, randomize within paired instance/budget blocks exactly as frozen, and monitor resources/correctness without adjusting methods/population/sample. Correctness/resource alarms can stop and quarantine; no significance-driven stopping or silent fallback. Library/OS/source changes invalidate compatible reuse and require recorded recalibration/amendment.
-- [ ] **Step 4: Verify on artificial manifests.** Run execution/recovery/deadline tests; a tiny synthetic frozen fixture exhausts its exact queue and reconstructs records with no late utility or hash drift. This fixture is not the real confirmatory sample.
-- [ ] **Step 5: Execute the real frozen queue.** `python -m ra.cli run --config configs/confirmatory.json --phase confirmatory --resume`. Preserve every attempt, temperature/power/background/time-block metadata, last output and actual release cost. Do not inspect inferential significance to decide whether to continue. If the gate fails, retain evidence and narrow/report via Task 20.
-- [ ] **Step 6: Commit.** Commit runner/tests and compact immutable run manifest/operational progress with `feat: execute fixed serial protected comparisons`. Do not commit large raw traces; completion depends on actual request inventory, not the commit message.
+- [x] **Step 2: Run red.** `python -m pytest tests/test_confirmatory_execution.py -q`; expected absent frozen execution path.
+- [x] **Step 3: Implement protected run enforcement.** Validate gates/digest, instantiate fresh workers/configs, randomize within paired instance/budget blocks exactly as frozen, and monitor resources/correctness without adjusting methods/population/sample. Correctness/resource alarms can stop and quarantine; no significance-driven stopping or silent fallback. Library/OS/source changes invalidate compatible reuse and require recorded recalibration/amendment.
+- [x] **Step 4: Verify on artificial manifests.** Run execution/recovery/deadline tests; a tiny synthetic frozen fixture exhausts its exact queue and reconstructs records with no late utility or hash drift. This fixture is not the real confirmatory sample.
+- [x] **Step 5: Execute the real frozen queue.** `python -m ra.cli run --config configs/confirmatory.json --phase confirmatory --resume`. Preserve every attempt, temperature/power/background/time-block metadata, last output and actual release cost. Do not inspect inferential significance to decide whether to continue. If the gate fails, retain evidence and narrow/report via Task 20.
+- [x] **Step 6: Commit.** Commit runner/tests and compact immutable run manifest/operational progress with `feat: execute fixed serial protected comparisons`. Do not commit large raw traces; completion depends on actual request inventory, not the commit message.
 
 ## Task 17: Paired endpoints, uncertainty, and primary report (WP07)
 
