@@ -196,3 +196,58 @@ def test_deterministic_learned_trace_does_not_invent_randomized_propensity(tmp_p
     result=finalize_trace(tmp_path,[],request,20,True,[],'deadline',True)
     assert result['labels']==1
     assert json.loads((tmp_path/'trace/label-000000.json').read_text())['selection_probability'] is None
+
+
+@pytest.mark.parametrize('corruption', [None, 'prepared_hash', 'action', 'selected_path'])
+def test_final_dispatch_join_is_immutable_and_training_reads_the_executed_row(tmp_path, monkeypatch, corruption):
+    import hashlib
+    import json
+    from dataclasses import asdict
+    from pathlib import Path
+    from types import SimpleNamespace
+    import numpy as np
+    import ra.collect as collection
+    import ra.worker as worker
+    from ra.config import load_feature_schema
+    from ra.runner import _atomic_json
+    from ra.train import load_training_rows
+    from ra.types import Request
+    schema = load_feature_schema(Path('configs/features.json'))
+    trace = tmp_path/'trace'
+    writer = collection.TraceWriter(trace, schema, max_decisions=1)
+    allocation = {'root': {'epoch': 1, 'number': 1}, 'node_limit': 1, 'selection_probability': None,
+                  'policy_state_hash': 'prepared', 'gain_prediction': .1, 'seconds_prediction': .01, 'seconds_q90': None}
+    metadata = {'allocation': allocation, 'pool_ids': [allocation['root']], 'pool_hash': 'pool',
+                'support_lengths': [1, 4], 'support_hash': 'support', 'heuristic': None,
+                'context': {'snapshot_ns': 2}}
+    writer.decision(np.zeros(192), metadata)
+    initial = (trace/'decision-000000.json').read_bytes()
+    selected = writer.revision(np.ones(192), {**metadata, 'allocation': {**allocation, 'node_limit': 4}}, 0, 1)
+    final = {**allocation, 'node_limit': 4, 'seconds_prediction': .05, 'policy_state_hash': 'final'}
+    dispatch = {'allocation': final, 'pool_hash': 'pool', 'selected_features': selected,
+                'final_decision': {'prepared': dict(writer.prepared), 'heuristic': None}}
+    if corruption == 'prepared_hash': dispatch['final_decision']['prepared']['sha256'] = '0'*64
+    if corruption == 'action': dispatch['allocation'] = {**final, 'node_limit': 1}
+    if corruption == 'selected_path': dispatch['selected_features'] = 'selected-000000.npy'
+    _atomic_json(trace/'dispatch-000000.json', dispatch, immutable=True)
+    if corruption:
+        with pytest.raises(ValueError, match='prepared'):
+            collection.read_decision(trace/'decision-000000.json')
+        return
+    assert (trace/'decision-000000.json').read_bytes() == initial
+    joined = collection.read_decision(trace/'decision-000000.json')
+    assert joined['context'] == metadata['context'] and joined['allocation'] == final
+    label = {'root': final['root'], 'node_limit': 4, 'trace_index': 0, 'selected_features': selected,
+             'dispatch_ns': 5, 'endpoint_gain': 0., 'body_ns': 10, 'gain_fit_eligible': True,
+             'body_fit_eligible': True, 'duration_observation_known': True, 'duration_lower_bound': False,
+             'deadline_censored': False, 'completion_outcome_known': True}
+    _atomic_json(trace/'label-000000.json', label, immutable=True)
+    request = Request('join', 'unused', 'a'*64, 'b'*64, 'c'*64, 'd'*64, 'e'*64, 'local', 'train', 17, 100, 100, 10)
+    _atomic_json(tmp_path/'attempt.json', {'request': asdict(request), 'lineage': {'cell': {'family': 'test'}}}, immutable=True)
+    monkeypatch.setattr(worker, 'load_instance', lambda _: SimpleNamespace())
+    monkeypatch.setattr(collection, 'validate_training_instance', lambda _: 0)
+    rows = load_training_rows([tmp_path], schema)
+    assert rows['batch'].matrix.tolist() == [np.ones(192).tolist()]
+    assert rows['batch'].action_rows[0][1] == 4
+    assert str(trace/'dispatch-000000.json') in rows['inventory']
+    assert rows['inventory'][str(trace/writer.prepared['path'])] == writer.prepared['sha256']

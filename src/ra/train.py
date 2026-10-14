@@ -20,7 +20,7 @@ def load_training_rows(roots, schema):
     import numpy as np
     from ra.types import FeatureBatch, NodeKey
     from ra.worker import strict_json, load_instance, Request
-    from ra.collect import validate_training_instance
+    from ra.collect import validate_training_instance, read_decision
     inventory, matrices, labels, originals, families, budgets, actions = {}, [], [], [], [], [], []
     corrections = {}
     if CORRECTION.exists():
@@ -57,7 +57,7 @@ def load_training_rows(roots, schema):
             if not label['gain_fit_eligible'] and not label['body_fit_eligible']:
                 continue
             decision_path = path.with_name(f"decision-{label['trace_index']:06d}.json")
-            decision = strict_json(decision_path.read_text())
+            decision = read_decision(decision_path, inventory=inventory)
             selected = path.parent / decision['selected_features']
             if selected.parent.resolve() != path.parent or decision['feature_schema_hash'] != schema.hash:
                 raise ValueError('local selected row/schema mismatch')

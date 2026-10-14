@@ -193,3 +193,112 @@ def test_selected_original_weights_preserve_locked_cell_mass():
     assert generated['instances'][0]['population_weight'] == 1/12
     with pytest.raises(ValueError, match='cell'):
         selected_training_manifest(generated, [0, 2])
+
+
+@pytest.mark.parametrize('q90, gain, body, expected_length, revision_delay', [
+    ([.02, .06], [.1, 1.], [.01, .02], 1, 0),
+    ([.06, .06], [.1, 1.], [.01, .02], 1, 0),
+    (None, [.2, .3], [.005, .02], 4, 0),  # Administration alone reverses the rates.
+    ([.02, .06], [.1, 1.], [.01, .02], None, 60_000_000),
+    ([.001, .04], [.2, .3], [.005, .02], None, 25_000_000),  # Two revisions, then expiry.
+])
+@pytest.mark.parametrize('behavior_seed', [None, 1, 5])
+def test_local_final_decision_refreshes_after_slow_trace_without_reprediction(
+        tmp_path, monkeypatch, q90, gain, body, expected_length, revision_delay, behavior_seed):
+    from collections import OrderedDict
+    from dataclasses import asdict
+    from types import SimpleNamespace
+    import ra.collect as collection
+    from ra.allocators import LocalBidder
+    from ra.leases import LeaseController
+    from ra.models import PredictionBatch
+    from test_features import node
+
+    now = [2_000_000_000]
+    monkeypatch.setattr(collection.time, 'perf_counter_ns', lambda: now[0])
+    schema = load_feature_schema(Path('configs/features.json'))
+    calls = []
+    class Model:
+        def predict(self, batch):
+            calls.append(batch)
+            return PredictionBatch(np.array(gain), np.array(body), None if q90 is None else np.array(q90))
+    local = LocalBidder(Model(), schema, c_min=1e-6, clock=lambda: now[0])
+    runtime = collection.CollectionRuntime.__new__(collection.CollectionRuntime)
+    runtime.request = SimpleNamespace(request_id='r', deadline_ns=2_100_000_000, launch_ns=0, p0=10, solver_seed=17,
+        method_config={'pool_size': 2, 'lease_lengths': [1, 4], 'allocator': {'policy': 'local'},
+                       'learned': {'pool_seed': 1, 'behavior_seed': 2}})
+    runtime.instance = SimpleNamespace(incidence=SimpleNamespace(shape=(2, 3), nnz=4))
+    runtime.model = SimpleNamespace(getLowerbound=lambda: -10., getCutoffbound=lambda: 10.,
+                                   getNSolsFound=lambda: 0, infinity=lambda: 1e20)
+    runtime.observer = SimpleNamespace(available_local=lambda: (10., 0., 0.))
+    stopped = []
+    record = node(2, parent=None)
+    runtime.backend = SimpleNamespace(processed_nodes=0, selection_count=1, parents={record.key: None},
+                                     last_callback_entry_ns=2_000_000_000, request_stop=lambda: stopped.append(True))
+    runtime.schema, runtime.pool_rng = schema, random.Random(1)
+    runtime.bounds, runtime.history = OrderedDict(), OrderedDict()
+    runtime.last_utility, runtime.last_improvement = 0., None
+    runtime.behavior, runtime.randomized, runtime.diagnostics = local, False, []
+    expected_rng = None
+    if behavior_seed is not None:
+        behavior = RandomizedBehavior.__new__(RandomizedBehavior)
+        behavior.heuristic, behavior.config = local, {'policy': 'local'}
+        behavior.epsilon, behavior.seed, behavior.rng = .2, behavior_seed, random.Random(behavior_seed)
+        runtime.behavior, runtime.randomized = behavior, True
+        expected_rng = random.Random(behavior_seed)
+        if expected_rng.random() < .2:
+            expected_rng.choice([record])
+            expected_length = expected_rng.choice([1, 4])
+            revision_delay = 0  # Exploration fixes the sampled action, regardless of heuristic revisions.
+        runtime.request.method_config['collection'] = runtime.request.method_config.pop('learned')
+    runtime.writer = TraceWriter(tmp_path/'trace', schema, max_decisions=2)
+    runtime.lease = LeaseController({}, deadline_ns=runtime.request.deadline_ns,
+                                   on_dispatch=runtime.dispatched, on_finish=runtime.finished,
+                                   clock=lambda: now[0])
+    original = runtime.writer.decision
+    def slow_trace(*args, **kwargs):
+        result = original(*args, **kwargs)
+        now[0] += 50_000_000
+        return result
+    monkeypatch.setattr(runtime.writer, 'decision', slow_trace)
+    original_revision = runtime.writer.revision
+    def slow_revision(*args, **kwargs):
+        result = original_revision(*args, **kwargs)
+        now[0] += revision_delay
+        return result
+    monkeypatch.setattr(runtime.writer, 'revision', slow_revision)
+    chosen = runtime.choose([record])
+    assert chosen == record.key
+    if expected_rng is not None:
+        assert runtime.behavior.rng.getstate() == expected_rng.getstate()
+    if expected_length is None:
+        assert stopped and not runtime.lease.pending and len(calls) == 1
+        assert not list((tmp_path/'trace').glob('dispatch-*'))
+        assert (tmp_path/'trace/prepared-000000-revision-000001.json').exists()
+        if revision_delay == 25_000_000:
+            assert (tmp_path/'trace/prepared-000000-revision-000002.json').exists()
+        summary = collection.finalize_trace(tmp_path, [], runtime.request, now[0], True, [], 'deadline', True)
+        assert summary['labels'] == 0 and summary['unknown_dispatches'] == 1
+        return
+    assert not stopped
+    assert runtime.lease._allocation.node_limit == expected_length
+    assert len(calls) == 1
+    if behavior_seed is None:
+        assert runtime.lease._allocation.seconds_prediction == pytest.approx(.05 + body[[1, 4].index(expected_length)])
+    else:
+        assert runtime.lease._allocation.selection_probability == mixture_probability(
+            (chosen, expected_length), runtime.behavior.last_heuristic, 1, 2, .2)
+    assert local.last_diagnostics['administration_seconds'] == pytest.approx(.05)
+    runtime.lease.mark_dispatch(now[0] + 1000)
+    decision = collection.read_decision(tmp_path/'trace/decision-000000.json')
+    dispatch = json.loads((tmp_path/'trace/dispatch-000000.json').read_text())
+    assert decision['allocation'] == dispatch['allocation'] == asdict(runtime.lease._allocation)
+    selected = np.load(tmp_path/'trace'/decision['selected_features'], allow_pickle=False)
+    assert selected[0, schema.names.index('action_log1p_length')] == pytest.approx(np.log1p(expected_length))
+    assert dispatch['decision_residual_ns'] == 1000
+    runtime.lease.finish(now[0] + 10_000_000, 'terminal')
+    summary = collection.finalize_trace(tmp_path, [], runtime.request, now[0] + 10_000_000,
+                                        True, [], 'complete', False)
+    assert summary['labels'] == 1
+    label = json.loads((tmp_path/'trace/label-000000.json').read_text())
+    assert label['node_limit'] == expected_length and label['selected_features'] == decision['selected_features']

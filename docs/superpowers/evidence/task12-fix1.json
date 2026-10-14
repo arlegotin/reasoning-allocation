@@ -1,0 +1,120 @@
+{
+  "action_changes_from_preparation": 0,
+  "attempt_id": "f80955c4a9e648198fe750c7bbe68b06",
+  "attempt_path": "artifacts/checks/task12/fix1/current-runtime/runs/attempts/50b0d25f66b7472ec1e52deb222f192e4f1a44d8b07c64efb265c0a7c969f633/b884402a529149d78aaa913c0399484b/attempt.json",
+  "available": {
+    "assignment_available": true,
+    "dual_original": 1197.0965476996,
+    "incumbent_hash": "52b1bee7d5965407a774a444e030be0ab27e0da2676033c0c1dab96192c12963",
+    "primal_original": 1280,
+    "sequence": 47,
+    "utility": 0.9936758370355939
+  },
+  "batch_accounting": {
+    "attempt_ids": [
+      "f80955c4a9e648198fe750c7bbe68b06"
+    ],
+    "collection_end_ns": 218664479067083,
+    "coordinator_cpu_ns": 263669000,
+    "coordinator_peak_rss_bytes": 79937536,
+    "report_generation_tail_ns": null,
+    "schema_version": 1,
+    "scope": "entry through configuration/resume, serial workers, full request publication/accounting writes, effective-outcome audit and status publication; this final audit write is report-generation overhead",
+    "status_audit_end_ns": 218664478367708,
+    "status_audit_ns": 18782750,
+    "status_publication_end_ns": 218664479066791,
+    "status_publication_ns": 698416,
+    "total_observed_ns": 2339993083
+  },
+  "budget_ns": 2106828958,
+  "current_source_hash": "37719815321d96ddca4a58a98a3cf9d19b0d60db2136e72016093d959f2f0726",
+  "dispatched_decisions": 15,
+  "environment_hash": "581c89be8c1343d6f925483e82100f4fe81293fea771eedb21aac08a296c5329",
+  "fix_base": "e308ae5",
+  "full_request_with_publication_ns": 2184009666,
+  "historical_semantics": {
+    "attempts": 585,
+    "cards_preserved": {
+      "docs/superpowers/evidence/task12-data-card.json": "c24eb2f1d07b57144add169614c5a84b919d07f3da68c1fc2aca9e1520491a2a",
+      "docs/superpowers/evidence/task12-environment-card.json": "6111d172497c6a9d8e4b2cd2fafe81905a3ef667ec60ef10bddec7e1e413dad3",
+      "docs/superpowers/evidence/task12-model-card.json": "75db09e3360ac026bfcbf14d0d8eca6053030646d4de1e0d7251255a90843a39",
+      "docs/superpowers/evidence/task12.json": "d0d79caf4012f188831a64b72f4cd194c679997caaa78b19b35ea905e4ce52e3"
+    },
+    "scores": "All existing validation/selection scores describe pre-fix policies. Quantile policies used stale post-prediction tail feasibility; ridge has no tail but final administration refresh can change rates/actions. Assets and original snapshots remain unchanged.",
+    "source_hash": "7fb39ed2e666a8474712ea9ab49744bdf5a34451846c284291308d60949839e6"
+  },
+  "independent_originals": 1,
+  "instance_hash": "edc897bda8be24e091a7f197bd2a4c78128ba4181b4cd015c2ddfa866f2698ab",
+  "limits": [
+    "One current integration request is not a corrected validation frontier or competitive re-selection.",
+    "Actual ridge request had no action revisions; changed actions and quantile support are exercised with injected clocks through real runtime/writer/lease/finalizer/training-reader paths.",
+    "Dispatch decision precedes bounded adapter work; its measured residual and dispatch journal/diagnostic materialization remain charged. No q90 deadline guarantee.",
+    "Pre-fix model/body training partition remains historical; final-decision administration and diagnostic publication timing changed without a refit. Task13 controls and validation remain pending."
+  ],
+  "model_path": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/artifacts/models/final/ridge1-seed17.json",
+  "model_sha256": "861f04c9e7c9c91342833668d2d6765ddc6df914f1363450ff839da1d22fbe47",
+  "original_template_index": 2,
+  "prepared_revisions": 0,
+  "publication_ns": 21554708,
+  "raw_inventory": {
+    "files": 145,
+    "path": "artifacts/checks/task12/fix1/raw-inventory.json",
+    "sha256": "c6858a26b9a0764194ad4048aa2748985c527378ec3a55806df43383a59b178d"
+  },
+  "request_costs": {
+    "end_to_end_ns": 2162454958,
+    "model_bytes": 7533,
+    "model_loading_ns": 1455250,
+    "parent_cpu_ns": 92640000,
+    "trace_bytes": 663602,
+    "worker_cpu_ns": 2106599000,
+    "worker_peak_rss_bytes": 173572096
+  },
+  "same_action_seconds_prediction_increase": {
+    "count": 15,
+    "max": 0.0016277079999999985,
+    "median": 0.0013708749999999936,
+    "min": 0.0012865830000000633,
+    "sum": 0.02109858200000005
+  },
+  "schema_sha256": "8ce165c046a7bcfaffc699ad51bb29bb377a1e9eaca51b09d119f169e7719097",
+  "scope": "Task12 review fixes1/2; current-runtime integration measurement; no competitive reselection",
+  "solver_seed": 17,
+  "source_snapshot": "artifacts/checks/task12/fix1/current-runtime/source",
+  "status": "deadline",
+  "timing_ns": {
+    "decision_residual_ns": {
+      "count": 15,
+      "max": 103167,
+      "median": 71042,
+      "min": 47375,
+      "sum": 1075168
+    },
+    "dispatch_journal_ns": {
+      "count": 15,
+      "max": 665542,
+      "median": 513042,
+      "min": 471750,
+      "sum": 8067960
+    },
+    "feature_extraction_ns": {
+      "count": 15,
+      "max": 4482000,
+      "median": 3576875,
+      "min": 325208,
+      "sum": 44457083
+    },
+    "prediction_ns": {
+      "count": 15,
+      "max": 399958,
+      "median": 261250,
+      "min": 172583,
+      "sum": 4046000
+    }
+  },
+  "verification": {
+    "expanded_runtime": "15 passed,16 deselected in0.26s",
+    "focused": "237 passed in 16.46s",
+    "full_suite": "not repeated; focused correction scope per controller"
+  }
+}

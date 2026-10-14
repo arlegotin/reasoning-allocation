@@ -49,9 +49,19 @@ class RandomizedBehavior:
         action = ((self.rng.choice(candidates).key, self.rng.choice(lengths)) if self.explored
                   else (h.root, h.node_limit))
         self.last_rng_after = self.rng.getstate()
+        self._exploration_action = action
+        self._rng_hash = digest([self.config, self.epsilon, self.seed, self.last_rng_before, self.last_rng_after])
+        return self._with_heuristic(h, candidates, lengths)
+
+    def refresh_batch(self, candidates, lengths):
+        return self._with_heuristic(self.heuristic.refresh_batch(), candidates, lengths)
+
+    def _with_heuristic(self, h, candidates, lengths):
+        # Rescoring never draws again or changes the declared uniform support.
+        action = self._exploration_action if self.explored else (h.root, h.node_limit)
         self.last_heuristic = (h.root, h.node_limit)
         probability = mixture_probability(action, self.last_heuristic, len(candidates), len(lengths), self.epsilon)
-        state = digest([self.config, self.epsilon, self.seed, self.last_rng_before, self.last_rng_after])
+        state = digest([self._rng_hash, h.policy_state_hash])
         # Explicit unavailable predictions, never a zero-second duration estimate.
         return Allocation(*action, None, None, None, probability, state)
 
@@ -115,15 +125,24 @@ class TraceWriter:
                      'max_decisions': max_decisions, 'rows_per_shard': 1}, immutable=True)
 
     def decision(self, row, metadata, pooled=None):
-        import numpy as np
-        from ra.runner import _atomic_json
         if self.count >= self.maximum:
             raise ValueError('trace decision limit reached')
+        name = self._write(row, metadata, pooled, self.count, '')
+        self.count += 1
+        return name
+
+    def revision(self, row, metadata, index, revision):
+        if index != self.count - 1 or type(revision) is not int or revision <= 0:
+            raise ValueError('invalid prepared decision revision')
+        return self._write(row, metadata, None, index, f'-revision-{revision:06d}')
+
+    def _write(self, row, metadata, pooled, index, suffix):
+        import numpy as np
+        from ra.runner import _atomic_json
         row = np.asarray(row, dtype=np.float64)
         if row.shape != (len(self.schema.names),) or not np.isfinite(row).all():
             raise ValueError('invalid selected feature row')
-        index = self.count
-        name = f'selected-{index:06d}.npy'
+        name = f'selected-{index:06d}{suffix}.npy'
         started = time.perf_counter_ns()
         with (self.directory / name).open('xb') as stream:
             np.save(stream, row[None, :], allow_pickle=False)
@@ -140,9 +159,43 @@ class TraceWriter:
                           pooled_extraction_ns=extraction_ns,
                           pooled_sha256=hashlib.sha256((self.directory / pooled_name).read_bytes()).hexdigest())
         record['array_storage_ns'] = time.perf_counter_ns() - started
-        _atomic_json(self.directory / f'decision-{index:06d}.json', finite_metadata(record), immutable=True)
-        self.count += 1
+        record_name = (f'prepared-{index:06d}{suffix}.json' if suffix else f'decision-{index:06d}.json')
+        record_path = self.directory / record_name
+        _atomic_json(record_path, finite_metadata(record), immutable=True)
+        self.prepared = {'path': record_name, 'sha256': hashlib.sha256(record_path.read_bytes()).hexdigest()}
         return name
+
+
+def read_decision(path, *, inventory=None):
+    """Join immutable preparation to its authoritative final dispatch decision."""
+    from ra.worker import strict_json
+    path = Path(path)
+    def read(p):
+        raw = p.read_bytes()
+        if inventory is not None:
+            inventory[str(p)] = hashlib.sha256(raw).hexdigest()
+        return strict_json(raw.decode())
+    initial = read(path)
+    dispatch_path = path.with_name(f"dispatch-{initial['index']:06d}.json")
+    if not dispatch_path.exists():
+        return initial
+    dispatch = read(dispatch_path)
+    final = dispatch.get('final_decision')
+    if final is None:  # Historical traces retain their original exact semantics.
+        return initial
+    prepared_path = path.parent / final['prepared']['path']
+    if (prepared_path.parent.resolve() != path.parent.resolve() or
+            hashlib.sha256(prepared_path.read_bytes()).hexdigest() != final['prepared']['sha256']):
+        raise ValueError('prepared decision hash/path mismatch')
+    prepared = read(prepared_path)
+    if any(prepared.get(k) != initial.get(k) for k in
+           ('index', 'context', 'pool_hash', 'pool_ids', 'support_hash', 'support_lengths', 'feature_schema_hash')):
+        raise ValueError('prepared decision context/support mismatch')
+    if any(prepared['allocation'][k] != dispatch['allocation'][k] for k in ('root', 'node_limit')):
+        raise ValueError('prepared/final action mismatch')
+    if prepared['selected_features'] != dispatch['selected_features']:
+        raise ValueError('prepared/final selected row mismatch')
+    return {**prepared, 'allocation': dispatch['allocation'], 'heuristic': final['heuristic']}
 
 
 def pooled_features(batch, schema, pool_size, length_count, frontier_size):
@@ -217,6 +270,7 @@ class CollectionRuntime:
         self.behavior = (RandomizedBehavior(request.method_config['allocator'], config['epsilon'], config['behavior_seed'])
                          if self.randomized else make_allocator(request.method_config['allocator'], config['behavior_seed']))
         self.diagnostics = []
+        self.pending_decision = None
         self.lease = LeaseController({}, deadline_ns=request.deadline_ns,
             on_dispatch=self.dispatched, on_finish=self.finished, retain_outcomes=False)
         self.bounds, self.history = OrderedDict(), OrderedDict()
@@ -232,8 +286,20 @@ class CollectionRuntime:
 
     def dispatched(self, payload):
         from ra.runner import _atomic_json
+        started = time.perf_counter_ns()
         payload = {**payload, 'allocation': asdict(payload['allocation'])}
+        pending = getattr(self, 'pending_decision', None)
+        if pending is not None:
+            payload.update(final_decision=pending['final'], decision_ns=pending['decision_ns'],
+                           decision_residual_ns=payload['dispatch_ns'] - pending['decision_ns'])
         _atomic_json(self.writer.directory / f"dispatch-{payload['trace_index']:06d}.json", payload, immutable=True)
+        if pending is not None:
+            diagnostics = pending['local'].last_diagnostics
+            diagnostics.update(prepared_revisions=pending['revisions'],
+                               decision_residual_ns=payload['decision_residual_ns'])
+            diagnostics['dispatch_journal_ns'] = time.perf_counter_ns() - started
+            self.diagnostics.append(diagnostics)
+            self.pending_decision = None
 
     def finished(self, outcome):
         from ra.runner import _atomic_json
@@ -298,8 +364,6 @@ class CollectionRuntime:
             self.diagnostics.append(dict(local.last_diagnostics))
             b.request_stop()
             return min(pool.records, key=lambda n: n.key).key
-        if hasattr(local, 'last_diagnostics'):
-            self.diagnostics.append(dict(local.last_diagnostics))
         action = (allocation.root, allocation.node_limit)
         selected = batch.action_rows.index(action)
         support_hash = digest([pool.pool_hash, lengths])
@@ -318,8 +382,38 @@ class CollectionRuntime:
                                    for k in ('pool_seed', 'behavior_seed')}}, 'selected_parent': asdict(next(n for n in pool.records if n.key == allocation.root).parent)
                     if next(n for n in pool.records if n.key == allocation.root).parent is not None else None}
         path = self.writer.decision(batch.matrix[selected], metadata, pooled)
+        if hasattr(local, 'refresh_batch'):
+            revision = 0
+            while True:
+                try:
+                    final = (self.behavior.refresh_batch(pool.records, lengths) if self.randomized
+                             else local.refresh_batch())
+                except BidderExpired:
+                    diagnostics = local.last_diagnostics
+                    diagnostics['prepared_revisions'] = revision
+                    self.diagnostics.append(diagnostics)
+                    b.request_stop()
+                    return allocation.root  # Prepared rows remain explicitly undispatched.
+                if (final.root, final.node_limit) == (allocation.root, allocation.node_limit):
+                    allocation = final
+                    break
+                allocation = final
+                selected = batch.action_rows.index((allocation.root, allocation.node_limit))
+                parent = next(n.parent for n in pool.records if n.key == allocation.root)
+                metadata.update(allocation=asdict(allocation), selected_parent=asdict(parent) if parent is not None else None,
+                    heuristic=[asdict(self.behavior.last_heuristic[0]), self.behavior.last_heuristic[1]] if self.randomized else None)
+                revision += 1
+                path = self.writer.revision(batch.matrix[selected], metadata, index, revision)
+                # Every material write is followed by another clock/rate/tail check.
+            self.pending_decision = {'local': local, 'decision_ns': local.decision_ns, 'revisions': revision,
+                'final': {'prepared': self.writer.prepared,
+                          'heuristic': [asdict(self.behavior.last_heuristic[0]), self.behavior.last_heuristic[1]]
+                          if self.randomized else None}}
         if time.perf_counter_ns() >= self.request.deadline_ns:
             b.request_stop()  # This selected row has no dispatched lease and receives no label.
+            if hasattr(local, 'last_diagnostics'):
+                self.diagnostics.append({**local.last_diagnostics, 'expired_before_lease': True})
+            self.pending_decision = None
             return allocation.root
         self.lease.begin(allocation, b.last_callback_entry_ns, metadata={'snapshot_ns': snapshot,
             'trace_index': index, 'selected_features': path, 'pool_hash': pool.pool_hash,
@@ -343,7 +437,7 @@ def finalize_trace(out, progress, request, release_ns, aligned, boundaries, stat
     observed, dispatched_entries = set(), set()
     if directory.exists():
         for path in sorted(directory.glob('decision-*.json')):
-            item = strict_json(path.read_text())
+            item = read_decision(path)
             index = item['index']
             summary['decisions'] += 1
             selected = directory / item['selected_features']

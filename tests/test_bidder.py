@@ -74,3 +74,11 @@ def test_local_config_requires_exact_model_hash_and_loads(tmp_path):
     assert isinstance(make_allocator(config,0),LocalBidder)
     config['model_hash']='0'*64
     with pytest.raises(ValueError,match='hash'): make_allocator(config,0)
+
+
+def test_zero_fallback_ranks_surviving_nodes_before_their_supported_lengths():
+    b = bidder([0]*4, [.1]*4, [.01, .2, .01, .01])
+    nodes = [node(2, native_estimate=1.), node(3, native_estimate=2.)]
+    a = b.choose(context(entry_ns=2_000_000_000, deadline_ns=2_150_000_000), nodes, [1, 4])
+    assert b.last_diagnostics['surviving'] == [True, False, True, True]
+    assert (a.root, a.node_limit) == (nodes[0].key, 1)

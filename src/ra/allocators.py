@@ -96,15 +96,18 @@ class LocalBidder:
         self.c_min, self.fallback_length = c_min, fallback_length
         self.clock, self.request_stop = clock or time.perf_counter_ns, request_stop
         self.ancestry = {}
-        self.last_diagnostics = {}
+        self._diagnostics = {}
 
     def choose(self, context, candidates, lease_lengths):
         from ra.features import build_features
         batch = build_features(context, candidates, lease_lengths, self.ancestry, self.schema)
         return self.choose_batch(context, candidates, batch)
 
+    @property
+    def last_diagnostics(self):
+        return {k: v.tolist() if hasattr(v, "tolist") else v for k, v in self._diagnostics.items()}
+
     def choose_batch(self, context, candidates, batch):
-        import numpy as np
         import time
         if context.entry_ns is None or context.entry_ns > context.snapshot_ns:
             raise ValueError('current rebid entry timing required')
@@ -112,20 +115,33 @@ class LocalBidder:
         prediction = self.bundle.predict(batch)
         prediction.validate(len(batch.action_rows))
         inference_ns = time.perf_counter_ns() - started
+        self._prepared = (context, candidates, batch, prediction, inference_ns)
+        self._prediction_hash = hashlib.sha256(b''.join(value.tobytes() for value in
+            (prediction.gain, prediction.body_seconds, prediction.body_q90) if value is not None)).hexdigest()
+        return self.refresh_batch()
+
+    def refresh_batch(self):
+        """Reprice cached predictions after trace preparation; never refit/reinfer."""
+        import numpy as np
+        context, candidates, batch, prediction, inference_ns = self._prepared
         now = self.clock()
+        self.decision_ns = now
         administration = (now-context.entry_ns)/1e9
         if administration < 0: raise ValueError('invalid current administration timing')
         total = np.maximum(self.c_min, administration + prediction.body_seconds)
         rates = np.maximum(0., prediction.gain) / total
         surviving = (np.ones(len(rates), dtype=bool) if prediction.body_q90 is None else
                      prediction.body_q90 <= max(0., (context.deadline_ns-now)/1e9))
-        if not surviving.any():
+        tail_exception = not surviving.any()
+        if tail_exception:
             surviving = np.array([length == 1 for _, length in batch.action_rows])
-        self.last_diagnostics = {'gain': prediction.gain.tolist(), 'body_seconds': prediction.body_seconds.tolist(),
-            'body_q90': None if prediction.body_q90 is None else prediction.body_q90.tolist(),
-            'rates': rates.tolist(), 'surviving': surviving.tolist(), 'administration_seconds': administration,
+        # Keep arrays until after the final decision. Large diagnostic conversions
+        # and hashes must not precede dispatch after the clock has been sampled.
+        self._diagnostics = {'gain': prediction.gain, 'body_seconds': prediction.body_seconds,
+            'body_q90': prediction.body_q90, 'rates': rates, 'surviving': surviving,
+            'administration_seconds': administration, 'decision_ns': now,
             'prediction_ns': inference_ns, 'feature_extraction_ns': batch.extraction_ns,
-            'expired': now >= context.deadline_ns, 'fallback': False}
+            'expired': now >= context.deadline_ns, 'fallback': False, 'tail_exception': bool(tail_exception)}
         if now >= context.deadline_ns:
             if self.request_stop is not None: self.request_stop()
             raise BidderExpired()
@@ -134,15 +150,17 @@ class LocalBidder:
         if max(rates[indices]) > 0:
             selected = min(indices, key=lambda i: (-rates[i], batch.action_rows[i][1], batch.action_rows[i][0].number))
         else:
-            self.last_diagnostics['fallback'] = True
+            self._diagnostics['fallback'] = True
             nodes = {n.key: n for n in candidates}
+            root = min({batch.action_rows[i][0] for i in indices}, key=lambda key:
+                (nodes[key].native_estimate, nodes[key].native_lower_bound, key.number))
+            indices = [i for i in indices if batch.action_rows[i][0] == root]
             lengths = {batch.action_rows[i][1] for i in indices}
             length = max((n for n in lengths if n <= self.fallback_length), default=min(lengths))
-            selected = min((i for i in indices if batch.action_rows[i][1] == length), key=lambda i:
-                (nodes[batch.action_rows[i][0]].native_estimate, nodes[batch.action_rows[i][0]].native_lower_bound,
-                 batch.action_rows[i][0].number))
+            selected = next(i for i in indices if batch.action_rows[i][1] == length)
         root, length = batch.action_rows[selected]
-        state = hashlib.sha256(json.dumps(self.last_diagnostics, sort_keys=True, allow_nan=False).encode()).hexdigest()
+        state = hashlib.sha256(json.dumps([self._prediction_hash, now, selected, self.c_min,
+            self.fallback_length, self._diagnostics['fallback'], bool(tail_exception)]).encode()).hexdigest()
         return Allocation(root, length, float(prediction.gain[selected]), float(total[selected]),
             None if prediction.body_q90 is None else float(prediction.body_q90[selected]), None, state)
 

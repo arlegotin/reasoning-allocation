@@ -2,7 +2,7 @@
 
 Updated: 14 October 2026.
 
-Current stage: WP00–WP03 and Tasks10–11 passed independent review. Task12 local models and closed-loop bidder are locally complete and await independent review within WP04. Current branch: `main`. Training and public validation exist; no protected evaluation has started.
+Current stage: WP00–WP03 and Tasks10–11 passed independent review. Task12 review fix round 1 corrects fallback ordering and final dispatch-time repricing; independent rereview is pending within WP04. Current branch: `main`. Training and public validation exist; no protected evaluation has started.
 
 ## Completed documentation
 
@@ -124,3 +124,12 @@ Final180-request validation has no faults. Selected ridge alpha1/seed17/fallback
 The selected7533-byte model loads in median1.414ms; batched prediction median0.196ms and extraction1.371ms. Full observed request/publication reaches10.562s at an8.427s deadline because retained trace finalization is material. All585physical requests,34candidate attempts(including8failed),31retained method faults and one unfinished partial stay costed: request/publication total760.175s or lower bound,466.45MB trace bytes. Failed preparation, fits, tests and reporting remain separately recorded; no repeated cohort was run solely for packaging.
 
 Full suite519passed/27.26s before the last independent-target eligibility correction; final covering99passed/2.38s afterward, with no actual fitted row changed. See [compact evidence](docs/superpowers/evidence/task12.json), [model card](docs/superpowers/evidence/task12-model-card.json), [data/schema card](docs/superpowers/evidence/task12-data-card.json), [environment card](docs/superpowers/evidence/task12-environment-card.json), and the [full Task12 report](.superpowers/sdd/2026-10-13-reasoning-allocation/task-12-report.md). Independent review is controller-owned; this stage supports no H1 conclusion.
+
+
+## Task12 review fix round 1
+
+Corrected node-first zero-bid fallback and cached-prediction repricing after immutable trace preparation. Action changes create new prepared revisions; dispatch receipts identify the final action/cost/heuristic, and finalizer/training joins verify it. Expiry creates no new lease. The original feature snapshot and single randomized mixture draw are preserved.
+
+Focused integration: 237 tests passed; expanded runtime matrix: 15 passed. One previously used hard validation original exercised the corrected native runtime: deadline, no fault, 15 dispatched decisions, no action revisions, 2.184010 s including publication against 2.106829 s budget. Final administration increased all 15 selected total-cost predictions; the injected-clock tests cover action changes, tail rejection and revision expiry.
+
+All original 585 attempts and compact cards remain unchanged historical evidence. Their learned selection scores are pre-fix scores, not a corrected-runtime frontier; no new competitive selection is claimed. Task13 receives the unchanged historically selected asset plus corrected runtime. See [correction evidence](docs/superpowers/evidence/task12-fix1.json); the full Task12 report appends RED/GREEN, exact current source/asset identities, residual/journal costs and limits. Independent rereview is pending.
