@@ -15,7 +15,7 @@ import sys
 import time
 
 ROOT=Path(__file__).resolve().parents[1]
-OUT=ROOT/'artifacts/task15'
+OUT=ROOT/'artifacts/task15/generation2'
 BUDGETS=[526707240,2106828958,8427315832]
 FIT='task13-matched-fit1'
 
@@ -30,8 +30,8 @@ def write(p,value):
 
 
 def methods():
-    selected=read(ROOT/'configs/mandatory_baselines.json')['selected']
-    return {'A':selected['local-matched'],**{k:selected[k] for k in ('B0','B1','B2','B3','B5','B6')}}
+    from ra.freeze import deployment_methods
+    return deployment_methods(read(ROOT/'configs/mandatory_baselines.json'),1024)
 
 
 def merge_owners(destination):
@@ -71,7 +71,10 @@ def prepare():
         inventory=inventory,physical_methods=methods(),pilot_originals=12,pilot_repeats=2,pilot_fit_runs=1,
         source=reference(Path(__file__)),request_count=504,deadlines_ns=BUDGETS,
         useful_precision=.001,resource_budget_seconds=3600,resource_budget_storage_bytes=20*1024**3,
-        design_options_templates_per_cell=[2,4,10,20],
+        design_options_templates_per_cell=[2,4,10,20,40,100],
+        telemetry_limit=1024,prior_generation=reference(ROOT/'artifacts/task15/preflight.json'),
+        telemetry_rationale='Two retained B3 failures at512 decisions in7.227s/18.52MB/162.40MB RSS;1024 doubles bounded capacity for all learned methods, projected~670 decisions by8.427s. Measure fresh full cohort; no fallback.',
+        planning_assumptions='One hour and20GiB are initial operational assumptions, not user hard limits. Inspect larger alternatives and actual capacity before freeze.',
         rationale='0.001 normalized frontier half-width resolves approximately half the earlier native shortfall; sensitivity only, not a success threshold',
         candidate_rationale='Matched-data adaptive ridge preserves primary allocation hypothesis and locality attribution against B6; fixed winner is not promoted',
         fit_scope='one existing complete matched-data fitted procedure; fit seed exports are aliases; no across-fit precision claim',
@@ -211,6 +214,7 @@ def package():
         resources=reference(ROOT/'artifacts/pilot/power_design.json'),preflight=reference(OUT/'preflight.json'),
         protected_manifests=[reference(protected/'manifest.json')],protocol=reference(ROOT/'protocol/confirmatory.md'),
         access_ledger=reference(OUT/'protected-access-at-freeze.json'),outcome_directory=str(ROOT/'artifacts/runs'/experiment),
+        telemetry={'max_decisions':1024,'scope':'common learned trace bound, charged in every applicable method','evidence':reference(OUT/'prospective.json')},
         execution=execution,candidate='local-matched',fit_ids=[FIT],physical_methods=physical,aliases={'B4':'B3'},
         gates={'WP04':'reviewed','WP05':'reviewed'},amendment={'number':0,'previous':None},population=population,planning=design,
         evidence=[reference(ROOT/p) for p in ('docs/superpowers/evidence/task13-fix1.json','docs/superpowers/evidence/task13-fix1-controls-card.json',

@@ -92,12 +92,15 @@ def calibrate_design(pilot_summary: Sequence[dict[str, object]], design: dict[st
     def measured(key): return [r[key] for r in costs if r.get(key) is not None]
     walls,peaks,storage=measured('wall_ns'),measured('peak_rss_bytes'),measured('trace_bytes')
     # Budget and method/fit stratification: sum the observed maximum in each planned slot.
-    wall_forecast=0
-    for m in methods:
-        for f in (['shared'] if m in native else fits):
-            for b in d['deadlines']:
-                observations=[r['wall_ns'] for r in costs if r['method']==m and r['fit_id']==f and r['budget_ns']==b and r.get('wall_ns') is not None]
-                wall_forecast+=max(observations,default=b)*len(cells)*d['sample_per_cell']*d['timing_repeats']
+    wall_forecast=storage_forecast=0
+    for c in cells:
+        for m in methods:
+            for f in (['shared'] if m in native else fits):
+                for b in d['deadlines']:
+                    slot=[r for r in costs if r['cell_id']==c and r['method']==m and r['fit_id']==f and r['budget_ns']==b]
+                    repetitions=d['sample_per_cell']*d['timing_repeats']
+                    wall_forecast+=max((r['wall_ns'] for r in slot if r.get('wall_ns') is not None),default=b)*repetitions
+                    storage_forecast+=max((r['trace_bytes'] for r in slot if r.get('trace_bytes') is not None),default=0)*repetitions
     half=math.sqrt(2*math.log(2*nc/d['alpha'])*sum(w*w/d['sample_per_cell'] for w in cells.values()))
     return dict(schema_version=1,scope='public pilot planning; no protected result',design=d,weights=weights,
         independent_templates=len(ts),templates_per_cell={c:len(idx) for c,idx in indices.items()},
@@ -110,11 +113,11 @@ def calibrate_design(pilot_summary: Sequence[dict[str, object]], design: dict[st
         resources=dict(request_count=nrequests,wall_ns_observed_max_stratified=wall_forecast,
             wall_ns_with_reserve=math.ceil(wall_forecast*1.5),reserve_factor=1.5,
             measured_wall_ns_total=sum(walls),peak_rss_bytes_observed=max(peaks,default=None),
-            storage_bytes_observed_total=sum(storage),storage_bytes_with_reserve=math.ceil(max(storage,default=0)*nrequests*1.5),
+            storage_bytes_observed_total=sum(storage),storage_bytes_with_reserve=math.ceil(storage_forecast*1.5),
             overshoot_ns_total=sum(measured('overshoot_ns')),failed_count=sum(r.get('status') not in ('complete','deadline') for r in costs),
             censored_count=sum(bool(r.get('censored')) for r in costs),status_counts=dict(Counter(r.get('status') for r in costs)),
             missing={k:len(costs)-len(measured(k)) for k in ('wall_ns','peak_rss_bytes','trace_bytes','overshoot_ns')},
-            unknown_components=['future thermal/background variation','future tails beyond observed max','CPU publication tail'],
+            unknown_components=['future thermal/background variation','future tails beyond observed cell/method/budget maxima','CPU publication tail'],
             admitted_workers=1,forecast_is_upper_bound=False))
 
 

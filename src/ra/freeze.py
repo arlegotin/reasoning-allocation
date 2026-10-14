@@ -6,6 +6,7 @@ an explicit numbered successor experiment, preserving the original files.
 """
 from __future__ import annotations
 from collections import Counter
+import copy
 from dataclasses import asdict
 import hashlib
 import json
@@ -20,7 +21,7 @@ from ra.metrics import log_budget_weights
 REQUIRED_FIELDS = frozenset(('schema_version experiment_id source_commit hardware environment models features '
     'baseline_register sample deadlines_ns weights bootstrap contrasts watchdog exclusions resources preflight '
     'queue protected_manifests protocol access_ledger outcome_directory execution candidate fit_ids physical_methods '
-    'aliases gates guardrails amendment population planning').split())
+    'aliases gates guardrails amendment population planning telemetry').split())
 
 
 def canonical(value) -> bytes:
@@ -98,6 +99,17 @@ def make_queue(config, instances):
     return queue
 
 
+def deployment_methods(register, max_decisions):
+    """Explicit common telemetry overlay; selected policy/model fields stay intact."""
+    if type(max_decisions) is not int or not 1<=max_decisions<=1024:
+        raise ValueError('bounded common telemetry limit required')
+    selected=register['selected']
+    methods=copy.deepcopy({'A':selected['local-matched'],**{k:selected[k] for k in ('B0','B1','B2','B3','B5','B6')}})
+    for method in methods.values():
+        if 'learned' in method:method['learned']['max_decisions']=max_decisions
+    return methods
+
+
 def _source_inventory():
     root=Path(__file__).parent
     return {str(p.relative_to(root)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(root.rglob('*.py'))}
@@ -170,10 +182,11 @@ def resolve_protocol(config_path: Path, *, require_unopened=True):
     selected=register['selected'];methods=c['physical_methods']
     if set(methods)!={'A','B0','B1','B2','B3','B5','B6'} or c['aliases']!={'B4':'B3'}:
         raise ValueError('required real controls and explicit B4 alias required')
-    if c['candidate']!='local-matched' or methods['A']!=selected['local-matched']:
+    resolved=deployment_methods(register,c['telemetry']['max_decisions'])
+    if c['candidate']!='local-matched' or methods['A']!=resolved['A']:
         raise ValueError('primary must be the declared matched-data adaptive candidate')
     for k in ('B0','B1','B2','B3','B5','B6'):
-        if methods[k]!=selected[k]:raise ValueError('selected mandatory control configuration drift')
+        if methods[k]!=resolved[k]:raise ValueError('selected mandatory control configuration drift')
     # Verify this specific one-node alias is numerical/support equivalent before sharing.
     a,b=selected['B3'],selected['B4']
     if (a['allocator']['model_hash']!=b['allocator']['model_hash'] or b['allocator'].get('fixed_length')!=1):
@@ -210,7 +223,11 @@ def resolve_protocol(config_path: Path, *, require_unopened=True):
     preflight=read(check_reference(c['preflight']))
     if preflight.get('environment')!=c['environment'] or preflight.get('physical_methods')!=methods:
         raise ValueError('current executable public preflight required')
+    for ref in _references(preflight):check_reference(ref)
     rows=read(check_reference(preflight['rows']))
+    for ref in _references(rows):check_reference(ref)
+    if any(r.get('status') not in ('complete','deadline','startup_timeout') for r in rows):
+        raise ValueError('unresolved current public preflight method fault')
     if any(r.get('source_hash')!=source for r in rows):raise ValueError('pilot does not measure current deployment')
     calibrated=calibrate_design(rows,planning)
     forecast=read(check_reference(c['resources']))
@@ -227,7 +244,7 @@ def resolve_protocol(config_path: Path, *, require_unopened=True):
         old=previous['scientific_config']
         if (amendment['number']!=old['amendment']['number']+1 or c['experiment_id']==old['experiment_id']
                 or not amendment.get('reason')):raise ValueError('numbered amendment and new experiment identity required')
-    assets += list(_references(c)) + [reference(config_path)]
+    assets += list(_references(c)) + list(_references(preflight)) + list(_references(rows)) + [reference(config_path)]
     # Register transitive evidence and statuses as independently verified frozen assets.
     assets += list(_references(register))
     for card in cards:assets += list(_references(card))
@@ -267,6 +284,8 @@ def freeze_protocol(config_path: Path, out: Path, *, dry_run=False) -> str:
         prior=read(p)
         if prior.get('experiment_id')==manifest['experiment_id']:
             raise ValueError('immutable experiment ID already frozen; numbered amendment required')
+        if manifest['scientific_config']['amendment']['number']==0:
+            raise ValueError('existing protocol requires numbered amendment, not a reset experiment')
     return seal_manifest(manifest,out,dry_run=dry_run)
 
 

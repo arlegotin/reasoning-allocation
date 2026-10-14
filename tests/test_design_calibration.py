@@ -94,3 +94,10 @@ def test_calibration_is_invariant_to_json_object_order():
         if r['cell_id']=='b' and r['method']=='P':r['utility']+=.03
     x,y=calibrate(data,a),calibrate(list(reversed(data)),b)
     assert x['contrasts']==y['contrasts']
+
+
+def test_resource_forecast_preserves_cell_method_fit_budget_strata():
+    data=rows()
+    for r in data:r['trace_bytes']=100 if r['cell_id']=='a' and r['method']=='B0' else 10
+    out=calibrate(data)
+    assert out['resources']['storage_bytes_with_reserve']==5400

@@ -133,7 +133,7 @@ def scientific(tmp_path,monkeypatch):
         resources=write(tmp_path/'power.json',calibrate_design(rows,d)),
         protocol=write(tmp_path/'protocol.json',{'fixture':'no scientific evidence'}),
         access_ledger=write(tmp_path/'access.json',{'schema_version':1,'events':[]}),outcome_directory=str(tmp_path/'outcomes'),
-        candidate='local-matched',fit_ids=d['fit_ids'],physical_methods=methods,aliases={'B4':'B3'},gates={'WP04':'reviewed','WP05':'reviewed'},
+        candidate='local-matched',telemetry={'max_decisions':512},fit_ids=d['fit_ids'],physical_methods=methods,aliases={'B4':'B3'},gates={'WP04':'reviewed','WP05':'reviewed'},
         amendment={'number':0,'previous':None},population=population,planning=d,
         protected_manifests=[freeze.reference(protected/'manifest.json')])
     execution=json.loads(Path('configs/exploratory.json').read_text())
@@ -207,3 +207,45 @@ def test_cli_freeze_and_verify_scientific_roundtrip(scientific,capsys):
     assert main(['freeze','--config',str(path),'--out',str(out)])==0
     assert main(['verify-freeze','--manifest',str(out)])==0
     assert '"success": true' in capsys.readouterr().out
+
+
+def test_successor_experiment_cannot_reset_amendment_counter(scientific):
+    from ra.freeze import freeze_protocol,make_queue
+    path,c,out=scientific
+    freeze_protocol(path,out)
+    new=copy.deepcopy(c);new['experiment_id']='test-v2'
+    inputs=json.loads(Path(c['protected_manifests'][0]['path']).read_text())['instances']
+    new['queue']=write(out.parent/'queue-v2.json',make_queue(new,inputs))
+    nextpath=out.parent/'config-v2.json';write(nextpath,new)
+    with pytest.raises(ValueError,match='amendment'):freeze_protocol(nextpath,out.parent/'freeze-v2.sha256')
+
+
+def test_common_telemetry_overlay_preserves_all_selected_scientific_fields():
+    from ra.freeze import deployment_methods
+    register=json.loads(Path('configs/mandatory_baselines.json').read_text());before=copy.deepcopy(register)
+    methods=deployment_methods(register,1024)
+    for key,method in methods.items():
+        expected=copy.deepcopy(register['selected']['local-matched' if key=='A' else key])
+        if 'learned' in expected:expected['learned']['max_decisions']=1024
+        assert method==expected
+    assert register==before
+
+
+def test_unresolved_public_method_fault_blocks_freeze(scientific):
+    from ra.freeze import freeze_protocol
+    from ra.stats import calibrate_design
+    path,c,out=scientific
+    p=Path(c['preflight']['path']);pre=json.loads(p.read_text());rp=Path(pre['rows']['path']);rows=json.loads(rp.read_text())
+    rows[0]['status']='implementation_error'
+    pre['rows']=write(rp,rows);c['preflight']=write(p,pre)
+    c['resources']=write(Path(c['resources']['path']),calibrate_design(rows,c['planning']));write(path,c)
+    with pytest.raises(ValueError,match='fault'):freeze_protocol(path,out)
+
+
+def test_missing_transitive_preflight_asset_blocks_freeze(scientific):
+    from ra.freeze import freeze_protocol
+    path,c,out=scientific
+    p=Path(c['preflight']['path']);pre=json.loads(p.read_text())
+    pre['attempts']=[{'path':str(p.parent/'missing-attempt.json'),'sha256':'0'*64}]
+    c['preflight']=write(p,pre);write(path,c)
+    with pytest.raises(ValueError,match='hash'):freeze_protocol(path,out)
