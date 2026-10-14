@@ -267,3 +267,9 @@ The complete original entries, including costs if wrong, are preserved below. Ea
 Task20 uses one required clean fixed numerical reproduction only; no ad hoc inference or new protected solver cohort. Original numeric/artifact bytes are immutable. Task20 review and final broad review/archive closure are controller-owned and pending.
 
 Maintenance triage: Task9 public-phase/budget guards and Task17 renderer/standalone qualification are corrected. Task12 `selected_deployment` is a train-summary field; the model card exposes `selected.allocator` and `selected.learned`. Task2 backend and Task16 orchestration modularity are deferred consciously.
+
+## D036 — Accepted scope-correct final report and clean reproduction
+
+14 October 2026 — Accepted Task20 `2f3211d..5dca79c`. Required clean installation/native parity, exact 2,520 endpoint/numeric reproduction and public native rerun passed. The final clean baseline suite passed788 tests; the later reporting correction passed29 covering tests. The failed verification invocation remains disclosed.
+
+Independent Task20 review found one missing cost/utility reuse deliverable. Original implementer added authenticated selected-fit-only allocation across explicit reuse counts against B0; complete preparation difference remains unavailable, observed utility and interval stay fixed, and no speedup or break-even claim follows. Scoped review closed I1 with no new findings. Original scientific assets remain immutable. Proceed to final whole-branch review and archival closure; no additional experiments are authorized by this acceptance.

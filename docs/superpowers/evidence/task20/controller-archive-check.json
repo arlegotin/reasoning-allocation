@@ -1,0 +1,9 @@
+{
+  "archive": "artifacts/audits/task20-pre-final-02",
+  "verified_files": 149,
+  "rulings_exact_and_ordered": 11,
+  "qualified_primary_plot": "root visually inspected; six comparisons/visible B6 UNSTABLE/conditional one-fit and no-additional-draw footnote",
+  "final_suite_transcript": "788 passed; no warnings summary",
+  "scope": "small saved-asset archive/readability checks; raw completeness inherited from Task16 audit and Task20 exact 2520 reconstruction; final review archive pending",
+  "elapsed_ns": 32506792
+}

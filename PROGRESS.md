@@ -1,6 +1,6 @@
 # Progress
 
-Tasks1–19 have completed their reviewed achieved scopes. WP09 transfer was skipped because its scientific entry gate was unmet; feasibility remains unassessed. Task20/WP10 final reporting and reproduction are implemented, with **controller Task20 review, final broad review, any single fix wave/scoped rereview and final archive closure pending**.
+Tasks1–20 have completed their task-reviewed achieved scopes. WP09 transfer was skipped because its scientific entry gate was unmet; feasibility remains unassessed. Task20 passed independent review after one reporting fix. **Final whole-branch review, any single fix wave/scoped rereview and final archive closure remain pending.**
 
 A004/e005 is the completed confirmatory experiment: 60 original templates, one fitted bundle, two timing repeats, three cold deadlines, seven physical methods and 2,520 requests (1,640 complete/880 deadline, no dropped faults/retries). No positive primary superiority; conditional negative A–B2; other directions inconclusive; B6 Monte Carlo diagnostic unstable. Task18 adds only a separate descriptive 36-request public latency diagnostic. See [REPORT](REPORT.md), [CLAIMS](CLAIMS.md) and [REPRODUCE](REPRODUCE.md).
 
