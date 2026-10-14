@@ -20,7 +20,7 @@ terminal_status = 'numerical_alarm', failure = 'finalization'
         assignment = asdict(verify_cover(load_instance(cold_request), [1, 0, 1], 0.))
         script = tmp_path / 'synthetic_worker.py'
         script.write_text(WORKER)
-    
+
         def argv(request_path):
             trace = request_path.parent / 'trace'
             writer = collect.TraceWriter(trace, load_feature_schema(Path('configs/features.json')), max_decisions=1)
@@ -33,12 +33,12 @@ terminal_status = 'numerical_alarm', failure = 'finalization'
             runner._atomic_json(trace / 'outcome-000000.json', asdict(LeaseOutcome(NodeKey(1, 1), 1, 1,
                 0, 5, 20, 'node_limit', True, False, 0., 15, 0, 0., snapshot_ns=2, trace_index=0)), immutable=True)
             return [sys.executable, str(script), str(request_path), failure, terminal_status, json.dumps(assignment)]
-    
+
         monkeypatch.setattr(runner, '_worker_argv', argv)
         checkpoints = []
         atomic_json = runner._atomic_json
         interrupted = False
-    
+
         def checkpoint(path, payload, **kwargs):
             nonlocal interrupted
             atomic_json(path, payload, **kwargs)
@@ -47,7 +47,7 @@ terminal_status = 'numerical_alarm', failure = 'finalization'
                 if failure == 'interrupt' and 'terminal_receipt_ns' in payload['timestamps'] and not interrupted:
                     interrupted = True
                     raise KeyboardInterrupt('injected parent interruption')
-    
+
         monkeypatch.setattr(runner, '_atomic_json', checkpoint)
         if failure == 'finalization':
             def fail_finalization(*args, **kwargs):
@@ -57,7 +57,7 @@ terminal_status = 'numerical_alarm', failure = 'finalization'
             def fail_publication(*args):
                 raise KeyboardInterrupt('injected publication interruption')
             monkeypatch.setattr(runner, 'publish_attempt', fail_publication)
-    
+
         out = tmp_path / 'attempts' / 'one'
         if failure == 'publication':
             with pytest.raises(KeyboardInterrupt, match='publication'):
@@ -70,7 +70,7 @@ terminal_status = 'numerical_alarm', failure = 'finalization'
             row, = summarize_attempts([result], protocol)
 >           assert row['correctness_alarm'] is (terminal_status == 'numerical_alarm')
 E           AssertionError: assert False is ('numerical_alarm' == 'numerical_alarm'
-E             
+E
 E               numerical_alarm)
 
 tests/test_compound_faults.py:106: AssertionError
@@ -94,7 +94,7 @@ terminal_status = 'numerical_alarm', failure = 'transport'
         assignment = asdict(verify_cover(load_instance(cold_request), [1, 0, 1], 0.))
         script = tmp_path / 'synthetic_worker.py'
         script.write_text(WORKER)
-    
+
         def argv(request_path):
             trace = request_path.parent / 'trace'
             writer = collect.TraceWriter(trace, load_feature_schema(Path('configs/features.json')), max_decisions=1)
@@ -107,12 +107,12 @@ terminal_status = 'numerical_alarm', failure = 'transport'
             runner._atomic_json(trace / 'outcome-000000.json', asdict(LeaseOutcome(NodeKey(1, 1), 1, 1,
                 0, 5, 20, 'node_limit', True, False, 0., 15, 0, 0., snapshot_ns=2, trace_index=0)), immutable=True)
             return [sys.executable, str(script), str(request_path), failure, terminal_status, json.dumps(assignment)]
-    
+
         monkeypatch.setattr(runner, '_worker_argv', argv)
         checkpoints = []
         atomic_json = runner._atomic_json
         interrupted = False
-    
+
         def checkpoint(path, payload, **kwargs):
             nonlocal interrupted
             atomic_json(path, payload, **kwargs)
@@ -121,7 +121,7 @@ terminal_status = 'numerical_alarm', failure = 'transport'
                 if failure == 'interrupt' and 'terminal_receipt_ns' in payload['timestamps'] and not interrupted:
                     interrupted = True
                     raise KeyboardInterrupt('injected parent interruption')
-    
+
         monkeypatch.setattr(runner, '_atomic_json', checkpoint)
         if failure == 'finalization':
             def fail_finalization(*args, **kwargs):
@@ -131,7 +131,7 @@ terminal_status = 'numerical_alarm', failure = 'transport'
             def fail_publication(*args):
                 raise KeyboardInterrupt('injected publication interruption')
             monkeypatch.setattr(runner, 'publish_attempt', fail_publication)
-    
+
         out = tmp_path / 'attempts' / 'one'
         if failure == 'publication':
             with pytest.raises(KeyboardInterrupt, match='publication'):
@@ -144,7 +144,7 @@ terminal_status = 'numerical_alarm', failure = 'transport'
             row, = summarize_attempts([result], protocol)
 >           assert row['correctness_alarm'] is (terminal_status == 'numerical_alarm')
 E           AssertionError: assert False is ('numerical_alarm' == 'numerical_alarm'
-E             
+E
 E               numerical_alarm)
 
 tests/test_compound_faults.py:106: AssertionError
@@ -168,7 +168,7 @@ terminal_status = 'numerical_alarm', failure = 'interrupt'
         assignment = asdict(verify_cover(load_instance(cold_request), [1, 0, 1], 0.))
         script = tmp_path / 'synthetic_worker.py'
         script.write_text(WORKER)
-    
+
         def argv(request_path):
             trace = request_path.parent / 'trace'
             writer = collect.TraceWriter(trace, load_feature_schema(Path('configs/features.json')), max_decisions=1)
@@ -181,12 +181,12 @@ terminal_status = 'numerical_alarm', failure = 'interrupt'
             runner._atomic_json(trace / 'outcome-000000.json', asdict(LeaseOutcome(NodeKey(1, 1), 1, 1,
                 0, 5, 20, 'node_limit', True, False, 0., 15, 0, 0., snapshot_ns=2, trace_index=0)), immutable=True)
             return [sys.executable, str(script), str(request_path), failure, terminal_status, json.dumps(assignment)]
-    
+
         monkeypatch.setattr(runner, '_worker_argv', argv)
         checkpoints = []
         atomic_json = runner._atomic_json
         interrupted = False
-    
+
         def checkpoint(path, payload, **kwargs):
             nonlocal interrupted
             atomic_json(path, payload, **kwargs)
@@ -195,7 +195,7 @@ terminal_status = 'numerical_alarm', failure = 'interrupt'
                 if failure == 'interrupt' and 'terminal_receipt_ns' in payload['timestamps'] and not interrupted:
                     interrupted = True
                     raise KeyboardInterrupt('injected parent interruption')
-    
+
         monkeypatch.setattr(runner, '_atomic_json', checkpoint)
         if failure == 'finalization':
             def fail_finalization(*args, **kwargs):
@@ -205,7 +205,7 @@ terminal_status = 'numerical_alarm', failure = 'interrupt'
             def fail_publication(*args):
                 raise KeyboardInterrupt('injected publication interruption')
             monkeypatch.setattr(runner, 'publish_attempt', fail_publication)
-    
+
         out = tmp_path / 'attempts' / 'one'
         if failure == 'publication':
             with pytest.raises(KeyboardInterrupt, match='publication'):
@@ -218,7 +218,7 @@ terminal_status = 'numerical_alarm', failure = 'interrupt'
             row, = summarize_attempts([result], protocol)
 >           assert row['correctness_alarm'] is (terminal_status == 'numerical_alarm')
 E           AssertionError: assert False is ('numerical_alarm' == 'numerical_alarm'
-E             
+E
 E               numerical_alarm)
 
 tests/test_compound_faults.py:106: AssertionError
@@ -242,7 +242,7 @@ terminal_status = 'numerical_alarm', failure = 'signal'
         assignment = asdict(verify_cover(load_instance(cold_request), [1, 0, 1], 0.))
         script = tmp_path / 'synthetic_worker.py'
         script.write_text(WORKER)
-    
+
         def argv(request_path):
             trace = request_path.parent / 'trace'
             writer = collect.TraceWriter(trace, load_feature_schema(Path('configs/features.json')), max_decisions=1)
@@ -255,12 +255,12 @@ terminal_status = 'numerical_alarm', failure = 'signal'
             runner._atomic_json(trace / 'outcome-000000.json', asdict(LeaseOutcome(NodeKey(1, 1), 1, 1,
                 0, 5, 20, 'node_limit', True, False, 0., 15, 0, 0., snapshot_ns=2, trace_index=0)), immutable=True)
             return [sys.executable, str(script), str(request_path), failure, terminal_status, json.dumps(assignment)]
-    
+
         monkeypatch.setattr(runner, '_worker_argv', argv)
         checkpoints = []
         atomic_json = runner._atomic_json
         interrupted = False
-    
+
         def checkpoint(path, payload, **kwargs):
             nonlocal interrupted
             atomic_json(path, payload, **kwargs)
@@ -269,7 +269,7 @@ terminal_status = 'numerical_alarm', failure = 'signal'
                 if failure == 'interrupt' and 'terminal_receipt_ns' in payload['timestamps'] and not interrupted:
                     interrupted = True
                     raise KeyboardInterrupt('injected parent interruption')
-    
+
         monkeypatch.setattr(runner, '_atomic_json', checkpoint)
         if failure == 'finalization':
             def fail_finalization(*args, **kwargs):
@@ -279,7 +279,7 @@ terminal_status = 'numerical_alarm', failure = 'signal'
             def fail_publication(*args):
                 raise KeyboardInterrupt('injected publication interruption')
             monkeypatch.setattr(runner, 'publish_attempt', fail_publication)
-    
+
         out = tmp_path / 'attempts' / 'one'
         if failure == 'publication':
             with pytest.raises(KeyboardInterrupt, match='publication'):
@@ -292,7 +292,7 @@ terminal_status = 'numerical_alarm', failure = 'signal'
             row, = summarize_attempts([result], protocol)
 >           assert row['correctness_alarm'] is (terminal_status == 'numerical_alarm')
 E           AssertionError: assert False is ('numerical_alarm' == 'numerical_alarm'
-E             
+E
 E               numerical_alarm)
 
 tests/test_compound_faults.py:106: AssertionError
@@ -316,7 +316,7 @@ terminal_status = 'numerical_alarm', failure = 'publication'
         assignment = asdict(verify_cover(load_instance(cold_request), [1, 0, 1], 0.))
         script = tmp_path / 'synthetic_worker.py'
         script.write_text(WORKER)
-    
+
         def argv(request_path):
             trace = request_path.parent / 'trace'
             writer = collect.TraceWriter(trace, load_feature_schema(Path('configs/features.json')), max_decisions=1)
@@ -329,12 +329,12 @@ terminal_status = 'numerical_alarm', failure = 'publication'
             runner._atomic_json(trace / 'outcome-000000.json', asdict(LeaseOutcome(NodeKey(1, 1), 1, 1,
                 0, 5, 20, 'node_limit', True, False, 0., 15, 0, 0., snapshot_ns=2, trace_index=0)), immutable=True)
             return [sys.executable, str(script), str(request_path), failure, terminal_status, json.dumps(assignment)]
-    
+
         monkeypatch.setattr(runner, '_worker_argv', argv)
         checkpoints = []
         atomic_json = runner._atomic_json
         interrupted = False
-    
+
         def checkpoint(path, payload, **kwargs):
             nonlocal interrupted
             atomic_json(path, payload, **kwargs)
@@ -343,7 +343,7 @@ terminal_status = 'numerical_alarm', failure = 'publication'
                 if failure == 'interrupt' and 'terminal_receipt_ns' in payload['timestamps'] and not interrupted:
                     interrupted = True
                     raise KeyboardInterrupt('injected parent interruption')
-    
+
         monkeypatch.setattr(runner, '_atomic_json', checkpoint)
         if failure == 'finalization':
             def fail_finalization(*args, **kwargs):
@@ -353,7 +353,7 @@ terminal_status = 'numerical_alarm', failure = 'publication'
             def fail_publication(*args):
                 raise KeyboardInterrupt('injected publication interruption')
             monkeypatch.setattr(runner, 'publish_attempt', fail_publication)
-    
+
         out = tmp_path / 'attempts' / 'one'
         if failure == 'publication':
             with pytest.raises(KeyboardInterrupt, match='publication'):
@@ -366,7 +366,7 @@ terminal_status = 'numerical_alarm', failure = 'publication'
             row, = summarize_attempts([result], protocol)
             assert row['correctness_alarm'] is (terminal_status == 'numerical_alarm')
             assert row['utility'] == .5
-    
+
         payload, final = runner._read_attempt(out)
         assert final is (failure != 'publication')
         assert payload['available']['utility'] == .5
@@ -378,8 +378,8 @@ terminal_status = 'numerical_alarm', failure = 'publication'
 >           assert all(p['resources']['correctness_alarm']['error'] == 'injected correctness alarm' for p in observed)
                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-tests/test_compound_faults.py:117: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_compound_faults.py:117:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 .0 = <list_iterator object at 0x10a832290>
 
@@ -411,11 +411,11 @@ weights = [0.125, 0.5, 0.375], scores = [0.125, 0.1875]
         result = summarize_records(rows, expected_budgets=budgets)
 >       assert result['weights'] == pytest.approx(weights)
 E       assert [0.25, 0.5, 0.25] == approx([0.125...75 ± 3.8e-07])
-E         
+E
 E         comparison failed. Mismatched elements: 2 / 3:
 E         Max absolute difference: 0.125
 E         Max relative difference: 0.5
-E         Index | Obtained | Expected       
+E         Index | Obtained | Expected
 E         0     | 0.25     | 0.125 ± 1.2e-07
 E         2     | 0.25     | 0.375 ± 3.8e-07
 
@@ -444,14 +444,14 @@ scores = [0.3333333333333333, 0.4666666666666667]
         result = summarize_records(rows, expected_budgets=budgets)
 >       assert result['weights'] == pytest.approx(weights)
 E       assert [0.25, 0.25, 0.25, 0.25] == approx([0.166...66 ± 1.7e-07])
-E         
+E
 E         comparison failed. Mismatched elements: 4 / 4:
 E         Max absolute difference: 0.08333333333333334
 E         Max relative difference: 0.33333333333333337
-E         Index | Obtained | Expected                     
+E         Index | Obtained | Expected
 E         0     | 0.25     | 0.16666666666666666 ± 1.7e-07
-E         1     | 0.25     | 0.3333333333333333 ± 3.3e-07 
-E         2     | 0.25     | 0.3333333333333333 ± 3.3e-07 
+E         1     | 0.25     | 0.3333333333333333 ± 3.3e-07
+E         2     | 0.25     | 0.3333333333333333 ± 3.3e-07
 E         3     | 0.25     | 0.16666666666666666 ± 1.7e-07
 
 tests/test_pilot_gates.py:177: AssertionError
@@ -470,8 +470,8 @@ monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10a786ab0>
 >       assert main(['check', '--suite', 'analytical', '--out', str(out), '--dry-run']) == 0
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-tests/test_design_checks.py:83: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_design_checks.py:83:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 src/ra/cli.py:64: in main
     args = parser.parse_args(argv)
            ^^^^^^^^^^^^^^^^^^^^^^^
@@ -479,7 +479,7 @@ src/ra/cli.py:64: in main
     self.error(msg)
 /opt/homebrew/Cellar/python@3.12/3.12.9/Frameworks/Python.framework/Versions/3.12/lib/python3.12/argparse.py:2650: in error
     self.exit(2, _('%(prog)s: error: %(message)s\n') % args)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = ArgumentParser(prog='ra', usage=None, description='Local reasoning allocation diagnostics', formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='error', add_help=True)
 status = 2, message = 'ra: error: unrecognized arguments: --dry-run\n'

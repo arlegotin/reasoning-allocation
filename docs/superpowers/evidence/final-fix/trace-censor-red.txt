@@ -20,7 +20,7 @@ terminal_status = 'numerical_alarm', failure = 'interrupt'
         assignment = asdict(verify_cover(load_instance(cold_request), [1, 0, 1], 0.))
         script = tmp_path / 'synthetic_worker.py'
         script.write_text(WORKER)
-    
+
         def argv(request_path):
             trace = request_path.parent / 'trace'
             writer = collect.TraceWriter(trace, load_feature_schema(Path('configs/features.json')), max_decisions=1)
@@ -33,21 +33,21 @@ terminal_status = 'numerical_alarm', failure = 'interrupt'
             runner._atomic_json(trace / 'outcome-000000.json', asdict(LeaseOutcome(NodeKey(1, 1), 1, 1,
                 0, 5, 20, 'node_limit', True, False, 0., 15, 0, 0., snapshot_ns=2, trace_index=0)), immutable=True)
             return [sys.executable, str(script), str(request_path), failure, terminal_status, json.dumps(assignment)]
-    
+
         monkeypatch.setattr(runner, '_worker_argv', argv)
         processes = []
         spawn = runner.subprocess.Popen
-    
+
         def spawn_worker(*args, **kwargs):
             process = spawn(*args, **kwargs)
             processes.append(process)
             return process
-    
+
         monkeypatch.setattr(runner.subprocess, 'Popen', spawn_worker)
         checkpoints = []
         atomic_json = runner._atomic_json
         interrupted = False
-    
+
         def checkpoint(path, payload, **kwargs):
             nonlocal interrupted
             atomic_json(path, payload, **kwargs)
@@ -59,7 +59,7 @@ terminal_status = 'numerical_alarm', failure = 'interrupt'
                     # alive worker would also set censored during termination.
                     processes[0].wait(timeout=2)
                     raise KeyboardInterrupt('injected parent interruption')
-    
+
         monkeypatch.setattr(runner, '_atomic_json', checkpoint)
         if failure == 'finalization':
             def fail_finalization(*args, **kwargs):
@@ -69,7 +69,7 @@ terminal_status = 'numerical_alarm', failure = 'interrupt'
             def fail_publication(*args):
                 raise KeyboardInterrupt('injected publication interruption')
             monkeypatch.setattr(runner, 'publish_attempt', fail_publication)
-    
+
         out = tmp_path / 'attempts' / 'one'
         if failure == 'publication':
             with pytest.raises(KeyboardInterrupt, match='publication'):
@@ -82,7 +82,7 @@ terminal_status = 'numerical_alarm', failure = 'interrupt'
             row, = summarize_attempts([result], protocol)
             assert row['correctness_alarm'] is (terminal_status == 'numerical_alarm')
             assert row['utility'] == .5
-    
+
         payload, final = runner._read_attempt(out)
         assert final is (failure != 'publication')
         assert payload['available']['utility'] == .5
@@ -136,7 +136,7 @@ terminal_status = 'complete', failure = 'interrupt'
         assignment = asdict(verify_cover(load_instance(cold_request), [1, 0, 1], 0.))
         script = tmp_path / 'synthetic_worker.py'
         script.write_text(WORKER)
-    
+
         def argv(request_path):
             trace = request_path.parent / 'trace'
             writer = collect.TraceWriter(trace, load_feature_schema(Path('configs/features.json')), max_decisions=1)
@@ -149,21 +149,21 @@ terminal_status = 'complete', failure = 'interrupt'
             runner._atomic_json(trace / 'outcome-000000.json', asdict(LeaseOutcome(NodeKey(1, 1), 1, 1,
                 0, 5, 20, 'node_limit', True, False, 0., 15, 0, 0., snapshot_ns=2, trace_index=0)), immutable=True)
             return [sys.executable, str(script), str(request_path), failure, terminal_status, json.dumps(assignment)]
-    
+
         monkeypatch.setattr(runner, '_worker_argv', argv)
         processes = []
         spawn = runner.subprocess.Popen
-    
+
         def spawn_worker(*args, **kwargs):
             process = spawn(*args, **kwargs)
             processes.append(process)
             return process
-    
+
         monkeypatch.setattr(runner.subprocess, 'Popen', spawn_worker)
         checkpoints = []
         atomic_json = runner._atomic_json
         interrupted = False
-    
+
         def checkpoint(path, payload, **kwargs):
             nonlocal interrupted
             atomic_json(path, payload, **kwargs)
@@ -175,7 +175,7 @@ terminal_status = 'complete', failure = 'interrupt'
                     # alive worker would also set censored during termination.
                     processes[0].wait(timeout=2)
                     raise KeyboardInterrupt('injected parent interruption')
-    
+
         monkeypatch.setattr(runner, '_atomic_json', checkpoint)
         if failure == 'finalization':
             def fail_finalization(*args, **kwargs):
@@ -185,7 +185,7 @@ terminal_status = 'complete', failure = 'interrupt'
             def fail_publication(*args):
                 raise KeyboardInterrupt('injected publication interruption')
             monkeypatch.setattr(runner, 'publish_attempt', fail_publication)
-    
+
         out = tmp_path / 'attempts' / 'one'
         if failure == 'publication':
             with pytest.raises(KeyboardInterrupt, match='publication'):
@@ -198,7 +198,7 @@ terminal_status = 'complete', failure = 'interrupt'
             row, = summarize_attempts([result], protocol)
             assert row['correctness_alarm'] is (terminal_status == 'numerical_alarm')
             assert row['utility'] == .5
-    
+
         payload, final = runner._read_attempt(out)
         assert final is (failure != 'publication')
         assert payload['available']['utility'] == .5

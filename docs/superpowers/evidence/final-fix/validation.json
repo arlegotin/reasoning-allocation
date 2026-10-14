@@ -1,0 +1,182 @@
+{
+  "commands": [
+    {
+      "command": [
+        "artifacts/task20/clean-reproduction/env/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_compound_faults.py",
+        "tests/test_pilot_gates.py::test_tuning_ranking_integrates_declared_log_grid",
+        "tests/test_design_checks.py::test_analytical_cli_dry_run_describes_without_diagnostics_or_writes",
+        "tests/test_design_checks.py::test_check_cli_dry_run_rejects_unsupported_suite"
+      ],
+      "result": "8 failed, 7 passed in 1.02s",
+      "returncode": 1,
+      "transcript": {
+        "path": "docs/superpowers/evidence/final-fix/red.txt",
+        "sha256": "fefdaa3280b1cc90dc57ba583de9f58da7698de60edcdd95580659c70f41418f"
+      }
+    },
+    {
+      "command": [
+        "artifacts/task20/clean-reproduction/env/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_compound_faults.py",
+        "tests/test_pilot_gates.py::test_tuning_ranking_integrates_declared_log_grid",
+        "tests/test_design_checks.py::test_analytical_cli_dry_run_describes_without_diagnostics_or_writes",
+        "tests/test_design_checks.py::test_check_cli_dry_run_rejects_unsupported_suite"
+      ],
+      "result": "15 passed in 0.74s",
+      "returncode": 0,
+      "transcript": {
+        "path": "docs/superpowers/evidence/final-fix/green.txt",
+        "sha256": "b836a07dc02a83fda31825fb8abccbf2a31913341a60b9d4990ea7e187e3c047"
+      }
+    },
+    {
+      "command": [
+        "artifacts/task20/clean-reproduction/env/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_compound_faults.py"
+      ],
+      "result": "1 failed, 9 passed in 0.67s",
+      "returncode": 1,
+      "transcript": {
+        "path": "docs/superpowers/evidence/final-fix/censor-review.txt",
+        "sha256": "02ab18aea853a4e98de6ec5f48d2837981ad8702107bed5eb212c2647bae6720"
+      }
+    },
+    {
+      "command": [
+        "artifacts/task20/clean-reproduction/env/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_compound_faults.py",
+        "tests/test_worker.py",
+        "tests/test_deadlines.py",
+        "tests/test_recovery.py",
+        "tests/test_collection.py",
+        "tests/test_lease_labels.py",
+        "tests/test_metrics.py",
+        "tests/test_harness_controls.py",
+        "tests/test_confirmatory_execution.py",
+        "tests/test_report.py",
+        "tests/test_design_checks.py",
+        "tests/test_pilot_gates.py"
+      ],
+      "result": "300 passed in 124.06s (0:02:04)",
+      "returncode": 0,
+      "transcript": {
+        "path": "docs/superpowers/evidence/final-fix/scoped.txt",
+        "sha256": "5836651548c1dfa075e06aa42ab692a2d7db8ffe490a07c55ea8783363760b9c"
+      }
+    },
+    {
+      "command": [
+        "artifacts/task20/clean-reproduction/env/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_compound_faults.py"
+      ],
+      "result": "10 passed in 0.65s",
+      "returncode": 0,
+      "transcript": {
+        "path": "docs/superpowers/evidence/final-fix/trace-censor-review.txt",
+        "sha256": "c718d29ae399655c14e13cef4baff94446a893d9a8455eb9163140fc82473fa9"
+      }
+    },
+    {
+      "command": [
+        "artifacts/task20/clean-reproduction/env/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_compound_faults.py"
+      ],
+      "result": "2 failed, 8 passed in 0.70s",
+      "returncode": 1,
+      "transcript": {
+        "path": "docs/superpowers/evidence/final-fix/trace-censor-red.txt",
+        "sha256": "1257f573555492a10475e3158af6e2e2329d50bee2587103344af54a3442690f"
+      }
+    },
+    {
+      "command": [
+        "artifacts/task20/clean-reproduction/env/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_compound_faults.py",
+        "tests/test_lease_labels.py",
+        "tests/test_metrics.py",
+        "tests/test_design_checks.py",
+        "tests/test_pilot_gates.py"
+      ],
+      "result": "74 passed in 2.53s",
+      "returncode": 0,
+      "transcript": {
+        "path": "docs/superpowers/evidence/final-fix/scoped-censor-green.txt",
+        "sha256": "af90371a52f7c1b68d848d98698ee6f374569e43e1e113edcaa0be57c532f9ca"
+      }
+    },
+    {
+      "command": [
+        "/usr/bin/time",
+        "-p",
+        "artifacts/task20/clean-reproduction/env/bin/python",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "result": "804 passed in 149.62s (0:02:29)",
+      "returncode": 0,
+      "transcript": {
+        "path": "docs/superpowers/evidence/final-fix/full-clean.txt",
+        "sha256": "a9eb9a29da667ce404c38b6f7ecb3d58daa477ea5405971f30c34911ad48bb44"
+      }
+    }
+  ],
+  "env": {
+    "LOKY_MAX_CPU_COUNT": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONPATH": "/Users/artemlegotin/Documents/git_alter/reasoning-allocation/src"
+  },
+  "final_archive_closure": "controller-owned and pending",
+  "final_full_suite_count": 1,
+  "findings": [
+    "I1",
+    "M1",
+    "M2"
+  ],
+  "full_suite_outer_time_seconds": {
+    "real": 149.83,
+    "sys": 38.0,
+    "user": 103.18
+  },
+  "preservation": {
+    "path": "docs/superpowers/evidence/final-fix/preservation.json",
+    "sha256": "59b90e2cdc373f315b1bcef357a7a57d92c431e03be8e17922f341de3f291cbd"
+  },
+  "raw_failure_transcripts": {
+    "commit": "4bd1fa411b623bb10b451a6d94fb314947694b93",
+    "paths": [
+      "docs/superpowers/evidence/final-fix/red.txt",
+      "docs/superpowers/evidence/final-fix/censor-review.txt",
+      "docs/superpowers/evidence/final-fix/trace-censor-red.txt"
+    ],
+    "working_copy_transformation": "strip trailing whitespace per line only"
+  },
+  "resource_scope": "Verification only. Outer time overlaps pytest duration; development, monitoring, hash/receipt writes, and other CPU/exit tails are unavailable, not zero.",
+  "schema_version": 1,
+  "scientific_reruns": false,
+  "source_commit": "4bd1fa411b623bb10b451a6d94fb314947694b93",
+  "status": "tests_passed_controller_scoped_rereview_pending"
+}

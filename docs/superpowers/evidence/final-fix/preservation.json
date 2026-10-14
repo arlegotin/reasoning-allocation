@@ -66,5 +66,6 @@
   ],
   "original_tracked_manifest_sha256": "f3b4f4822da49eb7c66b1ce20beceb77c283e5cadac025a8ecf54f05c35783c3",
   "scope": "Read-only byte checks against original tracked manifest and retained clean-reproduction receipt. No solver, inference, reconstruction, installation, or exhaustive ignored-tree audit.",
-  "unchanged_original_tracked_files": 687
+  "unchanged_original_tracked_files": 687,
+  "verified_after_final_clean_suite": true
 }
